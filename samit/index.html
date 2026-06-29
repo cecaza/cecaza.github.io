@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Suite empresarial SAMIT — Fuerza de ventas, ERP y facturación DIAN | Cesar Carvajal</title>
-  <meta name="description" content="Caso real: ecosistema de software para SAMIT (Colombia). App de fuerza de ventas offline-first en .NET MAUI con impresión Bluetooth, y backend con facturación electrónica DIAN, inventario, contabilidad y nómina." />
+  <title>Suite empresarial SAMIT — Fuerza de ventas, ERP y backend | Cesar Carvajal</title>
+  <meta name="description" content="Caso real: ecosistema de software para SAMIT (Colombia). App de fuerza de ventas offline-first en .NET MAUI con impresión Bluetooth, y backend con facturación, inventario, contabilidad y nómina." />
   <meta name="author" content="Cesar Carvajal" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0f1220" />
   <link rel="canonical" href="https://cecaza.github.io/samit/" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Suite empresarial SAMIT — Fuerza de ventas, ERP y facturación DIAN" />
-  <meta property="og:description" content="App de fuerza de ventas offline-first en .NET MAUI y backend con facturación electrónica DIAN. Caso de Cesar Carvajal." />
+  <meta property="og:title" content="Suite empresarial SAMIT — Fuerza de ventas, ERP y backend" />
+  <meta property="og:description" content="App de fuerza de ventas offline-first en .NET MAUI y backend de negocio (facturación, inventario, contabilidad). Caso de Cesar Carvajal." />
   <meta property="og:url" content="https://cecaza.github.io/samit/" />
   <meta property="og:image" content="https://cecaza.github.io/assets/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -83,7 +83,7 @@
     <img class="logo" src="img/logo-samit.png" alt="Logo de SAMIT Sistemas Corporativos" width="84" height="84" />
     <div class="badge-work">Experiencia profesional · 2021 – Actualidad</div>
     <h1>Suite empresarial SAMIT</h1>
-    <p class="tagline">Software de fuerza de ventas, ERP y facturación electrónica DIAN para empresas colombianas.</p>
+    <p class="tagline">Software de fuerza de ventas, ERP y backend de negocio para empresas colombianas.</p>
     <div class="links">
       <a class="btn btn-fill" href="https://samit.com.co/" target="_blank" rel="noopener">Visitar sitio de SAMIT →</a>
       <a class="btn btn-line" href="../">← Volver al portafolio</a>
@@ -95,8 +95,8 @@
       <div class="wrap">
         <p>
           Los vendedores en calle necesitan <strong>tomar pedidos, facturar y cobrar cartera</strong> aunque
-          no tengan señal, e imprimir el recibo en el momento. Y la empresa necesita que todo eso cumpla con
-          la <strong>facturación electrónica DIAN</strong> y se sincronice con su contabilidad. Eso es lo que
+          no tengan señal, e imprimir el recibo en el momento. Y la empresa necesita que todo eso
+          se sincronice con su <strong>facturación y contabilidad</strong>. Eso es lo que
           construí: un ecosistema que va del <strong>celular del vendedor</strong> hasta el <strong>backend</strong>.
         </p>
       </div>
@@ -110,7 +110,7 @@
         <div class="card"><div class="e">📶</div><h3>Funciona sin internet</h3><p>Offline-first: el vendedor crea documentos sin señal y todo se sincroniza solo al volver la conexión.</p></div>
         <div class="card"><div class="e">🖨️</div><h3>Impresión Bluetooth</h3><p>Recibos y facturas impresos al instante en impresoras térmicas (protocolo ESC/POS).</p></div>
         <div class="card"><div class="e">💰</div><h3>Cartera y abonos</h3><p>Consulta de saldos por cliente y registro de abonos con distribución de pagos.</p></div>
-        <div class="card"><div class="e">🧾</div><h3>Facturación electrónica DIAN</h3><p>Backend que emite documentos electrónicos cumpliendo la normativa colombiana.</p></div>
+        <div class="card"><div class="e">☁️</div><h3>Backend en la nube</h3><p>Servicios centrales que sincronizan toda la operación entre el celular y la oficina.</p></div>
         <div class="card"><div class="e">📦</div><h3>Inventario y catálogo</h3><p>Productos, precios e impuestos en tiempo real, listos para vender.</p></div>
         <div class="card"><div class="e">🏢</div><h3>Multiempresa</h3><p>Arquitectura multi-tenant: varias empresas y oficinas sobre la misma plataforma, aisladas.</p></div>
         <div class="card"><div class="e">📊</div><h3>Contabilidad y nómina</h3><p>El backend integra facturación, inventario, contabilidad, nómina y POS.</p></div>
@@ -145,14 +145,14 @@
           <li><strong>Offline-first real:</strong> los documentos se guardan localmente y una cola los sube automáticamente cuando vuelve la conexión, con reintentos.</li>
           <li><strong>Impresión térmica por Bluetooth</strong> usando el protocolo ESC/POS, para entregar el recibo en el sitio.</li>
           <li><strong>Backend en ASP.NET sobre SQL Server</strong>, con esquema multiempresa (multi-tenant) que funciona en la nube y en local.</li>
-          <li><strong>Facturación electrónica DIAN</strong> integrada, además de inventario, contabilidad, nómina y punto de venta.</li>
+          <li><strong>Backend de negocio</strong> integrado: facturación, inventario, contabilidad, nómina y punto de venta.</li>
           <li><strong>Monitoreo de errores</strong> con Sentry y control de acceso por permisos según el rol del usuario.</li>
         </ul>
       </div>
       <div class="tags">
         <span>.NET MAUI</span><span>C#</span><span>VB.NET</span><span>ASP.NET</span><span>SQL Server</span>
         <span>LiteDB</span><span>MVVM</span><span>Offline-first</span><span>Multi-tenant</span>
-        <span>Bluetooth ESC/POS</span><span>Facturación DIAN</span><span>Sentry</span>
+        <span>Bluetooth ESC/POS</span><span>Multi-tenant</span><span>Sentry</span>
       </div>
     </section>
 
