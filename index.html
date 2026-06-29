@@ -3,248 +3,481 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cesar Carvajal — Desarrollador de apps móviles y web</title>
-  <meta name="description" content="Desarrollador de software: apps móviles con Flutter (offline-first, sincronización, pagos in-app, Google Play) y aplicaciones web con Next.js + Supabase. Proyectos: Dulce Espera, Turno y Cinexa." />
+
+  <!-- ============ SEO ============ -->
+  <title>Cesar Carvajal — Desarrollador de apps móviles y web | Flutter · .NET · Next.js</title>
+  <meta name="description" content="Desarrollador de software con +5 años creando apps móviles (Flutter, .NET MAUI) y plataformas web (Next.js). Productos en producción: Turno (SaaS de agenda), apps en Google Play y software empresarial con facturación electrónica DIAN. Colombia." />
   <meta name="author" content="Cesar Carvajal" />
-  <meta property="og:title" content="Cesar Carvajal — Desarrollador móvil y web" />
-  <meta property="og:description" content="Apps con Flutter y web con Next.js + Supabase. Del diseño a la publicación." />
+  <meta name="keywords" content="desarrollador móvil, Flutter, .NET MAUI, Xamarin, React Native, Next.js, desarrollador full stack, facturación electrónica DIAN, Colombia, Cesar Carvajal" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0f1220" />
+  <link rel="canonical" href="https://cecaza.github.io/" />
+
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <link rel="icon" type="image/png" href="dulce-espera/img/favicon.png" />
+  <meta property="og:site_name" content="Cesar Carvajal" />
+  <meta property="og:title" content="Cesar Carvajal — Desarrollador de apps móviles y web" />
+  <meta property="og:description" content="+5 años creando apps móviles (Flutter, .NET MAUI) y plataformas web (Next.js). Del diseño a producción: SaaS en vivo, apps en Google Play y facturación electrónica DIAN." />
+  <meta property="og:url" content="https://cecaza.github.io/" />
+  <meta property="og:locale" content="es_CO" />
+  <meta property="og:image" content="https://cecaza.github.io/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Cesar Carvajal, desarrollador de software" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cesar Carvajal — Desarrollador de apps móviles y web" />
+  <meta name="twitter:description" content="+5 años creando apps móviles (Flutter, .NET MAUI) y plataformas web (Next.js). Del diseño a producción." />
+  <meta name="twitter:image" content="https://cecaza.github.io/assets/og-image.png" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/favicon.png" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Cesar Carvajal",
+    "url": "https://cecaza.github.io/",
+    "image": "https://cecaza.github.io/assets/og-image.png",
+    "jobTitle": "Desarrollador de software (móvil y web)",
+    "description": "Desarrollador de software con más de 5 años de experiencia en apps móviles y plataformas web.",
+    "address": { "@type": "PostalAddress", "addressCountry": "CO" },
+    "email": "mailto:cecaza1085263@gmail.com",
+    "sameAs": ["https://github.com/cecaza"],
+    "knowsAbout": ["Flutter","Dart",".NET MAUI","Xamarin","React Native","Next.js","React","ASP.NET","C#","VB.NET","SQL Server","PostgreSQL","Supabase","Firebase","Facturación electrónica DIAN","Arquitectura limpia","Offline-first"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Turno",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "url": "https://turno-two.vercel.app",
+    "description": "Agenda online para negocios de cita previa que cobra una seña por adelantado y manda recordatorios por WhatsApp para acabar con los plantones.",
+    "author": { "@type": "Person", "name": "Cesar Carvajal" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
   <style>
-    :root {
-      --bg:       #0f1220;
-      --bg-soft:  #171a2b;
-      --card:     #1c2034;
-      --card-2:   #222740;
-      --line:     #2c3252;
-      --text:     #eef0f8;
-      --muted:    #9aa0c0;
-      --accent:   #7c8cff;
-      --accent-2: #56e0c0;
-      --rosa:     #ff7aa8;
+    :root{
+      --bg:#0f1220; --bg-soft:#171a2b; --card:#1c2034; --card-2:#222740; --line:#2c3252;
+      --text:#eef0f8; --soft:#d7daea; --muted:#9aa0c0; --accent:#7c8cff; --accent-2:#56e0c0;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: "Nunito", -apple-system, "Segoe UI", Roboto, sans-serif;
-      color: var(--text); background: var(--bg); line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:"Nunito",-apple-system,"Segoe UI",Roboto,sans-serif;
+      color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;
     }
-    a { color: var(--accent); text-decoration: none; }
-    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 22px; }
+    a{color:var(--accent);text-decoration:none}
+    img{max-width:100%;display:block}
+    .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+
+    .skip{position:absolute;left:-999px;top:0;background:var(--accent);color:#0f1220;padding:10px 16px;border-radius:8px;font-weight:800;z-index:50}
+    .skip:focus{left:12px;top:12px}
 
     /* ---------- Nav ---------- */
-    nav {
-      position: sticky; top: 0; z-index: 20;
-      backdrop-filter: blur(10px);
-      background: rgba(15,18,32,.72);
-      border-bottom: 1px solid var(--line);
-    }
-    nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
-    nav .brand { font-weight: 800; letter-spacing: .2px; }
-    nav .brand span { color: var(--accent); }
-    nav .menu a { color: var(--muted); margin-left: 20px; font-weight: 600; font-size: .95rem; }
-    nav .menu a:hover { color: var(--text); }
-    @media (max-width:560px){ nav .menu a:not(.cta){ display:none; } }
-    .cta {
-      background: var(--accent); color: #0f1220 !important; font-weight: 800;
-      padding: 8px 16px; border-radius: 999px;
-    }
+    nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:rgba(15,18,32,.78);border-bottom:1px solid var(--line)}
+    nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+    .brand{font-weight:900;letter-spacing:.2px;color:var(--text);display:flex;align-items:center;gap:9px;font-size:1.05rem}
+    .brand .mk{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;color:#0f1220;font-weight:900;font-size:.95rem}
+    .menu{display:flex;align-items:center;gap:6px}
+    .menu a{color:var(--muted);padding:8px 12px;font-weight:700;font-size:.95rem;border-radius:8px}
+    .menu a:hover{color:var(--text)}
+    .menu .cta{background:var(--accent);color:#0f1220;font-weight:800;padding:9px 18px;border-radius:999px}
+    .menu .cta:hover{filter:brightness(1.07)}
+    @media (max-width:680px){ .menu a:not(.cta){display:none} }
 
     /* ---------- Hero ---------- */
-    header.hero {
-      text-align: center; padding: 86px 20px 64px; position: relative; overflow: hidden;
+    header.hero{position:relative;overflow:hidden;padding:74px 0 56px;
       background:
-        radial-gradient(60% 80% at 20% 0%, rgba(124,140,255,.18) 0%, transparent 60%),
-        radial-gradient(60% 80% at 90% 10%, rgba(86,224,192,.14) 0%, transparent 55%);
-    }
-    .hero .eyebrow {
-      text-transform: uppercase; letter-spacing: .18em; font-weight: 800;
-      color: var(--accent-2); font-size: .78rem; margin-bottom: 14px;
-    }
-    .hero h1 { font-size: clamp(2.1rem, 6vw, 3.2rem); font-weight: 800; line-height: 1.1; }
-    .hero h1 .grad {
-      background: linear-gradient(100deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-    .hero .rol { font-size: clamp(1rem,2.5vw,1.25rem); color: var(--muted); margin: 14px 0 28px; }
-    .hero .links a { display: inline-block; margin: 5px; font-weight: 800; padding: 12px 22px; border-radius: 999px; }
-    .btn-primary { background: var(--accent); color: #0f1220; }
-    .btn-ghost   { border: 1px solid var(--line); color: var(--text); }
-    .btn-ghost:hover { background: var(--card); }
+        radial-gradient(60% 80% at 15% 0%, rgba(124,140,255,.20) 0%, transparent 58%),
+        radial-gradient(55% 80% at 92% 8%, rgba(86,224,192,.16) 0%, transparent 55%);}
+    .eyebrow{display:inline-block;text-transform:uppercase;letter-spacing:.16em;font-weight:800;color:var(--accent-2);font-size:.78rem;margin-bottom:16px}
+    .hero h1{font-size:clamp(2.05rem,5.4vw,3.35rem);font-weight:900;line-height:1.08;letter-spacing:-.5px;max-width:18ch}
+    .hero h1 .grad{background:linear-gradient(100deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero .pitch{font-size:clamp(1.02rem,2.2vw,1.2rem);color:var(--soft);max-width:62ch;margin:20px 0 12px}
+    .hero .pitch strong{color:var(--text)}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 26px}
+    .chips span{background:var(--card);border:1px solid var(--line);color:var(--soft);font-size:.82rem;font-weight:700;padding:6px 13px;border-radius:999px}
+    .actions{display:flex;flex-wrap:wrap;gap:12px}
+    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:800;padding:13px 24px;border-radius:999px;font-size:.98rem;transition:transform .15s ease,filter .15s ease,background .15s ease}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--accent);color:#0f1220}
+    .btn-wa{background:#25d366;color:#062b13}
+    .btn-ghost{border:1px solid var(--line);color:var(--text)}
+    .btn-ghost:hover{background:var(--card)}
+
+    /* stats */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px}
+    .stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 16px}
+    .stat .n{font-size:1.5rem;font-weight:900;color:var(--text);line-height:1.1}
+    .stat .l{color:var(--muted);font-size:.86rem;margin-top:4px}
+    @media (max-width:680px){ .stats{grid-template-columns:repeat(2,1fr)} }
 
     /* ---------- Sections ---------- */
-    section { padding: 56px 0; }
-    .section-title { font-size: 1.7rem; font-weight: 800; margin-bottom: 6px; }
-    .section-sub { color: var(--muted); margin-bottom: 30px; }
-    .accentbar { width: 46px; height: 4px; border-radius: 4px; background: linear-gradient(90deg,var(--accent),var(--accent-2)); margin-bottom: 16px; }
+    section{padding:62px 0}
+    .accentbar{width:46px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent-2));margin-bottom:16px}
+    .accentbar.mid{margin-inline:auto}
+    .section-title{font-size:clamp(1.5rem,3vw,1.9rem);font-weight:900;letter-spacing:-.3px;margin-bottom:6px}
+    .section-sub{color:var(--muted);margin-bottom:32px;max-width:64ch}
 
-    .lead { font-size: 1.1rem; color: #d7daea; }
-    .intro p { margin-bottom: 14px; max-width: 760px; }
+    .intro p{margin-bottom:14px;max-width:78ch;color:var(--soft)}
+    .intro .lead{font-size:1.12rem;color:var(--text)}
+    .intro strong{color:var(--text)}
 
-    /* Skills */
-    .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 16px; }
-    .skill {
-      background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px;
-      transition: transform .15s ease, border-color .15s ease;
-    }
-    .skill:hover { transform: translateY(-3px); border-color: var(--accent); }
-    .skill h3 { font-size: 1rem; margin-bottom: 6px; }
-    .skill p { color: var(--muted); font-size: .92rem; }
+    /* Stack */
+    .stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+    .scard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;transition:transform .15s ease,border-color .15s ease}
+    .scard:hover{transform:translateY(-3px);border-color:var(--accent)}
+    .scard .ic{font-size:1.5rem}
+    .scard h3{font-size:1.05rem;margin:8px 0 6px}
+    .scard.lead-card{border-color:rgba(124,140,255,.5);background:linear-gradient(160deg,var(--card),#1a1f3a)}
+    .scard .star{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-2)}
+    .tline{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+    .tline span{background:var(--bg-soft);border:1px solid var(--line);color:var(--muted);font-size:.76rem;font-weight:700;padding:4px 11px;border-radius:999px}
+
+    /* Experience */
+    .exp{display:grid;gap:18px}
+    .job{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;position:relative}
+    .job .role{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:4px}
+    .job h3{font-size:1.18rem}
+    .job .org{color:var(--accent-2);font-weight:800}
+    .job .when{margin-left:auto;color:var(--muted);font-size:.86rem;font-weight:700;white-space:nowrap}
+    .job p{color:var(--soft);margin-top:8px;max-width:80ch}
+    .job ul{margin:12px 0 0;padding-left:0;list-style:none;display:grid;gap:7px}
+    .job li{color:var(--soft);padding-left:24px;position:relative;font-size:.96rem}
+    .job li::before{content:"▹";position:absolute;left:2px;color:var(--accent)}
 
     /* Projects */
-    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 22px; }
-    .project {
-      background: var(--card); border: 1px solid var(--line); border-radius: 22px; overflow: hidden;
-      display: flex; flex-direction: column; transition: transform .18s ease, border-color .18s ease;
-    }
-    .project:hover { transform: translateY(-4px); border-color: var(--accent); }
-    .project .top { padding: 22px 22px 0; display: flex; align-items: center; gap: 14px; }
-    .project .ico {
-      width: 52px; height: 52px; border-radius: 14px; flex: 0 0 auto;
-      display: grid; place-items: center; font-size: 1.6rem;
-      background: var(--card-2); border: 1px solid var(--line);
-    }
-    .project .ico img { width: 52px; height: 52px; border-radius: 14px; }
-    .project h3 { font-size: 1.18rem; }
-    .project .kind { color: var(--muted); font-size: .85rem; }
-    .project .body { padding: 14px 22px 22px; display: flex; flex-direction: column; flex: 1; }
-    .project .body p { color: #cdd1e6; font-size: .96rem; }
-    .badge {
-      display: inline-block; font-size: .72rem; font-weight: 800; padding: 3px 10px; border-radius: 999px;
-      margin-left: auto;
-    }
-    .badge.live { background: rgba(86,224,192,.15); color: var(--accent-2); border: 1px solid rgba(86,224,192,.35); }
-    .badge.play { background: rgba(124,140,255,.15); color: var(--accent); border: 1px solid rgba(124,140,255,.35); }
-    .badge.demo { background: rgba(255,122,168,.13); color: var(--rosa); border: 1px solid rgba(255,122,168,.35); }
-    .tags { margin: 14px 0 16px; }
-    .tags span {
-      display: inline-block; background: var(--bg-soft); color: var(--muted);
-      font-size: .74rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; margin: 3px 4px 0 0;
-      border: 1px solid var(--line);
-    }
-    .project .actions { margin-top: auto; display: flex; gap: 10px; flex-wrap: wrap; }
-    .project .actions a {
-      font-weight: 800; font-size: .9rem; padding: 9px 16px; border-radius: 999px;
-    }
-    .a-fill { background: var(--accent); color: #0f1220; }
-    .a-line { border: 1px solid var(--line); color: var(--text); }
-    .a-line:hover { background: var(--card-2); }
+    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+    .project{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s ease,border-color .18s ease}
+    .project:hover{transform:translateY(-4px);border-color:var(--accent)}
+    .project.star{grid-column:1/-1;border-color:rgba(86,224,192,.45);background:linear-gradient(150deg,var(--card),#16243a)}
+    .project .top{padding:22px 22px 0;display:flex;align-items:center;gap:14px}
+    .project .ico{width:54px;height:54px;border-radius:14px;flex:0 0 auto;display:grid;place-items:center;font-size:1.7rem;background:var(--card-2);border:1px solid var(--line);overflow:hidden}
+    .project .ico img{width:54px;height:54px;border-radius:14px;object-fit:cover}
+    .project h3{font-size:1.2rem}
+    .project .kind{color:var(--muted);font-size:.85rem}
+    .badge{display:inline-block;font-size:.72rem;font-weight:800;padding:4px 11px;border-radius:999px;margin-left:auto;white-space:nowrap}
+    .badge.live{background:rgba(86,224,192,.15);color:var(--accent-2);border:1px solid rgba(86,224,192,.35)}
+    .badge.play{background:rgba(124,140,255,.15);color:var(--accent);border:1px solid rgba(124,140,255,.35)}
+    .badge.work{background:rgba(255,180,84,.14);color:#ffb454;border:1px solid rgba(255,180,84,.35)}
+    .badge.code{background:rgba(154,160,192,.14);color:var(--soft);border:1px solid rgba(154,160,192,.3)}
+    .project .body{padding:14px 22px 22px;display:flex;flex-direction:column;flex:1}
+    .project .body p{color:var(--soft);font-size:.97rem}
+    .feat{display:flex;flex-wrap:wrap;gap:8px 18px;margin:14px 0 4px;padding:0;list-style:none}
+    .feat li{color:var(--muted);font-size:.9rem;position:relative;padding-left:18px}
+    .feat li::before{content:"✓";position:absolute;left:0;color:var(--accent-2);font-weight:900}
+    .tags{margin:14px 0 16px;display:flex;flex-wrap:wrap;gap:7px}
+    .tags span{background:var(--bg-soft);color:var(--muted);font-size:.74rem;font-weight:700;padding:4px 10px;border-radius:999px;border:1px solid var(--line)}
+    .project .links{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+    .project .links a{font-weight:800;font-size:.9rem;padding:10px 17px;border-radius:999px}
+    .a-fill{background:var(--accent);color:#0f1220}
+    .a-line{border:1px solid var(--line);color:var(--text)}
+    .a-line:hover{background:var(--card-2)}
+    .star .grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:8px}
+    @media (max-width:620px){ .star .grid2{grid-template-columns:1fr} }
 
-    /* Ideas */
-    .ideas { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 16px; }
-    .idea {
-      background: linear-gradient(160deg, var(--card), var(--bg-soft));
-      border: 1px dashed var(--line); border-radius: 16px; padding: 20px;
-    }
-    .idea .pill { font-size: .7rem; font-weight: 800; color: var(--accent-2); text-transform: uppercase; letter-spacing: .1em; }
-    .idea h3 { font-size: 1.02rem; margin: 8px 0 6px; }
-    .idea p { color: var(--muted); font-size: .9rem; }
+    /* Philosophy */
+    .philo{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+    .pcard{background:linear-gradient(160deg,var(--card),var(--bg-soft));border:1px solid var(--line);border-radius:16px;padding:20px}
+    .pcard h3{font-size:1.02rem;margin:6px 0 6px}
+    .pcard p{color:var(--muted);font-size:.92rem}
+    .pcard .ic{font-size:1.35rem}
 
     /* Contact */
-    .contact { text-align: center; background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .contact .lead { max-width: 620px; margin: 6px auto 18px; }
-    .contact .row a { display: inline-block; margin: 6px 10px; font-weight: 800; }
+    .contact{text-align:center;background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .contact .section-sub{margin-inline:auto}
+    .contact .actions{justify-content:center}
 
-    footer { text-align: center; padding: 30px 20px 48px; color: var(--muted); font-size: .9rem; }
+    footer{text-align:center;padding:30px 20px 48px;color:var(--muted);font-size:.9rem}
+
+    @media (prefers-reduced-motion:no-preference){
+      .reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+      .reveal.in{opacity:1;transform:none}
+    }
   </style>
 </head>
 <body>
+  <a class="skip" href="#main">Saltar al contenido</a>
 
   <nav>
     <div class="wrap">
-      <div class="brand">Cesar<span>.</span>dev</div>
+      <a class="brand" href="#main" aria-label="Cesar Carvajal — inicio"><span class="mk">C</span>Cesar Carvajal</a>
       <div class="menu">
         <a href="#sobre-mi">Sobre mí</a>
-        <a href="#skills">Qué hago</a>
+        <a href="#stack">Stack</a>
+        <a href="#experiencia">Experiencia</a>
         <a href="#proyectos">Proyectos</a>
-        <a class="cta" href="#contacto">Contacto</a>
+        <a class="cta" href="#contacto">Hablemos</a>
       </div>
     </div>
   </nav>
 
-  <header class="hero">
-    <p class="eyebrow">Desarrollo móvil &amp; web</p>
-    <h1>Hola, soy <span class="grad">Cesar Carvajal</span><br>construyo apps de la idea a la tienda</h1>
-    <p class="rol">Desarrollador Flutter &amp; Next.js · Arquitectura offline-first · Firebase &amp; Supabase · Publicación en Google&nbsp;Play</p>
-    <div class="links">
-      <a class="btn-primary" href="#proyectos">Ver proyectos</a>
-      <a class="btn-ghost" href="#contacto">Contacto</a>
-    </div>
-  </header>
+  <main id="main">
 
-  <main>
+    <!-- HERO -->
+    <header class="hero">
+      <div class="wrap">
+        <span class="eyebrow">Desarrollador de software · Colombia</span>
+        <h1>Construyo apps móviles y plataformas web que <span class="grad">llegan a producción</span>.</h1>
+        <p class="pitch">
+          Soy <strong>Cesar Carvajal</strong>, desarrollador <strong>móvil y .NET</strong> con
+          <strong>+5 años</strong> de experiencia. Diseño la arquitectura, construyo el producto y lo dejo
+          funcionando para usuarios reales: un <strong>SaaS en vivo</strong>, apps camino a
+          <strong>Google&nbsp;Play</strong> y software empresarial con <strong>facturación electrónica DIAN</strong>.
+        </p>
+        <div class="chips" aria-label="Tecnologías principales">
+          <span>Flutter</span><span>.NET MAUI</span><span>Xamarin</span><span>React Native</span>
+          <span>Next.js</span><span>ASP.NET</span><span>SQL Server / PostgreSQL</span>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="#proyectos">Ver proyectos</a>
+          <a class="btn btn-wa" href="https://wa.me/573128569219" target="_blank" rel="noopener">Hablar por WhatsApp</a>
+          <a class="btn btn-ghost" href="https://turno-two.vercel.app" target="_blank" rel="noopener">Probar Turno (SaaS) →</a>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><div class="n">+5 años</div><div class="l">de experiencia</div></div>
+          <div class="stat"><div class="n">Mobile + .NET</div><div class="l">mi especialidad</div></div>
+          <div class="stat"><div class="n">SaaS en vivo</div><div class="l">Turno, en producción</div></div>
+          <div class="stat"><div class="n">DIAN</div><div class="l">facturación electrónica</div></div>
+        </div>
+      </div>
+    </header>
 
     <!-- SOBRE MÍ -->
-    <section id="sobre-mi" class="wrap intro">
+    <section id="sobre-mi" class="wrap intro reveal">
       <div class="accentbar"></div>
       <h2 class="section-title">Sobre mí</h2>
-      <p class="lead" style="margin-bottom:14px;">
-        Me dedico a llevar productos de la <strong>idea al usuario final</strong>: pienso la
-        arquitectura, construyo la app, cuido el diseño y la dejo publicada y funcionando.
+      <p class="lead">
+        Pienso en <strong>productos</strong>, no solo en código. Llevo una idea desde la arquitectura
+        hasta el usuario final y me hago responsable de que funcione, sea rápida y se pueda mantener.
       </p>
       <p>
-        Trabajo principalmente con <strong>Flutter</strong> para móvil y con
-        <strong>Next.js + Supabase</strong> para web. Me gusta el código mantenible, la
-        separación por capas y los diseños <strong>offline-first</strong> donde el dominio no
-        depende de la base de datos. No me quedo en el "funciona": me interesa que esté
-        bien hecho, sea rápido y cumpla con las tiendas.
+        Mi base es el <strong>desarrollo móvil</strong> (Flutter, .NET MAUI, Xamarin, React Native) y el
+        <strong>ecosistema .NET</strong> en escritorio y backend. Trabajo con
+        <strong>arquitectura limpia</strong> y separación por capas, diseños <strong>offline-first</strong>
+        donde el dominio no depende de la base de datos, y sincronización confiable con manejo de conflictos.
       </p>
       <p>
-        Mi proyecto más completo es <strong>Dulce Espera</strong>, una app de embarazo con
-        sincronización propia entre pareja, pagos in-app y todo el camino de publicación en
-        Google&nbsp;Play. Pero también construyo herramientas para negocios reales, como
-        <strong>Turno</strong>, y exploro ideas nuevas constantemente.
+        He construido desde un <strong>SaaS multi-tenant con pagos</strong> hasta software empresarial con
+        <strong>facturación electrónica DIAN</strong> e impresión Bluetooth para fuerza de ventas en campo.
+        Aprendo rápido lo que el proyecto necesita y entrego cosas que se usan en el día a día.
       </p>
     </section>
 
-    <!-- SKILLS -->
-    <section id="skills" class="wrap">
+    <!-- STACK -->
+    <section id="stack" class="wrap reveal">
       <div class="accentbar"></div>
-      <h2 class="section-title">Qué sé hacer</h2>
-      <p class="section-sub">Las herramientas con las que diseño, construyo y publico.</p>
-      <div class="skills">
-        <div class="skill">
-          <h3>📱 Apps con Flutter</h3>
-          <p>Interfaces fluidas, estado con Riverpod, multi-idioma y temas claro/oscuro. Android (y base lista para iOS).</p>
+      <h2 class="section-title">Stack tecnológico</h2>
+      <p class="section-sub">Agrupado por dónde aporto más valor. Mi fuerte es lo móvil; en segundo lugar, escritorio y backend con .NET.</p>
+      <div class="stack">
+
+        <div class="scard lead-card">
+          <div class="star">★ Mi especialidad</div>
+          <div class="ic">📱</div>
+          <h3>Desarrollo móvil</h3>
+          <p style="color:var(--soft);font-size:.94rem">Apps nativas multiplataforma, offline-first, con publicación en tienda.</p>
+          <div class="tline">
+            <span>Flutter</span><span>Dart</span><span>.NET MAUI</span><span>Xamarin</span>
+            <span>React Native</span><span>Riverpod</span><span>MVVM</span><span>Google Play</span>
+          </div>
         </div>
-        <div class="skill">
-          <h3>🌐 Web con Next.js</h3>
-          <p>React + Next.js + Tailwind, desplegado en Vercel. Páginas públicas, paneles privados y rutas dinámicas.</p>
+
+        <div class="scard">
+          <div class="ic">🖥️</div>
+          <h3>Escritorio y backend .NET</h3>
+          <p style="color:var(--muted);font-size:.92rem">Aplicaciones de negocio y servicios para empresas.</p>
+          <div class="tline">
+            <span>C#</span><span>VB.NET</span><span>ASP.NET</span><span>WinForms</span>
+            <span>Web Services</span><span>Entity Framework</span><span>SQL Server</span>
+          </div>
         </div>
-        <div class="skill">
-          <h3>🏛️ Arquitectura limpia</h3>
-          <p>Offline-first con el dominio independiente de la BD: repositorios reemplazables (local / nube / sync).</p>
+
+        <div class="scard">
+          <div class="ic">🌐</div>
+          <h3>Web</h3>
+          <p style="color:var(--muted);font-size:.92rem">Plataformas web modernas, desplegadas en la nube.</p>
+          <div class="tline">
+            <span>Next.js</span><span>React</span><span>TypeScript</span><span>Tailwind</span>
+            <span>Node</span><span>Vercel</span>
+          </div>
         </div>
-        <div class="skill">
-          <h3>🔄 Datos y sincronización</h3>
-          <p>SQLite con Drift en local; sync en la nube con conflictos, borrados y reintentos. PostgreSQL con Supabase.</p>
+
+        <div class="scard">
+          <div class="ic">🗄️</div>
+          <h3>Datos y nube</h3>
+          <p style="color:var(--muted);font-size:.92rem">Persistencia local, en la nube y sincronización.</p>
+          <div class="tline">
+            <span>PostgreSQL</span><span>SQL Server</span><span>SQLite / Drift</span><span>LiteDB</span>
+            <span>Supabase</span><span>Firebase</span><span>RLS</span>
+          </div>
         </div>
-        <div class="skill">
-          <h3>☁️ Backend (Firebase / Supabase)</h3>
-          <p>Auth, Firestore/Postgres, Storage, reglas de seguridad (RLS), App Check y Crashlytics, con costos controlados.</p>
+
+        <div class="scard">
+          <div class="ic">🏛️</div>
+          <h3>Arquitectura y calidad</h3>
+          <p style="color:var(--muted);font-size:.92rem">Código mantenible y productos que escalan.</p>
+          <div class="tline">
+            <span>Clean Architecture</span><span>Capas</span><span>Inyección de dependencias</span>
+            <span>Offline-first</span><span>Multi-tenant</span><span>Sentry / Crashlytics</span>
+          </div>
         </div>
-        <div class="skill">
-          <h3>💳 Pagos y publicación</h3>
-          <p>Suscripciones in-app (gratis/Premium), pasarelas (Wompi) y el camino completo en Google&nbsp;Play.</p>
+
+        <div class="scard">
+          <div class="ic">🔌</div>
+          <h3>Integraciones y negocio</h3>
+          <p style="color:var(--muted);font-size:.92rem">Lo que conecta el software con la operación real.</p>
+          <div class="tline">
+            <span>Facturación DIAN</span><span>Pagos (Wompi)</span><span>In-App Purchase</span>
+            <span>WhatsApp</span><span>Impresión Bluetooth ESC/POS</span><span>Push</span>
+          </div>
         </div>
+
+      </div>
+
+      <div class="scard lead-card" style="margin-top:16px">
+        <div class="star">⚡ Forma de trabajar moderna</div>
+        <h3 style="margin-top:6px">Desarrollo asistido por IA</h3>
+        <p style="color:var(--soft);font-size:.96rem">
+          Integro herramientas de IA en mi flujo para <strong>acelerar el desarrollo</strong>, validar decisiones
+          técnicas, mejorar la calidad del código y reducir tiempos de entrega — manteniendo siempre el
+          <strong>criterio y la revisión humana</strong>. La uso como un multiplicador, no como un reemplazo.
+        </p>
+      </div>
+    </section>
+
+    <!-- EXPERIENCIA -->
+    <section id="experiencia" class="wrap reveal">
+      <div class="accentbar"></div>
+      <h2 class="section-title">Experiencia</h2>
+      <p class="section-sub">Productos reales en producción, en empresa e independiente.</p>
+      <div class="exp">
+
+        <article class="job">
+          <div class="role">
+            <h3>Desarrollador de software · <span class="org">SAMIT — Sistemas Corporativos</span></h3>
+            <span class="when">2021 – Actualidad</span>
+          </div>
+          <p>
+            Desarrollo el ecosistema de software de una empresa de soluciones empresariales para compañías
+            colombianas. He trabajado en toda la pila: móvil, escritorio y backend.
+          </p>
+          <ul>
+            <li><strong>App de fuerza de ventas (.NET MAUI):</strong> pedidos, facturación y cartera con operación <strong>offline-first</strong>, sincronización, control por permisos e impresión de recibos por <strong>Bluetooth (ESC/POS)</strong>.</li>
+            <li><strong>Backend y facturación electrónica DIAN (ASP.NET / SQL Server):</strong> servicios multiempresa para facturación, inventario, contabilidad, nómina y POS, con esquema <strong>multi-tenant</strong> en nube y local.</li>
+            <li><strong>ERP de escritorio (WinForms) y apps móviles previas</strong> en Xamarin y React Native para clientes y operaciones en campo.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="role">
+            <h3>Desarrollador independiente · <span class="org">Productos propios</span></h3>
+            <span class="when">Proyectos propios</span>
+          </div>
+          <p>
+            Diseño y construyo productos completos de punta a punta, cuidando arquitectura, UX y publicación.
+          </p>
+          <ul>
+            <li><strong>Turno</strong> — SaaS de agenda con seña por adelantado y recordatorios por WhatsApp (Next.js + Supabase + Wompi). En producción.</li>
+            <li><strong>Dulce Espera</strong> — App de embarazo en Flutter con offline-first, sincronización en pareja y pagos in-app, camino a Google Play.</li>
+            <li><strong>Cinexa</strong> — App de cine en Flutter para dominar clean architecture e inyección de dependencias.</li>
+          </ul>
+        </article>
+
       </div>
     </section>
 
     <!-- PROYECTOS -->
-    <section id="proyectos" class="wrap">
+    <section id="proyectos" class="wrap reveal">
       <div class="accentbar"></div>
-      <h2 class="section-title">Proyectos</h2>
-      <p class="section-sub">Un poco de todo: móvil, web, productos para negocios y experimentos.</p>
+      <h2 class="section-title">Proyectos destacados</h2>
+      <p class="section-sub">Productos que puedes ver, probar o descargar — no demos de tutorial.</p>
       <div class="projects">
 
-        <!-- Dulce Espera -->
+        <!-- TURNO (star) -->
+        <article class="project star">
+          <div class="top">
+            <div class="ico">📅</div>
+            <div>
+              <h3>Turno</h3>
+              <div class="kind">SaaS de agenda con pagos · Web</div>
+            </div>
+            <span class="badge live">● En vivo</span>
+          </div>
+          <div class="body">
+            <div class="grid2">
+              <p>
+                Software de reservas para negocios de cita previa (peluquerías, spa, tatuajes, barberías,
+                veterinarias). El cliente reserva en una <strong>página pública</strong> y paga una
+                <strong>seña por adelantado</strong>; si no llega, la pierde. Así Turno
+                <strong>acaba con los plantones</strong> y le asegura ingresos al negocio.
+              </p>
+              <ul class="feat">
+                <li>Reservas online 24/7</li>
+                <li>Seña con Wompi</li>
+                <li>Recordatorios por WhatsApp</li>
+                <li>Sin doble reserva</li>
+                <li>Multi-negocio (multi-tenant)</li>
+                <li>Panel del dueño</li>
+              </ul>
+            </div>
+            <div class="tags">
+              <span>Next.js</span><span>React</span><span>Tailwind</span><span>Supabase</span>
+              <span>PostgreSQL</span><span>Wompi</span><span>PWA</span><span>Vercel</span>
+            </div>
+            <div class="links">
+              <a class="a-fill" href="https://turno-two.vercel.app" target="_blank" rel="noopener">Probar la demo en vivo →</a>
+              <a class="a-line" href="turno/">Conocer el proyecto</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- SAMIT -->
         <article class="project">
           <div class="top">
-            <div class="ico"><img src="dulce-espera/img/icono.png" alt="Dulce Espera" /></div>
+            <div class="ico"><img src="samit/img/logo-samit.png" alt="Logo de SAMIT" width="54" height="54" loading="lazy" decoding="async" /></div>
+            <div>
+              <h3>Suite empresarial SAMIT</h3>
+              <div class="kind">Móvil + escritorio + DIAN</div>
+            </div>
+            <span class="badge work">Profesional</span>
+          </div>
+          <div class="body">
+            <p>
+              Ecosistema de software empresarial: app de <strong>fuerza de ventas offline-first</strong> en
+              .NET MAUI (pedidos, cartera, impresión Bluetooth) y backend con <strong>facturación
+              electrónica DIAN</strong>, inventario, contabilidad y nómina.
+            </p>
+            <div class="tags">
+              <span>.NET MAUI</span><span>C# / VB.NET</span><span>ASP.NET</span><span>SQL Server</span>
+              <span>LiteDB</span><span>DIAN</span><span>Offline-first</span>
+            </div>
+            <div class="links">
+              <a class="a-fill" href="samit/">Ver el caso →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- DULCE ESPERA -->
+        <article class="project">
+          <div class="top">
+            <div class="ico"><img src="dulce-espera/img/icono.png" alt="Icono de Dulce Espera" width="54" height="54" loading="lazy" decoding="async" /></div>
             <div>
               <h3>Dulce Espera</h3>
               <div class="kind">App de embarazo · Flutter</div>
@@ -253,71 +486,43 @@
           </div>
           <div class="body">
             <p>
-              App para vivir el embarazo: recuerdos con foto/video, citas con recordatorios,
-              medicinas, bienestar, peso y la barriguita semana a semana.
-              <strong>Offline-first real</strong>, con un <strong>motor de sincronización propio</strong>
-              para que la pareja comparta sus datos, y modelo <strong>gratis/Premium</strong> con pagos in-app.
+              App para acompañar el embarazo: recuerdos, citas con recordatorios, medicinas, peso y la
+              barriguita semana a semana. <strong>Offline-first real</strong>, con un
+              <strong>motor de sincronización propio</strong> para compartir en pareja y modelo
+              <strong>gratis/Premium</strong> con pagos in-app.
             </p>
             <div class="tags">
-              <span>Flutter</span><span>Riverpod</span><span>Drift/SQLite</span>
-              <span>Firebase</span><span>Firestore</span><span>In-App Purchase</span><span>Offline-first</span>
+              <span>Flutter</span><span>Riverpod</span><span>Drift/SQLite</span><span>Firebase</span>
+              <span>In-App Purchase</span><span>Offline-first</span>
             </div>
-            <div class="actions">
-              <a class="a-fill" href="dulce-espera/">Conocer y descargar →</a>
+            <div class="links">
+              <a class="a-fill" href="dulce-espera/">Conocer la app →</a>
             </div>
           </div>
         </article>
 
-        <!-- Turno / Citas-App -->
-        <article class="project">
-          <div class="top">
-            <div class="ico">📅</div>
-            <div>
-              <h3>Turno</h3>
-              <div class="kind">Agenda con seña · Web</div>
-            </div>
-            <span class="badge live">En vivo</span>
-          </div>
-          <div class="body">
-            <p>
-              Agenda online para negocios de cita previa (peluquerías, spa, tatuajes, mascotas…)
-              que cobra una <strong>seña por adelantado</strong> y manda recordatorios por WhatsApp,
-              para <strong>acabar con los plantones</strong>. Anti doble-booking con transacciones de
-              Postgres y multi-tenant con RLS.
-            </p>
-            <div class="tags">
-              <span>Next.js</span><span>React</span><span>Tailwind</span>
-              <span>Supabase</span><span>PostgreSQL</span><span>Wompi</span><span>Vercel</span>
-            </div>
-            <div class="actions">
-              <a class="a-fill" href="turno/">Conocer el proyecto →</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Cinexa -->
+        <!-- CINEXA -->
         <article class="project">
           <div class="top">
             <div class="ico">🎬</div>
             <div>
               <h3>Cinexa</h3>
-              <div class="kind">Catálogo de cine · Flutter</div>
+              <div class="kind">App de cine · Flutter</div>
             </div>
-            <span class="badge demo">Demo</span>
+            <span class="badge code">Código abierto</span>
           </div>
           <div class="body">
             <p>
-              App de películas y series sobre la API de TMDB, con <strong>arquitectura limpia</strong>
-              (capas dominio/datos/presentación), autenticación, tendencias, búsqueda, favoritos,
-              <strong>scroll infinito</strong>, detalle de personas y soporte <strong>PWA</strong>.
-              Mi proyecto para dominar clean architecture e inyección de dependencias.
+              App móvil de películas y series sobre la API de TMDB, con <strong>arquitectura limpia</strong>
+              (dominio/datos/presentación), autenticación, tendencias, búsqueda, favoritos, scroll infinito
+              y detalle de personas. Mi proyecto para dominar clean architecture e inyección de dependencias.
             </p>
             <div class="tags">
-              <span>Flutter</span><span>Clean Architecture</span><span>Freezed</span>
-              <span>TMDB API</span><span>PWA</span>
+              <span>Flutter</span><span>Dart</span><span>Clean Architecture</span><span>TMDB API</span>
             </div>
-            <div class="actions">
+            <div class="links">
               <a class="a-fill" href="cinexa/">Conocer el proyecto →</a>
+              <a class="a-line" href="https://github.com/cecaza/portafolio" target="_blank" rel="noopener">Ver código en GitHub</a>
             </div>
           </div>
         </article>
@@ -325,14 +530,34 @@
       </div>
     </section>
 
+    <!-- FILOSOFÍA -->
+    <section id="filosofia" class="wrap reveal">
+      <div class="accentbar"></div>
+      <h2 class="section-title">Cómo trabajo</h2>
+      <p class="section-sub">Principios que aplico en cada proyecto, sin importar el stack.</p>
+      <div class="philo">
+        <div class="pcard"><div class="ic">🎯</div><h3>Producto antes que código</h3><p>Primero el problema y el usuario; la tecnología es el medio, no el objetivo.</p></div>
+        <div class="pcard"><div class="ic">🏛️</div><h3>Arquitectura limpia</h3><p>Capas separadas y dominio independiente de la base de datos. Fácil de probar y de cambiar.</p></div>
+        <div class="pcard"><div class="ic">📶</div><h3>Offline-first y datos confiables</h3><p>Que la app funcione sin red y sincronice sin perder ni duplicar información.</p></div>
+        <div class="pcard"><div class="ic">✨</div><h3>UX antes que complejidad</h3><p>Interfaces claras y rápidas. Menos fricción para el usuario, menos soporte para el negocio.</p></div>
+        <div class="pcard"><div class="ic">📈</div><h3>Escalable y mantenible</h3><p>Código pensado para crecer: multi-tenant, reutilizable y con monitoreo de errores.</p></div>
+        <div class="pcard"><div class="ic">⚡</div><h3>IA con criterio</h3><p>Acelero con IA para entregar más rápido, pero reviso y decido yo. Calidad sobre velocidad ciega.</p></div>
+      </div>
+    </section>
+
     <!-- CONTACTO -->
     <section id="contacto" class="contact">
-      <div class="wrap">
-        <div class="accentbar" style="margin-inline:auto;"></div>
+      <div class="wrap reveal">
+        <div class="accentbar mid"></div>
         <h2 class="section-title">¿Hablamos?</h2>
-        <p class="lead">Estoy abierto a proyectos y oportunidades de desarrollo móvil y web.</p>
-        <div class="row">
-          <a href="mailto:cecaza1085263@gmail.com">✉️ cecaza1085263@gmail.com</a>
+        <p class="section-sub">
+          Estoy abierto a <strong>oportunidades laborales</strong> (desarrollo móvil y .NET) y a
+          <strong>clientes</strong> que quieran construir o usar un producto. Respondo rápido.
+        </p>
+        <div class="actions">
+          <a class="btn btn-wa" href="https://wa.me/573128569219" target="_blank" rel="noopener">WhatsApp: +57 312 856 9219</a>
+          <a class="btn btn-primary" href="mailto:cecaza1085263@gmail.com">✉️ Escríbeme un correo</a>
+          <a class="btn btn-ghost" href="https://github.com/cecaza" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
     </section>
@@ -340,8 +565,19 @@
   </main>
 
   <footer>
-    <p>Cesar Carvajal · Desarrollador de apps móviles y web · © 2026</p>
+    <p>Cesar Carvajal · Desarrollador de apps móviles y web · Colombia · © 2026</p>
   </footer>
 
+  <script>
+    // Reveal on scroll (progressive enhancement; content is visible without JS too)
+    (function(){
+      var els = document.querySelectorAll('.reveal');
+      if(!('IntersectionObserver' in window) || !els.length){ els.forEach(function(e){e.classList.add('in')}); return; }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+      }, {rootMargin:'0px 0px -8% 0px'});
+      els.forEach(function(e){ io.observe(e); });
+    })();
+  </script>
 </body>
 </html>

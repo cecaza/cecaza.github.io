@@ -3,59 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Turno — Agenda con seña, adiós a los plantones</title>
-  <meta name="description" content="Turno es una agenda online para negocios de cita previa (peluquerías, spa, tatuajes, mascotas) que cobra una seña por adelantado y manda recordatorios por WhatsApp para acabar con los plantones." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📅</text></svg>" />
+  <title>Turno — Agenda online con seña, adiós a los plantones | SaaS</title>
+  <meta name="description" content="Turno es un SaaS de agenda online para negocios de cita previa (peluquerías, spa, tatuajes, barberías, mascotas). Cobra una seña por adelantado, manda recordatorios por WhatsApp y evita la doble reserva. Pruébalo en vivo." />
+  <meta name="author" content="Cesar Carvajal" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0f1220" />
+  <link rel="canonical" href="https://cecaza.github.io/turno/" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Turno — Agenda online con seña, adiós a los plantones" />
+  <meta property="og:description" content="SaaS de reservas con seña por adelantado y recordatorios por WhatsApp. Pruébalo en vivo." />
+  <meta property="og:url" content="https://cecaza.github.io/turno/" />
+  <meta property="og:image" content="https://cecaza.github.io/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root{
       --bg:#0f1220; --bg-soft:#171a2b; --card:#1c2034; --line:#2c3252;
-      --text:#eef0f8; --muted:#9aa0c0; --accent:#56e0c0; --accent-2:#7c8cff;
+      --text:#eef0f8; --soft:#d7daea; --muted:#9aa0c0; --accent:#56e0c0; --accent-2:#7c8cff;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{font-family:"Nunito",-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
-    a{color:var(--accent)}
-    .wrap{max-width:920px;margin:0 auto;padding:0 22px}
-    header.hero{text-align:center;padding:76px 20px 56px;background:radial-gradient(60% 80% at 50% 0%,rgba(86,224,192,.16) 0%,transparent 60%)}
-    .hero .ico{font-size:3.4rem}
-    .hero h1{font-size:clamp(2rem,6vw,2.8rem);font-weight:800;margin:10px 0 6px}
-    .hero .tagline{font-size:1.15rem;color:var(--muted);margin-bottom:26px}
-    .btn{display:inline-block;font-weight:800;text-decoration:none;padding:13px 26px;border-radius:999px;transition:transform .15s ease}
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:940px;margin:0 auto;padding:0 22px}
+    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:800;padding:13px 26px;border-radius:999px;transition:transform .15s ease}
     .btn:hover{transform:translateY(-2px)}
-    .btn-fill{background:var(--accent);color:#0f1220}
-    .btn-line{border:1px solid var(--line);color:var(--text);margin-left:8px}
-    section{padding:48px 0}
-    h2{font-size:1.6rem;font-weight:800;text-align:center;margin-bottom:6px}
-    .sub{text-align:center;color:var(--muted);margin-bottom:30px}
+    .btn-fill{background:var(--accent);color:#04211b}
+    .btn-line{border:1px solid var(--line);color:var(--text)}
+    .btn-wa{background:#25d366;color:#062b13}
+
+    header.hero{text-align:center;padding:70px 20px 52px;background:radial-gradient(60% 80% at 50% 0%,rgba(86,224,192,.16) 0%,transparent 60%)}
+    .hero .ico{font-size:3.2rem}
+    .badge-live{display:inline-block;font-size:.74rem;font-weight:800;color:var(--accent);border:1px solid rgba(86,224,192,.4);background:rgba(86,224,192,.12);padding:4px 12px;border-radius:999px;margin:10px 0}
+    .hero h1{font-size:clamp(2rem,6vw,2.9rem);font-weight:900;margin:4px 0 6px;letter-spacing:-.4px}
+    .hero .tagline{font-size:1.16rem;color:var(--muted);max-width:56ch;margin:0 auto 24px}
+    .hero .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    section{padding:46px 0}
+    h2{font-size:1.55rem;font-weight:900;text-align:center;margin-bottom:6px}
+    .sub{text-align:center;color:var(--muted);margin-bottom:30px;max-width:60ch;margin-inline:auto}
     .problem{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-    .problem p{max-width:680px;margin:0 auto;text-align:center;font-size:1.08rem;color:#d7daea}
+    .problem p{max-width:700px;margin:0 auto;text-align:center;font-size:1.08rem;color:var(--soft)}
     .problem strong{color:var(--accent)}
     .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
     .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
     .card .e{font-size:1.7rem}
     .card h3{font-size:1.05rem;margin:8px 0 4px}
     .card p{color:var(--muted);font-size:.94rem}
-    .tech{background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:30px 26px;margin:0 4px}
-    .tech ul{list-style:none;margin-top:10px}
-    .tech li{padding:8px 0 8px 28px;position:relative;color:#d7daea}
+    .who{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:6px}
+    .who div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;color:var(--soft);font-weight:700}
+    .who span{display:block;font-size:1.6rem;margin-bottom:4px}
+    .soon{background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:28px;max-width:760px;margin:0 auto}
+    .soon ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin-top:10px}
+    .soon li{color:var(--soft);padding-left:24px;position:relative}
+    .soon li::before{content:"→";position:absolute;left:2px;color:var(--accent-2)}
+    .tech{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px 26px}
+    .tech ul{list-style:none;display:grid;gap:9px}
+    .tech li{padding:2px 0 2px 28px;position:relative;color:var(--soft)}
     .tech li::before{content:"▹";position:absolute;left:4px;color:var(--accent)}
-    .tags{text-align:center;margin-top:24px}
-    .tags span{display:inline-block;background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:999px;margin:3px}
+    .tags{text-align:center;margin-top:24px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+    .tags span{background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:999px}
     .cta{text-align:center}
     footer{text-align:center;padding:30px 20px 46px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
-    .volver{display:inline-block;margin-top:8px;font-weight:800}
+    .volver{display:inline-block;font-weight:800}
   </style>
 </head>
 <body>
   <header class="hero">
     <div class="ico">📅</div>
+    <div class="badge-live">● En vivo · pruébalo ahora</div>
     <h1>Turno</h1>
-    <p class="tagline">Agenda online con seña por adelantado · adiós a los plantones</p>
-    <a class="btn btn-fill" href="https://turno-two.vercel.app" target="_blank" rel="noopener">Ver demo en vivo →</a>
-    <a class="btn btn-line" href="../">← Volver al portafolio</a>
+    <p class="tagline">El SaaS de agenda que cobra la seña por adelantado y le dice adiós a los plantones.</p>
+    <div class="links">
+      <a class="btn btn-fill" href="https://turno-two.vercel.app" target="_blank" rel="noopener">Ver demo en vivo →</a>
+      <a class="btn btn-line" href="../">← Volver al portafolio</a>
+    </div>
   </header>
 
   <main>
@@ -65,7 +93,7 @@
           Peluquerías, spa, tatuajes, barberías o veterinarias agendan por WhatsApp o libreta
           y <strong>pierden plata cuando la gente reserva y no llega</strong>. Con Turno, el cliente
           paga una <strong>seña al reservar</strong>: si no llega, la pierde. Así
-          <strong>se acaban los plantones</strong>.
+          <strong>se acaban los plantones</strong> y el negocio asegura sus ingresos.
         </p>
       </div>
     </section>
@@ -74,12 +102,40 @@
       <h2>Qué hace</h2>
       <p class="sub">Reservar → cobrar seña → recordar → si no paga, liberar el cupo.</p>
       <div class="features">
-        <div class="card"><div class="e">🗓️</div><h3>Reservas online</h3><p>Cada negocio tiene su página pública: el cliente elige servicio, fecha y hora libre, y reserva solo.</p></div>
+        <div class="card"><div class="e">🗓️</div><h3>Reservas online 24/7</h3><p>Cada negocio tiene su página pública: el cliente elige servicio, profesional, fecha y hora libre, y reserva solo.</p></div>
         <div class="card"><div class="e">💳</div><h3>Seña por adelantado</h3><p>El cliente paga una seña al reservar (vía Wompi). Sin pago, el cupo se libera automáticamente.</p></div>
         <div class="card"><div class="e">💬</div><h3>Recordatorios por WhatsApp</h3><p>Confirmación y recordatorio por WhatsApp para que nadie olvide su cita.</p></div>
-        <div class="card"><div class="e">🔒</div><h3>Sin doble reserva</h3><p>Dos personas no pueden tomar el mismo horario con el mismo empleado. Garantizado.</p></div>
-        <div class="card"><div class="e">🏪</div><h3>Multi-negocio</h3><p>Cada negocio gestiona lo suyo de forma aislada y cobra a su propia cuenta.</p></div>
-        <div class="card"><div class="e">📊</div><h3>Panel del dueño</h3><p>Configura servicios, precios, seña y horarios; ve su agenda y sus clientes.</p></div>
+        <div class="card"><div class="e">🔒</div><h3>Sin doble reserva</h3><p>Dos personas no pueden tomar el mismo horario con el mismo profesional. Garantizado por la base de datos.</p></div>
+        <div class="card"><div class="e">👥</div><h3>Servicios y profesionales</h3><p>Configura tu catálogo de servicios, precios, duración y el equipo que los atiende.</p></div>
+        <div class="card"><div class="e">📇</div><h3>Clientes</h3><p>Cada negocio ve su historial de clientes y reservas en un solo lugar.</p></div>
+        <div class="card"><div class="e">📊</div><h3>Panel del dueño</h3><p>Agenda, servicios, precios, seña, horarios y reportes del negocio.</p></div>
+        <div class="card"><div class="e">🏪</div><h3>Multi-negocio</h3><p>Cada negocio gestiona lo suyo de forma aislada y cobra a su propia cuenta (multi-tenant).</p></div>
+        <div class="card"><div class="e">📲</div><h3>Se instala como app (PWA)</h3><p>Al ser una app web moderna, se puede "instalar" en el celular desde el navegador, sin pasar por la tienda.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2>¿Para quién es?</h2>
+      <p class="sub">Cualquier negocio que trabaje con cita previa.</p>
+      <div class="who">
+        <div><span>💇</span>Peluquerías y barberías</div>
+        <div><span>💆</span>Spa y estética</div>
+        <div><span>🎨</span>Tatuajes</div>
+        <div><span>🐾</span>Veterinarias</div>
+        <div><span>🦷</span>Consultorios</div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2>Próximas funciones</h2>
+      <p class="sub">El producto sigue creciendo.</p>
+      <div class="soon">
+        <ul>
+          <li>Reportes e indicadores del negocio</li>
+          <li>Recordatorios automáticos programados</li>
+          <li>Más métodos de pago</li>
+          <li>Reseñas de clientes</li>
+        </ul>
       </div>
     </section>
 
@@ -88,23 +144,26 @@
       <p class="sub">En palabras sencillas, sin tecnicismos de más.</p>
       <div class="tech">
         <ul>
-          <li><strong>Aplicación web</strong> construida con <strong>Next.js</strong> (React) y desplegada en la nube (Vercel), así que se abre desde cualquier navegador sin instalar nada.</li>
-          <li><strong>Base de datos relacional</strong> (PostgreSQL, gestionada con Supabase): ideal para datos conectados entre sí como negocios, servicios, clientes y citas.</li>
-          <li><strong>Anti doble-reserva real:</strong> la propia base de datos impide, mediante transacciones, que dos clientes tomen el mismo horario a la vez.</li>
-          <li><strong>Seguridad por negocio:</strong> cada cuenta solo puede ver y tocar sus propios datos (aislamiento a nivel de base de datos).</li>
-          <li><strong>Pagos integrados</strong> con la pasarela Wompi, donde cada negocio recibe la seña en su propia cuenta.</li>
+          <li><strong>Aplicación web</strong> con <strong>Next.js</strong> (React), desplegada en la nube (Vercel): se abre desde cualquier navegador sin instalar nada.</li>
+          <li><strong>Base de datos relacional</strong> (PostgreSQL con Supabase): ideal para datos conectados como negocios, servicios, clientes y citas.</li>
+          <li><strong>Anti doble-reserva real:</strong> la propia base de datos impide, con transacciones, que dos clientes tomen el mismo horario a la vez.</li>
+          <li><strong>Seguridad por negocio:</strong> cada cuenta solo ve y toca sus propios datos (aislamiento a nivel de base de datos).</li>
+          <li><strong>Pagos integrados</strong> con la pasarela Wompi: cada negocio recibe la seña en su propia cuenta.</li>
         </ul>
       </div>
       <div class="tags">
         <span>Next.js</span><span>React</span><span>Tailwind</span><span>Supabase</span>
-        <span>PostgreSQL</span><span>Wompi</span><span>WhatsApp</span><span>Vercel</span>
+        <span>PostgreSQL</span><span>Wompi</span><span>WhatsApp</span><span>PWA</span><span>Vercel</span>
       </div>
     </section>
 
     <section class="wrap cta">
-      <h2>¿Lo quieres ver funcionando?</h2>
-      <p class="sub">Hay una versión de demostración en línea.</p>
-      <a class="btn btn-fill" href="https://turno-two.vercel.app" target="_blank" rel="noopener">Abrir la demo →</a>
+      <h2>Pruébalo tú mismo</h2>
+      <p class="sub">Hay una versión de demostración en línea, lista para explorar.</p>
+      <div class="links" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-fill" href="https://turno-two.vercel.app" target="_blank" rel="noopener">Abrir la demo →</a>
+        <a class="btn btn-wa" href="https://wa.me/573128569219" target="_blank" rel="noopener">Quiero algo así para mi negocio</a>
+      </div>
     </section>
   </main>
 
