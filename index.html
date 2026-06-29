@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cesar Carvajal — Desarrollador de apps móviles y web</title>
+  <meta name="description" content="Desarrollador de software: apps móviles con Flutter (offline-first, sincronización, pagos in-app, Google Play) y aplicaciones web con Next.js + Supabase. Proyectos: Dulce Espera, Turno y Cinexa." />
+  <meta name="author" content="Cesar Carvajal" />
+  <meta property="og:title" content="Cesar Carvajal — Desarrollador móvil y web" />
+  <meta property="og:description" content="Apps con Flutter y web con Next.js + Supabase. Del diseño a la publicación." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/png" href="dulce-espera/img/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #0f1220;
+      --bg-soft:  #171a2b;
+      --card:     #1c2034;
+      --card-2:   #222740;
+      --line:     #2c3252;
+      --text:     #eef0f8;
+      --muted:    #9aa0c0;
+      --accent:   #7c8cff;
+      --accent-2: #56e0c0;
+      --rosa:     #ff7aa8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Nunito", -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: var(--text); background: var(--bg); line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 22px; }
+
+    /* ---------- Nav ---------- */
+    nav {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(15,18,32,.72);
+      border-bottom: 1px solid var(--line);
+    }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    nav .brand { font-weight: 800; letter-spacing: .2px; }
+    nav .brand span { color: var(--accent); }
+    nav .menu a { color: var(--muted); margin-left: 20px; font-weight: 600; font-size: .95rem; }
+    nav .menu a:hover { color: var(--text); }
+    @media (max-width:560px){ nav .menu a:not(.cta){ display:none; } }
+    .cta {
+      background: var(--accent); color: #0f1220 !important; font-weight: 800;
+      padding: 8px 16px; border-radius: 999px;
+    }
+
+    /* ---------- Hero ---------- */
+    header.hero {
+      text-align: center; padding: 86px 20px 64px; position: relative; overflow: hidden;
+      background:
+        radial-gradient(60% 80% at 20% 0%, rgba(124,140,255,.18) 0%, transparent 60%),
+        radial-gradient(60% 80% at 90% 10%, rgba(86,224,192,.14) 0%, transparent 55%);
+    }
+    .hero .eyebrow {
+      text-transform: uppercase; letter-spacing: .18em; font-weight: 800;
+      color: var(--accent-2); font-size: .78rem; margin-bottom: 14px;
+    }
+    .hero h1 { font-size: clamp(2.1rem, 6vw, 3.2rem); font-weight: 800; line-height: 1.1; }
+    .hero h1 .grad {
+      background: linear-gradient(100deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero .rol { font-size: clamp(1rem,2.5vw,1.25rem); color: var(--muted); margin: 14px 0 28px; }
+    .hero .links a { display: inline-block; margin: 5px; font-weight: 800; padding: 12px 22px; border-radius: 999px; }
+    .btn-primary { background: var(--accent); color: #0f1220; }
+    .btn-ghost   { border: 1px solid var(--line); color: var(--text); }
+    .btn-ghost:hover { background: var(--card); }
+
+    /* ---------- Sections ---------- */
+    section { padding: 56px 0; }
+    .section-title { font-size: 1.7rem; font-weight: 800; margin-bottom: 6px; }
+    .section-sub { color: var(--muted); margin-bottom: 30px; }
+    .accentbar { width: 46px; height: 4px; border-radius: 4px; background: linear-gradient(90deg,var(--accent),var(--accent-2)); margin-bottom: 16px; }
+
+    .lead { font-size: 1.1rem; color: #d7daea; }
+    .intro p { margin-bottom: 14px; max-width: 760px; }
+
+    /* Skills */
+    .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 16px; }
+    .skill {
+      background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .skill:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .skill h3 { font-size: 1rem; margin-bottom: 6px; }
+    .skill p { color: var(--muted); font-size: .92rem; }
+
+    /* Projects */
+    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 22px; }
+    .project {
+      background: var(--card); border: 1px solid var(--line); border-radius: 22px; overflow: hidden;
+      display: flex; flex-direction: column; transition: transform .18s ease, border-color .18s ease;
+    }
+    .project:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .project .top { padding: 22px 22px 0; display: flex; align-items: center; gap: 14px; }
+    .project .ico {
+      width: 52px; height: 52px; border-radius: 14px; flex: 0 0 auto;
+      display: grid; place-items: center; font-size: 1.6rem;
+      background: var(--card-2); border: 1px solid var(--line);
+    }
+    .project .ico img { width: 52px; height: 52px; border-radius: 14px; }
+    .project h3 { font-size: 1.18rem; }
+    .project .kind { color: var(--muted); font-size: .85rem; }
+    .project .body { padding: 14px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+    .project .body p { color: #cdd1e6; font-size: .96rem; }
+    .badge {
+      display: inline-block; font-size: .72rem; font-weight: 800; padding: 3px 10px; border-radius: 999px;
+      margin-left: auto;
+    }
+    .badge.live { background: rgba(86,224,192,.15); color: var(--accent-2); border: 1px solid rgba(86,224,192,.35); }
+    .badge.play { background: rgba(124,140,255,.15); color: var(--accent); border: 1px solid rgba(124,140,255,.35); }
+    .badge.demo { background: rgba(255,122,168,.13); color: var(--rosa); border: 1px solid rgba(255,122,168,.35); }
+    .tags { margin: 14px 0 16px; }
+    .tags span {
+      display: inline-block; background: var(--bg-soft); color: var(--muted);
+      font-size: .74rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; margin: 3px 4px 0 0;
+      border: 1px solid var(--line);
+    }
+    .project .actions { margin-top: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+    .project .actions a {
+      font-weight: 800; font-size: .9rem; padding: 9px 16px; border-radius: 999px;
+    }
+    .a-fill { background: var(--accent); color: #0f1220; }
+    .a-line { border: 1px solid var(--line); color: var(--text); }
+    .a-line:hover { background: var(--card-2); }
+
+    /* Ideas */
+    .ideas { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 16px; }
+    .idea {
+      background: linear-gradient(160deg, var(--card), var(--bg-soft));
+      border: 1px dashed var(--line); border-radius: 16px; padding: 20px;
+    }
+    .idea .pill { font-size: .7rem; font-weight: 800; color: var(--accent-2); text-transform: uppercase; letter-spacing: .1em; }
+    .idea h3 { font-size: 1.02rem; margin: 8px 0 6px; }
+    .idea p { color: var(--muted); font-size: .9rem; }
+
+    /* Contact */
+    .contact { text-align: center; background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .contact .lead { max-width: 620px; margin: 6px auto 18px; }
+    .contact .row a { display: inline-block; margin: 6px 10px; font-weight: 800; }
+
+    footer { text-align: center; padding: 30px 20px 48px; color: var(--muted); font-size: .9rem; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="wrap">
+      <div class="brand">Cesar<span>.</span>dev</div>
+      <div class="menu">
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#skills">Qué hago</a>
+        <a href="#proyectos">Proyectos</a>
+        <a class="cta" href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <p class="eyebrow">Desarrollo móvil &amp; web</p>
+    <h1>Hola, soy <span class="grad">Cesar Carvajal</span><br>construyo apps de la idea a la tienda</h1>
+    <p class="rol">Desarrollador Flutter &amp; Next.js · Arquitectura offline-first · Firebase &amp; Supabase · Publicación en Google&nbsp;Play</p>
+    <div class="links">
+      <a class="btn-primary" href="#proyectos">Ver proyectos</a>
+      <a class="btn-ghost" href="https://github.com/cecaza" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- SOBRE MÍ -->
+    <section id="sobre-mi" class="wrap intro">
+      <div class="accentbar"></div>
+      <h2 class="section-title">Sobre mí</h2>
+      <p class="lead" style="margin-bottom:14px;">
+        Me dedico a llevar productos de la <strong>idea al usuario final</strong>: pienso la
+        arquitectura, construyo la app, cuido el diseño y la dejo publicada y funcionando.
+      </p>
+      <p>
+        Trabajo principalmente con <strong>Flutter</strong> para móvil y con
+        <strong>Next.js + Supabase</strong> para web. Me gusta el código mantenible, la
+        separación por capas y los diseños <strong>offline-first</strong> donde el dominio no
+        depende de la base de datos. No me quedo en el "funciona": me interesa que esté
+        bien hecho, sea rápido y cumpla con las tiendas.
+      </p>
+      <p>
+        Mi proyecto más completo es <strong>Dulce Espera</strong>, una app de embarazo con
+        sincronización propia entre pareja, pagos in-app y todo el camino de publicación en
+        Google&nbsp;Play. Pero también construyo herramientas para negocios reales, como
+        <strong>Turno</strong>, y exploro ideas nuevas constantemente.
+      </p>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="wrap">
+      <div class="accentbar"></div>
+      <h2 class="section-title">Qué sé hacer</h2>
+      <p class="section-sub">Las herramientas con las que diseño, construyo y publico.</p>
+      <div class="skills">
+        <div class="skill">
+          <h3>📱 Apps con Flutter</h3>
+          <p>Interfaces fluidas, estado con Riverpod, multi-idioma y temas claro/oscuro. Android (y base lista para iOS).</p>
+        </div>
+        <div class="skill">
+          <h3>🌐 Web con Next.js</h3>
+          <p>React + Next.js + Tailwind, desplegado en Vercel. Páginas públicas, paneles privados y rutas dinámicas.</p>
+        </div>
+        <div class="skill">
+          <h3>🏛️ Arquitectura limpia</h3>
+          <p>Offline-first con el dominio independiente de la BD: repositorios reemplazables (local / nube / sync).</p>
+        </div>
+        <div class="skill">
+          <h3>🔄 Datos y sincronización</h3>
+          <p>SQLite con Drift en local; sync en la nube con conflictos, borrados y reintentos. PostgreSQL con Supabase.</p>
+        </div>
+        <div class="skill">
+          <h3>☁️ Backend (Firebase / Supabase)</h3>
+          <p>Auth, Firestore/Postgres, Storage, reglas de seguridad (RLS), App Check y Crashlytics, con costos controlados.</p>
+        </div>
+        <div class="skill">
+          <h3>💳 Pagos y publicación</h3>
+          <p>Suscripciones in-app (gratis/Premium), pasarelas (Wompi) y el camino completo en Google&nbsp;Play.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section id="proyectos" class="wrap">
+      <div class="accentbar"></div>
+      <h2 class="section-title">Proyectos</h2>
+      <p class="section-sub">Un poco de todo: móvil, web, productos para negocios y experimentos.</p>
+      <div class="projects">
+
+        <!-- Dulce Espera -->
+        <article class="project">
+          <div class="top">
+            <div class="ico"><img src="dulce-espera/img/icono.png" alt="Dulce Espera" /></div>
+            <div>
+              <h3>Dulce Espera</h3>
+              <div class="kind">App de embarazo · Flutter</div>
+            </div>
+            <span class="badge play">Google Play</span>
+          </div>
+          <div class="body">
+            <p>
+              App para vivir el embarazo: recuerdos con foto/video, citas con recordatorios,
+              medicinas, bienestar, peso y la barriguita semana a semana.
+              <strong>Offline-first real</strong>, con un <strong>motor de sincronización propio</strong>
+              para que la pareja comparta sus datos, y modelo <strong>gratis/Premium</strong> con pagos in-app.
+            </p>
+            <div class="tags">
+              <span>Flutter</span><span>Riverpod</span><span>Drift/SQLite</span>
+              <span>Firebase</span><span>Firestore</span><span>In-App Purchase</span><span>Offline-first</span>
+            </div>
+            <div class="actions">
+              <a class="a-fill" href="dulce-espera/">Conocer la app →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Turno / Citas-App -->
+        <article class="project">
+          <div class="top">
+            <div class="ico">📅</div>
+            <div>
+              <h3>Turno</h3>
+              <div class="kind">Agenda con seña · Web</div>
+            </div>
+            <span class="badge live">En vivo</span>
+          </div>
+          <div class="body">
+            <p>
+              Agenda online para negocios de cita previa (peluquerías, spa, tatuajes, mascotas…)
+              que cobra una <strong>seña por adelantado</strong> y manda recordatorios por WhatsApp,
+              para <strong>acabar con los plantones</strong>. Anti doble-booking con transacciones de
+              Postgres y multi-tenant con RLS.
+            </p>
+            <div class="tags">
+              <span>Next.js</span><span>React</span><span>Tailwind</span>
+              <span>Supabase</span><span>PostgreSQL</span><span>Wompi</span><span>Vercel</span>
+            </div>
+            <div class="actions">
+              <a class="a-fill" href="https://turno-two.vercel.app" target="_blank" rel="noopener">Ver demo →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Cinexa -->
+        <article class="project">
+          <div class="top">
+            <div class="ico">🎬</div>
+            <div>
+              <h3>Cinexa</h3>
+              <div class="kind">Catálogo de cine · Flutter</div>
+            </div>
+            <span class="badge demo">Demo</span>
+          </div>
+          <div class="body">
+            <p>
+              App de películas y series sobre la API de TMDB, con <strong>arquitectura limpia</strong>
+              (capas dominio/datos/presentación), autenticación, tendencias, búsqueda, favoritos,
+              <strong>scroll infinito</strong>, detalle de personas y soporte <strong>PWA</strong>.
+              Mi proyecto para dominar clean architecture e inyección de dependencias.
+            </p>
+            <div class="tags">
+              <span>Flutter</span><span>Clean Architecture</span><span>Freezed</span>
+              <span>TMDB API</span><span>PWA</span>
+            </div>
+            <div class="actions">
+              <a class="a-line" href="https://github.com/cecaza/portafolio" target="_blank" rel="noopener">Ver código →</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- IDEAS -->
+    <section id="ideas" class="wrap">
+      <div class="accentbar"></div>
+      <h2 class="section-title">Ideas y en construcción</h2>
+      <p class="section-sub">Cosas que estoy explorando o construyendo. El portafolio sigue creciendo.</p>
+      <div class="ideas">
+        <div class="idea">
+          <span class="pill">En curso</span>
+          <h3>Dulce Espera V2 — "¡Ya nació!"</h3>
+          <p>Modo posparto: la app cambia de lente del embarazo a la crianza (registro compartido de lactancia, pañal y sueño en pareja).</p>
+        </div>
+        <div class="idea">
+          <span class="pill">Idea</span>
+          <h3>Latido compartido</h3>
+          <p>Avisar a la pareja en vivo "¡tu bebé se movió!" desde las pataditas, incluso con la app cerrada (push).</p>
+        </div>
+        <div class="idea">
+          <span class="pill">Idea</span>
+          <h3>Nombres en pareja</h3>
+          <p>Un "match" de nombres de bebé entre los dos: cada quien marca los que le gustan y la app encuentra las coincidencias.</p>
+        </div>
+        <div class="idea">
+          <span class="pill">Roadmap</span>
+          <h3>Turno — app móvil</h3>
+          <p>Llevar Turno a una app nativa para los dueños de negocio, reusando el mismo backend de Supabase.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="contact">
+      <div class="wrap">
+        <div class="accentbar" style="margin-inline:auto;"></div>
+        <h2 class="section-title">¿Hablamos?</h2>
+        <p class="lead">Estoy abierto a proyectos y oportunidades de desarrollo móvil y web.</p>
+        <div class="row">
+          <a href="mailto:cecaza1085263@gmail.com">✉️ cecaza1085263@gmail.com</a>
+          <a href="https://github.com/cecaza" target="_blank" rel="noopener">💻 github.com/cecaza</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Cesar Carvajal · Desarrollador de apps móviles y web · © 2026</p>
+  </footer>
+
+</body>
+</html>

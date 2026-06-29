@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dulce Espera: Mi Embarazo — Acompaña tu embarazo con cariño</title>
+  <meta name="description" content="Dulce Espera es una app para registrar y acompañar tu embarazo: recuerdos con foto y video, citas con recordatorios, medicamentos, bienestar, peso y la barriguita semana a semana. Funciona sin internet y, en Premium, sincroniza con tu pareja." />
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rosa: #e91e63;
+      --rosa-osc: #c2185b;
+      --rosa-claro: #f7c9ce;
+      --fondo: #fff5f8;
+      --texto: #1a1114;
+      --suave: #8a7680;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Nunito", -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: var(--texto);
+      background: var(--fondo);
+      line-height: 1.65;
+    }
+    a { color: var(--rosa-osc); }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+    /* Hero */
+    header.hero {
+      text-align: center;
+      padding: 56px 20px 48px;
+      background: radial-gradient(circle at 50% 0%, #ffe3ec 0%, var(--fondo) 70%);
+    }
+    .hero img.icono {
+      width: 120px; height: 120px; border-radius: 28px;
+      box-shadow: 0 12px 30px rgba(233,30,99,.25);
+    }
+    .hero h1 {
+      font-size: 2rem; font-weight: 800; color: var(--rosa);
+      margin: 20px 0 6px;
+    }
+    .hero .tagline { font-size: 1.15rem; color: var(--suave); margin-bottom: 24px; }
+    .btn {
+      display: inline-block; background: var(--rosa); color: #fff;
+      text-decoration: none; font-weight: 700; padding: 13px 26px;
+      border-radius: 999px; box-shadow: 0 8px 20px rgba(233,30,99,.3);
+      transition: transform .15s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn.proximo { background: var(--rosa-claro); color: var(--rosa-osc); box-shadow: none; cursor: default; }
+
+    /* Secciones */
+    section { padding: 44px 0; }
+    h2 {
+      font-size: 1.5rem; font-weight: 800; color: var(--rosa-osc);
+      text-align: center; margin-bottom: 8px;
+    }
+    .sub { text-align: center; color: var(--suave); margin-bottom: 32px; }
+
+    /* Features */
+    .features {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: #fff; border-radius: 18px; padding: 22px;
+      box-shadow: 0 4px 16px rgba(26,17,20,.06);
+    }
+    .card .emoji { font-size: 1.8rem; }
+    .card h3 { font-size: 1.05rem; margin: 8px 0 4px; color: var(--texto); }
+    .card p { color: var(--suave); font-size: .95rem; }
+
+    /* Capturas */
+    .shots { background: #fff; }
+    .galeria {
+      display: flex; gap: 16px; overflow-x: auto; padding: 8px 4px 16px;
+      scroll-snap-type: x mandatory;
+    }
+    .galeria img {
+      width: 200px; flex: 0 0 auto; border-radius: 18px;
+      box-shadow: 0 6px 18px rgba(26,17,20,.12); scroll-snap-align: center;
+    }
+
+    /* Premium */
+    .premium {
+      background: linear-gradient(135deg, #fff0f5, #ffe3ec);
+      border-radius: 24px; padding: 36px 28px; text-align: center;
+      margin: 0 20px;
+    }
+    .premium h2 { color: var(--rosa); }
+
+    /* Contacto / footer */
+    .contacto { text-align: center; }
+    footer {
+      text-align: center; padding: 32px 20px 48px; color: var(--suave);
+      font-size: .9rem; border-top: 1px solid #f0d9e0; margin-top: 20px;
+    }
+    footer a { color: var(--suave); }
+    .volver { display:inline-block; margin-top: 28px; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <img class="icono" src="img/icono.png" alt="Icono de Dulce Espera" />
+    <h1>Dulce Espera: Mi&nbsp;Embarazo</h1>
+    <p class="tagline">Acompaña tu embarazo, semana a semana, con cariño 🤍</p>
+    <span class="btn proximo">Próximamente en Google Play</span>
+  </header>
+
+  <main>
+    <section class="wrap">
+      <h2>Todo tu embarazo, en un solo lugar</h2>
+      <p class="sub">Guarda los momentos, no te pierdas ninguna cita y cuídate cada día.</p>
+      <div class="features">
+        <div class="card">
+          <div class="emoji">📸</div>
+          <h3>Recuerdos con foto y video</h3>
+          <p>Guarda fotos y videos de cada etapa y revívelos cuando quieras.</p>
+        </div>
+        <div class="card">
+          <div class="emoji">🗓️</div>
+          <h3>Citas y recordatorios</h3>
+          <p>Agenda tus controles médicos y recibe avisos para no olvidarlos.</p>
+        </div>
+        <div class="card">
+          <div class="emoji">💊</div>
+          <h3>Medicamentos y vitaminas</h3>
+          <p>Programa tus tomas diarias con recordatorios a tu hora.</p>
+        </div>
+        <div class="card">
+          <div class="emoji">🌸</div>
+          <h3>Bienestar diario</h3>
+          <p>Registra cómo te sientes y tus síntomas a lo largo del embarazo.</p>
+        </div>
+        <div class="card">
+          <div class="emoji">⚖️</div>
+          <h3>Peso y crecimiento</h3>
+          <p>Lleva tu peso con gráficas claras y sigue el avance del bebé.</p>
+        </div>
+        <div class="card">
+          <div class="emoji">🤰</div>
+          <h3>Tu barriguita, semana a semana</h3>
+          <p>Descubre cómo crece tu bebé y qué pasa en cada semana.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="shots">
+      <div class="wrap">
+        <h2>Así se ve</h2>
+        <p class="sub">Diseño suave, claro y fácil de usar.</p>
+        <div class="galeria">
+          <img src="img/01_calendario.png" alt="Calendario y citas" />
+          <img src="img/02_recuerdos.png" alt="Recuerdos con foto y video" />
+          <img src="img/03_medicinas.png" alt="Medicamentos y recordatorios" />
+          <img src="img/04_bienestar.png" alt="Bienestar diario" />
+          <img src="img/07_barriguita.png" alt="Barriguita semana a semana" />
+          <img src="img/08_peso.png" alt="Seguimiento de peso" />
+          <img src="img/06_resumen.png" alt="Resumen semanal" />
+          <img src="img/05_mas.png" alt="Más opciones" />
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="premium">
+        <h2>💕 Vívelo en pareja (Premium)</h2>
+        <p>
+          La app funciona completa <strong>sin internet y sin cuenta</strong>: tus datos
+          se quedan en tu teléfono. Con <strong>Premium</strong>, además, respaldas todo
+          en la nube y <strong>sincronizas con tu pareja</strong> para que ambos vivan el
+          embarazo juntos, desde sus propios teléfonos.
+        </p>
+      </div>
+    </section>
+
+    <section class="wrap contacto">
+      <h2>Privacidad y contacto</h2>
+      <p class="sub">Tu información es tuya. No vendemos datos ni mostramos publicidad.</p>
+      <p>
+        📄 <a href="https://sites.google.com/view/dulce-espera-privacidad/politica-de-privacidad">Política de privacidad</a>
+        &nbsp;·&nbsp;
+        ✉️ <a href="mailto:soporte.dulceespera@gmail.com">soporte.dulceespera@gmail.com</a>
+      </p>
+      <a class="volver" href="../">← Ver más apps</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>Hecho con cariño para acompañar tu embarazo 🤍</p>
+    <p>© 2026 Dulce Espera · <a href="mailto:soporte.dulceespera@gmail.com">soporte.dulceespera@gmail.com</a></p>
+  </footer>
+
+</body>
+</html>
