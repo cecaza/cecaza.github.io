@@ -9,16 +9,18 @@ Portafolio personal de **Cesar Carvajal** — desarrollador de apps móviles (Fl
 Sitio estático (HTML/CSS, sin build) servido con **GitHub Pages**.
 
 - `index.html` — portafolio: sobre mí, skills, proyectos e ideas.
-- `dulce-espera/` — página de detalle de la app **Dulce Espera** (capturas incluidas).
+- `dulce-espera/` — página de la app **Dulce Espera** (con capturas).
+- `turno/` — página del proyecto **Turno** (agenda con seña).
+- `cinexa/` — página del proyecto **Cinexa** (catálogo de cine).
 - `privacidad.html` — copia fuente de la política de privacidad.
 
-## Proyectos enlazados
+## Proyectos (páginas del sitio)
 
-| Proyecto | Tipo | Enlace |
+| Proyecto | Tipo | Página |
 |---|---|---|
 | **Dulce Espera** | App de embarazo · Flutter | [/dulce-espera](./dulce-espera/) |
-| **Turno** | Agenda con seña · Next.js + Supabase | https://turno-two.vercel.app |
-| **Cinexa** | Catálogo de cine · Flutter | https://github.com/cecaza/portafolio |
+| **Turno** | Agenda con seña · Next.js + Supabase | [/turno](./turno/) |
+| **Cinexa** | Catálogo de cine · Flutter | [/cinexa](./cinexa/) |
 
 ## Publicar / actualizar
 

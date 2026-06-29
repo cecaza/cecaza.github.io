@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cinexa — Catálogo de cine y series</title>
+  <meta name="description" content="Cinexa es una app de películas y series construida con Flutter y arquitectura limpia: tendencias, búsqueda, favoritos, detalle de personas, scroll infinito y soporte PWA." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#0f1220; --bg-soft:#171a2b; --card:#1c2034; --line:#2c3252;
+      --text:#eef0f8; --muted:#9aa0c0; --accent:#ffb454; --accent-2:#7c8cff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:"Nunito",-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
+    a{color:var(--accent)}
+    .wrap{max-width:920px;margin:0 auto;padding:0 22px}
+    header.hero{text-align:center;padding:76px 20px 56px;background:radial-gradient(60% 80% at 50% 0%,rgba(255,180,84,.16) 0%,transparent 60%)}
+    .hero .ico{font-size:3.4rem}
+    .hero h1{font-size:clamp(2rem,6vw,2.8rem);font-weight:800;margin:10px 0 6px}
+    .hero .tagline{font-size:1.15rem;color:var(--muted);margin-bottom:26px}
+    .btn{display:inline-block;font-weight:800;text-decoration:none;padding:13px 26px;border-radius:999px;transition:transform .15s ease}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-fill{background:var(--accent);color:#0f1220}
+    .btn-line{border:1px solid var(--line);color:var(--text);margin-left:8px}
+    section{padding:48px 0}
+    h2{font-size:1.6rem;font-weight:800;text-align:center;margin-bottom:6px}
+    .sub{text-align:center;color:var(--muted);margin-bottom:30px}
+    .intro{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .intro p{max-width:680px;margin:0 auto;text-align:center;font-size:1.08rem;color:#d7daea}
+    .intro strong{color:var(--accent)}
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+    .card .e{font-size:1.7rem}
+    .card h3{font-size:1.05rem;margin:8px 0 4px}
+    .card p{color:var(--muted);font-size:.94rem}
+    .tech{background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:30px 26px;margin:0 4px}
+    .tech ul{list-style:none;margin-top:10px}
+    .tech li{padding:8px 0 8px 28px;position:relative;color:#d7daea}
+    .tech li::before{content:"▹";position:absolute;left:4px;color:var(--accent)}
+    .tags{text-align:center;margin-top:24px}
+    .tags span{display:inline-block;background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:999px;margin:3px}
+    footer{text-align:center;padding:30px 20px 46px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+    .volver{display:inline-block;margin-top:8px;font-weight:800}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="ico">🎬</div>
+    <h1>Cinexa</h1>
+    <p class="tagline">Catálogo de cine y series · explora, busca y guarda tus favoritas</p>
+    <a class="btn btn-line" href="../">← Volver al portafolio</a>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div class="wrap">
+        <p>
+          Cinexa es una app para <strong>descubrir películas y series</strong>: ver lo que está en
+          tendencia, buscar títulos, abrir su ficha con reparto y detalles, explorar a los actores
+          y <strong>guardar tus favoritas</strong>. La construí para dominar la
+          <strong>arquitectura limpia</strong> en Flutter de principio a fin.
+        </p>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2>Qué hace</h2>
+      <p class="sub">Una experiencia fluida para explorar todo el catálogo.</p>
+      <div class="features">
+        <div class="card"><div class="e">🔥</div><h3>Tendencias</h3><p>Lo más visto del momento en películas y series, siempre actualizado.</p></div>
+        <div class="card"><div class="e">🔎</div><h3>Búsqueda</h3><p>Encuentra cualquier título y abre su ficha con sinopsis, reparto y datos.</p></div>
+        <div class="card"><div class="e">♾️</div><h3>Scroll infinito</h3><p>El catálogo se va cargando solo a medida que avanzas, sin esperas.</p></div>
+        <div class="card"><div class="e">⭐</div><h3>Favoritos</h3><p>Inicia sesión y guarda las que quieres ver; te siguen entre sesiones.</p></div>
+        <div class="card"><div class="e">🎭</div><h3>Detalle de personas</h3><p>Explora a un actor o director y mira en qué otros títulos ha trabajado.</p></div>
+        <div class="card"><div class="e">📶</div><h3>Avisa si no hay internet</h3><p>Detecta la conexión y avisa cuando no hay red, sin romperse.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2>Cómo está hecha</h2>
+      <p class="sub">En palabras sencillas.</p>
+      <div class="tech">
+        <ul>
+          <li><strong>App con Flutter</strong> que funciona en Android, web y como <strong>PWA</strong> (se puede "instalar" desde el navegador como si fuera una app).</li>
+          <li><strong>Arquitectura limpia:</strong> el corazón de la app (las reglas) está separado de la pantalla y de la fuente de datos, así es fácil de mantener y de probar.</li>
+          <li><strong>Datos de cine</strong> tomados de una gran base pública de películas y series (TMDB), siempre al día.</li>
+          <li><strong>Cuenta y favoritos:</strong> inicio de sesión y lista de favoritos que se guarda en tu perfil.</li>
+          <li><strong>Detalle cuidado:</strong> íconos y pantalla de inicio propios, temas e idiomas.</li>
+        </ul>
+      </div>
+      <div class="tags">
+        <span>Flutter</span><span>Dart</span><span>Clean Architecture</span>
+        <span>TMDB</span><span>PWA</span><span>Inyección de dependencias</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><a class="volver" href="../">← Volver al portafolio</a></p>
+    <p style="margin-top:10px;">Cinexa · Proyecto de Cesar Carvajal · © 2026</p>
+  </footer>
+</body>
+</html>
