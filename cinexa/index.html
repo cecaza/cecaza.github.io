@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cinexa — App móvil de cine con arquitectura limpia (Flutter) | Cesar Carvajal</title>
-  <meta name="description" content="Cinexa es una app móvil de películas y series hecha en Flutter con arquitectura limpia: tendencias, búsqueda, favoritos, detalle de personas y scroll infinito. Código abierto." />
+  <title data-en="Cinexa — Mobile movie app with clean architecture (Flutter) | Cesar Carvajal">Cinexa — App móvil de cine con arquitectura limpia (Flutter) | Cesar Carvajal</title>
+  <meta name="description" data-en="Cinexa is a mobile app for movies and series built in Flutter with clean architecture: trending, search, favorites, person details and infinite scroll. Open source." content="Cinexa es una app móvil de películas y series hecha en Flutter con arquitectura limpia: tendencias, búsqueda, favoritos, detalle de personas y scroll infinito. Código abierto." />
   <meta name="author" content="Cesar Carvajal" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0f1220" />
@@ -30,6 +30,9 @@
     body{font-family:"Nunito",-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
     a{color:var(--accent)}
     .wrap{max-width:920px;margin:0 auto;padding:0 22px}
+    .langfix{position:fixed;top:12px;right:12px;z-index:40;display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:rgba(15,18,32,.72);backdrop-filter:blur(8px)}
+    .langfix button{background:transparent;color:var(--muted);border:0;padding:7px 11px;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit;line-height:1}
+    .langfix button[aria-pressed="true"]{background:var(--accent);color:#0f1220}
     header.hero{text-align:center;padding:76px 20px 56px;background:radial-gradient(60% 80% at 50% 0%,rgba(255,180,84,.16) 0%,transparent 60%)}
     .hero .ico{font-size:3.4rem}
     .hero h1{font-size:clamp(2rem,6vw,2.8rem);font-weight:800;margin:10px 0 6px}
@@ -60,18 +63,23 @@
   </style>
 </head>
 <body>
+  <div class="langfix" role="group" aria-label="Idioma / Language">
+    <button type="button" data-lang-btn="es">ES</button>
+    <button type="button" data-lang-btn="en">EN</button>
+  </div>
+
   <header class="hero">
     <div class="ico">🎬</div>
     <h1>Cinexa</h1>
-    <p class="tagline">App móvil de cine y series · explora, busca y guarda tus favoritas</p>
-    <a class="btn btn-fill" href="https://github.com/cecaza/portafolio" target="_blank" rel="noopener">Ver código en GitHub →</a>
-    <a class="btn btn-line" href="../">← Volver al portafolio</a>
+    <p class="tagline" data-en="Mobile app for movies and series · browse, search and save your favorites">App móvil de cine y series · explora, busca y guarda tus favoritas</p>
+    <a class="btn btn-fill" href="https://github.com/cecaza/portafolio" target="_blank" rel="noopener" data-en="View code on GitHub →">Ver código en GitHub →</a>
+    <a class="btn btn-line" href="../" data-en="← Back to portfolio">← Volver al portafolio</a>
   </header>
 
   <main>
     <section class="intro">
       <div class="wrap">
-        <p>
+        <p data-en="Cinexa is an app to <strong>discover movies and series</strong>: see what's trending, search titles, open their page with cast and details, explore the actors and <strong>save your favorites</strong>. I built it to master <strong>clean architecture</strong> in Flutter from end to end.">
           Cinexa es una app para <strong>descubrir películas y series</strong>: ver lo que está en
           tendencia, buscar títulos, abrir su ficha con reparto y detalles, explorar a los actores
           y <strong>guardar tus favoritas</strong>. La construí para dominar la
@@ -81,40 +89,70 @@
     </section>
 
     <section class="wrap">
-      <h2>Qué hace</h2>
-      <p class="sub">Una experiencia fluida para explorar todo el catálogo.</p>
+      <h2 data-en="What it does">Qué hace</h2>
+      <p class="sub" data-en="A smooth experience to explore the whole catalog.">Una experiencia fluida para explorar todo el catálogo.</p>
       <div class="features">
-        <div class="card"><div class="e">🔥</div><h3>Tendencias</h3><p>Lo más visto del momento en películas y series, siempre actualizado.</p></div>
-        <div class="card"><div class="e">🔎</div><h3>Búsqueda</h3><p>Encuentra cualquier título y abre su ficha con sinopsis, reparto y datos.</p></div>
-        <div class="card"><div class="e">♾️</div><h3>Scroll infinito</h3><p>El catálogo se va cargando solo a medida que avanzas, sin esperas.</p></div>
-        <div class="card"><div class="e">⭐</div><h3>Favoritos</h3><p>Inicia sesión y guarda las que quieres ver; te siguen entre sesiones.</p></div>
-        <div class="card"><div class="e">🎭</div><h3>Detalle de personas</h3><p>Explora a un actor o director y mira en qué otros títulos ha trabajado.</p></div>
-        <div class="card"><div class="e">📶</div><h3>Avisa si no hay internet</h3><p>Detecta la conexión y avisa cuando no hay red, sin romperse.</p></div>
+        <div class="card"><div class="e">🔥</div><h3 data-en="Trending">Tendencias</h3><p data-en="The most-watched movies and series right now, always up to date.">Lo más visto del momento en películas y series, siempre actualizado.</p></div>
+        <div class="card"><div class="e">🔎</div><h3 data-en="Search">Búsqueda</h3><p data-en="Find any title and open its page with synopsis, cast and details.">Encuentra cualquier título y abre su ficha con sinopsis, reparto y datos.</p></div>
+        <div class="card"><div class="e">♾️</div><h3 data-en="Infinite scroll">Scroll infinito</h3><p data-en="The catalog loads as you scroll, no waiting.">El catálogo se va cargando solo a medida que avanzas, sin esperas.</p></div>
+        <div class="card"><div class="e">⭐</div><h3 data-en="Favorites">Favoritos</h3><p data-en="Sign in and save the ones you want to watch; they follow you across sessions.">Inicia sesión y guarda las que quieres ver; te siguen entre sesiones.</p></div>
+        <div class="card"><div class="e">🎭</div><h3 data-en="Person details">Detalle de personas</h3><p data-en="Explore an actor or director and see what else they've worked on.">Explora a un actor o director y mira en qué otros títulos ha trabajado.</p></div>
+        <div class="card"><div class="e">📶</div><h3 data-en="Warns if you're offline">Avisa si no hay internet</h3><p data-en="Detects connectivity and warns when there's no network, without breaking.">Detecta la conexión y avisa cuando no hay red, sin romperse.</p></div>
       </div>
     </section>
 
     <section class="wrap">
-      <h2>Cómo está hecha</h2>
-      <p class="sub">En palabras sencillas.</p>
+      <h2 data-en="How it's built">Cómo está hecha</h2>
+      <p class="sub" data-en="In plain words.">En palabras sencillas.</p>
       <div class="tech">
         <ul>
-          <li><strong>App móvil con Flutter</strong> (Dart) para Android, con un solo código base.</li>
-          <li><strong>Arquitectura limpia:</strong> el corazón de la app (las reglas) está separado de la pantalla y de la fuente de datos, así es fácil de mantener y de probar.</li>
-          <li><strong>Datos de cine</strong> tomados de una gran base pública de películas y series (TMDB), siempre al día.</li>
-          <li><strong>Cuenta y favoritos:</strong> inicio de sesión y lista de favoritos que se guarda en tu perfil.</li>
-          <li><strong>Detalle cuidado:</strong> íconos y pantalla de inicio propios, temas e idiomas.</li>
+          <li data-en="<strong>Mobile app with Flutter</strong> (Dart) for Android, from a single codebase."><strong>App móvil con Flutter</strong> (Dart) para Android, con un solo código base.</li>
+          <li data-en="<strong>Clean architecture:</strong> the app's core (the rules) is separated from the screen and the data source, so it's easy to maintain and test."><strong>Arquitectura limpia:</strong> el corazón de la app (las reglas) está separado de la pantalla y de la fuente de datos, así es fácil de mantener y de probar.</li>
+          <li data-en="<strong>Movie data</strong> from a large public database of movies and series (TMDB), always current."><strong>Datos de cine</strong> tomados de una gran base pública de películas y series (TMDB), siempre al día.</li>
+          <li data-en="<strong>Account and favorites:</strong> sign-in and a favorites list saved to your profile."><strong>Cuenta y favoritos:</strong> inicio de sesión y lista de favoritos que se guarda en tu perfil.</li>
+          <li data-en="<strong>Polished details:</strong> custom icons and splash screen, themes and languages."><strong>Detalle cuidado:</strong> íconos y pantalla de inicio propios, temas e idiomas.</li>
         </ul>
       </div>
       <div class="tags">
         <span>Flutter</span><span>Dart</span><span>Clean Architecture</span>
-        <span>TMDB</span><span>Android</span><span>Inyección de dependencias</span>
+        <span>TMDB</span><span>Android</span><span data-en="Dependency injection">Inyección de dependencias</span>
       </div>
     </section>
   </main>
 
   <footer>
-    <p><a class="volver" href="../">← Volver al portafolio</a></p>
-    <p style="margin-top:10px;">Cinexa · Proyecto de Cesar Carvajal · © 2026</p>
+    <p><a class="volver" href="../" data-en="← Back to portfolio">← Volver al portafolio</a></p>
+    <p style="margin-top:10px;" data-en="Cinexa · A project by Cesar Carvajal · © 2026">Cinexa · Proyecto de Cesar Carvajal · © 2026</p>
   </footer>
+
+  <script>
+    (function(){
+      var KEY='site-lang';
+      function apply(l){
+        document.documentElement.lang=l;
+        document.querySelectorAll('[data-en]').forEach(function(el){
+          if(el.dataset.es===undefined){
+            el.dataset.es = (el.tagName==='META') ? el.getAttribute('content')
+                          : (el.tagName==='TITLE') ? el.textContent : el.innerHTML;
+          }
+          var v = (l==='en') ? el.getAttribute('data-en') : el.dataset.es;
+          if(el.tagName==='META'){ el.setAttribute('content', v); }
+          else if(el.tagName==='TITLE'){ document.title = v; }
+          else { el.innerHTML = v; }
+        });
+        document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+          b.setAttribute('aria-pressed', String(b.getAttribute('data-lang-btn')===l));
+        });
+        try{ localStorage.setItem(KEY,l); }catch(e){}
+      }
+      var saved; try{ saved=localStorage.getItem(KEY); }catch(e){}
+      var initial = saved || (((navigator.language||'es').toLowerCase().indexOf('es')===0)?'es':'en');
+      document.addEventListener('click', function(e){
+        var b = e.target.closest('[data-lang-btn]');
+        if(b){ e.preventDefault(); apply(b.getAttribute('data-lang-btn')); }
+      });
+      apply(initial);
+    })();
+  </script>
 </body>
 </html>

@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ============ SEO ============ -->
-  <title>Cesar Carvajal — Desarrollador de apps móviles y web | Flutter · .NET · Next.js</title>
-  <meta name="description" content="Desarrollador de software con +5 años creando apps móviles (Flutter, .NET MAUI) y plataformas web (Next.js). Productos en producción: Turno (SaaS de agenda), apps en Google Play y software empresarial a la medida. Colombia." />
+  <title data-en="Cesar Carvajal — Mobile &amp; web app developer | Flutter · .NET · Next.js">Cesar Carvajal — Desarrollador de apps móviles y web | Flutter · .NET · Next.js</title>
+  <meta name="description" data-en="Software developer with 5+ years building mobile apps (Flutter, .NET MAUI) and web platforms (Next.js). Products in production: Turno (booking SaaS), apps on Google Play and custom business software. Colombia." content="Desarrollador de software con +5 años creando apps móviles (Flutter, .NET MAUI) y plataformas web (Next.js). Productos en producción: Turno (SaaS de agenda), apps en Google Play y software empresarial a la medida. Colombia." />
   <meta name="author" content="Cesar Carvajal" />
-  <meta name="keywords" content="desarrollador móvil, Flutter, .NET MAUI, Xamarin, React Native, Next.js, desarrollador full stack, software empresarial, Colombia, Cesar Carvajal" />
+  <meta name="keywords" content="desarrollador móvil, mobile developer, Flutter, .NET MAUI, Xamarin, React Native, Next.js, full stack, software empresarial, Colombia, Cesar Carvajal" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0f1220" />
   <link rel="canonical" href="https://cecaza.github.io/" />
@@ -20,6 +20,7 @@
   <meta property="og:description" content="+5 años creando apps móviles (Flutter, .NET MAUI) y plataformas web (Next.js). Del diseño a producción: SaaS en vivo, apps en Google Play y software empresarial." />
   <meta property="og:url" content="https://cecaza.github.io/" />
   <meta property="og:locale" content="es_CO" />
+  <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:image" content="https://cecaza.github.io/assets/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -99,6 +100,9 @@
     .menu a:hover{color:var(--text)}
     .menu .cta{background:var(--accent);color:#0f1220;font-weight:800;padding:9px 18px;border-radius:999px}
     .menu .cta:hover{filter:brightness(1.07)}
+    .lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-left:6px}
+    .lang button{background:transparent;color:var(--muted);border:0;padding:7px 11px;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit;line-height:1}
+    .lang button[aria-pressed="true"]{background:var(--accent);color:#0f1220}
     @media (max-width:680px){ .menu a:not(.cta){display:none} }
 
     /* ---------- Hero ---------- */
@@ -213,17 +217,21 @@
   </style>
 </head>
 <body>
-  <a class="skip" href="#main">Saltar al contenido</a>
+  <a class="skip" href="#main" data-en="Skip to content">Saltar al contenido</a>
 
   <nav>
     <div class="wrap">
       <a class="brand" href="#main" aria-label="Cesar Carvajal — inicio"><span class="mk">C</span>Cesar Carvajal</a>
       <div class="menu">
-        <a href="#sobre-mi">Sobre mí</a>
-        <a href="#stack">Stack</a>
-        <a href="#experiencia">Experiencia</a>
-        <a href="#proyectos">Proyectos</a>
-        <a class="cta" href="#contacto">Hablemos</a>
+        <a href="#sobre-mi" data-en="About">Sobre mí</a>
+        <a href="#stack" data-en="Stack">Stack</a>
+        <a href="#experiencia" data-en="Experience">Experiencia</a>
+        <a href="#proyectos" data-en="Projects">Proyectos</a>
+        <a class="cta" href="#contacto" data-en="Let's talk">Hablemos</a>
+        <div class="lang" role="group" aria-label="Idioma / Language">
+          <button type="button" data-lang-btn="es">ES</button>
+          <button type="button" data-lang-btn="en">EN</button>
+        </div>
       </div>
     </div>
   </nav>
@@ -233,9 +241,9 @@
     <!-- HERO -->
     <header class="hero">
       <div class="wrap">
-        <span class="eyebrow">Desarrollador de software · Colombia</span>
-        <h1>Construyo apps móviles y plataformas web que <span class="grad">llegan a producción</span>.</h1>
-        <p class="pitch">
+        <span class="eyebrow" data-en="Software developer · Colombia">Desarrollador de software · Colombia</span>
+        <h1 data-en="I build mobile apps and web platforms that <span class='grad'>ship to production</span>.">Construyo apps móviles y plataformas web que <span class="grad">llegan a producción</span>.</h1>
+        <p class="pitch" data-en="I'm <strong>Cesar Carvajal</strong>, a <strong>mobile &amp; .NET</strong> developer with <strong>5+ years</strong> of experience. I design the architecture, build the product and ship it for real users: a <strong>live SaaS</strong>, apps heading to <strong>Google&nbsp;Play</strong> and <strong>custom business software</strong>.">
           Soy <strong>Cesar Carvajal</strong>, desarrollador <strong>móvil y .NET</strong> con
           <strong>+5 años</strong> de experiencia. Diseño la arquitectura, construyo el producto y lo dejo
           funcionando para usuarios reales: un <strong>SaaS en vivo</strong>, apps camino a
@@ -246,16 +254,16 @@
           <span>Next.js</span><span>ASP.NET</span><span>SQL Server / PostgreSQL</span>
         </div>
         <div class="actions">
-          <a class="btn btn-primary" href="#proyectos">Ver proyectos</a>
-          <a class="btn btn-wa" href="https://wa.me/573128569219" target="_blank" rel="noopener">Hablar por WhatsApp</a>
-          <a class="btn btn-ghost" href="https://turno-two.vercel.app" target="_blank" rel="noopener">Probar Turno (SaaS) →</a>
+          <a class="btn btn-primary" href="#proyectos" data-en="View projects">Ver proyectos</a>
+          <a class="btn btn-wa" href="https://wa.me/573128569219" target="_blank" rel="noopener" data-en="Chat on WhatsApp">Hablar por WhatsApp</a>
+          <a class="btn btn-ghost" href="https://turno-two.vercel.app" target="_blank" rel="noopener" data-en="Try Turno (SaaS) →">Probar Turno (SaaS) →</a>
         </div>
 
         <div class="stats">
-          <div class="stat"><div class="n">+5 años</div><div class="l">de experiencia</div></div>
-          <div class="stat"><div class="n">Mobile + .NET</div><div class="l">mi especialidad</div></div>
-          <div class="stat"><div class="n">SaaS en vivo</div><div class="l">Turno, en producción</div></div>
-          <div class="stat"><div class="n">Offline-first</div><div class="l">apps que funcionan sin red</div></div>
+          <div class="stat"><div class="n" data-en="5+ years">+5 años</div><div class="l" data-en="of experience">de experiencia</div></div>
+          <div class="stat"><div class="n">Mobile + .NET</div><div class="l" data-en="my specialty">mi especialidad</div></div>
+          <div class="stat"><div class="n" data-en="Live SaaS">SaaS en vivo</div><div class="l" data-en="Turno, in production">Turno, en producción</div></div>
+          <div class="stat"><div class="n">Offline-first</div><div class="l" data-en="apps that work offline">apps que funcionan sin red</div></div>
         </div>
       </div>
     </header>
@@ -263,18 +271,18 @@
     <!-- SOBRE MÍ -->
     <section id="sobre-mi" class="wrap intro reveal">
       <div class="accentbar"></div>
-      <h2 class="section-title">Sobre mí</h2>
-      <p class="lead">
+      <h2 class="section-title" data-en="About me">Sobre mí</h2>
+      <p class="lead" data-en="I think in <strong>products</strong>, not just code. I take an idea from architecture to the end user and own the result: that it works, is fast and stays maintainable.">
         Pienso en <strong>productos</strong>, no solo en código. Llevo una idea desde la arquitectura
         hasta el usuario final y me hago responsable de que funcione, sea rápida y se pueda mantener.
       </p>
-      <p>
+      <p data-en="My core is <strong>mobile development</strong> (Flutter, .NET MAUI, Xamarin, React Native) and the <strong>.NET ecosystem</strong> on desktop and backend. I work with <strong>clean architecture</strong> and layered separation, <strong>offline-first</strong> designs where the domain doesn't depend on the database, and reliable sync with conflict handling.">
         Mi base es el <strong>desarrollo móvil</strong> (Flutter, .NET MAUI, Xamarin, React Native) y el
         <strong>ecosistema .NET</strong> en escritorio y backend. Trabajo con
         <strong>arquitectura limpia</strong> y separación por capas, diseños <strong>offline-first</strong>
         donde el dominio no depende de la base de datos, y sincronización confiable con manejo de conflictos.
       </p>
-      <p>
+      <p data-en="I've built everything from a <strong>multi-tenant SaaS with payments</strong> to business software with <strong>Bluetooth printing</strong> for field sales teams. I quickly learn what each project needs and ship things people use every day.">
         He construido desde un <strong>SaaS multi-tenant con pagos</strong> hasta software empresarial con
         <strong>impresión Bluetooth</strong> para fuerza de ventas en campo.
         Aprendo rápido lo que el proyecto necesita y entrego cosas que se usan en el día a día.
@@ -284,15 +292,15 @@
     <!-- STACK -->
     <section id="stack" class="wrap reveal">
       <div class="accentbar"></div>
-      <h2 class="section-title">Stack tecnológico</h2>
-      <p class="section-sub">Agrupado por dónde aporto más valor. Mi fuerte es lo móvil; en segundo lugar, escritorio y backend con .NET.</p>
+      <h2 class="section-title" data-en="Tech stack">Stack tecnológico</h2>
+      <p class="section-sub" data-en="Grouped by where I add the most value. Mobile is my strength; then desktop and backend with .NET.">Agrupado por dónde aporto más valor. Mi fuerte es lo móvil; en segundo lugar, escritorio y backend con .NET.</p>
       <div class="stack">
 
         <div class="scard lead-card">
-          <div class="star">★ Mi especialidad</div>
+          <div class="star" data-en="★ My specialty">★ Mi especialidad</div>
           <div class="ic">📱</div>
-          <h3>Desarrollo móvil</h3>
-          <p style="color:var(--soft);font-size:.94rem">Apps nativas multiplataforma, offline-first, con publicación en tienda.</p>
+          <h3 data-en="Mobile development">Desarrollo móvil</h3>
+          <p style="color:var(--soft);font-size:.94rem" data-en="Cross-platform native apps, offline-first, published to stores.">Apps nativas multiplataforma, offline-first, con publicación en tienda.</p>
           <div class="tline">
             <span>Flutter</span><span>Dart</span><span>.NET MAUI</span><span>Xamarin</span>
             <span>React Native</span><span>Riverpod</span><span>MVVM</span><span>Google Play</span>
@@ -301,8 +309,8 @@
 
         <div class="scard">
           <div class="ic">🖥️</div>
-          <h3>Escritorio y backend .NET</h3>
-          <p style="color:var(--muted);font-size:.92rem">Aplicaciones de negocio y servicios para empresas.</p>
+          <h3 data-en="Desktop &amp; .NET backend">Escritorio y backend .NET</h3>
+          <p style="color:var(--muted);font-size:.92rem" data-en="Business applications and services for companies.">Aplicaciones de negocio y servicios para empresas.</p>
           <div class="tline">
             <span>C#</span><span>VB.NET</span><span>ASP.NET</span><span>WinForms</span>
             <span>Web Services</span><span>Entity Framework</span><span>SQL Server</span>
@@ -312,7 +320,7 @@
         <div class="scard">
           <div class="ic">🌐</div>
           <h3>Web</h3>
-          <p style="color:var(--muted);font-size:.92rem">Plataformas web modernas, desplegadas en la nube.</p>
+          <p style="color:var(--muted);font-size:.92rem" data-en="Modern web platforms, deployed to the cloud.">Plataformas web modernas, desplegadas en la nube.</p>
           <div class="tline">
             <span>Next.js</span><span>React</span><span>TypeScript</span><span>Tailwind</span>
             <span>Node</span><span>Vercel</span>
@@ -321,8 +329,8 @@
 
         <div class="scard">
           <div class="ic">🗄️</div>
-          <h3>Datos y nube</h3>
-          <p style="color:var(--muted);font-size:.92rem">Persistencia local, en la nube y sincronización.</p>
+          <h3 data-en="Data &amp; cloud">Datos y nube</h3>
+          <p style="color:var(--muted);font-size:.92rem" data-en="Local and cloud persistence, plus sync.">Persistencia local, en la nube y sincronización.</p>
           <div class="tline">
             <span>PostgreSQL</span><span>SQL Server</span><span>SQLite / Drift</span><span>LiteDB</span>
             <span>Supabase</span><span>Firebase</span><span>RLS</span>
@@ -331,30 +339,30 @@
 
         <div class="scard">
           <div class="ic">🏛️</div>
-          <h3>Arquitectura y calidad</h3>
-          <p style="color:var(--muted);font-size:.92rem">Código mantenible y productos que escalan.</p>
+          <h3 data-en="Architecture &amp; quality">Arquitectura y calidad</h3>
+          <p style="color:var(--muted);font-size:.92rem" data-en="Maintainable code and products that scale.">Código mantenible y productos que escalan.</p>
           <div class="tline">
-            <span>Clean Architecture</span><span>Capas</span><span>Inyección de dependencias</span>
+            <span>Clean Architecture</span><span data-en="Layers">Capas</span><span data-en="Dependency injection">Inyección de dependencias</span>
             <span>Offline-first</span><span>Multi-tenant</span><span>Sentry / Crashlytics</span>
           </div>
         </div>
 
         <div class="scard">
           <div class="ic">🔌</div>
-          <h3>Integraciones y negocio</h3>
-          <p style="color:var(--muted);font-size:.92rem">Lo que conecta el software con la operación real.</p>
+          <h3 data-en="Integrations &amp; business">Integraciones y negocio</h3>
+          <p style="color:var(--muted);font-size:.92rem" data-en="What connects software with real operations.">Lo que conecta el software con la operación real.</p>
           <div class="tline">
-            <span>Pagos (Wompi)</span><span>In-App Purchase</span>
-            <span>WhatsApp</span><span>Impresión Bluetooth ESC/POS</span><span>Push</span>
+            <span data-en="Payments (Wompi)">Pagos (Wompi)</span><span>In-App Purchase</span>
+            <span>WhatsApp</span><span data-en="Bluetooth printing (ESC/POS)">Impresión Bluetooth ESC/POS</span><span>Push</span>
           </div>
         </div>
 
       </div>
 
       <div class="scard lead-card" style="margin-top:16px">
-        <div class="star">⚡ Forma de trabajar moderna</div>
-        <h3 style="margin-top:6px">Desarrollo asistido por IA</h3>
-        <p style="color:var(--soft);font-size:.96rem">
+        <div class="star" data-en="⚡ A modern way of working">⚡ Forma de trabajar moderna</div>
+        <h3 style="margin-top:6px" data-en="AI-assisted development">Desarrollo asistido por IA</h3>
+        <p style="color:var(--soft);font-size:.96rem" data-en="I bring AI tools into my workflow to <strong>speed up development</strong>, validate technical decisions, improve code quality and cut delivery times — always keeping <strong>human judgment and review</strong>. I use it as a multiplier, not a replacement.">
           Integro herramientas de IA en mi flujo para <strong>acelerar el desarrollo</strong>, validar decisiones
           técnicas, mejorar la calidad del código y reducir tiempos de entrega — manteniendo siempre el
           <strong>criterio y la revisión humana</strong>. La uso como un multiplicador, no como un reemplazo.
@@ -365,38 +373,38 @@
     <!-- EXPERIENCIA -->
     <section id="experiencia" class="wrap reveal">
       <div class="accentbar"></div>
-      <h2 class="section-title">Experiencia</h2>
-      <p class="section-sub">Productos reales en producción, en empresa e independiente.</p>
+      <h2 class="section-title" data-en="Experience">Experiencia</h2>
+      <p class="section-sub" data-en="Real products in production, both at a company and independently.">Productos reales en producción, en empresa e independiente.</p>
       <div class="exp">
 
         <article class="job">
           <div class="role">
-            <h3>Desarrollador de software · <span class="org">SAMIT — Sistemas Corporativos</span></h3>
-            <span class="when">2021 – Actualidad</span>
+            <h3 data-en="Software developer · <span class='org'>SAMIT — Sistemas Corporativos</span>">Desarrollador de software · <span class="org">SAMIT — Sistemas Corporativos</span></h3>
+            <span class="when" data-en="2021 – Present">2021 – Actualidad</span>
           </div>
-          <p>
+          <p data-en="I develop the software ecosystem of a business-solutions company serving Colombian companies. I've worked across the whole stack: mobile, desktop and backend.">
             Desarrollo el ecosistema de software de una empresa de soluciones empresariales para compañías
             colombianas. He trabajado en toda la pila: móvil, escritorio y backend.
           </p>
           <ul>
-            <li><strong>App de fuerza de ventas (.NET MAUI):</strong> pedidos, facturación y cartera con operación <strong>offline-first</strong>, sincronización, control por permisos e impresión de recibos por <strong>Bluetooth (ESC/POS)</strong>.</li>
-            <li><strong>Backend y servicios (ASP.NET / SQL Server):</strong> plataforma multiempresa para facturación, inventario, contabilidad, nómina y POS, con esquema <strong>multi-tenant</strong> en nube y local.</li>
-            <li><strong>ERP de escritorio (WinForms) y apps móviles previas</strong> en Xamarin y React Native para clientes y operaciones en campo.</li>
+            <li data-en="<strong>Field sales app (.NET MAUI):</strong> orders, invoicing and accounts receivable with <strong>offline-first</strong> operation, sync, permission-based access and receipt printing over <strong>Bluetooth (ESC/POS)</strong>."><strong>App de fuerza de ventas (.NET MAUI):</strong> pedidos, facturación y cartera con operación <strong>offline-first</strong>, sincronización, control por permisos e impresión de recibos por <strong>Bluetooth (ESC/POS)</strong>.</li>
+            <li data-en="<strong>Backend &amp; services (ASP.NET / SQL Server):</strong> a multi-company platform for invoicing, inventory, accounting, payroll and POS, with a <strong>multi-tenant</strong> setup in cloud and on-premise."><strong>Backend y servicios (ASP.NET / SQL Server):</strong> plataforma multiempresa para facturación, inventario, contabilidad, nómina y POS, con esquema <strong>multi-tenant</strong> en nube y local.</li>
+            <li data-en="<strong>Desktop ERP (WinForms) and earlier mobile apps</strong> in Xamarin and React Native for clients and field operations."><strong>ERP de escritorio (WinForms) y apps móviles previas</strong> en Xamarin y React Native para clientes y operaciones en campo.</li>
           </ul>
         </article>
 
         <article class="job">
           <div class="role">
-            <h3>Desarrollador independiente · <span class="org">Productos propios</span></h3>
-            <span class="when">Proyectos propios</span>
+            <h3 data-en="Independent developer · <span class='org'>Own products</span>">Desarrollador independiente · <span class="org">Productos propios</span></h3>
+            <span class="when" data-en="Own projects">Proyectos propios</span>
           </div>
-          <p>
+          <p data-en="I design and build complete products end to end, caring about architecture, UX and shipping.">
             Diseño y construyo productos completos de punta a punta, cuidando arquitectura, UX y publicación.
           </p>
           <ul>
-            <li><strong>Turno</strong> — SaaS de agenda con anticipo al reservar y recordatorios por WhatsApp (Next.js + Supabase + Wompi). En producción.</li>
-            <li><strong>Dulce Espera</strong> — App de embarazo en Flutter con offline-first, sincronización en pareja y pagos in-app, camino a Google Play.</li>
-            <li><strong>Cinexa</strong> — App de cine en Flutter para dominar clean architecture e inyección de dependencias.</li>
+            <li data-en="<strong>Turno</strong> — booking SaaS with an upfront deposit and WhatsApp reminders (Next.js + Supabase + Wompi). In production."><strong>Turno</strong> — SaaS de agenda con anticipo al reservar y recordatorios por WhatsApp (Next.js + Supabase + Wompi). En producción.</li>
+            <li data-en="<strong>Dulce Espera</strong> — pregnancy app in Flutter with offline-first, partner sync and in-app payments, heading to Google Play."><strong>Dulce Espera</strong> — App de embarazo en Flutter con offline-first, sincronización en pareja y pagos in-app, camino a Google Play.</li>
+            <li data-en="<strong>Cinexa</strong> — movie app in Flutter to master clean architecture and dependency injection."><strong>Cinexa</strong> — App de cine en Flutter para dominar clean architecture e inyección de dependencias.</li>
           </ul>
         </article>
 
@@ -406,8 +414,8 @@
     <!-- PROYECTOS -->
     <section id="proyectos" class="wrap reveal">
       <div class="accentbar"></div>
-      <h2 class="section-title">Proyectos destacados</h2>
-      <p class="section-sub">Productos reales que puedes ver, probar o descargar — no ejercicios de tutorial.</p>
+      <h2 class="section-title" data-en="Featured projects">Proyectos destacados</h2>
+      <p class="section-sub" data-en="Real products you can see, try or download — not tutorial exercises.">Productos reales que puedes ver, probar o descargar — no ejercicios de tutorial.</p>
       <div class="projects">
 
         <!-- TURNO (star) -->
@@ -416,25 +424,25 @@
             <div class="ico">📅</div>
             <div>
               <h3>Turno</h3>
-              <div class="kind">SaaS de agenda con pagos · Web</div>
+              <div class="kind" data-en="Booking SaaS with payments · Web">SaaS de agenda con pagos · Web</div>
             </div>
-            <span class="badge live">● En vivo</span>
+            <span class="badge live" data-en="● Live">● En vivo</span>
           </div>
           <div class="body">
             <div class="grid2">
-              <p>
+              <p data-en="Booking software for appointment-based businesses (salons, spas, tattoo studios, barbershops, vets). The client books on a <strong>public page</strong> and pays a <strong>deposit</strong>; if they don't show up, they lose it. That's how Turno <strong>ends no-shows</strong> and secures the business's income.">
                 Software de reservas para negocios de cita previa (peluquerías, spa, tatuajes, barberías,
                 veterinarias). El cliente reserva en una <strong>página pública</strong> y paga un
                 <strong>anticipo</strong>; si no llega, lo pierde. Así Turno
                 <strong>acaba con los plantones</strong> y le asegura ingresos al negocio.
               </p>
               <ul class="feat">
-                <li>Reservas online 24/7</li>
-                <li>Anticipo con Wompi</li>
-                <li>Recordatorios por WhatsApp</li>
-                <li>Sin doble reserva</li>
-                <li>Multi-negocio (multi-tenant)</li>
-                <li>Panel del dueño</li>
+                <li data-en="24/7 online booking">Reservas online 24/7</li>
+                <li data-en="Deposit via Wompi">Anticipo con Wompi</li>
+                <li data-en="WhatsApp reminders">Recordatorios por WhatsApp</li>
+                <li data-en="No double booking">Sin doble reserva</li>
+                <li data-en="Multi-business (multi-tenant)">Multi-negocio (multi-tenant)</li>
+                <li data-en="Owner dashboard">Panel del dueño</li>
               </ul>
             </div>
             <div class="tags">
@@ -442,8 +450,8 @@
               <span>PostgreSQL</span><span>Wompi</span><span>PWA</span><span>Vercel</span>
             </div>
             <div class="links">
-              <a class="a-fill" href="https://turno-two.vercel.app" target="_blank" rel="noopener">Probar gratis (30 días) →</a>
-              <a class="a-line" href="turno/">Conocer el proyecto</a>
+              <a class="a-fill" href="https://turno-two.vercel.app" target="_blank" rel="noopener" data-en="Start free (30 days) →">Probar gratis (30 días) →</a>
+              <a class="a-line" href="turno/" data-en="About the project">Conocer el proyecto</a>
             </div>
           </div>
         </article>
@@ -453,13 +461,13 @@
           <div class="top">
             <div class="ico"><img src="samit/img/logo-samit.png" alt="Logo de SAMIT" width="54" height="54" loading="lazy" decoding="async" /></div>
             <div>
-              <h3>Suite empresarial SAMIT</h3>
-              <div class="kind">Móvil + escritorio + backend</div>
+              <h3 data-en="SAMIT business suite">Suite empresarial SAMIT</h3>
+              <div class="kind" data-en="Mobile + desktop + backend">Móvil + escritorio + backend</div>
             </div>
-            <span class="badge work">Profesional</span>
+            <span class="badge work" data-en="Professional">Profesional</span>
           </div>
           <div class="body">
-            <p>
+            <p data-en="Business software ecosystem: an <strong>offline-first field sales app</strong> in .NET MAUI (orders, receivables, Bluetooth printing) and a backend with <strong>invoicing, inventory, accounting and payroll</strong>.">
               Ecosistema de software empresarial: app de <strong>fuerza de ventas offline-first</strong> en
               .NET MAUI (pedidos, cartera, impresión Bluetooth) y backend con <strong>facturación,
               inventario, contabilidad y nómina</strong>.
@@ -469,8 +477,8 @@
               <span>LiteDB</span><span>Offline-first</span>
             </div>
             <div class="links">
-              <a class="a-fill" href="samit/">Ver el caso →</a>
-              <a class="a-line" href="https://samit.com.co/" target="_blank" rel="noopener">Sitio de SAMIT</a>
+              <a class="a-fill" href="samit/" data-en="View case study →">Ver el caso →</a>
+              <a class="a-line" href="https://samit.com.co/" target="_blank" rel="noopener" data-en="SAMIT website">Sitio de SAMIT</a>
             </div>
           </div>
         </article>
@@ -481,12 +489,12 @@
             <div class="ico"><img src="dulce-espera/img/icono.png" alt="Icono de Dulce Espera" width="54" height="54" loading="lazy" decoding="async" /></div>
             <div>
               <h3>Dulce Espera</h3>
-              <div class="kind">App de embarazo · Flutter</div>
+              <div class="kind" data-en="Pregnancy app · Flutter">App de embarazo · Flutter</div>
             </div>
             <span class="badge play">Google Play</span>
           </div>
           <div class="body">
-            <p>
+            <p data-en="An app to follow the pregnancy: memories, appointments with reminders, medications, weight and the bump week by week. <strong>True offline-first</strong>, with a <strong>custom sync engine</strong> to share as a couple and a <strong>free/Premium</strong> model with in-app payments.">
               App para acompañar el embarazo: recuerdos, citas con recordatorios, medicinas, peso y la
               barriguita semana a semana. <strong>Offline-first real</strong>, con un
               <strong>motor de sincronización propio</strong> para compartir en pareja y modelo
@@ -497,7 +505,7 @@
               <span>In-App Purchase</span><span>Offline-first</span>
             </div>
             <div class="links">
-              <a class="a-fill" href="dulce-espera/">Conocer la app →</a>
+              <a class="a-fill" href="dulce-espera/" data-en="About the app →">Conocer la app →</a>
             </div>
           </div>
         </article>
@@ -508,12 +516,12 @@
             <div class="ico">🎬</div>
             <div>
               <h3>Cinexa</h3>
-              <div class="kind">App de cine · Flutter</div>
+              <div class="kind" data-en="Movie app · Flutter">App de cine · Flutter</div>
             </div>
-            <span class="badge code">Código abierto</span>
+            <span class="badge code" data-en="Open source">Código abierto</span>
           </div>
           <div class="body">
-            <p>
+            <p data-en="Mobile app for movies and series on the TMDB API, with <strong>clean architecture</strong> (domain/data/presentation), authentication, trending, search, favorites, infinite scroll and person details. My project to master clean architecture and dependency injection.">
               App móvil de películas y series sobre la API de TMDB, con <strong>arquitectura limpia</strong>
               (dominio/datos/presentación), autenticación, tendencias, búsqueda, favoritos, scroll infinito
               y detalle de personas. Mi proyecto para dominar clean architecture e inyección de dependencias.
@@ -522,8 +530,8 @@
               <span>Flutter</span><span>Dart</span><span>Clean Architecture</span><span>TMDB API</span>
             </div>
             <div class="links">
-              <a class="a-fill" href="cinexa/">Conocer el proyecto →</a>
-              <a class="a-line" href="https://github.com/cecaza/portafolio" target="_blank" rel="noopener">Ver código en GitHub</a>
+              <a class="a-fill" href="cinexa/" data-en="About the project →">Conocer el proyecto →</a>
+              <a class="a-line" href="https://github.com/cecaza/portafolio" target="_blank" rel="noopener" data-en="View code on GitHub">Ver código en GitHub</a>
             </div>
           </div>
         </article>
@@ -534,15 +542,15 @@
     <!-- FILOSOFÍA -->
     <section id="filosofia" class="wrap reveal">
       <div class="accentbar"></div>
-      <h2 class="section-title">Cómo trabajo</h2>
-      <p class="section-sub">Principios que aplico en cada proyecto, sin importar el stack.</p>
+      <h2 class="section-title" data-en="How I work">Cómo trabajo</h2>
+      <p class="section-sub" data-en="Principles I apply on every project, regardless of the stack.">Principios que aplico en cada proyecto, sin importar el stack.</p>
       <div class="philo">
-        <div class="pcard"><div class="ic">🎯</div><h3>Producto antes que código</h3><p>Primero el problema y el usuario; la tecnología es el medio, no el objetivo.</p></div>
-        <div class="pcard"><div class="ic">🏛️</div><h3>Arquitectura limpia</h3><p>Capas separadas y dominio independiente de la base de datos. Fácil de probar y de cambiar.</p></div>
-        <div class="pcard"><div class="ic">📶</div><h3>Offline-first y datos confiables</h3><p>Que la app funcione sin red y sincronice sin perder ni duplicar información.</p></div>
-        <div class="pcard"><div class="ic">✨</div><h3>UX antes que complejidad</h3><p>Interfaces claras y rápidas. Menos fricción para el usuario, menos soporte para el negocio.</p></div>
-        <div class="pcard"><div class="ic">📈</div><h3>Escalable y mantenible</h3><p>Código pensado para crecer: multi-tenant, reutilizable y con monitoreo de errores.</p></div>
-        <div class="pcard"><div class="ic">⚡</div><h3>IA con criterio</h3><p>Acelero con IA para entregar más rápido, pero reviso y decido yo. Calidad sobre velocidad ciega.</p></div>
+        <div class="pcard"><div class="ic">🎯</div><h3 data-en="Product before code">Producto antes que código</h3><p data-en="The problem and the user first; technology is the means, not the goal.">Primero el problema y el usuario; la tecnología es el medio, no el objetivo.</p></div>
+        <div class="pcard"><div class="ic">🏛️</div><h3 data-en="Clean architecture">Arquitectura limpia</h3><p data-en="Separate layers and a domain independent from the database. Easy to test and change.">Capas separadas y dominio independiente de la base de datos. Fácil de probar y de cambiar.</p></div>
+        <div class="pcard"><div class="ic">📶</div><h3 data-en="Offline-first and reliable data">Offline-first y datos confiables</h3><p data-en="The app works without a network and syncs without losing or duplicating data.">Que la app funcione sin red y sincronice sin perder ni duplicar información.</p></div>
+        <div class="pcard"><div class="ic">✨</div><h3 data-en="UX over complexity">UX antes que complejidad</h3><p data-en="Clear, fast interfaces. Less friction for users, less support for the business.">Interfaces claras y rápidas. Menos fricción para el usuario, menos soporte para el negocio.</p></div>
+        <div class="pcard"><div class="ic">📈</div><h3 data-en="Scalable and maintainable">Escalable y mantenible</h3><p data-en="Code built to grow: multi-tenant, reusable and with error monitoring.">Código pensado para crecer: multi-tenant, reutilizable y con monitoreo de errores.</p></div>
+        <div class="pcard"><div class="ic">⚡</div><h3 data-en="AI with judgment">IA con criterio</h3><p data-en="I speed up with AI to deliver faster, but I review and decide. Quality over blind speed.">Acelero con IA para entregar más rápido, pero reviso y decido yo. Calidad sobre velocidad ciega.</p></div>
       </div>
     </section>
 
@@ -550,14 +558,14 @@
     <section id="contacto" class="contact">
       <div class="wrap reveal">
         <div class="accentbar mid"></div>
-        <h2 class="section-title">¿Hablamos?</h2>
-        <p class="section-sub">
+        <h2 class="section-title" data-en="Let's talk">¿Hablamos?</h2>
+        <p class="section-sub" data-en="I'm open to <strong>job opportunities</strong> (mobile and .NET development) and to <strong>clients</strong> who want to build or use a product. I reply fast.">
           Estoy abierto a <strong>oportunidades laborales</strong> (desarrollo móvil y .NET) y a
           <strong>clientes</strong> que quieran construir o usar un producto. Respondo rápido.
         </p>
         <div class="actions">
           <a class="btn btn-wa" href="https://wa.me/573128569219" target="_blank" rel="noopener">WhatsApp: +57 312 856 9219</a>
-          <a class="btn btn-primary" href="mailto:cecaza1085263@gmail.com">✉️ Escríbeme un correo</a>
+          <a class="btn btn-primary" href="mailto:cecaza1085263@gmail.com" data-en="✉️ Send me an email">✉️ Escríbeme un correo</a>
           <a class="btn btn-ghost" href="https://github.com/cecaza" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
@@ -566,11 +574,41 @@
   </main>
 
   <footer>
-    <p>Cesar Carvajal · Desarrollador de apps móviles y web · Colombia · © 2026</p>
+    <p data-en="Cesar Carvajal · Mobile &amp; web app developer · Colombia · © 2026">Cesar Carvajal · Desarrollador de apps móviles y web · Colombia · © 2026</p>
   </footer>
 
   <script>
-    // Reveal on scroll (progressive enhancement; content is visible without JS too)
+    // ---------- i18n (ES/EN), sin recargar ----------
+    (function(){
+      var KEY='site-lang';
+      function apply(l){
+        document.documentElement.lang=l;
+        document.querySelectorAll('[data-en]').forEach(function(el){
+          if(el.dataset.es===undefined){
+            el.dataset.es = (el.tagName==='META') ? el.getAttribute('content')
+                          : (el.tagName==='TITLE') ? el.textContent
+                          : el.innerHTML;
+          }
+          var v = (l==='en') ? el.getAttribute('data-en') : el.dataset.es;
+          if(el.tagName==='META'){ el.setAttribute('content', v); }
+          else if(el.tagName==='TITLE'){ document.title = v; }
+          else { el.innerHTML = v; }
+        });
+        document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+          b.setAttribute('aria-pressed', String(b.getAttribute('data-lang-btn')===l));
+        });
+        try{ localStorage.setItem(KEY,l); }catch(e){}
+      }
+      var saved; try{ saved=localStorage.getItem(KEY); }catch(e){}
+      var initial = saved || (((navigator.language||'es').toLowerCase().indexOf('es')===0)?'es':'en');
+      document.addEventListener('click', function(e){
+        var b = e.target.closest('[data-lang-btn]');
+        if(b){ e.preventDefault(); apply(b.getAttribute('data-lang-btn')); }
+      });
+      apply(initial);
+    })();
+
+    // ---------- Reveal on scroll ----------
     (function(){
       var els = document.querySelectorAll('.reveal');
       if(!('IntersectionObserver' in window) || !els.length){ els.forEach(function(e){e.classList.add('in')}); return; }

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dulce Espera: Mi Embarazo — Acompaña tu embarazo con cariño</title>
-  <meta name="description" content="Dulce Espera es una app para registrar y acompañar tu embarazo: recuerdos con foto y video, citas con recordatorios, medicamentos, bienestar, peso y la barriguita semana a semana. Funciona sin internet y, en Premium, sincroniza con tu pareja." />
+  <title data-en="Dulce Espera: My Pregnancy — Follow your pregnancy with love">Dulce Espera: Mi Embarazo — Acompaña tu embarazo con cariño</title>
+  <meta name="description" data-en="Dulce Espera is an app to track and follow your pregnancy: memories with photo and video, appointments with reminders, medications, well-being, weight and the bump week by week. Works offline and, in Premium, syncs with your partner." content="Dulce Espera es una app para registrar y acompañar tu embarazo: recuerdos con foto y video, citas con recordatorios, medicamentos, bienestar, peso y la barriguita semana a semana. Funciona sin internet y, en Premium, sincroniza con tu pareja." />
   <meta name="author" content="Cesar Carvajal" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#e91e63" />
@@ -37,6 +37,10 @@
     }
     a { color: var(--rosa-osc); }
     .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+    .langfix{position:fixed;top:12px;right:12px;z-index:40;display:inline-flex;border:1px solid var(--rosa-claro);border-radius:999px;overflow:hidden;background:#fff;box-shadow:0 4px 14px rgba(233,30,99,.12)}
+    .langfix button{background:transparent;color:var(--suave);border:0;padding:7px 11px;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit;line-height:1}
+    .langfix button[aria-pressed="true"]{background:var(--rosa);color:#fff}
 
     /* Hero */
     header.hero {
@@ -113,56 +117,60 @@
   </style>
 </head>
 <body>
+  <div class="langfix" role="group" aria-label="Idioma / Language">
+    <button type="button" data-lang-btn="es">ES</button>
+    <button type="button" data-lang-btn="en">EN</button>
+  </div>
 
   <header class="hero">
     <img class="icono" src="img/icono.png" alt="Icono de Dulce Espera" />
-    <h1>Dulce Espera: Mi&nbsp;Embarazo</h1>
-    <p class="tagline">Acompaña tu embarazo, semana a semana, con cariño 🤍</p>
-    <span class="btn proximo">Próximamente en Google Play</span>
+    <h1 data-en="Dulce Espera: My&nbsp;Pregnancy">Dulce Espera: Mi&nbsp;Embarazo</h1>
+    <p class="tagline" data-en="Follow your pregnancy, week by week, with love 🤍">Acompaña tu embarazo, semana a semana, con cariño 🤍</p>
+    <span class="btn proximo" data-en="Coming soon on Google Play">Próximamente en Google Play</span>
   </header>
 
   <main>
     <section class="wrap">
-      <h2>Todo tu embarazo, en un solo lugar</h2>
-      <p class="sub">Guarda los momentos, no te pierdas ninguna cita y cuídate cada día.</p>
+      <h2 data-en="Your whole pregnancy, in one place">Todo tu embarazo, en un solo lugar</h2>
+      <p class="sub" data-en="Save the moments, never miss an appointment and take care of yourself every day.">Guarda los momentos, no te pierdas ninguna cita y cuídate cada día.</p>
       <div class="features">
         <div class="card">
           <div class="emoji">📸</div>
-          <h3>Recuerdos con foto y video</h3>
-          <p>Guarda fotos y videos de cada etapa y revívelos cuando quieras.</p>
+          <h3 data-en="Memories with photo and video">Recuerdos con foto y video</h3>
+          <p data-en="Save photos and videos of every stage and relive them whenever you want.">Guarda fotos y videos de cada etapa y revívelos cuando quieras.</p>
         </div>
         <div class="card">
           <div class="emoji">🗓️</div>
-          <h3>Citas y recordatorios</h3>
-          <p>Agenda tus controles médicos y recibe avisos para no olvidarlos.</p>
+          <h3 data-en="Appointments and reminders">Citas y recordatorios</h3>
+          <p data-en="Schedule your medical check-ups and get reminders so you don't forget them.">Agenda tus controles médicos y recibe avisos para no olvidarlos.</p>
         </div>
         <div class="card">
           <div class="emoji">💊</div>
-          <h3>Medicamentos y vitaminas</h3>
-          <p>Programa tus tomas diarias con recordatorios a tu hora.</p>
+          <h3 data-en="Medications and vitamins">Medicamentos y vitaminas</h3>
+          <p data-en="Schedule your daily doses with reminders right on time.">Programa tus tomas diarias con recordatorios a tu hora.</p>
         </div>
         <div class="card">
           <div class="emoji">🌸</div>
-          <h3>Bienestar diario</h3>
-          <p>Registra cómo te sientes y tus síntomas a lo largo del embarazo.</p>
+          <h3 data-en="Daily well-being">Bienestar diario</h3>
+          <p data-en="Track how you feel and your symptoms throughout the pregnancy.">Registra cómo te sientes y tus síntomas a lo largo del embarazo.</p>
         </div>
         <div class="card">
           <div class="emoji">⚖️</div>
-          <h3>Peso y crecimiento</h3>
-          <p>Lleva tu peso con gráficas claras y sigue el avance del bebé.</p>
+          <h3 data-en="Weight and growth">Peso y crecimiento</h3>
+          <p data-en="Track your weight with clear charts and follow the baby's progress.">Lleva tu peso con gráficas claras y sigue el avance del bebé.</p>
         </div>
         <div class="card">
           <div class="emoji">🤰</div>
-          <h3>Tu barriguita, semana a semana</h3>
-          <p>Descubre cómo crece tu bebé y qué pasa en cada semana.</p>
+          <h3 data-en="Your bump, week by week">Tu barriguita, semana a semana</h3>
+          <p data-en="Discover how your baby grows and what happens each week.">Descubre cómo crece tu bebé y qué pasa en cada semana.</p>
         </div>
       </div>
     </section>
 
     <section class="shots">
       <div class="wrap">
-        <h2>Así se ve</h2>
-        <p class="sub">Diseño suave, claro y fácil de usar.</p>
+        <h2 data-en="How it looks">Así se ve</h2>
+        <p class="sub" data-en="Soft, clear and easy-to-use design.">Diseño suave, claro y fácil de usar.</p>
         <div class="galeria">
           <img src="img/01_calendario.png" alt="Calendario y citas" />
           <img src="img/02_recuerdos.png" alt="Recuerdos con foto y video" />
@@ -178,8 +186,8 @@
 
     <section>
       <div class="premium">
-        <h2>💕 Vívelo en pareja (Premium)</h2>
-        <p>
+        <h2 data-en="💕 Live it together (Premium)">💕 Vívelo en pareja (Premium)</h2>
+        <p data-en="The app works fully <strong>offline and without an account</strong>: your data stays on your phone. With <strong>Premium</strong>, you also back everything up to the cloud and <strong>sync with your partner</strong> so you both live the pregnancy together, from your own phones.">
           La app funciona completa <strong>sin internet y sin cuenta</strong>: tus datos
           se quedan en tu teléfono. Con <strong>Premium</strong>, además, respaldas todo
           en la nube y <strong>sincronizas con tu pareja</strong> para que ambos vivan el
@@ -189,21 +197,50 @@
     </section>
 
     <section class="wrap contacto">
-      <h2>Privacidad y contacto</h2>
-      <p class="sub">Tu información es tuya. No vendemos datos ni mostramos publicidad.</p>
-      <p>
+      <h2 data-en="Privacy &amp; contact">Privacidad y contacto</h2>
+      <p class="sub" data-en="Your information is yours. We don't sell data or show ads.">Tu información es tuya. No vendemos datos ni mostramos publicidad.</p>
+      <p data-en="📄 <a href='https://sites.google.com/view/dulce-espera-privacidad/politica-de-privacidad'>Privacy policy</a> &nbsp;·&nbsp; ✉️ <a href='mailto:soporte.dulceespera@gmail.com'>soporte.dulceespera@gmail.com</a>">
         📄 <a href="https://sites.google.com/view/dulce-espera-privacidad/politica-de-privacidad">Política de privacidad</a>
         &nbsp;·&nbsp;
         ✉️ <a href="mailto:soporte.dulceespera@gmail.com">soporte.dulceespera@gmail.com</a>
       </p>
-      <a class="volver" href="../">← Ver más apps</a>
+      <a class="volver" href="../" data-en="← See more apps">← Ver más apps</a>
     </section>
   </main>
 
   <footer>
-    <p>Hecho con cariño para acompañar tu embarazo 🤍</p>
-    <p>© 2026 Dulce Espera · <a href="mailto:soporte.dulceespera@gmail.com">soporte.dulceespera@gmail.com</a></p>
+    <p data-en="Made with love to accompany your pregnancy 🤍">Hecho con cariño para acompañar tu embarazo 🤍</p>
+    <p data-en="© 2026 Dulce Espera · <a href='mailto:soporte.dulceespera@gmail.com'>soporte.dulceespera@gmail.com</a>">© 2026 Dulce Espera · <a href="mailto:soporte.dulceespera@gmail.com">soporte.dulceespera@gmail.com</a></p>
   </footer>
 
+  <script>
+    (function(){
+      var KEY='site-lang';
+      function apply(l){
+        document.documentElement.lang=l;
+        document.querySelectorAll('[data-en]').forEach(function(el){
+          if(el.dataset.es===undefined){
+            el.dataset.es = (el.tagName==='META') ? el.getAttribute('content')
+                          : (el.tagName==='TITLE') ? el.textContent : el.innerHTML;
+          }
+          var v = (l==='en') ? el.getAttribute('data-en') : el.dataset.es;
+          if(el.tagName==='META'){ el.setAttribute('content', v); }
+          else if(el.tagName==='TITLE'){ document.title = v; }
+          else { el.innerHTML = v; }
+        });
+        document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+          b.setAttribute('aria-pressed', String(b.getAttribute('data-lang-btn')===l));
+        });
+        try{ localStorage.setItem(KEY,l); }catch(e){}
+      }
+      var saved; try{ saved=localStorage.getItem(KEY); }catch(e){}
+      var initial = saved || (((navigator.language||'es').toLowerCase().indexOf('es')===0)?'es':'en');
+      document.addEventListener('click', function(e){
+        var b = e.target.closest('[data-lang-btn]');
+        if(b){ e.preventDefault(); apply(b.getAttribute('data-lang-btn')); }
+      });
+      apply(initial);
+    })();
+  </script>
 </body>
 </html>

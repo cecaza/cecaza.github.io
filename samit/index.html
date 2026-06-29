@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Suite empresarial SAMIT — Fuerza de ventas, ERP y backend | Cesar Carvajal</title>
-  <meta name="description" content="Caso real: ecosistema de software para SAMIT (Colombia). App de fuerza de ventas offline-first en .NET MAUI con impresión Bluetooth, y backend con facturación, inventario, contabilidad y nómina." />
+  <title data-en="SAMIT business suite — Field sales, ERP and backend | Cesar Carvajal">Suite empresarial SAMIT — Fuerza de ventas, ERP y backend | Cesar Carvajal</title>
+  <meta name="description" data-en="Real case: software ecosystem for SAMIT (Colombia). Offline-first field sales app in .NET MAUI with Bluetooth printing, and a backend with invoicing, inventory, accounting and payroll." content="Caso real: ecosistema de software para SAMIT (Colombia). App de fuerza de ventas offline-first en .NET MAUI con impresión Bluetooth, y backend con facturación, inventario, contabilidad y nómina." />
   <meta name="author" content="Cesar Carvajal" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0f1220" />
@@ -37,6 +37,10 @@
     .btn:hover{transform:translateY(-2px)}
     .btn-fill{background:var(--accent);color:#04121c}
     .btn-line{border:1px solid var(--line);color:var(--text)}
+
+    .langfix{position:fixed;top:12px;right:12px;z-index:40;display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:rgba(15,18,32,.72);backdrop-filter:blur(8px)}
+    .langfix button{background:transparent;color:var(--muted);border:0;padding:7px 11px;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit;line-height:1}
+    .langfix button[aria-pressed="true"]{background:var(--accent);color:#04121c}
 
     header.hero{text-align:center;padding:64px 20px 48px;background:radial-gradient(60% 80% at 50% 0%,rgba(59,154,225,.18) 0%,transparent 60%)}
     .hero img.logo{width:84px;height:84px;margin:0 auto 16px;border-radius:20px;background:#fff;padding:10px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
@@ -79,21 +83,26 @@
   </style>
 </head>
 <body>
+  <div class="langfix" role="group" aria-label="Idioma / Language">
+    <button type="button" data-lang-btn="es">ES</button>
+    <button type="button" data-lang-btn="en">EN</button>
+  </div>
+
   <header class="hero">
     <img class="logo" src="img/logo-samit.png" alt="Logo de SAMIT Sistemas Corporativos" width="84" height="84" />
-    <div class="badge-work">Experiencia profesional · 2021 – Actualidad</div>
-    <h1>Suite empresarial SAMIT</h1>
-    <p class="tagline">Software de fuerza de ventas, ERP y backend de negocio para empresas colombianas.</p>
+    <div class="badge-work" data-en="Professional experience · 2021 – Present">Experiencia profesional · 2021 – Actualidad</div>
+    <h1 data-en="SAMIT business suite">Suite empresarial SAMIT</h1>
+    <p class="tagline" data-en="Field sales software, ERP and business backend for Colombian companies.">Software de fuerza de ventas, ERP y backend de negocio para empresas colombianas.</p>
     <div class="links">
-      <a class="btn btn-fill" href="https://samit.com.co/" target="_blank" rel="noopener">Visitar sitio de SAMIT →</a>
-      <a class="btn btn-line" href="../">← Volver al portafolio</a>
+      <a class="btn btn-fill" href="https://samit.com.co/" target="_blank" rel="noopener" data-en="Visit SAMIT's website →">Visitar sitio de SAMIT →</a>
+      <a class="btn btn-line" href="../" data-en="← Back to portfolio">← Volver al portafolio</a>
     </div>
   </header>
 
   <main>
     <section class="problem">
       <div class="wrap">
-        <p>
+        <p data-en="Field sales reps need to <strong>take orders, invoice and collect receivables</strong> even with no signal, and print the receipt on the spot. And the company needs all of that to sync with its <strong>invoicing and accounting</strong>. That's what I built: an ecosystem that goes from the <strong>rep's phone</strong> to the <strong>backend</strong>.">
           Los vendedores en calle necesitan <strong>tomar pedidos, facturar y cobrar cartera</strong> aunque
           no tengan señal, e imprimir el recibo en el momento. Y la empresa necesita que todo eso
           se sincronice con su <strong>facturación y contabilidad</strong>. Eso es lo que
@@ -103,73 +112,103 @@
     </section>
 
     <section class="wrap">
-      <h2>Qué incluye el ecosistema</h2>
-      <p class="sub">Un mismo sistema, en el celular, el escritorio y la nube.</p>
+      <h2 data-en="What the ecosystem includes">Qué incluye el ecosistema</h2>
+      <p class="sub" data-en="One system, on mobile, desktop and the cloud.">Un mismo sistema, en el celular, el escritorio y la nube.</p>
       <div class="features">
-        <div class="card"><div class="e">📱</div><h3>App de fuerza de ventas</h3><p>Pedidos y facturas desde el celular, en campo. Construida en .NET MAUI para Android.</p></div>
-        <div class="card"><div class="e">📶</div><h3>Funciona sin internet</h3><p>Offline-first: el vendedor crea documentos sin señal y todo se sincroniza solo al volver la conexión.</p></div>
-        <div class="card"><div class="e">🖨️</div><h3>Impresión Bluetooth</h3><p>Recibos y facturas impresos al instante en impresoras térmicas (protocolo ESC/POS).</p></div>
-        <div class="card"><div class="e">💰</div><h3>Cartera y abonos</h3><p>Consulta de saldos por cliente y registro de abonos con distribución de pagos.</p></div>
-        <div class="card"><div class="e">☁️</div><h3>Backend en la nube</h3><p>Servicios centrales que sincronizan toda la operación entre el celular y la oficina.</p></div>
-        <div class="card"><div class="e">📦</div><h3>Inventario y catálogo</h3><p>Productos, precios e impuestos en tiempo real, listos para vender.</p></div>
-        <div class="card"><div class="e">🏢</div><h3>Multiempresa</h3><p>Arquitectura multi-tenant: varias empresas y oficinas sobre la misma plataforma, aisladas.</p></div>
-        <div class="card"><div class="e">📊</div><h3>Contabilidad y nómina</h3><p>El backend integra facturación, inventario, contabilidad, nómina y POS.</p></div>
+        <div class="card"><div class="e">📱</div><h3 data-en="Field sales app">App de fuerza de ventas</h3><p data-en="Orders and invoices from the phone, out in the field. Built in .NET MAUI for Android.">Pedidos y facturas desde el celular, en campo. Construida en .NET MAUI para Android.</p></div>
+        <div class="card"><div class="e">📶</div><h3 data-en="Works offline">Funciona sin internet</h3><p data-en="Offline-first: the rep creates documents with no signal and everything syncs on its own when the connection is back.">Offline-first: el vendedor crea documentos sin señal y todo se sincroniza solo al volver la conexión.</p></div>
+        <div class="card"><div class="e">🖨️</div><h3 data-en="Bluetooth printing">Impresión Bluetooth</h3><p data-en="Receipts and invoices printed instantly on thermal printers (ESC/POS protocol).">Recibos y facturas impresos al instante en impresoras térmicas (protocolo ESC/POS).</p></div>
+        <div class="card"><div class="e">💰</div><h3 data-en="Receivables and payments">Cartera y abonos</h3><p data-en="Balance lookups per client and payment recording with payment allocation.">Consulta de saldos por cliente y registro de abonos con distribución de pagos.</p></div>
+        <div class="card"><div class="e">☁️</div><h3 data-en="Cloud backend">Backend en la nube</h3><p data-en="Central services that sync the whole operation between the phone and the office.">Servicios centrales que sincronizan toda la operación entre el celular y la oficina.</p></div>
+        <div class="card"><div class="e">📦</div><h3 data-en="Inventory and catalog">Inventario y catálogo</h3><p data-en="Products, prices and taxes in real time, ready to sell.">Productos, precios e impuestos en tiempo real, listos para vender.</p></div>
+        <div class="card"><div class="e">🏢</div><h3 data-en="Multi-company">Multiempresa</h3><p data-en="Multi-tenant architecture: several companies and offices on the same platform, isolated.">Arquitectura multi-tenant: varias empresas y oficinas sobre la misma plataforma, aisladas.</p></div>
+        <div class="card"><div class="e">📊</div><h3 data-en="Accounting and payroll">Contabilidad y nómina</h3><p data-en="The backend integrates invoicing, inventory, accounting, payroll and POS.">El backend integra facturación, inventario, contabilidad, nómina y POS.</p></div>
       </div>
     </section>
 
     <section class="shots">
       <div class="wrap">
-        <h2>Así se ve la app</h2>
-        <p class="sub">Capturas reales de la aplicación de fuerza de ventas en uso.</p>
+        <h2 data-en="How the app looks">Así se ve la app</h2>
+        <p class="sub" data-en="Real screenshots of the field sales app in use.">Capturas reales de la aplicación de fuerza de ventas en uso.</p>
         <div class="galeria">
-          <figure><img src="img/inicio.jpg" alt="Pantalla de inicio con accesos a Orden y Venta" loading="lazy" decoding="async" /><figcaption>Inicio</figcaption></figure>
-          <figure><img src="img/menu.jpg" alt="Menú con empresa, oficina y módulos" loading="lazy" decoding="async" /><figcaption>Menú y empresa</figcaption></figure>
-          <figure><img src="img/catalogo.jpg" alt="Catálogo de productos con 30 referencias" loading="lazy" decoding="async" /><figcaption>Catálogo de productos</figcaption></figure>
-          <figure><img src="img/nueva-orden.jpg" alt="Nueva orden con cliente y producto agregado" loading="lazy" decoding="async" /><figcaption>Nueva orden</figcaption></figure>
-          <figure><img src="img/buscar-producto.jpg" alt="Buscador de productos con existencias" loading="lazy" decoding="async" /><figcaption>Buscar producto</figcaption></figure>
-          <figure><img src="img/agregar-producto.jpg" alt="Detalle de producto con cantidad y precio" loading="lazy" decoding="async" /><figcaption>Agregar producto</figcaption></figure>
-          <figure><img src="img/cartera.jpg" alt="Cartera con filtros por cuenta y cliente" loading="lazy" decoding="async" /><figcaption>Cartera</figcaption></figure>
-          <figure><img src="img/nuevo-tercero.jpg" alt="Formulario para crear un cliente nuevo" loading="lazy" decoding="async" /><figcaption>Crear cliente</figcaption></figure>
-          <figure><img src="img/opciones.jpg" alt="Opciones: impresora, oficina y sincronización" loading="lazy" decoding="async" /><figcaption>Opciones y sync</figcaption></figure>
+          <figure><img src="img/inicio.jpg" alt="Pantalla de inicio con accesos a Orden y Venta" loading="lazy" decoding="async" /><figcaption data-en="Home">Inicio</figcaption></figure>
+          <figure><img src="img/menu.jpg" alt="Menú con empresa, oficina y módulos" loading="lazy" decoding="async" /><figcaption data-en="Menu &amp; company">Menú y empresa</figcaption></figure>
+          <figure><img src="img/catalogo.jpg" alt="Catálogo de productos con 30 referencias" loading="lazy" decoding="async" /><figcaption data-en="Product catalog">Catálogo de productos</figcaption></figure>
+          <figure><img src="img/nueva-orden.jpg" alt="Nueva orden con cliente y producto agregado" loading="lazy" decoding="async" /><figcaption data-en="New order">Nueva orden</figcaption></figure>
+          <figure><img src="img/buscar-producto.jpg" alt="Buscador de productos con existencias" loading="lazy" decoding="async" /><figcaption data-en="Search product">Buscar producto</figcaption></figure>
+          <figure><img src="img/agregar-producto.jpg" alt="Detalle de producto con cantidad y precio" loading="lazy" decoding="async" /><figcaption data-en="Add product">Agregar producto</figcaption></figure>
+          <figure><img src="img/cartera.jpg" alt="Cartera con filtros por cuenta y cliente" loading="lazy" decoding="async" /><figcaption data-en="Receivables">Cartera</figcaption></figure>
+          <figure><img src="img/nuevo-tercero.jpg" alt="Formulario para crear un cliente nuevo" loading="lazy" decoding="async" /><figcaption data-en="Create client">Crear cliente</figcaption></figure>
+          <figure><img src="img/opciones.jpg" alt="Opciones: impresora, oficina y sincronización" loading="lazy" decoding="async" /><figcaption data-en="Options &amp; sync">Opciones y sync</figcaption></figure>
         </div>
-        <p class="note">El código de este proyecto es privado por ser software empresarial de la compañía.</p>
+        <p class="note" data-en="This project's code is private as it's the company's business software.">El código de este proyecto es privado por ser software empresarial de la compañía.</p>
       </div>
     </section>
 
     <section class="wrap">
-      <h2>Cómo está hecho</h2>
-      <p class="sub">En palabras sencillas, sin tecnicismos de más.</p>
+      <h2 data-en="How it's built">Cómo está hecho</h2>
+      <p class="sub" data-en="In plain words, no extra jargon.">En palabras sencillas, sin tecnicismos de más.</p>
       <div class="tech">
         <ul>
-          <li><strong>App móvil en .NET MAUI</strong> (C#) para Android, con patrón MVVM y una base de datos local cifrada en el teléfono.</li>
-          <li><strong>Offline-first real:</strong> los documentos se guardan localmente y una cola los sube automáticamente cuando vuelve la conexión, con reintentos.</li>
-          <li><strong>Impresión térmica por Bluetooth</strong> usando el protocolo ESC/POS, para entregar el recibo en el sitio.</li>
-          <li><strong>Backend en ASP.NET sobre SQL Server</strong>, con esquema multiempresa (multi-tenant) que funciona en la nube y en local.</li>
-          <li><strong>Backend de negocio</strong> integrado: facturación, inventario, contabilidad, nómina y punto de venta.</li>
-          <li><strong>Monitoreo de errores</strong> con Sentry y control de acceso por permisos según el rol del usuario.</li>
+          <li data-en="<strong>Mobile app in .NET MAUI</strong> (C#) for Android, with the MVVM pattern and an encrypted local database on the phone."><strong>App móvil en .NET MAUI</strong> (C#) para Android, con patrón MVVM y una base de datos local cifrada en el teléfono.</li>
+          <li data-en="<strong>True offline-first:</strong> documents are stored locally and a queue uploads them automatically when the connection returns, with retries."><strong>Offline-first real:</strong> los documentos se guardan localmente y una cola los sube automáticamente cuando vuelve la conexión, con reintentos.</li>
+          <li data-en="<strong>Thermal Bluetooth printing</strong> using the ESC/POS protocol, to hand over the receipt on site."><strong>Impresión térmica por Bluetooth</strong> usando el protocolo ESC/POS, para entregar el recibo en el sitio.</li>
+          <li data-en="<strong>Backend in ASP.NET over SQL Server</strong>, with a multi-company (multi-tenant) scheme that runs in the cloud and on-premise."><strong>Backend en ASP.NET sobre SQL Server</strong>, con esquema multiempresa (multi-tenant) que funciona en la nube y en local.</li>
+          <li data-en="<strong>Business backend</strong> integrated: invoicing, inventory, accounting, payroll and point of sale."><strong>Backend de negocio</strong> integrado: facturación, inventario, contabilidad, nómina y punto de venta.</li>
+          <li data-en="<strong>Error monitoring</strong> with Sentry and permission-based access control by user role."><strong>Monitoreo de errores</strong> con Sentry y control de acceso por permisos según el rol del usuario.</li>
         </ul>
       </div>
       <div class="tags">
         <span>.NET MAUI</span><span>C#</span><span>VB.NET</span><span>ASP.NET</span><span>SQL Server</span>
         <span>LiteDB</span><span>MVVM</span><span>Offline-first</span><span>Multi-tenant</span>
-        <span>Bluetooth ESC/POS</span><span>Multi-tenant</span><span>Sentry</span>
+        <span>Bluetooth ESC/POS</span><span>Sentry</span>
       </div>
     </section>
 
     <section class="wrap cta">
-      <h2>¿Tienes un proyecto así en mente?</h2>
-      <p class="sub">Construyo apps de negocio, offline-first y con integraciones reales.</p>
+      <h2 data-en="Have a project like this in mind?">¿Tienes un proyecto así en mente?</h2>
+      <p class="sub" data-en="I build business apps, offline-first and with real integrations.">Construyo apps de negocio, offline-first y con integraciones reales.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <a class="btn btn-fill" href="https://wa.me/573128569219" target="_blank" rel="noopener">Hablemos por WhatsApp →</a>
-        <a class="btn btn-line" href="https://samit.com.co/" target="_blank" rel="noopener">Conocer SAMIT</a>
+        <a class="btn btn-fill" href="https://wa.me/573128569219" target="_blank" rel="noopener" data-en="Let's talk on WhatsApp →">Hablemos por WhatsApp →</a>
+        <a class="btn btn-line" href="https://samit.com.co/" target="_blank" rel="noopener" data-en="About SAMIT">Conocer SAMIT</a>
       </div>
     </section>
   </main>
 
   <footer>
-    <p><a class="volver" href="../">← Volver al portafolio</a></p>
-    <p style="margin-top:10px;">Sitio oficial: <a href="https://samit.com.co/" target="_blank" rel="noopener">samit.com.co</a></p>
-    <p style="margin-top:8px;">Suite empresarial SAMIT · Proyecto profesional de Cesar Carvajal · © 2026</p>
+    <p><a class="volver" href="../" data-en="← Back to portfolio">← Volver al portafolio</a></p>
+    <p style="margin-top:10px;" data-en="Official site: <a href='https://samit.com.co/' target='_blank' rel='noopener'>samit.com.co</a>">Sitio oficial: <a href="https://samit.com.co/" target="_blank" rel="noopener">samit.com.co</a></p>
+    <p style="margin-top:8px;" data-en="SAMIT business suite · A professional project by Cesar Carvajal · © 2026">Suite empresarial SAMIT · Proyecto profesional de Cesar Carvajal · © 2026</p>
   </footer>
+
+  <script>
+    (function(){
+      var KEY='site-lang';
+      function apply(l){
+        document.documentElement.lang=l;
+        document.querySelectorAll('[data-en]').forEach(function(el){
+          if(el.dataset.es===undefined){
+            el.dataset.es = (el.tagName==='META') ? el.getAttribute('content')
+                          : (el.tagName==='TITLE') ? el.textContent : el.innerHTML;
+          }
+          var v = (l==='en') ? el.getAttribute('data-en') : el.dataset.es;
+          if(el.tagName==='META'){ el.setAttribute('content', v); }
+          else if(el.tagName==='TITLE'){ document.title = v; }
+          else { el.innerHTML = v; }
+        });
+        document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+          b.setAttribute('aria-pressed', String(b.getAttribute('data-lang-btn')===l));
+        });
+        try{ localStorage.setItem(KEY,l); }catch(e){}
+      }
+      var saved; try{ saved=localStorage.getItem(KEY); }catch(e){}
+      var initial = saved || (((navigator.language||'es').toLowerCase().indexOf('es')===0)?'es':'en');
+      document.addEventListener('click', function(e){
+        var b = e.target.closest('[data-lang-btn]');
+        if(b){ e.preventDefault(); apply(b.getAttribute('data-lang-btn')); }
+      });
+      apply(initial);
+    })();
+  </script>
 </body>
 </html>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Turno — Agenda online con anticipo, adiós a los plantones | SaaS</title>
-  <meta name="description" content="Turno es un SaaS de agenda online para negocios de cita previa (peluquerías, spa, tatuajes, barberías, mascotas). Cobra un anticipo al reservar, manda recordatorios por WhatsApp y evita la doble reserva. Pruébalo en vivo." />
+  <title data-en="Turno — Online booking with deposit, goodbye no-shows | SaaS">Turno — Agenda online con anticipo, adiós a los plantones | SaaS</title>
+  <meta name="description" data-en="Turno is an online booking SaaS for appointment-based businesses (salons, spas, tattoo studios, barbershops, pets). It charges an upfront deposit, sends WhatsApp reminders and prevents double booking. Try it live." content="Turno es un SaaS de agenda online para negocios de cita previa (peluquerías, spa, tatuajes, barberías, mascotas). Cobra un anticipo al reservar, manda recordatorios por WhatsApp y evita la doble reserva. Pruébalo en vivo." />
   <meta name="author" content="Cesar Carvajal" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0f1220" />
@@ -37,6 +37,10 @@
     .btn-fill{background:var(--accent);color:#04211b}
     .btn-line{border:1px solid var(--line);color:var(--text)}
     .btn-wa{background:#25d366;color:#062b13}
+
+    .langfix{position:fixed;top:12px;right:12px;z-index:40;display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:rgba(15,18,32,.72);backdrop-filter:blur(8px)}
+    .langfix button{background:transparent;color:var(--muted);border:0;padding:7px 11px;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit;line-height:1}
+    .langfix button[aria-pressed="true"]{background:var(--accent);color:#04211b}
 
     header.hero{text-align:center;padding:70px 20px 52px;background:radial-gradient(60% 80% at 50% 0%,rgba(86,224,192,.16) 0%,transparent 60%)}
     .hero .ico{font-size:3.2rem}
@@ -75,21 +79,26 @@
   </style>
 </head>
 <body>
+  <div class="langfix" role="group" aria-label="Idioma / Language">
+    <button type="button" data-lang-btn="es">ES</button>
+    <button type="button" data-lang-btn="en">EN</button>
+  </div>
+
   <header class="hero">
     <div class="ico">📅</div>
-    <div class="badge-live">● En vivo · pruébalo ahora</div>
+    <div class="badge-live" data-en="● Live · try it now">● En vivo · pruébalo ahora</div>
     <h1>Turno</h1>
-    <p class="tagline">El SaaS de agenda que cobra el anticipo al reservar y le dice adiós a los plantones.</p>
+    <p class="tagline" data-en="The booking SaaS that charges a deposit upfront and says goodbye to no-shows.">El SaaS de agenda que cobra el anticipo al reservar y le dice adiós a los plantones.</p>
     <div class="links">
-      <a class="btn btn-fill" href="https://turno-two.vercel.app" target="_blank" rel="noopener">Probar gratis 30 días →</a>
-      <a class="btn btn-line" href="../">← Volver al portafolio</a>
+      <a class="btn btn-fill" href="https://turno-two.vercel.app" target="_blank" rel="noopener" data-en="Start free (30 days) →">Probar gratis 30 días →</a>
+      <a class="btn btn-line" href="../" data-en="← Back to portfolio">← Volver al portafolio</a>
     </div>
   </header>
 
   <main>
     <section class="problem">
       <div class="wrap">
-        <p>
+        <p data-en="Salons, spas, tattoo studios, barbershops or vets book over WhatsApp or on paper and <strong>lose money when people book and don't show up</strong>. With Turno, the client pays a <strong>deposit when booking</strong>: if they don't show, they lose it. That's how <strong>no-shows end</strong> and the business secures its income.">
           Peluquerías, spa, tatuajes, barberías o veterinarias agendan por WhatsApp o libreta
           y <strong>pierden plata cuando la gente reserva y no llega</strong>. Con Turno, el cliente
           paga un <strong>anticipo al reservar</strong>: si no llega, lo pierde. Así
@@ -99,56 +108,56 @@
     </section>
 
     <section class="wrap">
-      <h2>Qué hace</h2>
-      <p class="sub">Reservar → cobrar anticipo → recordar → si no paga, liberar el cupo.</p>
+      <h2 data-en="What it does">Qué hace</h2>
+      <p class="sub" data-en="Book → charge deposit → remind → if unpaid, release the slot.">Reservar → cobrar anticipo → recordar → si no paga, liberar el cupo.</p>
       <div class="features">
-        <div class="card"><div class="e">🗓️</div><h3>Reservas online 24/7</h3><p>Cada negocio tiene su página pública: el cliente elige servicio, profesional, fecha y hora libre, y reserva solo.</p></div>
-        <div class="card"><div class="e">💳</div><h3>Anticipo al reservar</h3><p>El cliente paga un anticipo al reservar (vía Wompi). Sin pago, el cupo se libera automáticamente.</p></div>
-        <div class="card"><div class="e">💬</div><h3>Recordatorios por WhatsApp</h3><p>Confirmación y recordatorio por WhatsApp para que nadie olvide su cita.</p></div>
-        <div class="card"><div class="e">🔒</div><h3>Sin doble reserva</h3><p>Dos personas no pueden tomar el mismo horario con el mismo profesional. Garantizado por la base de datos.</p></div>
-        <div class="card"><div class="e">👥</div><h3>Servicios y profesionales</h3><p>Configura tu catálogo de servicios, precios, duración y el equipo que los atiende.</p></div>
-        <div class="card"><div class="e">📇</div><h3>Clientes</h3><p>Cada negocio ve su historial de clientes y reservas en un solo lugar.</p></div>
-        <div class="card"><div class="e">📊</div><h3>Panel del dueño</h3><p>Agenda, servicios, precios, anticipo, horarios y reportes del negocio.</p></div>
-        <div class="card"><div class="e">🏪</div><h3>Multi-negocio</h3><p>Cada negocio gestiona lo suyo de forma aislada y cobra a su propia cuenta (multi-tenant).</p></div>
-        <div class="card"><div class="e">📲</div><h3>Se instala como app (PWA)</h3><p>Al ser una app web moderna, se puede "instalar" en el celular desde el navegador, sin pasar por la tienda.</p></div>
+        <div class="card"><div class="e">🗓️</div><h3 data-en="24/7 online booking">Reservas online 24/7</h3><p data-en="Each business gets its own public page: the client picks a service, professional, date and free time slot, and books on their own.">Cada negocio tiene su página pública: el cliente elige servicio, profesional, fecha y hora libre, y reserva solo.</p></div>
+        <div class="card"><div class="e">💳</div><h3 data-en="Deposit when booking">Anticipo al reservar</h3><p data-en="The client pays a deposit when booking (via Wompi). Without payment, the slot is released automatically.">El cliente paga un anticipo al reservar (vía Wompi). Sin pago, el cupo se libera automáticamente.</p></div>
+        <div class="card"><div class="e">💬</div><h3 data-en="WhatsApp reminders">Recordatorios por WhatsApp</h3><p data-en="Confirmation and reminder over WhatsApp so no one forgets their appointment.">Confirmación y recordatorio por WhatsApp para que nadie olvide su cita.</p></div>
+        <div class="card"><div class="e">🔒</div><h3 data-en="No double booking">Sin doble reserva</h3><p data-en="Two people can't take the same time slot with the same professional. Guaranteed by the database.">Dos personas no pueden tomar el mismo horario con el mismo profesional. Garantizado por la base de datos.</p></div>
+        <div class="card"><div class="e">👥</div><h3 data-en="Services and professionals">Servicios y profesionales</h3><p data-en="Set up your catalog of services, prices, duration and the team that delivers them.">Configura tu catálogo de servicios, precios, duración y el equipo que los atiende.</p></div>
+        <div class="card"><div class="e">📇</div><h3 data-en="Clients">Clientes</h3><p data-en="Each business sees its client and booking history in one place.">Cada negocio ve su historial de clientes y reservas en un solo lugar.</p></div>
+        <div class="card"><div class="e">📊</div><h3 data-en="Owner dashboard">Panel del dueño</h3><p data-en="Schedule, services, prices, deposit, hours and business reports.">Agenda, servicios, precios, anticipo, horarios y reportes del negocio.</p></div>
+        <div class="card"><div class="e">🏪</div><h3 data-en="Multi-business">Multi-negocio</h3><p data-en="Each business manages its own data in isolation and collects to its own account (multi-tenant).">Cada negocio gestiona lo suyo de forma aislada y cobra a su propia cuenta (multi-tenant).</p></div>
+        <div class="card"><div class="e">📲</div><h3 data-en="Installs as an app (PWA)">Se instala como app (PWA)</h3><p data-en="As a modern web app, it can be &quot;installed&quot; on the phone from the browser, without going through the store.">Al ser una app web moderna, se puede "instalar" en el celular desde el navegador, sin pasar por la tienda.</p></div>
       </div>
     </section>
 
     <section class="wrap">
-      <h2>¿Para quién es?</h2>
-      <p class="sub">Cualquier negocio que trabaje con cita previa.</p>
+      <h2 data-en="Who is it for?">¿Para quién es?</h2>
+      <p class="sub" data-en="Any business that works by appointment.">Cualquier negocio que trabaje con cita previa.</p>
       <div class="who">
-        <div><span>💇</span>Peluquerías y barberías</div>
-        <div><span>💆</span>Spa y estética</div>
-        <div><span>🎨</span>Tatuajes</div>
-        <div><span>🐾</span>Veterinarias</div>
-        <div><span>🦷</span>Consultorios</div>
+        <div><span>💇</span><span data-en="Salons &amp; barbershops">Peluquerías y barberías</span></div>
+        <div><span>💆</span><span data-en="Spa &amp; beauty">Spa y estética</span></div>
+        <div><span>🎨</span><span data-en="Tattoo studios">Tatuajes</span></div>
+        <div><span>🐾</span><span data-en="Vets">Veterinarias</span></div>
+        <div><span>🦷</span><span data-en="Clinics">Consultorios</span></div>
       </div>
     </section>
 
     <section class="wrap">
-      <h2>Próximas funciones</h2>
-      <p class="sub">El producto sigue creciendo.</p>
+      <h2 data-en="Coming soon">Próximas funciones</h2>
+      <p class="sub" data-en="The product keeps growing.">El producto sigue creciendo.</p>
       <div class="soon">
         <ul>
-          <li>Reportes e indicadores del negocio</li>
-          <li>Recordatorios automáticos programados</li>
-          <li>Más métodos de pago</li>
-          <li>Reseñas de clientes</li>
+          <li data-en="Business reports and metrics">Reportes e indicadores del negocio</li>
+          <li data-en="Scheduled automatic reminders">Recordatorios automáticos programados</li>
+          <li data-en="More payment methods">Más métodos de pago</li>
+          <li data-en="Customer reviews">Reseñas de clientes</li>
         </ul>
       </div>
     </section>
 
     <section class="wrap">
-      <h2>Cómo está hecha</h2>
-      <p class="sub">En palabras sencillas, sin tecnicismos de más.</p>
+      <h2 data-en="How it's built">Cómo está hecha</h2>
+      <p class="sub" data-en="In plain words, no extra jargon.">En palabras sencillas, sin tecnicismos de más.</p>
       <div class="tech">
         <ul>
-          <li><strong>Aplicación web</strong> con <strong>Next.js</strong> (React), desplegada en la nube (Vercel): se abre desde cualquier navegador sin instalar nada.</li>
-          <li><strong>Base de datos relacional</strong> (PostgreSQL con Supabase): ideal para datos conectados como negocios, servicios, clientes y citas.</li>
-          <li><strong>Anti doble-reserva real:</strong> la propia base de datos impide, con transacciones, que dos clientes tomen el mismo horario a la vez.</li>
-          <li><strong>Seguridad por negocio:</strong> cada cuenta solo ve y toca sus propios datos (aislamiento a nivel de base de datos).</li>
-          <li><strong>Pagos integrados</strong> con la pasarela Wompi: cada negocio recibe el anticipo en su propia cuenta.</li>
+          <li data-en="<strong>Web application</strong> with <strong>Next.js</strong> (React), deployed to the cloud (Vercel): it opens from any browser, nothing to install."><strong>Aplicación web</strong> con <strong>Next.js</strong> (React), desplegada en la nube (Vercel): se abre desde cualquier navegador sin instalar nada.</li>
+          <li data-en="<strong>Relational database</strong> (PostgreSQL with Supabase): ideal for connected data like businesses, services, clients and appointments."><strong>Base de datos relacional</strong> (PostgreSQL con Supabase): ideal para datos conectados como negocios, servicios, clientes y citas.</li>
+          <li data-en="<strong>Real anti-double-booking:</strong> the database itself prevents, with transactions, two clients from taking the same slot at once."><strong>Anti doble-reserva real:</strong> la propia base de datos impide, con transacciones, que dos clientes tomen el mismo horario a la vez.</li>
+          <li data-en="<strong>Per-business security:</strong> each account only sees and touches its own data (database-level isolation)."><strong>Seguridad por negocio:</strong> cada cuenta solo ve y toca sus propios datos (aislamiento a nivel de base de datos).</li>
+          <li data-en="<strong>Integrated payments</strong> with the Wompi gateway: each business receives the deposit in its own account."><strong>Pagos integrados</strong> con la pasarela Wompi: cada negocio recibe el anticipo en su propia cuenta.</li>
         </ul>
       </div>
       <div class="tags">
@@ -158,18 +167,48 @@
     </section>
 
     <section class="wrap cta">
-      <h2>Pruébalo tú mismo</h2>
-      <p class="sub">Está en línea con <strong>30 días de prueba gratis</strong>, sin instalar nada.</p>
+      <h2 data-en="Try it yourself">Pruébalo tú mismo</h2>
+      <p class="sub" data-en="It's online with a <strong>30-day free trial</strong>, nothing to install.">Está en línea con <strong>30 días de prueba gratis</strong>, sin instalar nada.</p>
       <div class="links" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <a class="btn btn-fill" href="https://turno-two.vercel.app" target="_blank" rel="noopener">Empezar gratis →</a>
-        <a class="btn btn-wa" href="https://wa.me/573128569219" target="_blank" rel="noopener">Quiero algo así para mi negocio</a>
+        <a class="btn btn-fill" href="https://turno-two.vercel.app" target="_blank" rel="noopener" data-en="Start free →">Empezar gratis →</a>
+        <a class="btn btn-wa" href="https://wa.me/573128569219" target="_blank" rel="noopener" data-en="I want something like this for my business">Quiero algo así para mi negocio</a>
       </div>
     </section>
   </main>
 
   <footer>
-    <p><a class="volver" href="../">← Volver al portafolio</a></p>
-    <p style="margin-top:10px;">Turno · Proyecto de Cesar Carvajal · © 2026</p>
+    <p><a class="volver" href="../" data-en="← Back to portfolio">← Volver al portafolio</a></p>
+    <p style="margin-top:10px;" data-en="Turno · A project by Cesar Carvajal · © 2026">Turno · Proyecto de Cesar Carvajal · © 2026</p>
   </footer>
+
+  <script>
+    (function(){
+      var KEY='site-lang';
+      function apply(l){
+        document.documentElement.lang=l;
+        document.querySelectorAll('[data-en]').forEach(function(el){
+          if(el.dataset.es===undefined){
+            el.dataset.es = (el.tagName==='META') ? el.getAttribute('content')
+                          : (el.tagName==='TITLE') ? el.textContent : el.innerHTML;
+          }
+          var v = (l==='en') ? el.getAttribute('data-en') : el.dataset.es;
+          if(el.tagName==='META'){ el.setAttribute('content', v); }
+          else if(el.tagName==='TITLE'){ document.title = v; }
+          else { el.innerHTML = v; }
+        });
+        document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+          b.setAttribute('aria-pressed', String(b.getAttribute('data-lang-btn')===l));
+        });
+        try{ localStorage.setItem(KEY,l); }catch(e){}
+      }
+      var saved; try{ saved=localStorage.getItem(KEY); }catch(e){}
+      var initial = saved || (((navigator.language||'es').toLowerCase().indexOf('es')===0)?'es':'en');
+      document.addEventListener('click', function(e){
+        var b = e.target.closest('[data-lang-btn]');
+        if(b){ e.preventDefault(); apply(b.getAttribute('data-lang-btn')); }
+      });
+      apply(initial);
+    })();
+  </script>
 </body>
 </html>
