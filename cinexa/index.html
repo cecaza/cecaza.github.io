@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-en="Cinexa — Mobile movie app with clean architecture (Flutter) | Cesar Carvajal">Cinexa — App móvil de cine con arquitectura limpia (Flutter) | Cesar Carvajal</title>
-  <meta name="description" data-en="Cinexa is a mobile app for movies and series built in Flutter with clean architecture: trending, search, favorites, person details and infinite scroll. Open source." content="Cinexa es una app móvil de películas y series hecha en Flutter con arquitectura limpia: tendencias, búsqueda, favoritos, detalle de personas y scroll infinito. Código abierto." />
+  <meta name="description" data-en="Cinexa is a mobile app for movies and series built in Flutter with clean architecture: trending, search, favorites, infinite scroll and a couples Match mode (Tinder-style, real-time with Firebase). Open source." content="Cinexa es una app móvil de películas y series hecha en Flutter con arquitectura limpia: tendencias, búsqueda, favoritos, scroll infinito y un modo Match en pareja (tipo Tinder, en tiempo real con Firebase). Código abierto." />
   <meta name="author" content="Cesar Carvajal" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0f1220" />
@@ -58,6 +58,15 @@
     .tech li::before{content:"▹";position:absolute;left:4px;color:var(--accent)}
     .tags{text-align:center;margin-top:24px}
     .tags span{display:inline-block;background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:999px;margin:3px}
+    .highlight{background:linear-gradient(160deg,rgba(255,180,84,.12),var(--card));border:1px solid rgba(255,180,84,.4);border-radius:22px;padding:30px 26px}
+    .highlight .tag{display:inline-block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);border:1px solid rgba(255,180,84,.4);background:rgba(255,180,84,.12);padding:3px 10px;border-radius:999px;margin-bottom:10px}
+    .highlight h2{text-align:left;margin-bottom:4px}
+    .highlight .lead{color:#d7daea;margin-top:8px}
+    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-top:18px}
+    .step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+    .step .n{width:26px;height:26px;border-radius:999px;display:grid;place-items:center;background:var(--accent);color:#0f1220;font-weight:900;font-size:.85rem}
+    .step h3{font-size:.98rem;margin:8px 0 4px}
+    .step p{color:var(--muted);font-size:.88rem}
     footer{text-align:center;padding:30px 20px 46px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
     .volver{display:inline-block;margin-top:8px;font-weight:800}
   </style>
@@ -89,6 +98,21 @@
     </section>
 
     <section class="wrap">
+      <div class="highlight">
+        <span class="tag" data-en="🍿 New · Couples match">🍿 Nuevo · Match en pareja</span>
+        <h2 data-en="A &quot;Tinder for movies&quot; for two">Un "Tinder de películas" para dos</h2>
+        <p class="lead" data-en="Can't decide what to watch together? You create a room, share a 6-character code and the other person joins. You both swipe movies like in Tinder and, when you both like the same one, it's a match!">¿No saben qué ver con su pareja? Creas una sala, compartes un código de 6 caracteres y la otra persona se une. Ambos van deslizando películas como en Tinder y, cuando los dos dan "me gusta" a la misma, ¡salta el match!</p>
+        <div class="steps">
+          <div class="step"><div class="n">1</div><h3 data-en="Create a room">Crea una sala</h3><p data-en="You get a 6-character code to share.">Obtienes un código de 6 caracteres para compartir.</p></div>
+          <div class="step"><div class="n">2</div><h3 data-en="Your partner joins">Tu pareja se une</h3><p data-en="They enter the code and connect in real time.">Entra con el código y se conecta en tiempo real.</p></div>
+          <div class="step"><div class="n">3</div><h3 data-en="Swipe together">Deslizan juntos</h3><p data-en="Like or dislike each movie, just like Tinder.">Me gusta / no me gusta en cada película, como en Tinder.</p></div>
+          <div class="step"><div class="n">4</div><h3 data-en="It's a match!">¡Match!</h3><p data-en="If you both like the same one, that's the one to watch.">Si a los dos les gusta la misma, ¡esa ven!</p></div>
+        </div>
+        <p style="color:var(--muted);font-size:.9rem;margin-top:14px" data-en="You can also filter by genre and review all your matches in one gallery.">También pueden filtrar por género y ver todos sus matches en una galería.</p>
+      </div>
+    </section>
+
+    <section class="wrap">
       <h2 data-en="What it does">Qué hace</h2>
       <p class="sub" data-en="A smooth experience to explore the whole catalog.">Una experiencia fluida para explorar todo el catálogo.</p>
       <div class="features">
@@ -111,11 +135,13 @@
           <li data-en="<strong>Movie data</strong> from a large public database of movies and series (TMDB), always current."><strong>Datos de cine</strong> tomados de una gran base pública de películas y series (TMDB), siempre al día.</li>
           <li data-en="<strong>Account and favorites:</strong> sign-in and a favorites list saved to your profile."><strong>Cuenta y favoritos:</strong> inicio de sesión y lista de favoritos que se guarda en tu perfil.</li>
           <li data-en="<strong>Polished details:</strong> custom icons and splash screen, themes and languages."><strong>Detalle cuidado:</strong> íconos y pantalla de inicio propios, temas e idiomas.</li>
+          <li data-en="<strong>Couples Match mode</strong> (Tinder-style): real-time rooms with Firebase (anonymous sign-in + Firestore) and a custom swipe deck; a transaction detects the match when both like the same movie."><strong>Modo Match en pareja</strong> (tipo Tinder): salas en tiempo real con Firebase (sesión anónima + Firestore) y un mazo de tarjetas propio; una transacción detecta el match cuando ambos dan me gusta.</li>
         </ul>
       </div>
       <div class="tags">
         <span>Flutter</span><span>Dart</span><span>Clean Architecture</span>
         <span>TMDB</span><span>Android</span><span data-en="Dependency injection">Inyección de dependencias</span>
+        <span>Firebase</span><span>Firestore</span><span data-en="Real-time">Tiempo real</span><span>Provider</span>
       </div>
     </section>
   </main>
