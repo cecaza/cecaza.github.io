@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-en="Control — Verify payment receipts on-device with OCR (Flutter) | Cesar Carvajal">Control — Verifica comprobantes de pago en el dispositivo con OCR (Flutter) | Cesar Carvajal</title>
+  <meta name="description" data-en="Control is a Flutter app that reads payment-receipt screenshots with on-device OCR (Google ML Kit), extracts amount, date, sender and reference, warns about receipts sent to a different number and detects duplicates. 100% on-device, no servers." content="Control es una app Flutter que lee capturas de comprobantes de pago con OCR en el dispositivo (Google ML Kit), extrae valor, fecha, remitente y referencia, avisa si el comprobante fue enviado a otro número y detecta duplicados. 100% en el dispositivo, sin servidores." />
+  <meta name="author" content="Cesar Carvajal" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0f1220" />
+  <link rel="canonical" href="https://cecaza.github.io/control/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Control — Verifica comprobantes de pago en el dispositivo (Flutter)" />
+  <meta property="og:description" content="App Flutter con OCR en el dispositivo para organizar y verificar comprobantes de pago. Clean architecture, 100% offline." />
+  <meta property="og:url" content="https://cecaza.github.io/control/" />
+  <meta property="og:image" content="https://cecaza.github.io/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" href="img/control-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#0f1220; --bg-soft:#171a2b; --card:#1c2034; --line:#2c3252;
+      --text:#eef0f8; --muted:#9aa0c0; --accent:#2fbf8f; --accent-2:#ff7a45;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:"Nunito",-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
+    a{color:var(--accent)}
+    .wrap{max-width:920px;margin:0 auto;padding:0 22px}
+    .langfix{position:fixed;top:12px;right:12px;z-index:40;display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:rgba(15,18,32,.72);backdrop-filter:blur(8px)}
+    .langfix button{background:transparent;color:var(--muted);border:0;padding:7px 11px;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit;line-height:1}
+    .langfix button[aria-pressed="true"]{background:var(--accent);color:#0f1220}
+    header.hero{text-align:center;padding:76px 20px 56px;background:radial-gradient(60% 80% at 50% 0%,rgba(47,191,143,.16) 0%,transparent 60%)}
+    .hero .logo{width:104px;height:104px;border-radius:24px;margin:0 auto 4px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+    .hero h1{font-size:clamp(2rem,6vw,2.8rem);font-weight:800;margin:10px 0 6px}
+    .hero .tagline{font-size:1.15rem;color:var(--muted);margin-bottom:14px}
+    .hero .status{display:inline-block;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-2);border:1px solid rgba(255,122,69,.4);background:rgba(255,122,69,.12);padding:5px 13px;border-radius:999px;margin-bottom:24px}
+    .btn{display:inline-block;font-weight:800;text-decoration:none;padding:13px 26px;border-radius:999px;transition:transform .15s ease}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-line{border:1px solid var(--line);color:var(--text)}
+    section{padding:48px 0}
+    h2{font-size:1.6rem;font-weight:800;text-align:center;margin-bottom:6px}
+    .sub{text-align:center;color:var(--muted);margin-bottom:30px}
+    .intro{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .intro p{max-width:700px;margin:0 auto;text-align:center;font-size:1.08rem;color:#d7daea}
+    .intro strong{color:var(--accent)}
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+    .card .e{font-size:1.7rem}
+    .card h3{font-size:1.05rem;margin:8px 0 4px}
+    .card p{color:var(--muted);font-size:.94rem}
+    .tech{background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:30px 26px;margin:0 4px}
+    .tech ul{list-style:none;margin-top:10px}
+    .tech li{padding:8px 0 8px 28px;position:relative;color:#d7daea}
+    .tech li::before{content:"▹";position:absolute;left:4px;color:var(--accent)}
+    .tags{text-align:center;margin-top:24px}
+    .tags span{display:inline-block;background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:999px;margin:3px}
+    .highlight{background:linear-gradient(160deg,rgba(255,122,69,.12),var(--card));border:1px solid rgba(255,122,69,.4);border-radius:22px;padding:30px 26px}
+    .highlight .tag{display:inline-block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-2);border:1px solid rgba(255,122,69,.4);background:rgba(255,122,69,.12);padding:3px 10px;border-radius:999px;margin-bottom:10px}
+    .highlight h2{text-align:left;margin-bottom:4px}
+    .highlight .lead{color:#d7daea;margin-top:8px}
+    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-top:18px}
+    .step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+    .step .n{width:26px;height:26px;border-radius:999px;display:grid;place-items:center;background:var(--accent);color:#0f1220;font-weight:900;font-size:.85rem}
+    .step h3{font-size:.98rem;margin:8px 0 4px}
+    .step p{color:var(--muted);font-size:.88rem}
+    .note{max-width:700px;margin:22px auto 0;text-align:center;color:var(--muted);font-size:.9rem;background:var(--bg-soft);border:1px solid var(--line);border-radius:14px;padding:16px 20px}
+    footer{text-align:center;padding:30px 20px 46px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+    .volver{display:inline-block;margin-top:8px;font-weight:800}
+  </style>
+</head>
+<body>
+  <div class="langfix" role="group" aria-label="Idioma / Language">
+    <button type="button" data-lang-btn="es">ES</button>
+    <button type="button" data-lang-btn="en">EN</button>
+  </div>
+
+  <header class="hero">
+    <img class="logo" src="img/control-icon.png" alt="Icono de Control" width="104" height="104" />
+    <h1>Control</h1>
+    <p class="tagline" data-en="Payment receipts, instantly · read, organize and verify from a screenshot">Comprobantes al instante · lee, organiza y verifica desde un pantallazo</p>
+    <div class="status" data-en="In development · working MVP">En desarrollo · MVP funcional</div>
+    <div>
+      <a class="btn btn-line" href="../" data-en="← Back to portfolio">← Volver al portafolio</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div class="wrap">
+        <p data-en="In many small businesses a customer pays by transfer (Nequi and others) and shows the <strong>receipt screenshot</strong>. Control reads that screenshot with <strong>on-device OCR</strong>, pulls out the amount, date, sender and reference, and warns you if the transfer went to a <strong>different number</strong> — a common recycled-screenshot trick. Everything runs on the phone: <strong>no servers, no internet, no bank connection</strong>.">
+          En muchos negocios el cliente paga por transferencia (Nequi y otros) y muestra el
+          <strong>pantallazo del comprobante</strong>. Control lee ese pantallazo con
+          <strong>OCR en el dispositivo</strong>, saca el valor, la fecha, el remitente y la
+          referencia, y te avisa si la transferencia fue a un <strong>número distinto</strong> —
+          el truco típico del pantallazo reciclado. Todo ocurre en el teléfono:
+          <strong>sin servidores, sin internet y sin conexión con los bancos</strong>.
+        </p>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="highlight">
+        <span class="tag" data-en="🛡️ Anti-fraud check">🛡️ Verificación anti-fraude</span>
+        <h2 data-en="Was it really sent to you?">¿De verdad te lo enviaron a ti?</h2>
+        <p class="lead" data-en="You register your business's phone numbers once. When you import a receipt, Control compares the destination number: if it matches, all good; if it went somewhere else, it flags the receipt so you can double-check before handing over the product.">
+          Registras una vez los celulares de tu negocio. Al importar un comprobante, Control compara
+          el número de destino: si coincide, todo bien; si fue a otro lado, marca el comprobante para
+          que lo revises antes de entregar el producto.
+        </p>
+        <div class="steps">
+          <div class="step"><div class="n">1</div><h3 data-en="Register your numbers">Registra tus números</h3><p data-en="Your business's phones, in onboarding or Settings.">Los celulares del negocio, en el onboarding u Opciones.</p></div>
+          <div class="step"><div class="n">2</div><h3 data-en="Import the screenshot">Importa el pantallazo</h3><p data-en="One or several from the gallery, processed as a batch.">Uno o varios desde la galería, en lote.</p></div>
+          <div class="step"><div class="n">3</div><h3 data-en="It reads and compares">Lee y compara</h3><p data-en="OCR extracts the data and checks the destination number.">El OCR extrae los datos y revisa el número de destino.</p></div>
+          <div class="step"><div class="n">4</div><h3 data-en="It warns you">Te avisa</h3><p data-en="If it went to another number, the receipt is flagged.">Si fue a otro número, el comprobante queda marcado.</p></div>
+        </div>
+        <p style="color:var(--muted);font-size:.9rem;margin-top:14px" data-en="It's conservative: it only asserts a match when the full number is visible, to avoid false alarms.">Es conservadora: solo afirma la coincidencia cuando el número completo es visible, para evitar falsas alarmas.</p>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2 data-en="What it does">Qué hace</h2>
+      <p class="sub" data-en="From a pile of screenshots to money you can actually track.">De un montón de pantallazos a un ingreso que sí puedes controlar.</p>
+      <div class="features">
+        <div class="card"><div class="e">🖼️</div><h3 data-en="Batch import">Importación en lote</h3><p data-en="Bring in one or many screenshots from the gallery at once.">Trae una o muchas capturas de la galería de una sola vez.</p></div>
+        <div class="card"><div class="e">🔍</div><h3 data-en="On-device OCR">OCR en el dispositivo</h3><p data-en="Reads amount, date/time, sender, destination phone and reference with Google ML Kit — no internet.">Lee valor, fecha/hora, remitente, celular destino y referencia con Google ML Kit, sin internet.</p></div>
+        <div class="card"><div class="e">✅</div><h3 data-en="Review before saving">Revisión antes de guardar</h3><p data-en="OCR is never perfect: you confirm or fix each receipt before it's stored.">El OCR nunca es perfecto: confirmas o corriges cada comprobante antes de guardarlo.</p></div>
+        <div class="card"><div class="e">🧬</div><h3 data-en="Duplicate detection">Detección de duplicados</h3><p data-en="Spots repeats by image hash, reference or amount + date.">Detecta repetidos por hash de imagen, referencia o valor + fecha.</p></div>
+        <div class="card"><div class="e">📊</div><h3 data-en="Dashboard">Tablero</h3><p data-en="Received today, this week and this month, number of transfers and average.">Recibido hoy, esta semana y este mes, número de transferencias y promedio.</p></div>
+        <div class="card"><div class="e">🗂️</div><h3 data-en="History &amp; search">Historial y búsqueda</h3><p data-en="Search by name, reference or amount, filter by period, edit or open the original screenshot.">Busca por nombre, referencia o valor, filtra por período, edita o abre la captura original.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2 data-en="How it's built">Cómo está hecha</h2>
+      <p class="sub" data-en="In plain words.">En palabras sencillas.</p>
+      <div class="tech">
+        <ul>
+          <li data-en="<strong>Mobile app with Flutter</strong> (Dart) for Android and iOS, from a single codebase."><strong>App móvil con Flutter</strong> (Dart) para Android e iOS, con un solo código base.</li>
+          <li data-en="<strong>Clean architecture per feature:</strong> the domain (rules and receipt parsing) doesn't depend on Flutter or the database, so it's easy to test with real receipt texts."><strong>Arquitectura limpia por feature:</strong> el dominio (reglas y lectura de comprobantes) no depende de Flutter ni de la base de datos, así se prueba fácil con textos de comprobantes reales.</li>
+          <li data-en="<strong>Multi-bank by design:</strong> each bank is a parser that plugs into a registry. Nequi today; adding one is a class plus a line. Every receipt stores its source."><strong>Multi-banco por diseño:</strong> cada banco es un parser que se enchufa a un registro. Nequi hoy; sumar otro es una clase más una línea. Cada comprobante guarda su origen.</li>
+          <li data-en="<strong>Money in cents (integers):</strong> never floating point, to avoid rounding errors."><strong>Dinero en centavos (enteros):</strong> nunca decimales flotantes, para evitar errores de redondeo.</li>
+          <li data-en="<strong>Local database (SQLite):</strong> versioned with tested migrations; efficient aggregation for the dashboard and filters."><strong>Base de datos local (SQLite):</strong> versionada con migraciones probadas; agregaciones eficientes para el tablero y los filtros.</li>
+          <li data-en="<strong>Privacy by design:</strong> screenshots are copied into the app's storage and everything stays on the phone. No servers, no bank connection; it organizes information and doesn't certify the authenticity of the receipts."><strong>Privacidad por diseño:</strong> las capturas se copian al almacenamiento de la app y todo se queda en el teléfono. Sin servidores ni conexión con bancos; organiza información y no certifica la autenticidad de los comprobantes.</li>
+        </ul>
+      </div>
+      <div class="tags">
+        <span>Flutter</span><span>Dart</span><span>Clean Architecture</span>
+        <span>Google ML Kit</span><span>OCR</span><span>SQLite / sqflite</span>
+        <span>Riverpod</span><span data-en="On-device">En el dispositivo</span><span>Android · iOS</span>
+      </div>
+
+      <p class="note" data-en="Development method: I designed the architecture and made the technical decisions, and I sped up the build with <strong>AI-assisted development</strong> — reviewing and validating every part. AI as a multiplier, with human judgment.">
+        Forma de trabajo: diseñé la arquitectura y tomé las decisiones técnicas, y aceleré la
+        construcción con <strong>desarrollo asistido por IA</strong> — revisando y validando cada
+        parte. La IA como multiplicador, con criterio humano.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p><a class="volver" href="../" data-en="← Back to portfolio">← Volver al portafolio</a></p>
+    <p style="margin-top:10px;" data-en="Control · A project by Cesar Carvajal · © 2026">Control · Proyecto de Cesar Carvajal · © 2026</p>
+  </footer>
+
+  <script>
+    (function(){
+      var KEY='site-lang';
+      function apply(l){
+        document.documentElement.lang=l;
+        document.querySelectorAll('[data-en]').forEach(function(el){
+          if(el.dataset.es===undefined){
+            el.dataset.es = (el.tagName==='META') ? el.getAttribute('content')
+                          : (el.tagName==='TITLE') ? el.textContent : el.innerHTML;
+          }
+          var v = (l==='en') ? el.getAttribute('data-en') : el.dataset.es;
+          if(el.tagName==='META'){ el.setAttribute('content', v); }
+          else if(el.tagName==='TITLE'){ document.title = v; }
+          else { el.innerHTML = v; }
+        });
+        document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+          b.setAttribute('aria-pressed', String(b.getAttribute('data-lang-btn')===l));
+        });
+        try{ localStorage.setItem(KEY,l); }catch(e){}
+      }
+      var saved; try{ saved=localStorage.getItem(KEY); }catch(e){}
+      var initial = saved || (((navigator.language||'es').toLowerCase().indexOf('es')===0)?'es':'en');
+      document.addEventListener('click', function(e){
+        var b = e.target.closest('[data-lang-btn]');
+        if(b){ e.preventDefault(); apply(b.getAttribute('data-lang-btn')); }
+      });
+      apply(initial);
+    })();
+  </script>
+</body>
+</html>
