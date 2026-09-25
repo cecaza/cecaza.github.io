@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-en="Time &amp; Attendance — biometric terminal to phone (Flutter + .NET 10) | Cesar Carvajal">Control de Horarios — del lector biométrico al celular (Flutter + .NET 10) | Cesar Carvajal</title>
+  <meta name="description" data-en="Time and attendance system in production: a Flutter app (Android, installable web/PWA and Windows) and its own ASP.NET Core API on .NET 10, fed by the office fingerprint/face biometric terminal. Late arrivals, absences, time-off and overtime requests, and Web Push notifications without Firebase." content="Sistema de control de asistencia en producción: app Flutter (Android, web instalable/PWA y Windows) y API propia en ASP.NET Core sobre .NET 10, alimentada por el lector biométrico de huella y rostro de la oficina. Tardanzas, ausencias, permisos y horas extra, y notificaciones Web Push sin Firebase." />
+  <meta name="author" content="Cesar Carvajal" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0f1220" />
+  <link rel="canonical" href="https://cecaza.github.io/horarios/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Control de Horarios — del lector biométrico al celular (Flutter + .NET 10)" />
+  <meta property="og:description" content="App Flutter multiplataforma y API propia en .NET 10 que leen el terminal biométrico de la oficina. En producción." />
+  <meta property="og:url" content="https://cecaza.github.io/horarios/" />
+  <meta property="og:image" content="https://cecaza.github.io/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#0f1220; --bg-soft:#171a2b; --card:#1c2034; --line:#2c3252;
+      --text:#eef0f8; --muted:#9aa0c0; --accent:#4ea8ff; --accent-2:#f5b544;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:"Nunito",-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
+    a{color:var(--accent)}
+    .wrap{max-width:920px;margin:0 auto;padding:0 22px}
+    .langfix{position:fixed;top:12px;right:12px;z-index:40;display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:rgba(15,18,32,.72);backdrop-filter:blur(8px)}
+    .langfix button{background:transparent;color:var(--muted);border:0;padding:7px 11px;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit;line-height:1}
+    .langfix button[aria-pressed="true"]{background:var(--accent);color:#0f1220}
+    header.hero{text-align:center;padding:76px 20px 56px;background:radial-gradient(60% 80% at 50% 0%,rgba(78,168,255,.16) 0%,transparent 60%)}
+    .hero .logo{width:104px;height:104px;border-radius:24px;margin:0 auto 4px;display:grid;place-items:center;font-size:3rem;background:var(--card);border:1px solid var(--line);box-shadow:0 12px 30px rgba(0,0,0,.45)}
+    .hero h1{font-size:clamp(2rem,6vw,2.8rem);font-weight:800;margin:10px 0 6px}
+    .hero .tagline{font-size:1.15rem;color:var(--muted);margin-bottom:14px}
+    .hero .status{display:inline-block;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);border:1px solid rgba(78,168,255,.4);background:rgba(78,168,255,.12);padding:5px 13px;border-radius:999px;margin-bottom:24px}
+    .btn{display:inline-block;font-weight:800;text-decoration:none;padding:13px 26px;border-radius:999px;transition:transform .15s ease;margin:4px}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-line{border:1px solid var(--line);color:var(--text)}
+    section{padding:48px 0}
+    h2{font-size:1.6rem;font-weight:800;text-align:center;margin-bottom:6px}
+    .sub{text-align:center;color:var(--muted);margin-bottom:30px}
+    .intro{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .intro p{max-width:700px;margin:0 auto;text-align:center;font-size:1.08rem;color:#d7daea}
+    .intro strong{color:var(--accent)}
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+    .card .e{font-size:1.7rem}
+    .card h3{font-size:1.05rem;margin:8px 0 4px}
+    .card p{color:var(--muted);font-size:.94rem}
+    .tech{background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:30px 26px;margin:0 4px}
+    .tech ul{list-style:none;margin-top:10px}
+    .tech li{padding:8px 0 8px 28px;position:relative;color:#d7daea}
+    .tech li::before{content:"▹";position:absolute;left:4px;color:var(--accent)}
+    .tags{text-align:center;margin-top:24px}
+    .tags span{display:inline-block;background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:999px;margin:3px}
+    .highlight{background:linear-gradient(160deg,rgba(245,181,68,.12),var(--card));border:1px solid rgba(245,181,68,.4);border-radius:22px;padding:30px 26px}
+    .highlight .tag{display:inline-block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-2);border:1px solid rgba(245,181,68,.4);background:rgba(245,181,68,.12);padding:3px 10px;border-radius:999px;margin-bottom:10px}
+    .highlight h2{text-align:left;margin-bottom:4px}
+    .highlight .lead{color:#d7daea;margin-top:8px}
+    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-top:18px}
+    .step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+    .step .n{width:26px;height:26px;border-radius:999px;display:grid;place-items:center;background:var(--accent);color:#0f1220;font-weight:900;font-size:.85rem}
+    .step h3{font-size:.98rem;margin:8px 0 4px}
+    .step p{color:var(--muted);font-size:.88rem}
+    .note{max-width:700px;margin:22px auto 0;text-align:center;color:var(--muted);font-size:.9rem;background:var(--bg-soft);border:1px solid var(--line);border-radius:14px;padding:16px 20px}
+    footer{text-align:center;padding:30px 20px 46px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+    .volver{display:inline-block;margin-top:8px;font-weight:800}
+  </style>
+</head>
+<body>
+  <div class="langfix" role="group" aria-label="Idioma / Language">
+    <button type="button" data-lang-btn="es">ES</button>
+    <button type="button" data-lang-btn="en">EN</button>
+  </div>
+
+  <header class="hero">
+    <div class="logo" aria-hidden="true">🕘</div>
+    <h1 data-en="Time &amp; Attendance">Control de Horarios</h1>
+    <p class="tagline" data-en="From the office biometric terminal to everyone's phone">Del lector biométrico de la oficina al celular de cada quien</p>
+    <div class="status" data-en="● In production · in daily internal use">● En producción · en uso interno a diario</div>
+    <div>
+      <a class="btn btn-line" href="../" data-en="← Back to portfolio">← Volver al portafolio</a>
+      <a class="btn btn-line" href="https://github.com/cecaza/ControlTurnos" target="_blank" rel="noopener" data-en="View code on GitHub">Ver código en GitHub</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div class="wrap">
+        <p data-en="The office has a fingerprint and face terminal, but its data stayed <strong>locked inside the device</strong>, on the office network: to know who arrived late you had to walk over and export a file. This system takes those check-ins <strong>out to a server</strong> and turns them into something anyone can read from their phone — each employee sees their own hours, and whoever runs the team sees everyone's. It also handles what a reader can never know: <strong>time-off and overtime requests</strong>, approved from the app.">
+          La oficina tiene un lector de huella y rostro, pero sus datos se quedaban
+          <strong>encerrados en el aparato</strong>, en la red de la oficina: para saber quién llegó
+          tarde tocaba ir hasta allá y exportar un archivo. Este sistema saca esas marcaciones
+          <strong>hacia un servidor</strong> y las convierte en algo que cualquiera consulta desde el
+          celular — cada empleado ve su horario y quien dirige el equipo los ve todos. Además resuelve
+          lo que un lector nunca puede saber: los <strong>permisos y las horas extra</strong>,
+          aprobados desde la app.
+        </p>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="highlight">
+        <span class="tag" data-en="🔌 The interesting part">🔌 Lo interesante</span>
+        <h2 data-en="Reaching the reader without opening the office">Llegar al lector sin abrir la oficina</h2>
+        <p class="lead" data-en="The server lives on the internet and the reader lives on the office network — and the server cannot reach in. The usual answers are a VPN, a static IP or opening ports, and all three mean touching the company's network. Instead, it is the <strong>reader that pushes</strong> each check-in out to the server the moment it happens. Nothing gets opened, nothing gets exposed, and the data is up to date without anyone exporting anything.">
+          El servidor vive en internet y el lector vive en la red de la oficina — y el servidor no
+          puede entrar ahí. Las respuestas de siempre son una VPN, una IP fija o abrir puertos, y las
+          tres implican tocar la red de la empresa. En vez de eso, es el <strong>lector el que
+          empuja</strong> cada marcación hacia el servidor en el momento en que ocurre. No se abre
+          nada, no se expone nada, y los datos están al día sin que nadie exporte un archivo.
+        </p>
+        <div class="steps">
+          <div class="step"><div class="n">1</div><h3 data-en="Someone checks in">Alguien marca</h3><p data-en="Fingerprint or face on the office terminal.">Huella o rostro en el lector de la oficina.</p></div>
+          <div class="step"><div class="n">2</div><h3 data-en="The reader sends it out">El lector lo envía</h3><p data-en="It posts the event to the server by itself, over HTTPS.">Manda el evento al servidor por su cuenta, por HTTPS.</p></div>
+          <div class="step"><div class="n">3</div><h3 data-en="The server files it">El servidor lo guarda</h3><p data-en="It reads the event, ignores repeats and stores the check-in.">Lee el evento, descarta los repetidos y guarda la marcación.</p></div>
+          <div class="step"><div class="n">4</div><h3 data-en="The app shows it">La app lo muestra</h3><p data-en="Entry, exit, lateness and absences, from anywhere.">Entrada, salida, tardanzas y ausencias, desde donde sea.</p></div>
+        </div>
+        <p style="color:var(--muted);font-size:.9rem;margin-top:14px" data-en="The server always answers OK so the reader never retries in a loop, and it keeps the last raw payloads so a misconfigured terminal can be diagnosed without being in front of it.">
+          El servidor siempre responde OK para que el lector no reintente sin fin, y guarda los últimos
+          envíos tal como llegaron: así se diagnostica un lector mal configurado sin estar frente a él.
+        </p>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2 data-en="What it does">Qué hace</h2>
+      <p class="sub" data-en="Everything a workday needs, not just the raw check-ins.">Todo lo que necesita una jornada, no solo las marcaciones en crudo.</p>
+      <div class="features">
+        <div class="card"><div class="e">🕘</div><h3 data-en="The day, read properly">El día, bien leído</h3><p data-en="It splits check-ins into morning and afternoon, takes the first as the entry and the last as the exit, and merges repeats seconds apart.">Reparte las marcaciones en mañana y tarde, toma la primera como entrada y la última como salida, y une las repetidas con segundos de diferencia.</p></div>
+        <div class="card"><div class="e">⏰</div><h3 data-en="Lateness and absences">Tardanzas y ausencias</h3><p data-en="Against the company's real schedule, including the shorter Saturday. It also shows who simply never checked in.">Contra el horario real de la empresa, con el sábado más corto incluido. También muestra a quien sencillamente no marcó.</p></div>
+        <div class="card"><div class="e">📝</div><h3 data-en="Requests with approval">Peticiones con aprobación</h3><p data-en="An employee asks for time off or overtime, attaches a photo or a document, and an admin accepts or rejects it. Only accepted ones change the calculation.">Un empleado pide un permiso u horas extra, adjunta una foto o un documento, y un administrador acepta o rechaza. Solo las aceptadas cambian el cálculo.</p></div>
+        <div class="card"><div class="e">🔔</div><h3 data-en="Notifications">Avisos</h3><p data-en="A new request notifies the admins; the answer notifies the employee. On Android and on the phone's home screen on iPhone.">Una petición nueva avisa a los administradores; la respuesta le avisa al empleado. En Android y en la pantalla de inicio del iPhone.</p></div>
+        <div class="card"><div class="e">👥</div><h3 data-en="Employees, without paperwork">Empleados, sin papeleo</h3><p data-en="They create themselves the first time they check in. You can rename them, deactivate whoever left, or exclude from the schedule anyone who doesn't have to keep one.">Se crean solos la primera vez que marcan. Se les puede cambiar el nombre, desactivar a quien se retiró o quitarle el control de horario a quien no debe cumplirlo.</p></div>
+        <div class="card"><div class="e">📅</div><h3 data-en="Company-wide exceptions">Novedades de la empresa</h3><p data-en="Training sessions, holidays or a one-off change of entry or exit time, for one person or for everyone, applied to the calculation.">Capacitaciones, festivos o un cambio puntual de la hora de entrada o salida, para una persona o para todos, aplicados al cálculo.</p></div>
+        <div class="card"><div class="e">🔐</div><h3 data-en="Each one sees their own">Cada quien ve lo suyo</h3><p data-en="An admin sees the whole team and answers requests. An employee only sees their own hours and their own requests — enforced on the server, not just hidden in the UI.">Un administrador ve todo el equipo y responde las peticiones. Un empleado solo ve su horario y sus peticiones — y eso lo impone el servidor, no solo la pantalla.</p></div>
+        <div class="card"><div class="e">📱</div><h3 data-en="One codebase, three platforms">Un código, tres plataformas</h3><p data-en="Android, installable web (PWA) for iPhone and Windows — the same app, built once.">Android, web instalable (PWA) para iPhone y Windows — la misma app, hecha una sola vez.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2 data-en="How it's built">Cómo está hecha</h2>
+      <p class="sub" data-en="In plain words.">En palabras sencillas.</p>
+      <div class="tech">
+        <ul>
+          <li data-en="<strong>App in Flutter</strong> (Dart): a single codebase running on Android, on the web as an installable PWA, and on Windows."><strong>App en Flutter</strong> (Dart): un solo código que corre en Android, en la web como PWA instalable y en Windows.</li>
+          <li data-en="<strong>Its own API in ASP.NET Core</strong> (.NET 10, Minimal APIs) with SQLite and Dapper. It also serves the web version, so app and backend ship together."><strong>API propia en ASP.NET Core</strong> (.NET 10, Minimal APIs) con SQLite y Dapper. También sirve la versión web, así que app y backend se publican juntos.</li>
+          <li data-en="<strong>Biometric terminal integration (Hikvision, ISAPI):</strong> the server accepts whichever shape the terminal sends the event in — multipart, JSON or XML — and normalizes it."><strong>Integración con el lector biométrico (Hikvision, ISAPI):</strong> el servidor acepta el evento en cualquiera de las formas en que el lector lo manda —multipart, JSON o XML— y lo normaliza.</li>
+          <li data-en="<strong>Sessions that can be revoked instantly:</strong> the token carries a seal that changes with every new password. Removing someone's access or changing their password takes effect on the next request, not twelve hours later."><strong>Sesiones que se pueden revocar al instante:</strong> el token lleva un sello que cambia con cada clave nueva. Quitarle el acceso a alguien o cambiarle la clave surte efecto en la siguiente petición, no doce horas después.</li>
+          <li data-en="<strong>Notifications without Firebase:</strong> Web Push implemented by hand on the server (VAPID, RFC 8291) for the web and the iPhone, and a background worker on Android. No dependency on a third-party messaging service."><strong>Notificaciones sin Firebase:</strong> Web Push implementado a mano en el servidor (VAPID, RFC 8291) para la web y el iPhone, y un trabajo en segundo plano en Android. Sin depender de un servicio de mensajería de terceros.</li>
+          <li data-en="<strong>Automated tests:</strong> the schedule rules are tested in Dart, and the server with xUnit — event parsing, the repository and a full round trip through the real API."><strong>Pruebas automatizadas:</strong> las reglas del horario se prueban en Dart, y el servidor con xUnit — el parseo de los eventos, el repositorio y un recorrido completo por la API real.</li>
+          <li data-en="<strong>Self-contained deployment on IIS:</strong> it installs as one more application on a server that was already running other sites, without touching them and without needing a particular .NET runtime installed."><strong>Despliegue autocontenido en IIS:</strong> se instala como una aplicación más en un servidor que ya tenía otros sitios corriendo, sin tocarlos y sin exigir que el servidor tenga instalado un runtime concreto de .NET.</li>
+        </ul>
+      </div>
+      <div class="tags">
+        <span>Flutter</span><span>Dart</span><span>.NET 10</span><span>ASP.NET Core</span>
+        <span>Minimal APIs</span><span>SQLite</span><span>Dapper</span><span>Hikvision ISAPI</span>
+        <span>Web Push (VAPID)</span><span>PWA</span><span>IIS</span><span>xUnit</span>
+        <span>Android · Web · Windows</span>
+      </div>
+
+      <p class="note" data-en="Development method: I designed the architecture and made the technical decisions, and I sped up the build with <strong>AI-assisted development</strong> — reviewing and validating every part. AI as a multiplier, with human judgment.">
+        Forma de trabajo: diseñé la arquitectura y tomé las decisiones técnicas, y aceleré la
+        construcción con <strong>desarrollo asistido por IA</strong> — revisando y validando cada
+        parte. La IA como multiplicador, con criterio humano.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p><a class="volver" href="../" data-en="← Back to portfolio">← Volver al portafolio</a></p>
+    <p style="margin-top:10px;" data-en="Time &amp; Attendance · A project by Cesar Carvajal · © 2026">Control de Horarios · Proyecto de Cesar Carvajal · © 2026</p>
+  </footer>
+
+  <script>
+    (function(){
+      var KEY='site-lang';
+      function apply(l){
+        document.documentElement.lang=l;
+        document.querySelectorAll('[data-en]').forEach(function(el){
+          if(el.dataset.es===undefined){
+            el.dataset.es = (el.tagName==='META') ? el.getAttribute('content')
+                          : (el.tagName==='TITLE') ? el.textContent : el.innerHTML;
+          }
+          var v = (l==='en') ? el.getAttribute('data-en') : el.dataset.es;
+          if(el.tagName==='META'){ el.setAttribute('content', v); }
+          else if(el.tagName==='TITLE'){ document.title = v; }
+          else { el.innerHTML = v; }
+        });
+        document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+          b.setAttribute('aria-pressed', String(b.getAttribute('data-lang-btn')===l));
+        });
+        try{ localStorage.setItem(KEY,l); }catch(e){}
+      }
+      var saved; try{ saved=localStorage.getItem(KEY); }catch(e){}
+      var initial = saved || (((navigator.language||'es').toLowerCase().indexOf('es')===0)?'es':'en');
+      document.addEventListener('click', function(e){
+        var b = e.target.closest('[data-lang-btn]');
+        if(b){ e.preventDefault(); apply(b.getAttribute('data-lang-btn')); }
+      });
+      apply(initial);
+    })();
+  </script>
+</body>
+</html>
