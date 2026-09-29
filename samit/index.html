@@ -7,7 +7,8 @@
   <meta name="description" data-en="Real case: software ecosystem for SAMIT (Colombia). Offline-first field sales app in .NET MAUI with Bluetooth printing, and a backend with invoicing, inventory, accounting and payroll." content="Caso real: ecosistema de software para SAMIT (Colombia). App de fuerza de ventas offline-first en .NET MAUI con impresión Bluetooth, y backend con facturación, inventario, contabilidad y nómina." />
   <meta name="author" content="Cesar Carvajal" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0f1220" />
+  <meta name="theme-color" content="#eef0ea" />
+  <meta name="color-scheme" content="light" />
   <link rel="canonical" href="https://cecaza.github.io/samit/" />
 
   <meta property="og:type" content="article" />
@@ -19,170 +20,679 @@
 
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
   <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="apple-touch-icon" href="../assets/favicon.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
   <style>
     :root{
-      --bg:#0f1220; --bg-soft:#171a2b; --card:#1c2034; --line:#2c3252;
-      --text:#eef0f8; --soft:#d7daea; --muted:#9aa0c0; --accent:#3b9ae1; --accent-2:#7cc242;
+      /* papel frío, tintado hacia el azul SAMIT */
+      --paper:#eef0ea; --paper-2:#e3e7e0; --paper-3:#d6dcd4;
+      --ink:#0e1524; --ink-2:#2e3748; --muted:#586172; --line:#c3cac2;
+      /* colores del logo SAMIT (ajustados) */
+      --signal:#1447a0; --signal-ink:#0f3a85; --blue:#0a5bb5;
+      --green:#6cbf2f; --green-ink:#3a7414;
+      --yellow:#f7c21a; --orange:#f28c1c; --orange-ink:#a0520a;
+      --receipt:#fffdf7;
+      --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+      --serif:"Instrument Serif",Georgia,serif;
+      --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
     }
     *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{font-family:"Nunito",-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
-    a{color:var(--accent);text-decoration:none}
+    html{scroll-behavior:smooth;scroll-padding-top:70px}
+    body{
+      font-family:var(--display);font-size:1.02rem;color:var(--ink);background:var(--paper);
+      line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+    }
+    /* grano de papel */
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.35;mix-blend-mode:multiply;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .45 0 0 0 0 .35 0 0 0 .25 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+    a{color:inherit}
     img{max-width:100%;display:block}
-    .wrap{max-width:960px;margin:0 auto;padding:0 22px}
-    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:800;padding:13px 26px;border-radius:999px;transition:transform .15s ease}
-    .btn:hover{transform:translateY(-2px)}
-    .btn-fill{background:var(--accent);color:#04121c}
-    .btn-line{border:1px solid var(--line);color:var(--text)}
+    ::selection{background:var(--yellow);color:var(--ink)}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+    .mono{font-family:var(--mono)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
+    button{font:inherit;color:inherit}
 
-    .langfix{position:fixed;top:12px;right:12px;z-index:40;display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:rgba(15,18,32,.72);backdrop-filter:blur(8px)}
-    .langfix button{background:transparent;color:var(--muted);border:0;padding:7px 11px;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit;line-height:1}
-    .langfix button[aria-pressed="true"]{background:var(--accent);color:#04121c}
+    .skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:10px 16px;font-weight:700;z-index:200}
+    .skip:focus{left:12px;top:12px}
+    :focus-visible{outline:2px solid var(--signal-ink);outline-offset:3px}
 
-    header.hero{text-align:center;padding:64px 20px 48px;background:radial-gradient(60% 80% at 50% 0%,rgba(59,154,225,.18) 0%,transparent 60%)}
-    .hero img.logo{width:84px;height:84px;margin:0 auto 16px;border-radius:20px;background:#fff;padding:10px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-    .badge-work{display:inline-block;font-size:.74rem;font-weight:800;color:#ffb454;border:1px solid rgba(255,180,84,.4);background:rgba(255,180,84,.12);padding:4px 12px;border-radius:999px;margin-bottom:14px}
-    .hero h1{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:900;line-height:1.12;letter-spacing:-.4px;margin-bottom:8px}
-    .hero .tagline{font-size:1.12rem;color:var(--muted);max-width:60ch;margin:0 auto 24px}
-    .hero .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    /* ---------- Progreso de lectura: cinta de 4 colores del logo ---------- */
+    .progress{position:fixed;top:0;left:0;height:4px;width:100%;transform-origin:0 50%;transform:scaleX(var(--p,0));z-index:60;
+      background:linear-gradient(90deg,var(--blue) 0 25%,var(--green) 25% 50%,var(--yellow) 50% 75%,var(--orange) 75% 100%)}
+    .ribbon{display:grid;grid-template-columns:repeat(4,1fr);height:6px}
+    .ribbon i:nth-child(1){background:var(--blue)} .ribbon i:nth-child(2){background:var(--green)}
+    .ribbon i:nth-child(3){background:var(--yellow)} .ribbon i:nth-child(4){background:var(--orange)}
 
-    section{padding:46px 0}
-    h2{font-size:1.55rem;font-weight:900;text-align:center;margin-bottom:6px}
-    .sub{text-align:center;color:var(--muted);margin-bottom:30px;max-width:62ch;margin-inline:auto}
-    .problem{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-    .problem p{max-width:700px;margin:0 auto;text-align:center;font-size:1.08rem;color:var(--soft)}
-    .problem strong{color:var(--accent-2)}
+    /* ---------- Nav ---------- */
+    nav{position:sticky;top:0;z-index:50;background:rgba(238,240,234,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--ink)}
+    nav .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:1rem;letter-spacing:-.01em;white-space:nowrap}
+    .brand .mk{width:30px;height:30px;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--mono);font-size:1rem;line-height:1;transition:background .15s ease}
+    .brand:hover .mk{background:var(--signal)}
+    .brand .yr{font-family:var(--mono);font-size:.72rem;color:var(--muted);font-weight:500}
+    .menu{display:flex;align-items:center;gap:2px;font-family:var(--mono);font-size:.8rem}
+    .menu a{text-decoration:none;padding:8px 10px;color:var(--ink-2)}
+    .menu a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var(--signal);text-decoration-thickness:2px;text-underline-offset:4px}
+    .menu .appname{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--ink);padding:0 10px 0 4px;border-left:1px solid var(--line);margin-left:6px}
+    .menu .appname img{width:22px;height:22px}
+    .lang{display:inline-flex;border:1px solid var(--ink);margin-left:8px}
+    .lang button{background:transparent;color:var(--ink);border:0;padding:6px 9px;font:700 .72rem var(--mono);cursor:pointer}
+    .lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+    @media (max-width:860px){ .menu a{display:none} .menu .appname{border-left:0;margin-left:0} }
+    @media (max-width:520px){ .brand .yr{display:none} }
+    @media (max-width:380px){ .menu .appname span{display:none} }
 
-    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
-    .card .e{font-size:1.7rem}
-    .card h3{font-size:1.05rem;margin:8px 0 4px}
-    .card p{color:var(--muted);font-size:.94rem}
+    /* ---------- Hero ---------- */
+    .hero{position:relative;border-bottom:1px solid var(--ink)}
+    .hero-meta{display:flex;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;font-family:var(--mono);font-size:.75rem;color:var(--muted);padding-top:22px;text-transform:uppercase;letter-spacing:.08em}
+    .hero-meta b{color:var(--ink);font-weight:700}
+    .dot-live{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:8px;vertical-align:1px;animation:blink 1.6s steps(2,start) infinite}
+    @keyframes blink{to{visibility:hidden}}
 
-    /* gallery */
-    .shots{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-    .galeria{display:flex;gap:18px;overflow-x:auto;padding:10px 4px 20px;scroll-snap-type:x mandatory}
-    .galeria figure{flex:0 0 auto;width:210px;scroll-snap-align:center}
-    .galeria img{width:210px;border-radius:18px;border:1px solid var(--line);box-shadow:0 8px 22px rgba(0,0,0,.35);background:#000}
-    .galeria figcaption{color:var(--muted);font-size:.82rem;text-align:center;margin-top:8px}
+    .hero-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:48px;align-items:center;padding-top:34px;padding-bottom:48px}
+    .hero .logo{width:64px;height:64px;margin-bottom:22px}
+    .kicker{font-family:var(--mono);font-size:.78rem;color:var(--signal-ink);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+    .hero h1{font-size:clamp(2.5rem,5.2vw,4.6rem);font-weight:800;line-height:.9;letter-spacing:-.05em}
+    .hero h1 em{color:var(--signal);font-size:1.1em;letter-spacing:-.01em}
+    .hero .ribbon{max-width:280px;margin:26px 0 22px}
+    .pitch{color:var(--ink-2);font-size:1.1rem;max-width:46ch}
+    .pitch strong{color:var(--ink);font-weight:700}
+    .stackline{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin:14px 0 24px}
+    .actions{display:flex;flex-wrap:wrap;gap:10px}
+    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;padding:12px 20px;font-size:.95rem;text-decoration:none;border:1.5px solid var(--ink);transition:transform .15s ease,box-shadow .15s ease,background .15s ease;cursor:pointer;background:transparent;line-height:1.3}
+    .btn:hover{transform:translate(-3px,-3px);box-shadow:3px 3px 0 var(--ink)}
+    .btn-ink{background:var(--ink);color:var(--paper)}
+    .btn-ink:hover{box-shadow:3px 3px 0 var(--yellow)}
+    .btn-sig{background:var(--signal);color:#fff;border-color:var(--ink)}
+    .btn-line{background:transparent;color:var(--ink)}
+    @media (max-width:960px){ .hero-grid{grid-template-columns:1fr;gap:36px} }
 
-    .tech{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px 26px}
-    .tech ul{list-style:none;margin-top:6px;display:grid;gap:9px}
-    .tech li{padding:2px 0 2px 28px;position:relative;color:var(--soft)}
-    .tech li::before{content:"▹";position:absolute;left:4px;color:var(--accent)}
-    .tags{text-align:center;margin-top:24px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-    .tags span{background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:999px}
+    /* ticker */
+    .ticker{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--ink)}
+    .ticker > div{padding:14px 18px;border-right:1px solid var(--line)}
+    .ticker > div:last-child{border-right:0}
+    .ticker .n{font-weight:700;font-size:1.15rem;letter-spacing:-.02em;line-height:1.2}
+    .ticker .l{font-family:var(--mono);font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+    .ticker > div:nth-child(1) .n{color:var(--signal)}
+    @media (max-width:860px){ .ticker{grid-template-columns:repeat(2,1fr)} .ticker > div{border-bottom:1px solid var(--line)} .ticker > div:nth-child(2n){border-right:0} .ticker > div:last-child{grid-column:1/-1;border-bottom:0} }
 
-    .cta{text-align:center}
-    footer{text-align:center;padding:30px 20px 46px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
-    .volver{display:inline-block;font-weight:800}
-    .note{text-align:center;color:var(--muted);font-size:.85rem;margin-top:14px;max-width:58ch;margin-inline:auto}
+    /* ---------- FIG. 01: impresora térmica ---------- */
+    .fig{position:relative;border:1px solid var(--ink);background-color:var(--paper-2);
+      background-image:linear-gradient(rgba(14,21,36,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(14,21,36,.06) 1px,transparent 1px);
+      background-size:22px 22px;padding:44px 18px 18px}
+    .fig-h{position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;gap:10px;padding:9px 12px;border-bottom:1px solid var(--ink);background:var(--paper);font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+    .fig-h b{color:var(--ink)}
+    .pstage{--fs:12.5px;width:min(100%,310px);margin:14px auto 0}
+    .rclip{position:relative;width:calc(32 * .6 * var(--fs) + 32px);max-width:100%;margin:0 auto -6px;overflow:hidden;z-index:1;min-height:40px}
+    .paper{position:relative;background:var(--receipt);color:#1a1a1a;font-family:var(--mono);font-size:var(--fs);line-height:1.5;padding:14px 16px 16px;box-shadow:0 1px 0 rgba(0,0,0,.05),inset 0 -24px 18px -18px rgba(0,0,0,.06);will-change:transform}
+    .js .paper{position:absolute;left:0;right:0;bottom:0}
+    .paper::before,.paper::after{content:"";position:absolute;left:0;right:0;height:7px;background-size:12px 7px;background-repeat:repeat-x}
+    .paper::before{top:0;background-image:linear-gradient(135deg,var(--paper-2) 50%,transparent 50%),linear-gradient(225deg,var(--paper-2) 50%,transparent 50%)}
+    .paper::after{bottom:0;display:none;background-image:linear-gradient(45deg,var(--paper-2) 50%,transparent 50%),linear-gradient(-45deg,var(--paper-2) 50%,transparent 50%)}
+    .cut .paper::after{display:block}
+    .rl{white-space:pre;overflow:hidden}
+    .rl.c{text-align:center}
+    .rl.b{font-weight:700}
+    .rl.big{font-weight:700;font-size:1.45em;letter-spacing:.06em;line-height:1.3}
+    .rl.rule{color:#8a8a8a;letter-spacing:0}
+    .rl.bar{padding:6px 0 2px}
+    .rl.bar svg{display:block;width:100%;height:42px}
+    .printer{position:relative;z-index:2;height:108px;background:linear-gradient(180deg,#1d2640,#0e1524 70%);border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--signal);color:#b9c4db}
+    .printer .slot{position:absolute;left:12px;right:12px;top:4px;height:7px;background:#03050a;border-bottom:1px solid #4a5675}
+    .printer .headpos{position:absolute;top:2px;width:22px;height:3px;background:#5aa0ff;left:0;opacity:0;transition:opacity .2s}
+    .printing .printer .headpos{opacity:1}
+    .printer .face{position:absolute;left:14px;right:14px;bottom:12px;top:26px;display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+    .printer .id{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;line-height:1.5}
+    .printer .id b{display:block;color:#fff;font-size:.78rem}
+    .printer .st{display:flex;align-items:center;gap:7px;margin-top:6px}
+    .led{width:8px;height:8px;border-radius:50%;background:#5aa0ff;box-shadow:0 0 8px #5aa0ff;animation:blink 1.2s steps(2,start) infinite}
+    .printing .led{background:var(--green);box-shadow:0 0 8px var(--green);animation:none}
+    .printer svg.bt{width:14px;height:14px}
+    .feed{background:#27314d;color:#fff;border:1px solid #56628a;font:700 .7rem var(--mono);padding:9px 11px;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 3px 0 #05070c;transition:transform .1s,box-shadow .1s}
+    .feed:hover{background:var(--signal)}
+    .feed:active{transform:translateY(3px);box-shadow:0 0 0 #05070c}
+    .hex{margin-top:20px;background:var(--ink);color:#c9d3e6;font:500 .7rem/1.65 var(--mono);padding:10px 12px;height:calc(1.65em * 7 + 38px);overflow:hidden;border:1px solid var(--ink)}
+    .hex .hh{display:flex;justify-content:space-between;color:#8792a8;border-bottom:1px solid #2b3550;padding-bottom:4px;margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em;font-size:.95em}
+    .hex .row{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .hex .c{color:#7fb0ff} .hex .t{color:#7d889f} .hex .l{color:#9be36a} .hex .k{color:var(--yellow)}
+    .fig-cap{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-top:12px}
+    @media (max-width:420px){ .pstage{--fs:11px} .fig{padding-left:12px;padding-right:12px} }
+
+    /* ---------- Secciones ---------- */
+    section{padding:88px 0;border-bottom:1px solid var(--ink)}
+    .shead{display:grid;grid-template-columns:120px 1fr;gap:20px;margin-bottom:44px;align-items:start}
+    .sidx{font-family:var(--mono);font-size:.75rem;color:var(--muted);padding-top:14px}
+    .sidx b{color:var(--signal-ink);font-weight:700}
+    .stitle{font-size:clamp(2.4rem,7vw,5.2rem);font-weight:800;line-height:.95;letter-spacing:-.045em}
+    .ssub{color:var(--ink-2);max-width:62ch;margin-top:14px}
+    @media (max-width:700px){ .shead{grid-template-columns:1fr;gap:4px} .sidx{padding-top:0} section{padding:64px 0} }
+
+    /* §01 problema */
+    .prob{display:grid;grid-template-columns:120px 1fr;gap:20px}
+    .prob .lead{grid-column:2;font-size:clamp(1.3rem,2.7vw,2rem);line-height:1.25;letter-spacing:-.02em;font-weight:500;max-width:36ch}
+    .prob .lead strong{font-weight:600;background:linear-gradient(transparent 62%,rgba(247,194,26,.55) 62%)}
+    .flow{grid-column:2;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ink);margin-top:36px}
+    .flow li{padding:18px 20px 20px;border-right:1px solid var(--ink);position:relative}
+    .flow li:last-child{border-right:0}
+    .flow .n{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+    .flow b{display:block;font-size:1.15rem;letter-spacing:-.02em;margin:6px 0 2px}
+    .flow span{color:var(--ink-2);font-size:.92rem}
+    .flow li::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--c)}
+    @media (max-width:760px){ .prob{grid-template-columns:1fr} .prob .lead,.flow{grid-column:1} .flow{grid-template-columns:1fr} .flow li{border-right:0;border-bottom:1px solid var(--ink)} .flow li:last-child{border-bottom:0} }
+
+    /* §02 ecosistema */
+    .feats{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);border-left:1px solid var(--ink)}
+    .feats li{padding:22px 20px 24px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);transition:background .2s ease;position:relative}
+    .feats li:hover{background:var(--paper-2)}
+    .feats .top{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.06em}
+    .feats .num{font-family:var(--serif);font-style:italic;font-size:2.2rem;line-height:1;color:var(--signal);text-transform:none;letter-spacing:0}
+    .feats .grp{display:inline-flex;align-items:center;gap:6px;color:var(--muted)}
+    .feats .grp::before{content:"";width:10px;height:10px;border:1px solid var(--ink);background:var(--c)}
+    .feats h3{font-size:1.15rem;letter-spacing:-.02em;margin:14px 0 6px;line-height:1.25}
+    .feats p{color:var(--ink-2);font-size:.93rem}
+    .feats [data-g="m"]{--c:var(--blue)} .feats [data-g="b"]{--c:var(--green)}
+    .glegend{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-top:14px}
+    .glegend span::before{content:"";display:inline-block;width:10px;height:10px;border:1px solid var(--ink);margin-right:7px;vertical-align:-1px;background:var(--c)}
+    @media (max-width:1000px){ .feats{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:560px){ .feats{grid-template-columns:1fr} }
+
+    /* §03 simulador offline-first */
+    .simctl{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;border:1px solid var(--ink);border-bottom:0;padding:14px 16px;background:var(--paper)}
+    .switch{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:10px;font:700 .82rem var(--mono);text-transform:uppercase;letter-spacing:.04em;padding:6px 4px}
+    .switch:focus-visible{outline:2px solid var(--signal-ink);outline-offset:3px}
+    .switch .trk{position:relative;width:50px;height:26px;border:1.5px solid var(--ink);background:var(--paper-3);transition:background .2s}
+    .switch .knob{position:absolute;top:3px;left:3px;width:17px;height:17px;background:var(--ink);transition:transform .2s cubic-bezier(.3,.7,.3,1)}
+    .switch[aria-checked="true"] .trk{background:var(--signal)}
+    .switch[aria-checked="true"] .knob{transform:translateX(24px);background:#fff}
+    .switch .on{display:none;color:var(--signal-ink)} .switch .off{color:var(--orange-ink)}
+    .switch[aria-checked="true"] .on{display:inline} .switch[aria-checked="true"] .off{display:none}
+    .simctl .btn{padding:9px 14px;font-size:.85rem}
+    .simctl .sp{flex:1}
+    .simhint{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+    .pipe{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) 70px minmax(0,1fr) 70px minmax(0,1fr);align-items:stretch;border:1px solid var(--ink);padding:26px;gap:0;background-color:var(--paper-2);
+      background-image:linear-gradient(rgba(14,21,36,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(14,21,36,.05) 1px,transparent 1px);background-size:22px 22px}
+    .node{position:relative;background:var(--paper);border:1.5px solid var(--ink);padding:14px 16px 16px;box-shadow:5px 5px 0 var(--c,var(--ink));display:flex;flex-direction:column;min-width:0}
+    .node .nk{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+    .node h3{font-size:1.35rem;letter-spacing:-.03em;line-height:1.15;margin:2px 0 4px}
+    .node .nd{font-size:.86rem;color:var(--ink-2)}
+    .node.api{--c:var(--green);align-self:center}
+    .node.db{--c:var(--orange)}
+    .node.ph{--c:var(--blue);padding:10px}
+    .node.ph .nk{padding:2px 4px 8px}
+    .wire{position:relative;align-self:center;height:2px;background:var(--ink);margin:0 6px}
+    .wire .wl{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);font-family:var(--mono);font-size:.62rem;color:var(--muted);white-space:nowrap;text-transform:uppercase;letter-spacing:.06em}
+    .wire.down{background:repeating-linear-gradient(90deg,var(--muted) 0 5px,transparent 5px 10px)}
+    .wire.down::after{content:"✕";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:20px;height:20px;display:grid;place-items:center;background:var(--orange);color:var(--ink);font:700 .7rem var(--mono);border:1.5px solid var(--ink)}
+    .wire.hot{background:var(--signal);box-shadow:0 0 0 2px rgba(20,71,160,.18)}
+    /* réplica del celular (header azul como en la app real) */
+    .app{border:1px solid var(--ink);background:#f4f4f4;display:flex;flex-direction:column;flex:1;min-height:318px}
+    .app-bar{display:flex;justify-content:space-between;align-items:center;background:var(--signal);color:#dfe8fb;font:500 .66rem var(--mono);padding:5px 10px}
+    .sig{display:inline-flex;align-items:flex-end;gap:2px;height:10px}
+    .sig i{width:3px;background:#fff;display:block}
+    .sig i:nth-child(1){height:3px} .sig i:nth-child(2){height:5px} .sig i:nth-child(3){height:7px} .sig i:nth-child(4){height:10px}
+    .off-mode .sig i{background:rgba(255,255,255,.3)}
+    .off-mode .sig i:nth-child(1){background:#fff}
+    .app-head{display:flex;justify-content:space-between;align-items:flex-end;background:var(--signal);color:#fff;padding:4px 10px 10px}
+    .app-head small{display:block;font-size:.62rem;letter-spacing:.06em;opacity:.8;text-transform:uppercase}
+    .app-head b{font-size:1.05rem;font-weight:600}
+    .app-head .pend{text-align:right}
+    .app-head .pend b{font-family:var(--mono);font-size:1.2rem;display:inline-block;min-width:1.6em;text-align:center}
+    .has .app-head .pend b{background:var(--yellow);color:var(--ink);padding:0 4px}
+    .bump{animation:bump .35s ease}
+    @keyframes bump{40%{transform:scale(1.35)}}
+    .app-sync{margin:8px 8px 0;background:#fff;border:1px solid #e3e3e3;color:#b77900;font-size:.72rem;padding:5px 8px;font-weight:600}
+    .on-mode .app-sync{color:var(--green-ink)}
+    .queue{list-style:none;padding:8px;display:grid;gap:6px;align-content:start;flex:1}
+    .doc{display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:center;background:#fff;border:1px solid #dcdcdc;padding:7px 8px;font-size:.78rem;line-height:1.3;transition:opacity .25s}
+    .doc .ic{font:700 .8rem var(--mono);color:var(--signal);text-align:center}
+    .doc b{display:block;font-weight:700;color:#1a1a1a}
+    .doc small{color:#5a5a5a;font-size:.72rem}
+    .chip{font:700 .6rem var(--mono);text-transform:uppercase;letter-spacing:.04em;padding:3px 6px;white-space:nowrap}
+    .st-pend .chip{background:var(--yellow);color:var(--ink)}
+    .st-send .chip{background:var(--signal);color:#fff}
+    .st-retry .chip{background:var(--orange);color:var(--ink)}
+    .st-send{opacity:.6}
+    .empty{padding:26px 10px;text-align:center;color:#555;font-size:.82rem}
+    .empty b{display:block;color:#111;font-size:.95rem;margin-bottom:2px}
+    .more{font-family:var(--mono);font-size:.7rem;color:#666;text-align:center}
+    .apist{margin-top:12px;font:500 .74rem/1.5 var(--mono);background:var(--ink);color:#c9d3e6;padding:8px 10px;min-height:3.3em}
+    .apist .k{color:var(--yellow)} .apist .ok{color:#9be36a} .apist .er{color:var(--orange)}
+    .dblog{list-style:none;margin-top:10px;display:grid;gap:4px;font:500 .74rem var(--mono)}
+    .dblog li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed var(--line);padding:3px 0}
+    .dblog li span:last-child{color:var(--green-ink);font-weight:700}
+    .dblog li.new{animation:flash 1s ease}
+    @keyframes flash{from{background:rgba(108,191,47,.35)}}
+    .dbn{margin-top:auto;padding-top:10px;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+    .dbn b{color:var(--ink);font-size:1.1rem}
+    .pkt{position:absolute;left:0;top:0;z-index:5;pointer-events:none;background:var(--signal);color:#fff;font:700 .66rem var(--mono);padding:4px 7px;border:1.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink);white-space:nowrap}
+    .pkt.retry{background:var(--orange);color:var(--ink)}
+    @media (max-width:560px){ .simctl{display:grid;grid-template-columns:1fr 1fr} .simctl .switch,.simctl .simhint{grid-column:1/-1} .simctl .sp{display:none} .simctl .btn{justify-content:center} #simReset{grid-column:1/-1;justify-self:start} }
+    .simnote{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-top:12px}
+    @media (max-width:900px){
+      .pipe{grid-template-columns:1fr;padding:18px}
+      .wire{width:2px;height:56px;justify-self:center;margin:6px 0}
+      .wire.down{background:repeating-linear-gradient(180deg,var(--muted) 0 5px,transparent 5px 10px)}
+      .wire .wl{left:12px;bottom:auto;top:50%;transform:translateY(-50%)}
+      .node.api{align-self:stretch}
+      .app{min-height:0}
+    }
+
+    /* §04 capturas: filmstrip */
+    .film{position:relative;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+      background:repeating-linear-gradient(90deg,var(--paper-2) 0 1px,transparent 1px 64px)}
+    .film::-webkit-scrollbar{display:none}
+    .film.drag{scroll-snap-type:none;cursor:grabbing;scroll-behavior:auto}
+    .film:focus-visible{outline:2px solid var(--signal-ink);outline-offset:-2px}
+    .strip{list-style:none;display:flex;gap:34px;padding:44px calc(50% - 115px) 34px;width:max-content}
+    .shot{flex:0 0 auto;width:230px;scroll-snap-align:center;user-select:none;-webkit-user-select:none}
+    .shot figure{margin:0}
+    .phone{--c:var(--blue);background:var(--ink);padding:7px;border-radius:30px;box-shadow:8px 8px 0 var(--c);transition:opacity .3s ease,box-shadow .3s ease;will-change:transform;opacity:.55}
+    .shot.on .phone{opacity:1}
+    .shot:nth-child(4n+2) .phone{--c:var(--green)} .shot:nth-child(4n+3) .phone{--c:var(--yellow)} .shot:nth-child(4n+4) .phone{--c:var(--orange)}
+    .phone img{width:100%;height:auto;aspect-ratio:736/1600;object-fit:cover;border-radius:23px;background:#f4f4f4;pointer-events:none}
+    .shot figcaption{font-family:var(--mono);font-size:.78rem;margin-top:16px;display:flex;gap:8px;justify-content:center;color:var(--muted)}
+    .shot figcaption b{color:var(--signal-ink)}
+    .shot.on figcaption{color:var(--ink)}
+    .scrub{display:grid;grid-template-columns:auto auto 1fr auto;gap:12px;align-items:center;margin-top:22px}
+    .scrub .btn{padding:8px 14px;font-family:var(--mono);font-size:.9rem}
+    .scrub output{font-family:var(--mono);font-size:.85rem;font-weight:700;min-width:6ch;text-align:right}
+    input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;cursor:pointer}
+    input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--ink)}
+    input[type=range]::-moz-range-track{height:2px;background:var(--ink)}
+    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;background:var(--signal);border:1.5px solid var(--ink)}
+    input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:0;background:var(--signal);border:1.5px solid var(--ink)}
+    .note{font-family:var(--mono);font-size:.74rem;color:var(--muted);margin-top:18px;display:flex;gap:8px;align-items:center}
+    .note::before{content:"🔒";font-family:initial}
+    @media (max-width:560px){ .shot{width:200px} .strip{padding:36px calc(50% - 100px) 30px;gap:24px} .scrub{grid-template-columns:auto auto 1fr} .scrub output{grid-column:1/-1;text-align:left;order:-1} }
+
+    /* §05 arquitectura por capas */
+    .arch{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:36px}
+    .layers{display:grid;gap:0}
+    .layer{position:relative;border:1.5px solid var(--ink);background:var(--paper);padding:20px 22px 22px;box-shadow:6px 6px 0 var(--c);transition:transform .2s ease,box-shadow .2s ease}
+    .layer:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--c)}
+    .layer .lk{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+    .layer .lk b{color:var(--ink)}
+    .layer h3{font-size:clamp(1.3rem,2.4vw,1.7rem);letter-spacing:-.03em;margin:4px 0 10px;line-height:1.15}
+    .layer h3 em{color:var(--signal)}
+    .layer ul{list-style:none;display:grid;gap:8px}
+    .layer li{padding-left:20px;position:relative;color:var(--ink-2);font-size:.95rem}
+    .layer li::before{content:"▸";position:absolute;left:0;color:var(--c2,var(--signal))}
+    .layer li strong{color:var(--ink)}
+    .l-mob{--c:var(--blue)} .l-api{--c:var(--green);--c2:var(--green-ink)} .l-db{--c:var(--orange);--c2:var(--orange-ink)}
+    .conn{display:flex;align-items:center;gap:12px;padding:12px 0 12px 34px;font-family:var(--mono);font-size:.74rem;color:var(--muted);position:relative}
+    .conn::before{content:"";position:absolute;left:22px;top:0;bottom:0;width:2px;background:repeating-linear-gradient(180deg,var(--ink) 0 4px,transparent 4px 8px)}
+    .conn b{color:var(--ink)}
+    .side{display:grid;gap:14px;align-content:start}
+    .card{border:1px solid var(--ink);padding:18px 18px 20px;background:var(--paper)}
+    .card .lk{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+    .card h3{font-size:1.15rem;letter-spacing:-.02em;margin:4px 0 6px}
+    .card p{color:var(--ink-2);font-size:.93rem}
+    .card.per{border-left:6px solid var(--yellow)}
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:30px}
+    .tags span{font-family:var(--mono);font-size:.72rem;padding:3px 8px;background:var(--paper-2);border:1px solid var(--line)}
+    @media (max-width:900px){ .arch{grid-template-columns:1fr} }
+
+    /* §06 CTA */
+    .contact{background:var(--ink);color:var(--paper);border-bottom:0}
+    .contact .sidx{color:#9aa5b8}
+    .contact .sidx b{color:var(--yellow)}
+    .contact .big{font-size:clamp(2.6rem,8.5vw,7.4rem);font-weight:800;letter-spacing:-.055em;line-height:.9;max-width:14ch}
+    .contact .big em{color:var(--yellow)}
+    .contact .ssub{color:#c8d0dd}
+    .contact .ribbon{max-width:200px;margin-top:26px}
+    .clinks{margin-top:44px;border-top:1px solid #3a4459}
+    .clinks a{display:grid;grid-template-columns:160px 1fr auto;gap:16px;align-items:center;padding:20px 4px;border-bottom:1px solid #3a4459;text-decoration:none;transition:background .2s ease,padding .2s ease,color .2s ease}
+    .clinks a:hover{background:var(--yellow);color:var(--ink);padding-left:16px;padding-right:16px}
+    .clinks .k{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;opacity:.8}
+    .clinks .v{font-size:clamp(1.15rem,3vw,1.9rem);font-weight:600;letter-spacing:-.02em;overflow-wrap:anywhere}
+    .clinks .ar{font-size:1.5rem}
+    @media (max-width:600px){ .clinks a{grid-template-columns:1fr auto} .clinks .k{grid-column:1/-1} }
+
+    footer{background:var(--ink);color:#9aa5b8;font-family:var(--mono);font-size:.75rem;padding:28px 0 40px;border-top:1px solid #3a4459}
+    footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+    footer a{color:var(--paper)}
+    footer a:hover{color:var(--yellow)}
+
+    @media (prefers-reduced-motion:no-preference){
+      .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+      .reveal.in{opacity:1;transform:none}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .dot-live,.led{animation:none}
+      html{scroll-behavior:auto}
+      .bump,.dblog li.new{animation:none}
+      .switch .knob,.switch .trk,.layer,.btn{transition:none}
+    }
   </style>
 </head>
 <body>
-  <div class="langfix" role="group" aria-label="Idioma / Language">
-    <button type="button" data-lang-btn="es">ES</button>
-    <button type="button" data-lang-btn="en">EN</button>
-  </div>
+  <a class="skip" href="#main" data-en="Skip to content">Saltar al contenido</a>
+  <div class="progress" aria-hidden="true"></div>
 
-  <header class="hero">
-    <img class="logo" src="img/logo-samit.png" alt="Logo de SAMIT Sistemas Corporativos" width="84" height="84" />
-    <div class="badge-work" data-en="Professional experience · 2021 – Present">Experiencia profesional · 2021 – Actualidad</div>
-    <h1 data-en="SAMIT business suite">Suite empresarial SAMIT</h1>
-    <p class="tagline" data-en="Field sales software, ERP and business backend for Colombian companies.">Software de fuerza de ventas, ERP y backend de negocio para empresas colombianas.</p>
-    <div class="links">
-      <a class="btn btn-fill" href="https://play.google.com/store/apps/details?id=com.samitsql.samitmobilemaui" target="_blank" rel="noopener" data-en="Samit Móvil on Google Play →">Samit Móvil en Google Play →</a>
-      <a class="btn btn-line" href="https://samit.com.co/" target="_blank" rel="noopener" data-en="Visit SAMIT's website →">Visitar sitio de SAMIT →</a>
-      <a class="btn btn-line" href="../" data-en="← Back to portfolio">← Volver al portafolio</a>
+  <nav>
+    <div class="wrap">
+      <a class="brand" href="../" aria-label="Volver al portafolio de Cesar Carvajal"><span class="mk" aria-hidden="true">←</span>Cesar Carvajal <span class="yr">/ est. 2019</span></a>
+      <div class="menu">
+        <a href="#offline" data-en="Offline-first">Offline-first</a>
+        <a href="#capturas" data-en="Screenshots">Capturas</a>
+        <a href="#arquitectura" data-en="Architecture">Arquitectura</a>
+        <span class="appname"><img src="img/logo-samit.png" alt="" width="22" height="22" /><span>SAMIT</span></span>
+        <div class="lang" role="group" aria-label="Idioma / Language">
+          <button type="button" data-lang-btn="es">ES</button>
+          <button type="button" data-lang-btn="en">EN</button>
+        </div>
+      </div>
     </div>
-  </header>
+  </nav>
 
-  <main>
-    <section class="problem">
+  <main id="main">
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="wrap hero-meta">
+        <span><span class="dot-live" aria-hidden="true"></span><b data-en="Professional experience">Experiencia profesional</b> · 2021 – <span data-en="Present">Actualidad</span></span>
+        <span>SAMIT — Sistemas Corporativos · Colombia</span>
+      </div>
+
+      <div class="wrap hero-grid">
+        <div>
+          <img class="logo" src="img/logo-samit.png" alt="Logo de SAMIT Sistemas Corporativos" width="64" height="64" />
+          <p class="kicker" data-en="Case study · 02">Caso de estudio · 02</p>
+          <h1 data-en="SAMIT business <em>suite</em>">Suite empresarial <em>SAMIT</em></h1>
+          <div class="ribbon" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <p class="pitch" data-en="Field sales software, ERP and business backend for Colombian companies: from the <strong>rep's phone</strong> — orders, receivables and a receipt printed on the spot — to <strong>invoicing and accounting</strong> at the office.">
+            Software de fuerza de ventas, ERP y backend de negocio para empresas colombianas: del
+            <strong>celular del vendedor</strong> —pedidos, cartera y recibo impreso en el momento— hasta la
+            <strong>facturación y contabilidad</strong> de la oficina.
+          </p>
+          <p class="stackline">.NET MAUI · C# · VB.NET · ASP.NET · SQL Server · LiteDB · Bluetooth ESC/POS</p>
+          <div class="actions">
+            <a class="btn btn-sig" href="https://play.google.com/store/apps/details?id=com.samitsql.samitmobilemaui" target="_blank" rel="noopener" data-en="Samit Móvil on Google Play ↗">Samit Móvil en Google Play ↗</a>
+            <a class="btn btn-line" href="https://samit.com.co/" target="_blank" rel="noopener" data-en="Visit SAMIT's website ↗">Visitar sitio de SAMIT ↗</a>
+            <a class="btn btn-line" href="../" data-en="← Back to portfolio">← Volver al portafolio</a>
+          </div>
+        </div>
+
+        <!-- FIG. 01 — impresora térmica Bluetooth -->
+        <figure class="fig" id="printerFig">
+          <div class="fig-h" aria-hidden="true"><span><b>Fig. 01</b> — <span data-en="Bluetooth thermal printer">impresora térmica Bluetooth</span></span><span>58 mm</span></div>
+          <p class="sr-only" data-en="Animation: a Bluetooth thermal printer prints a sample receipt line by line (illustrative data: sample customer, products A, B and C, total and a barcode), while the ESC/POS commands sent to the printer are shown below.">Animación: una impresora térmica Bluetooth imprime línea por línea un recibo de ejemplo (datos ilustrativos: cliente de ejemplo, productos A, B y C, total y código de barras), mientras abajo se muestran los comandos ESC/POS que se envían a la impresora.</p>
+          <div class="pstage" id="pstage" aria-hidden="true">
+            <div class="rclip" id="rclip"><div class="paper" id="paper"></div></div>
+            <div class="printer">
+              <div class="slot"><i class="headpos" id="headpos"></i></div>
+              <div class="face">
+                <div class="id">
+                  <b>ESC/POS · 58&nbsp;mm</b>
+                  <span class="st"><i class="led"></i><svg class="bt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10-5 5V2l5 5L7 17"/></svg><span id="pstate">BT</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:center;margin-top:16px">
+            <button type="button" class="feed" id="reprint" data-en="↻ Reprint">↻ Reimprimir</button>
+          </div>
+          <div class="hex" id="hex" aria-hidden="true"><div class="hh"><span>TX → bt://printer</span><span>ESC/POS</span></div><div id="hexrows"></div></div>
+          <figcaption class="fig-cap" data-en="↳ Illustrative receipt: the app prints receipts and invoices like this over Bluetooth, on the spot.">↳ Recibo ilustrativo: la app imprime recibos y facturas así, por Bluetooth, en el sitio.</figcaption>
+        </figure>
+      </div>
+
       <div class="wrap">
-        <p data-en="Field sales reps need to <strong>take orders, invoice and collect receivables</strong> even with no signal, and print the receipt on the spot. And the company needs all of that to sync with its <strong>invoicing and accounting</strong>. That's what I built: an ecosystem that goes from the <strong>rep's phone</strong> to the <strong>backend</strong>.">
-          Los vendedores en calle necesitan <strong>tomar pedidos, facturar y cobrar cartera</strong> aunque
-          no tengan señal, e imprimir el recibo en el momento. Y la empresa necesita que todo eso
-          se sincronice con su <strong>facturación y contabilidad</strong>. Eso es lo que
-          construí: un ecosistema que va del <strong>celular del vendedor</strong> hasta el <strong>backend</strong>.
-        </p>
+        <div class="ticker">
+          <div><div class="n">2021 – <span data-en="today">hoy</span></div><div class="l" data-en="at SAMIT">en SAMIT</div></div>
+          <div><div class="n">.NET MAUI</div><div class="l" data-en="app on Google Play">app en Google Play</div></div>
+          <div><div class="n">Offline-first</div><div class="l" data-en="queue with retries">cola con reintentos</div></div>
+          <div><div class="n">ESC/POS</div><div class="l" data-en="Bluetooth printing">impresión Bluetooth</div></div>
+          <div><div class="n">Multi-tenant</div><div class="l" data-en="cloud and on-premise">nube y local</div></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- §01 PROBLEMA -->
+    <section id="problema">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§01</b> / <span data-en="problem">problema</span></div>
+          <h2 class="stitle" data-scramble data-en="The problem">El problema</h2>
+        </div>
+        <div class="prob reveal">
+          <p class="lead" data-en="Field sales reps need to <strong>take orders, invoice and collect receivables</strong> even with no signal, and print the receipt on the spot. And the company needs all of that to sync with its <strong>invoicing and accounting</strong>. That's what I built: an ecosystem that goes from the <strong>rep's phone</strong> to the <strong>backend</strong>.">
+            Los vendedores en calle necesitan <strong>tomar pedidos, facturar y cobrar cartera</strong> aunque
+            no tengan señal, e imprimir el recibo en el momento. Y la empresa necesita que todo eso
+            se sincronice con su <strong>facturación y contabilidad</strong>. Eso es lo que
+            construí: un ecosistema que va del <strong>celular del vendedor</strong> hasta el <strong>backend</strong>.
+          </p>
+          <ol class="flow">
+            <li style="--c:var(--blue)"><span class="n">01</span><b data-en="Sell without signal">Vender sin señal</b><span data-en="Orders, sales and payments are saved on the phone.">Pedidos, ventas y abonos se guardan en el celular.</span></li>
+            <li style="--c:var(--yellow)"><span class="n">02</span><b data-en="Print on the spot">Imprimir en el sitio</b><span data-en="Receipt over Bluetooth, on a thermal printer.">Recibo por Bluetooth, en impresora térmica.</span></li>
+            <li style="--c:var(--green)"><span class="n">03</span><b data-en="Sync with the office">Sincronizar con la oficina</b><span data-en="When the connection returns, everything goes up on its own.">Al volver la conexión, todo sube solo.</span></li>
+          </ol>
+        </div>
       </div>
     </section>
 
-    <section class="wrap">
-      <h2 data-en="What the ecosystem includes">Qué incluye el ecosistema</h2>
-      <p class="sub" data-en="One system, on mobile, desktop and the cloud.">Un mismo sistema, en el celular, el escritorio y la nube.</p>
-      <div class="features">
-        <div class="card"><div class="e">📱</div><h3 data-en="Field sales app">App de fuerza de ventas</h3><p data-en="Orders and invoices from the phone, out in the field. Built in .NET MAUI for Android.">Pedidos y facturas desde el celular, en campo. Construida en .NET MAUI para Android.</p></div>
-        <div class="card"><div class="e">📶</div><h3 data-en="Works offline">Funciona sin internet</h3><p data-en="Offline-first: the rep creates documents with no signal and everything syncs on its own when the connection is back.">Offline-first: el vendedor crea documentos sin señal y todo se sincroniza solo al volver la conexión.</p></div>
-        <div class="card"><div class="e">🖨️</div><h3 data-en="Bluetooth printing">Impresión Bluetooth</h3><p data-en="Receipts and invoices printed instantly on thermal printers (ESC/POS protocol).">Recibos y facturas impresos al instante en impresoras térmicas (protocolo ESC/POS).</p></div>
-        <div class="card"><div class="e">💰</div><h3 data-en="Receivables and payments">Cartera y abonos</h3><p data-en="Balance lookups per client and payment recording with payment allocation.">Consulta de saldos por cliente y registro de abonos con distribución de pagos.</p></div>
-        <div class="card"><div class="e">☁️</div><h3 data-en="Cloud backend">Backend en la nube</h3><p data-en="Central services that sync the whole operation between the phone and the office.">Servicios centrales que sincronizan toda la operación entre el celular y la oficina.</p></div>
-        <div class="card"><div class="e">📦</div><h3 data-en="Inventory and catalog">Inventario y catálogo</h3><p data-en="Products, prices and taxes in real time, ready to sell.">Productos, precios e impuestos en tiempo real, listos para vender.</p></div>
-        <div class="card"><div class="e">🏢</div><h3 data-en="Multi-company">Multiempresa</h3><p data-en="Multi-tenant architecture: several companies and offices on the same platform, isolated.">Arquitectura multi-tenant: varias empresas y oficinas sobre la misma plataforma, aisladas.</p></div>
-        <div class="card"><div class="e">📊</div><h3 data-en="Accounting and payroll">Contabilidad y nómina</h3><p data-en="The backend integrates invoicing, inventory, accounting, payroll and POS.">El backend integra facturación, inventario, contabilidad, nómina y POS.</p></div>
+    <!-- §02 ECOSISTEMA -->
+    <section id="ecosistema">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§02</b> / <span data-en="ecosystem">ecosistema</span></div>
+          <div>
+            <h2 class="stitle" data-scramble data-en="What it includes">Qué incluye</h2>
+            <p class="ssub" data-en="One system, on mobile, desktop and the cloud.">Un mismo sistema, en el celular, el escritorio y la nube.</p>
+            <div class="glegend"><span style="--c:var(--blue)" data-en="mobile">móvil</span><span style="--c:var(--green)" data-en="backend">backend</span></div>
+          </div>
+        </div>
+        <ul class="feats reveal">
+          <li data-g="m"><div class="top"><span class="num">01</span><span class="grp" data-en="mobile">móvil</span></div><h3 data-en="Field sales app">App de fuerza de ventas</h3><p data-en="Orders and invoices from the phone, out in the field. Built in .NET MAUI for Android.">Pedidos y facturas desde el celular, en campo. Construida en .NET MAUI para Android.</p></li>
+          <li data-g="m"><div class="top"><span class="num">02</span><span class="grp" data-en="mobile">móvil</span></div><h3 data-en="Works offline">Funciona sin internet</h3><p data-en="Offline-first: the rep creates documents with no signal and everything syncs on its own when the connection is back.">Offline-first: el vendedor crea documentos sin señal y todo se sincroniza solo al volver la conexión.</p></li>
+          <li data-g="m"><div class="top"><span class="num">03</span><span class="grp" data-en="mobile">móvil</span></div><h3 data-en="Bluetooth printing">Impresión Bluetooth</h3><p data-en="Receipts and invoices printed instantly on thermal printers (ESC/POS protocol).">Recibos y facturas impresos al instante en impresoras térmicas (protocolo ESC/POS).</p></li>
+          <li data-g="m"><div class="top"><span class="num">04</span><span class="grp" data-en="mobile">móvil</span></div><h3 data-en="Receivables and payments">Cartera y abonos</h3><p data-en="Balance lookups per client and payment recording with payment allocation.">Consulta de saldos por cliente y registro de abonos con distribución de pagos.</p></li>
+          <li data-g="b"><div class="top"><span class="num">05</span><span class="grp" data-en="backend">backend</span></div><h3 data-en="Cloud backend">Backend en la nube</h3><p data-en="Central services that sync the whole operation between the phone and the office.">Servicios centrales que sincronizan toda la operación entre el celular y la oficina.</p></li>
+          <li data-g="b"><div class="top"><span class="num">06</span><span class="grp" data-en="backend">backend</span></div><h3 data-en="Inventory and catalog">Inventario y catálogo</h3><p data-en="Products, prices and taxes in real time, ready to sell.">Productos, precios e impuestos en tiempo real, listos para vender.</p></li>
+          <li data-g="b"><div class="top"><span class="num">07</span><span class="grp" data-en="backend">backend</span></div><h3 data-en="Multi-company">Multiempresa</h3><p data-en="Multi-tenant architecture: several companies and offices on the same platform, isolated.">Arquitectura multi-tenant: varias empresas y oficinas sobre la misma plataforma, aisladas.</p></li>
+          <li data-g="b"><div class="top"><span class="num">08</span><span class="grp" data-en="backend">backend</span></div><h3 data-en="Accounting and payroll">Contabilidad y nómina</h3><p data-en="The backend integrates invoicing, inventory, accounting, payroll and POS.">El backend integra facturación, inventario, contabilidad, nómina y POS.</p></li>
+        </ul>
       </div>
     </section>
 
-    <section class="shots">
+    <!-- §03 OFFLINE-FIRST (simulador) -->
+    <section id="offline">
       <div class="wrap">
-        <h2 data-en="How the app looks">Así se ve la app</h2>
-        <p class="sub" data-en="Real screenshots of the field sales app in use.">Capturas reales de la aplicación de fuerza de ventas en uso.</p>
-        <div class="galeria">
-          <figure><img src="img/inicio.jpg" alt="Pantalla de inicio con accesos a Orden y Venta" loading="lazy" decoding="async" /><figcaption data-en="Home">Inicio</figcaption></figure>
-          <figure><img src="img/menu.jpg" alt="Menú con empresa, oficina y módulos" loading="lazy" decoding="async" /><figcaption data-en="Menu &amp; company">Menú y empresa</figcaption></figure>
-          <figure><img src="img/catalogo.jpg" alt="Catálogo de productos con 30 referencias" loading="lazy" decoding="async" /><figcaption data-en="Product catalog">Catálogo de productos</figcaption></figure>
-          <figure><img src="img/nueva-orden.jpg" alt="Nueva orden con cliente y producto agregado" loading="lazy" decoding="async" /><figcaption data-en="New order">Nueva orden</figcaption></figure>
-          <figure><img src="img/buscar-producto.jpg" alt="Buscador de productos con existencias" loading="lazy" decoding="async" /><figcaption data-en="Search product">Buscar producto</figcaption></figure>
-          <figure><img src="img/agregar-producto.jpg" alt="Detalle de producto con cantidad y precio" loading="lazy" decoding="async" /><figcaption data-en="Add product">Agregar producto</figcaption></figure>
-          <figure><img src="img/cartera.jpg" alt="Cartera con filtros por cuenta y cliente" loading="lazy" decoding="async" /><figcaption data-en="Receivables">Cartera</figcaption></figure>
-          <figure><img src="img/nuevo-tercero.jpg" alt="Formulario para crear un cliente nuevo" loading="lazy" decoding="async" /><figcaption data-en="Create client">Crear cliente</figcaption></figure>
-          <figure><img src="img/opciones.jpg" alt="Opciones: impresora, oficina y sincronización" loading="lazy" decoding="async" /><figcaption data-en="Options &amp; sync">Opciones y sync</figcaption></figure>
+        <div class="shead reveal">
+          <div class="sidx"><b>§03</b> / offline-first</div>
+          <div>
+            <h2 class="stitle" data-scramble data-en="No signal, no problem">Sin señal, sin problema</h2>
+            <p class="ssub" data-en="Documents are stored locally and a queue uploads them automatically when the connection returns, with retries. Try it: create orders with no signal and then turn the signal on.">Los documentos se guardan localmente y una cola los sube automáticamente cuando vuelve la conexión, con reintentos. Pruébalo: crea órdenes sin señal y luego activa la señal.</p>
+          </div>
+        </div>
+
+        <div class="reveal" id="sim">
+          <div class="simctl">
+            <button type="button" class="switch" id="netSw" role="switch" aria-checked="false" aria-describedby="simHint">
+              <span class="trk" aria-hidden="true"><span class="knob"></span></span>
+              <span class="off" data-en="No signal">Sin señal</span><span class="on" data-en="Signal on">Con señal</span>
+            </button>
+            <button type="button" class="btn btn-ink" id="addO" data-en="+ Order">+ Orden</button>
+            <button type="button" class="btn btn-line" id="addV" data-en="+ Sale">+ Venta</button>
+            <span class="sp"></span>
+            <span class="simhint" id="simHint"></span>
+            <button type="button" class="btn btn-line" id="simReset" data-en="Reset">Reiniciar</button>
+          </div>
+          <div class="pipe" id="pipe">
+            <div class="node ph" id="nPhone">
+              <div class="nk" data-en="Rep's phone · .NET MAUI">Celular del vendedor · .NET MAUI</div>
+              <div class="app off-mode" id="app" aria-hidden="true">
+                <div class="app-bar"><span>11:00</span><span class="sig"><i></i><i></i><i></i><i></i></span></div>
+                <div class="app-head"><div><small>Samit Mobile</small><b id="appTitle">Inicio</b></div><div class="pend"><small id="pendL">Pendientes</small><b id="pendN">0</b></div></div>
+                <div class="app-sync" id="appSync"></div>
+                <ul class="queue" id="queue"></ul>
+              </div>
+            </div>
+            <div class="wire down" id="w1" aria-hidden="true"><span class="wl">sync</span></div>
+            <div class="node api" id="nApi">
+              <div class="nk" data-en="Services">Servicios</div>
+              <h3>API · ASP.NET</h3>
+              <p class="nd" data-en="Multi-company · permissions by role">Multiempresa · permisos por rol</p>
+              <div class="apist" id="apiSt" aria-hidden="true"></div>
+            </div>
+            <div class="wire" id="w2" aria-hidden="true"><span class="wl">db</span></div>
+            <div class="node db" id="nDb">
+              <div class="nk" data-en="Data">Datos</div>
+              <h3>SQL Server</h3>
+              <p class="nd" data-en="Invoicing · inventory · accounting">Facturación · inventario · contabilidad</p>
+              <ol class="dblog" id="dbLog" aria-hidden="true"></ol>
+              <div class="dbn" id="dbN" aria-hidden="true"></div>
+            </div>
+          </div>
+          <p class="sr-only" id="simLive" aria-live="polite"></p>
+          <p class="simnote" data-en="↳ Simulation with illustrative data (DEMO documents, sample customer). The phone header mirrors the real app: “Pending” counts what is still waiting to be uploaded.">↳ Simulación con datos ilustrativos (documentos DEMO, cliente de ejemplo). El encabezado imita la app real: “Pendientes” cuenta lo que aún falta por subir.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- §04 CAPTURAS -->
+    <section id="capturas">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§04</b> / <span data-en="screenshots">capturas</span></div>
+          <div>
+            <h2 class="stitle" data-scramble data-en="How the app looks">Así se ve la app</h2>
+            <p class="ssub" data-en="Real screenshots of the field sales app in use. Drag, use the arrows or the slider.">Capturas reales de la aplicación de fuerza de ventas en uso. Arrastra, usa las flechas o el deslizador.</p>
+          </div>
+        </div>
+      </div>
+      <div class="film reveal" id="film" tabindex="0" role="region" aria-label="Capturas de Samit Móvil" aria-roledescription="carrusel">
+        <ol class="strip">
+          <li class="shot"><figure><div class="phone"><img src="img/inicio.jpg" alt="Pantalla de inicio con accesos a Orden y Venta" width="736" height="1600" draggable="false" loading="lazy" decoding="async" /></div><figcaption><b>01</b><span data-en="Home">Inicio</span></figcaption></figure></li>
+          <li class="shot"><figure><div class="phone"><img src="img/menu.jpg" alt="Menú con empresa, oficina y módulos" width="736" height="1600" draggable="false" loading="lazy" decoding="async" /></div><figcaption><b>02</b><span data-en="Menu &amp; company">Menú y empresa</span></figcaption></figure></li>
+          <li class="shot"><figure><div class="phone"><img src="img/catalogo.jpg" alt="Catálogo de productos con 30 referencias" width="736" height="1600" draggable="false" loading="lazy" decoding="async" /></div><figcaption><b>03</b><span data-en="Product catalog">Catálogo de productos</span></figcaption></figure></li>
+          <li class="shot"><figure><div class="phone"><img src="img/nueva-orden.jpg" alt="Nueva orden con cliente y producto agregado" width="736" height="1600" draggable="false" loading="lazy" decoding="async" /></div><figcaption><b>04</b><span data-en="New order">Nueva orden</span></figcaption></figure></li>
+          <li class="shot"><figure><div class="phone"><img src="img/buscar-producto.jpg" alt="Buscador de productos con existencias" width="736" height="1600" draggable="false" loading="lazy" decoding="async" /></div><figcaption><b>05</b><span data-en="Search product">Buscar producto</span></figcaption></figure></li>
+          <li class="shot"><figure><div class="phone"><img src="img/agregar-producto.jpg" alt="Detalle de producto con cantidad y precio" width="736" height="1600" draggable="false" loading="lazy" decoding="async" /></div><figcaption><b>06</b><span data-en="Add product">Agregar producto</span></figcaption></figure></li>
+          <li class="shot"><figure><div class="phone"><img src="img/cartera.jpg" alt="Cartera con filtros por cuenta y cliente" width="736" height="1600" draggable="false" loading="lazy" decoding="async" /></div><figcaption><b>07</b><span data-en="Receivables">Cartera</span></figcaption></figure></li>
+          <li class="shot"><figure><div class="phone"><img src="img/nuevo-tercero.jpg" alt="Formulario para crear un cliente nuevo" width="736" height="1600" draggable="false" loading="lazy" decoding="async" /></div><figcaption><b>08</b><span data-en="Create client">Crear cliente</span></figcaption></figure></li>
+          <li class="shot"><figure><div class="phone"><img src="img/opciones.jpg" alt="Opciones: impresora, oficina y sincronización" width="736" height="1600" draggable="false" loading="lazy" decoding="async" /></div><figcaption><b>09</b><span data-en="Options &amp; sync">Opciones y sync</span></figcaption></figure></li>
+        </ol>
+      </div>
+      <div class="wrap">
+        <div class="scrub reveal">
+          <button type="button" class="btn btn-line" id="fPrev" aria-label="Anterior / Previous">←</button>
+          <button type="button" class="btn btn-line" id="fNext" aria-label="Siguiente / Next">→</button>
+          <input type="range" id="fRange" min="0" max="8" step="1" value="0" aria-label="Captura / Screenshot" />
+          <output id="fOut" aria-hidden="true">01 / 09</output>
         </div>
         <p class="note" data-en="This project's code is private as it's the company's business software.">El código de este proyecto es privado por ser software empresarial de la compañía.</p>
       </div>
     </section>
 
-    <section class="wrap">
-      <h2 data-en="How it's built">Cómo está hecho</h2>
-      <p class="sub" data-en="In plain words, no extra jargon.">En palabras sencillas, sin tecnicismos de más.</p>
-      <div class="tech">
-        <ul>
-          <li data-en="<strong>Mobile app in .NET MAUI</strong> (C#) for Android, with the MVVM pattern and an encrypted local database on the phone."><strong>App móvil en .NET MAUI</strong> (C#) para Android, con patrón MVVM y una base de datos local cifrada en el teléfono.</li>
-          <li data-en="<strong>True offline-first:</strong> documents are stored locally and a queue uploads them automatically when the connection returns, with retries."><strong>Offline-first real:</strong> los documentos se guardan localmente y una cola los sube automáticamente cuando vuelve la conexión, con reintentos.</li>
-          <li data-en="<strong>Thermal Bluetooth printing</strong> using the ESC/POS protocol, to hand over the receipt on site."><strong>Impresión térmica por Bluetooth</strong> usando el protocolo ESC/POS, para entregar el recibo en el sitio.</li>
-          <li data-en="<strong>Backend in ASP.NET over SQL Server</strong>, with a multi-company (multi-tenant) scheme that runs in the cloud and on-premise."><strong>Backend en ASP.NET sobre SQL Server</strong>, con esquema multiempresa (multi-tenant) que funciona en la nube y en local.</li>
-          <li data-en="<strong>Business backend</strong> integrated: invoicing, inventory, accounting, payroll and point of sale."><strong>Backend de negocio</strong> integrado: facturación, inventario, contabilidad, nómina y punto de venta.</li>
-          <li data-en="<strong>Error monitoring</strong> with Sentry and permission-based access control by user role."><strong>Monitoreo de errores</strong> con Sentry y control de acceso por permisos según el rol del usuario.</li>
-        </ul>
-      </div>
-      <div class="tags">
-        <span>.NET MAUI</span><span>C#</span><span>VB.NET</span><span>ASP.NET</span><span>SQL Server</span>
-        <span>LiteDB</span><span>MVVM</span><span>Offline-first</span><span>Multi-tenant</span>
-        <span>Bluetooth ESC/POS</span><span>Sentry</span>
+    <!-- §05 ARQUITECTURA -->
+    <section id="arquitectura">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§05</b> / <span data-en="architecture">arquitectura</span></div>
+          <div>
+            <h2 class="stitle" data-scramble data-en="How it's built">Cómo está hecho</h2>
+            <p class="ssub" data-en="In plain words, no extra jargon. Layer by layer, from the phone to the database.">En palabras sencillas, sin tecnicismos de más. Capa por capa, del celular a la base de datos.</p>
+          </div>
+        </div>
+
+        <div class="arch">
+          <div class="layers reveal">
+            <div class="layer l-mob">
+              <div class="lk"><span><b>L1</b> · <span data-en="on the phone">en el celular</span></span><span>C# · MVVM</span></div>
+              <h3 data-en="Mobile app in <em>.NET MAUI</em>">App móvil en <em>.NET MAUI</em></h3>
+              <ul>
+                <li data-en="<strong>Mobile app in .NET MAUI</strong> (C#) for Android, with the MVVM pattern and an encrypted local database on the phone."><strong>App móvil en .NET MAUI</strong> (C#) para Android, con patrón MVVM y una base de datos local cifrada en el teléfono.</li>
+                <li data-en="<strong>Error monitoring</strong> with Sentry and permission-based access control by user role."><strong>Monitoreo de errores</strong> con Sentry y control de acceso por permisos según el rol del usuario.</li>
+              </ul>
+            </div>
+            <div class="conn"><span data-en="<b>sync ↕</b> <strong>True offline-first:</strong> documents are stored locally and a queue uploads them automatically when the connection returns, with retries."><b>sync ↕</b> <strong>Offline-first real:</strong> los documentos se guardan localmente y una cola los sube automáticamente cuando vuelve la conexión, con reintentos.</span></div>
+            <div class="layer l-api">
+              <div class="lk"><span><b>L2</b> · <span data-en="services">servicios</span></span><span data-en="cloud + on-premise">nube + local</span></div>
+              <h3 data-en="Backend in <em>ASP.NET</em>">Backend en <em>ASP.NET</em></h3>
+              <ul>
+                <li data-en="<strong>Backend in ASP.NET over SQL Server</strong>, with a multi-company (multi-tenant) scheme that runs in the cloud and on-premise."><strong>Backend en ASP.NET sobre SQL Server</strong>, con esquema multiempresa (multi-tenant) que funciona en la nube y en local.</li>
+              </ul>
+            </div>
+            <div class="conn"><span><b>↕</b> SQL</span></div>
+            <div class="layer l-db">
+              <div class="lk"><span><b>L3</b> · <span data-en="data &amp; business">datos y negocio</span></span><span>SQL Server</span></div>
+              <h3 data-en="Integrated <em>business backend</em>">Backend de <em>negocio</em> integrado</h3>
+              <ul>
+                <li data-en="<strong>Business backend</strong> integrated: invoicing, inventory, accounting, payroll and point of sale."><strong>Backend de negocio</strong> integrado: facturación, inventario, contabilidad, nómina y punto de venta.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="side reveal">
+            <div class="card per">
+              <div class="lk" data-en="peripheral · L1">periférico · L1</div>
+              <h3 data-en="Bluetooth thermal printing">Impresión térmica Bluetooth</h3>
+              <p data-en="<strong>Thermal Bluetooth printing</strong> using the ESC/POS protocol, to hand over the receipt on site."><strong>Impresión térmica por Bluetooth</strong> usando el protocolo ESC/POS, para entregar el recibo en el sitio.</p>
+            </div>
+            <div class="card">
+              <div class="lk" data-en="desktop">escritorio</div>
+              <h3 data-en="Desktop ERP">ERP de escritorio</h3>
+              <p data-en="A WinForms application for the office, part of the same ecosystem.">Aplicación WinForms para la oficina, parte del mismo ecosistema.</p>
+            </div>
+            <div class="card">
+              <div class="lk" data-en="before MAUI">antes de MAUI</div>
+              <h3 data-en="Earlier mobile apps">Apps móviles previas</h3>
+              <p data-en="In Xamarin and React Native, for clients and field operations.">En Xamarin y React Native, para clientes y operaciones en campo.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tags reveal">
+          <span>.NET MAUI</span><span>C#</span><span>VB.NET</span><span>ASP.NET</span><span>SQL Server</span>
+          <span>LiteDB</span><span>MVVM</span><span>Offline-first</span><span>Multi-tenant</span>
+          <span>Bluetooth ESC/POS</span><span>Sentry</span><span>WinForms</span><span>Xamarin</span><span>React Native</span>
+        </div>
       </div>
     </section>
 
-    <section class="wrap cta">
-      <h2 data-en="Have a project like this in mind?">¿Tienes un proyecto así en mente?</h2>
-      <p class="sub" data-en="I build business apps, offline-first and with real integrations.">Construyo apps de negocio, offline-first y con integraciones reales.</p>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <a class="btn btn-fill" href="https://wa.me/573128569219" target="_blank" rel="noopener" data-en="Let's talk on WhatsApp →">Hablemos por WhatsApp →</a>
-        <a class="btn btn-line" href="https://samit.com.co/" target="_blank" rel="noopener" data-en="About SAMIT">Conocer SAMIT</a>
+    <!-- §06 CTA -->
+    <section id="contacto" class="contact">
+      <div class="wrap">
+        <div class="shead reveal" style="margin-bottom:18px">
+          <div class="sidx"><b>§06</b> / <span data-en="contact">contacto</span></div>
+          <div></div>
+        </div>
+        <h2 class="big reveal" data-en="Have a project like this <em>in mind</em>?">¿Tienes un proyecto así <em>en mente</em>?</h2>
+        <div class="ribbon reveal" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <p class="ssub reveal" data-en="I build business apps, offline-first and with real integrations.">Construyo apps de negocio, offline-first y con integraciones reales.</p>
+        <div class="clinks reveal">
+          <a href="https://wa.me/573128569219" target="_blank" rel="noopener"><span class="k">WhatsApp</span><span class="v" data-en="Let's talk →">Hablemos →</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a href="https://play.google.com/store/apps/details?id=com.samitsql.samitmobilemaui" target="_blank" rel="noopener"><span class="k">Google Play</span><span class="v">Samit Móvil</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a href="https://samit.com.co/" target="_blank" rel="noopener"><span class="k" data-en="Official site">Sitio oficial</span><span class="v">samit.com.co</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a href="../"><span class="k" data-en="Portfolio">Portafolio</span><span class="v" data-en="← Back to portfolio">← Volver al portafolio</span><span class="ar" aria-hidden="true">↩</span></a>
+        </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <p><a class="volver" href="../" data-en="← Back to portfolio">← Volver al portafolio</a></p>
-    <p style="margin-top:10px;" data-en="Official site: <a href='https://samit.com.co/' target='_blank' rel='noopener'>samit.com.co</a>">Sitio oficial: <a href="https://samit.com.co/" target="_blank" rel="noopener">samit.com.co</a></p>
-    <p style="margin-top:8px;" data-en="SAMIT business suite · A professional project by Cesar Carvajal · © 2026">Suite empresarial SAMIT · Proyecto profesional de Cesar Carvajal · © 2026</p>
+    <div class="wrap">
+      <span data-en="© 2019 – 2026 · Cesar Carvajal · SAMIT business suite, a professional project">© 2019 – 2026 · Cesar Carvajal · Suite empresarial SAMIT, proyecto profesional</span>
+      <a href="../" data-en="← Back to portfolio">← Volver al portafolio</a>
+    </div>
   </footer>
 
   <script>
+    var REDUCE = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var GLYPHS = '{}[]()<>;:=+-*/&|!?#$%_01λ=>';
+    document.documentElement.classList.add('js');
+    function isEN(){ return document.documentElement.lang === 'en'; }
+    function T(es, en){ return isEN() ? en : es; }
+    function money(n){ return '$ ' +n.toLocaleString(isEN() ? 'en-US' : 'es-CO'); }
+
+    // ---------- i18n (ES/EN), sin recargar ----------
     (function(){
       var KEY='site-lang';
       function apply(l){
@@ -190,9 +700,11 @@
         document.querySelectorAll('[data-en]').forEach(function(el){
           if(el.dataset.es===undefined){
             el.dataset.es = (el.tagName==='META') ? el.getAttribute('content')
-                          : (el.tagName==='TITLE') ? el.textContent : el.innerHTML;
+                          : (el.tagName==='TITLE') ? el.textContent
+                          : el.innerHTML;
           }
           var v = (l==='en') ? el.getAttribute('data-en') : el.dataset.es;
+          el._scr = null; // cancela un scramble en curso
           if(el.tagName==='META'){ el.setAttribute('content', v); }
           else if(el.tagName==='TITLE'){ document.title = v; }
           else { el.innerHTML = v; }
@@ -209,6 +721,462 @@
         if(b){ e.preventDefault(); apply(b.getAttribute('data-lang-btn')); }
       });
       apply(initial);
+    })();
+
+    // Avisar a los módulos generados por JS cuando cambia el idioma
+    var langHooks = [], curLang = document.documentElement.lang;
+    new MutationObserver(function(){
+      var l = document.documentElement.lang; if(l === curLang) return; curLang = l;
+      langHooks.forEach(function(f){ f(); });
+    }).observe(document.documentElement, {attributes:true, attributeFilter:['lang']});
+
+    // ---------- Scroll: barra de progreso ----------
+    (function(){
+      var root = document.documentElement, ticking = false;
+      function upd(){
+        ticking = false;
+        var max = root.scrollHeight - innerHeight;
+        root.style.setProperty('--p', max > 0 ? (scrollY/max).toFixed(4) : 0);
+      }
+      addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+      upd();
+    })();
+
+    // ---------- Títulos que se "descifran" ----------
+    function scramble(el){
+      if(REDUCE || el.children.length) return;
+      var id = {}; el._scr = id;
+      var target = el.textContent, n = target.length, t0 = performance.now(), dur = Math.min(1100, 300 + n*45);
+      (function f(t){
+        if(el._scr !== id) return;
+        var k = Math.min(1, (t - t0)/dur), r = Math.floor(k*n), out = '';
+        for(var i=0;i<n;i++){
+          var c = target[i];
+          out += (i < r || c === ' ') ? c : GLYPHS[(Math.random()*GLYPHS.length)|0];
+        }
+        el.textContent = out;
+        if(k < 1) requestAnimationFrame(f); else { el.textContent = target; el._scr = null; }
+      })(t0);
+    }
+
+    // ---------- Reveal on scroll ----------
+    (function(){
+      var els = document.querySelectorAll('.reveal');
+      if(!('IntersectionObserver' in window) || !els.length){ els.forEach(function(e){e.classList.add('in')}); return; }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(!en.isIntersecting) return;
+          en.target.classList.add('in'); io.unobserve(en.target);
+          en.target.querySelectorAll('[data-scramble]').forEach(scramble);
+        });
+      }, {rootMargin:'0px 0px -8% 0px'});
+      els.forEach(function(e){ io.observe(e); });
+    })();
+
+    // ============================================================
+    // FIG. 01 — Impresora térmica ESC/POS: el recibo sale línea a línea
+    // Motor en rAF: alimenta el papel hacia arriba (feed) y el cabezal
+    // "quema" cada línea de izquierda a derecha. Se pausa fuera de pantalla.
+    // ============================================================
+    (function(){
+      var fig = document.getElementById('printerFig'), stage = document.getElementById('pstage');
+      var clip = document.getElementById('rclip'), paper = document.getElementById('paper');
+      var head = document.getElementById('headpos'), rows = document.getElementById('hexrows');
+      var pstate = document.getElementById('pstate'), btn = document.getElementById('reprint');
+      var COLS = 32, L = [], els = [], H = 0;
+      var st = 'idle', k = 0, ph = 'feed', t = 0, y = 0, y0 = 0, y1 = 0, raf = 0, last = 0, visible = false, seen = false;
+
+      function pad(l, r){ return l + ' '.repeat(Math.max(1, COLS - l.length - r.length)) + r; }
+      function hx(s, n){
+        var out = [];
+        for(var i=0;i<Math.min(n, s.length);i++){ out.push(('0'+(s.charCodeAt(i) & 255).toString(16).toUpperCase()).slice(-2)); }
+        return out.join(' ') + (s.length > n ? ' …' : '');
+      }
+      function lines(){
+        var items = [[2, T('Producto A','Product A'), 12000], [1, T('Producto B','Product B'), 8500], [3, T('Producto C','Product C'), 4500]];
+        var total = items.reduce(function(a, it){ return a + it[0]*it[2]; }, 0);
+        var d = new Date(), p2 = function(n){ return String(n).padStart(2,'0'); };
+        var date = (isEN() ? p2(d.getMonth()+1)+'/'+p2(d.getDate()) : p2(d.getDate())+'/'+p2(d.getMonth()+1)) + '/' + d.getFullYear();
+        var dash = '- '.repeat(COLS/2);
+        var out = [
+          {t:'SAMIT MÓVIL', c:1, big:1},
+          {t:T('RECIBO DE EJEMPLO','SAMPLE RECEIPT'), c:1},
+          {t:'='.repeat(COLS), rule:1},
+          {t:pad(T('Nº','No.')+' DEMO-0042', date)},
+          {t:T('Cliente: Cliente de ejemplo','Customer: Sample customer')},
+          {t:T('Vendedor: demo','Sales rep: demo')},
+          {t:dash, rule:1}
+        ];
+        items.forEach(function(it){ out.push({t:pad(it[0]+' x '+it[1], money(it[0]*it[2]))}); });
+        out.push(
+          {t:dash, rule:1},
+          {t:pad('Subtotal', money(total))},
+          {t:pad('TOTAL', money(total)), b:1},
+          {t:pad(T('Pago: efectivo','Paid: cash'), money(total))},
+          {t:dash, rule:1},
+          {bar:'DEMO0042'},
+          {t:'DEMO-0042', c:1},
+          {t:T('Datos ilustrativos','Illustrative data'), c:1},
+          {t:T('Impreso por Bluetooth · ESC/POS','Printed via Bluetooth · ESC/POS'), c:1}
+        );
+        return out;
+      }
+      // Código de barras decorativo (patrón derivado del texto, estilo Code 128)
+      function barcode(s){
+        var bits = '11010010000';
+        for(var i=0;i<s.length;i++){
+          var v = (s.charCodeAt(i)*7919 + i*104729) % 1024;
+          bits += '1' + ('0000000000' + v.toString(2)).slice(-10) + (i % 2 ? '0' : '00');
+        }
+        bits += '1100011101011';
+        var r = '', x = 0;
+        while(x < bits.length){
+          if(bits[x] === '1'){ var w = 0; while(bits[x+w] === '1') w++; r += '<rect x="'+x+'" y="0" width="'+w+'" height="40"/>'; x += w; }
+          else x++;
+        }
+        return '<svg viewBox="0 0 '+bits.length+' 40" preserveAspectRatio="none" fill="#1a1a1a">'+r+'</svg>';
+      }
+      // Bytes ESC/POS que se "envían" por cada línea
+      function bytes(l){
+        if(l.bar) return '<span class="c">1D 6B 49</span> <span class="t">'+hx(l.bar, 4)+'</span> <span class="k">; CODE128</span>';
+        var h = '<span class="c">'+(l.c ? '1B 61 01' : '1B 61 00')+'</span> ';
+        if(l.big) h += '<span class="c">1D 21 11</span> ';
+        else if(l.b) h += '<span class="c">1B 45 01</span> ';
+        return h + '<span class="t">'+hx(l.t, 5)+'</span> <span class="l">0A</span>';
+      }
+      function hexPush(html){
+        var d = document.createElement('div'); d.className = 'row'; d.innerHTML = '› ' + html;
+        rows.appendChild(d);
+        while(rows.children.length > 7) rows.removeChild(rows.firstChild);
+      }
+
+      function render(){
+        L = lines(); paper.innerHTML = '';
+        els = L.map(function(l){
+          var d = document.createElement('div');
+          d.className = 'rl' + (l.c ? ' c' : '') + (l.b ? ' b' : '') + (l.big ? ' big' : '') + (l.rule ? ' rule' : '') + (l.bar ? ' bar' : '');
+          if(l.bar) d.innerHTML = barcode(l.bar); else d.textContent = l.t;
+          paper.appendChild(d); return d;
+        });
+        H = paper.offsetHeight;
+        clip.style.height = H + 'px';
+      }
+      function target(i){ var e = els[i]; return Math.max(0, H - (e.offsetTop + e.offsetHeight) - 2); }
+      function setY(v){ y = v; paper.style.transform = 'translateY(' + v.toFixed(1) + 'px)'; }
+      function ease(p){ return 1 - Math.pow(1 - p, 3); }
+
+      function finish(){
+        stop(); st = 'done';
+        els.forEach(function(e){ e.style.clipPath = ''; e.style.visibility = ''; });
+        setY(0);
+        rows.innerHTML = '';
+        hexPush('<span class="c">1B 40</span> <span class="k">; init</span>');
+        L.slice(-4).forEach(function(l){ hexPush(bytes(l)); });
+        hexPush('<span class="c">1D 56 01</span> <span class="k">; ' + T('corte','cut') + '</span>');
+        stage.classList.add('cut'); fig.classList.remove('printing');
+        pstate.textContent = T('listo','ready');
+      }
+      function reset(){
+        render();
+        if(REDUCE){ finish(); return; }
+        stage.classList.remove('cut'); fig.classList.add('printing');
+        els.forEach(function(e){ e.style.clipPath = 'inset(0 100% 0 0)'; });
+        rows.innerHTML = '';
+        hexPush('<span class="c">1B 40</span> <span class="k">; init</span>');
+        pstate.textContent = T('imprimiendo…','printing…');
+        setY(H); st = 'printing'; k = 0; ph = 'feed'; t = 0; y0 = H; y1 = target(0);
+        kick();
+      }
+      function dur(l){ return l.bar ? 420 : l.rule ? 150 : 60 + l.t.length * 11; }
+      function frame(now){
+        raf = 0;
+        if(!running()){ last = 0; return; }
+        raf = requestAnimationFrame(frame);
+        var dt = last ? Math.min(50, now - last) : 16; last = now; t += dt;
+        if(ph === 'feed'){
+          var p = Math.min(1, t / 120); setY(y0 + (y1 - y0) * ease(p));
+          if(p >= 1){ ph = 'print'; t = 0; hexPush(bytes(L[k])); }
+        } else if(ph === 'print'){
+          var q = Math.min(1, t / dur(L[k]));
+          els[k].style.clipPath = 'inset(0 ' + ((1 - q) * 100).toFixed(1) + '% 0 0)';
+          head.style.left = 'calc(' + (q * 100).toFixed(1) + '% - ' + (q * 22).toFixed(1) + 'px)';
+          if(q >= 1){
+            els[k].style.clipPath = ''; k++; t = 0;
+            if(k < L.length){ ph = 'feed'; y0 = y; y1 = target(k); }
+            else { ph = 'eject'; y0 = y; y1 = 0; hexPush('<span class="c">1D 56 01</span> <span class="k">; ' + T('corte','cut') + '</span>'); }
+          }
+        } else if(ph === 'eject'){
+          var e = Math.min(1, t / 450); setY(y0 + (y1 - y0) * ease(e));
+          if(e >= 1){ st = 'done'; stage.classList.add('cut'); fig.classList.remove('printing'); pstate.textContent = T('listo','ready'); stop(); }
+        }
+      }
+      function running(){ return st === 'printing' && visible && !document.hidden; }
+      function kick(){ if(!raf && running()){ last = 0; raf = requestAnimationFrame(frame); } }
+      function stop(){ if(raf){ cancelAnimationFrame(raf); raf = 0; } }
+
+      render(); setY(H); pstate.textContent = 'BT';
+      if(REDUCE) finish();
+      if('IntersectionObserver' in window){
+        new IntersectionObserver(function(en){
+          visible = en[0].isIntersecting;
+          if(visible && !seen){ seen = true; if(st === 'idle') reset(); }
+          visible ? kick() : stop();
+        }, {threshold:.25}).observe(stage);
+      } else { visible = true; reset(); }
+      document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : kick(); });
+      btn.addEventListener('click', function(){ stop(); reset(); });
+      langHooks.push(function(){
+        if(st === 'printing'){ stop(); reset(); }
+        else if(st === 'done'){ render(); finish(); }
+        else { render(); setY(H); }
+      });
+      if(document.fonts && document.fonts.ready){
+        document.fonts.ready.then(function(){
+          var oh = H;
+          if(st === 'done'){ render(); finish(); }
+          else if(st === 'idle'){ render(); setY(H); }
+          else if(paper.offsetHeight !== oh){ stop(); reset(); }
+        });
+      }
+      var rw = innerWidth;
+      addEventListener('resize', function(){
+        if(innerWidth === rw) return; rw = innerWidth;
+        if(st === 'done'){ render(); setY(0); } else if(st === 'idle'){ render(); setY(H); }
+      });
+    })();
+
+    // ============================================================
+    // §03 — Simulador offline-first: cola local + sincronización con reintentos
+    // ============================================================
+    (function(){
+      var $ = function(id){ return document.getElementById(id); };
+      var sw = $('netSw'), app = $('app'), qEl = $('queue'), pendN = $('pendN'), pendL = $('pendL'), appTitle = $('appTitle'), appSync = $('appSync');
+      var apiSt = $('apiSt'), dbLog = $('dbLog'), dbN = $('dbN'), live = $('simLive'), hint = $('simHint');
+      var pipe = $('pipe'), nPhone = $('nPhone'), nApi = $('nApi'), nDb = $('nDb'), w1 = $('w1'), w2 = $('w2');
+      var AMTS = [46000, 128500, 89900, 23400, 310000, 57250];
+      var S, gen = 0;
+
+      function mk(type){
+        S.seq++;
+        return {id:'DEMO-' + String(S.seq).padStart(4,'0'), type:type, amt:AMTS[S.seq % AMTS.length], st:'pend', fails:(S.seq % 3 === 0) ? 1 : 0, fresh:false};
+      }
+      function init(){
+        gen++;
+        pipe.querySelectorAll('.pkt').forEach(function(p){ p.remove(); });
+        S = {online:false, q:[], log:[], seq:42, busy:false, api:'idle', doc:null, synced:0, lastSync:null};
+        S.q.push(mk('o'), mk('v'));
+        render();
+      }
+      function tname(d){ return d.type === 'o' ? T('Orden','Order') : T('Venta','Sale'); }
+      function stLabel(s){ return s === 'pend' ? T('pendiente','pending') : s === 'send' ? T('enviando','sending') : T('reintento','retry'); }
+      function announce(msg){ live.textContent = msg; }
+
+      function render(bump){
+        var n = S.q.length;
+        sw.setAttribute('aria-checked', String(S.online));
+        app.classList.toggle('off-mode', !S.online); app.classList.toggle('on-mode', S.online);
+        nPhone.classList.toggle('has', n > 0);
+        pendN.textContent = n;
+        if(bump && !REDUCE){ pendN.classList.remove('bump'); void pendN.offsetWidth; pendN.classList.add('bump'); }
+        pendL.textContent = T('Pendientes','Pending');
+        appTitle.textContent = T('Inicio','Home');
+        appSync.textContent = S.online
+          ? (S.lastSync ? '✓ ' + T('Última sincronización: ','Last sync: ') + S.lastSync : '● ' + T('Conectado','Connected'))
+          : '⚠ ' + T('Sin conexión · se guarda en el celular','Offline · saved on the phone');
+        if(!n){
+          qEl.innerHTML = '<li class="empty"><b>' + T('Sin documentos pendientes','No pending documents') + '</b>' +
+            T('Cuando guardes ventas u órdenes offline aparecerán aquí.','Sales or orders saved offline will show up here.') + '</li>';
+        } else {
+          qEl.innerHTML = S.q.slice(0, 4).map(function(d){
+            return '<li class="doc st-' + d.st + '"><span class="ic">' + (d.type === 'o' ? 'OR' : 'VE') + '</span><span><b>' + tname(d) + ' ' + d.id + '</b><small>' +
+              T('Cliente de ejemplo','Sample customer') + ' · ' + money(d.amt) + '</small></span><span class="chip">' + stLabel(d.st) + '</span></li>';
+          }).join('') + (n > 4 ? '<li class="more">+' + (n - 4) + ' ' + T('más en la cola','more in the queue') + '</li>' : '');
+        }
+        w1.classList.toggle('down', !S.online);
+        var a = S.api, d = S.doc;
+        apiSt.innerHTML =
+          a === 'recv' ? '<span class="k">POST</span> /sync · ' + d.id + '<br>' + T('validando empresa y permisos…','checking company &amp; permissions…') :
+          a === 'save' ? '<span class="ok">200 OK</span> · ' + d.id + '<br>' + T('guardando en SQL Server…','saving to SQL Server…') :
+          a === 'fail' ? '<span class="er">timeout</span> · ' + d.id + '<br>' + T('la cola lo reintentará','the queue will retry it') :
+          S.online ? '<span class="ok">●</span> ' + T('en línea · esperando documentos','online · waiting for documents') :
+                     '<span class="er">●</span> ' + T('sin contacto con el celular','no contact with the phone');
+        dbLog.innerHTML = S.log.slice(0, 4).map(function(d){
+          return '<li class="' + (d.fresh ? 'new' : '') + '"><span>' + tname(d) + ' ' + d.id + '</span><span>✓</span></li>';
+        }).join('') || '<li><span>— ' + T('aún sin documentos','no documents yet') + ' —</span><span></span></li>';
+        S.log.forEach(function(d){ d.fresh = false; });
+        dbN.innerHTML = '<b>' + S.synced + '</b> ' + T('documentos sincronizados','documents synced');
+        hint.textContent = !S.online
+          ? (n ? T('↳ activa la señal para sincronizar','↳ turn the signal on to sync') : T('↳ crea una orden sin señal','↳ create an order with no signal'))
+          : (S.busy ? T('↳ sincronizando…','↳ syncing…') : T('↳ todo al día · prueba quitar la señal','↳ all synced · try turning the signal off'));
+      }
+
+      // Punto en el borde de un nodo, mirando hacia otro (sirve en horizontal y en vertical)
+      function edge(a, b, far){
+        var pr = pipe.getBoundingClientRect(), ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+        var horiz = rb.left >= ra.right - 2 || rb.right <= ra.left + 2;
+        if(horiz){
+          var dir = rb.left > ra.left ? 1 : -1;
+          return {x:(dir > 0 ? ra.right : ra.left) - pr.left, y:ra.top + Math.min(ra.height / 2, 120) - pr.top};
+        }
+        var dv = rb.top > ra.top ? 1 : -1;
+        return {x:ra.left + ra.width / 2 - pr.left, y:(dv > 0 ? ra.bottom : ra.top) - pr.top};
+      }
+      function wait(ms){ return new Promise(function(r){ setTimeout(r, REDUCE ? 0 : ms); }); }
+      function fly(d, from, to, opts){
+        opts = opts || {};
+        if(REDUCE || !pipe.animate) return Promise.resolve();
+        var a = edge(from, to), b = edge(to, from);
+        if(opts.half){ b = {x:(a.x + b.x) / 2, y:(a.y + b.y) / 2}; }
+        var p = document.createElement('span'); p.className = 'pkt' + (opts.retry ? ' retry' : ''); p.textContent = d.id;
+        pipe.appendChild(p);
+        var w = p.offsetWidth / 2, h = p.offsetHeight / 2;
+        var A = 'translate(' + (a.x - w) + 'px,' + (a.y - h) + 'px)', B = 'translate(' + (b.x - w) + 'px,' + (b.y - h) + 'px)';
+        var kf = opts.back ? [{transform:B}, {transform:A}] : [{transform:A}, {transform:B}];
+        var wire = opts.wire; if(wire) wire.classList.add('hot');
+        var an = p.animate(kf, {duration:opts.dur || 650, easing:'cubic-bezier(.55,0,.3,1)', fill:'forwards'});
+        return new Promise(function(res){
+          var done = false;
+          function fin(){ if(done) return; done = true; p.remove(); if(wire) wire.classList.remove('hot'); res(); }
+          an.onfinish = an.oncancel = fin;
+          setTimeout(fin, (opts.dur || 650) + 400); // red de seguridad si la animación no llega a terminar
+        });
+      }
+
+      async function pump(){
+        if(S.busy) return;
+        S.busy = true; var g = gen; render();
+        while(S.online && S.q.length && g === gen){
+          var d = S.q[0];
+          d.st = 'send'; S.api = 'recv'; S.doc = d; render();
+          if(d.fails > 0){
+            // la primera vez se "cae" a mitad de camino: timeout y reintento
+            await fly(d, nPhone, nApi, {half:true, wire:w1, dur:520});
+            if(g !== gen) return;
+            d.fails--; d.st = 'retry'; S.api = 'fail'; render();
+            announce(T('Tiempo agotado con ' + d.id + '; la cola lo reintentará.', 'Timeout on ' + d.id + '; the queue will retry it.'));
+            await fly(d, nPhone, nApi, {half:true, back:true, retry:true, dur:420});
+            await wait(800);
+            if(g !== gen) return;
+            if(!S.online){ d.st = 'pend'; break; }
+            continue;
+          }
+          await fly(d, nPhone, nApi, {wire:w1});
+          if(g !== gen) return;
+          S.api = 'save'; render();
+          await fly(d, nApi, nDb, {wire:w2, dur:520});
+          if(g !== gen) return;
+          S.q.shift(); d.st = 'ok'; d.fresh = true; S.log.unshift(d); S.synced++;
+          var now = new Date(); S.lastSync = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+          S.api = 'idle'; render(true);
+          announce(T(tname(d) + ' ' + d.id + ' sincronizada con el servidor.', tname(d) + ' ' + d.id + ' synced to the server.'));
+          await wait(220);
+        }
+        if(g !== gen) return;
+        S.q.forEach(function(x){ if(x.st !== 'pend' && !S.online) x.st = 'pend'; });
+        S.api = 'idle'; S.busy = false; render();
+        if(S.online && S.q.length) pump();
+        else if(S.online && !S.q.length) announce(T('Todo sincronizado. Pendientes: 0.', 'All synced. Pending: 0.'));
+      }
+
+      function add(type){
+        touched = true;
+        if(S.q.length >= 9){ announce(T('La cola de la demo está llena.','The demo queue is full.')); return; }
+        var d = mk(type); S.q.push(d); render(true);
+        announce(S.online ? T(tname(d) + ' ' + d.id + ' creada; se envía de inmediato.', tname(d) + ' ' + d.id + ' created; sending right away.')
+                          : T(tname(d) + ' ' + d.id + ' guardada en el celular, sin señal. Pendientes: ' + S.q.length + '.', tname(d) + ' ' + d.id + ' saved on the phone, offline. Pending: ' + S.q.length + '.'));
+        if(S.online) pump();
+      }
+      var touched = false;
+      sw.addEventListener('click', function(){
+        touched = true; S.online = !S.online; render();
+        announce(S.online ? T('Con señal: sincronizando la cola.','Signal on: syncing the queue.') : T('Sin señal: los documentos se guardan en el celular.','No signal: documents are saved on the phone.'));
+        if(S.online) pump();
+      });
+      $('addO').addEventListener('click', function(){ add('o'); });
+      $('addV').addEventListener('click', function(){ add('v'); });
+      $('simReset').addEventListener('click', function(){ touched = true; init(); announce(T('Demo reiniciada.','Demo reset.')); });
+      langHooks.push(function(){ render(); });
+      init();
+
+      // Pequeña demostración automática: al verla por primera vez, llega una orden sin señal
+      if('IntersectionObserver' in window && !REDUCE){
+        var io = new IntersectionObserver(function(en){
+          if(!en[0].isIntersecting) return; io.disconnect();
+          setTimeout(function(){ if(!touched && !S.online){ var d = mk('o'); S.q.push(d); render(true); } }, 1400);
+        }, {threshold:.4});
+        io.observe(pipe);
+      }
+    })();
+
+    // ============================================================
+    // §04 — Filmstrip de capturas: arrastrar, flechas, deslizador
+    // ============================================================
+    (function(){
+      var film = document.getElementById('film'), shots = [].slice.call(film.querySelectorAll('.shot'));
+      var rng = document.getElementById('fRange'), out = document.getElementById('fOut');
+      var cur = -1, ticking = false, visible = true;
+      function center(s){ return s.offsetLeft + s.offsetWidth / 2; }
+      function idx(){
+        var c = film.scrollLeft + film.clientWidth / 2, best = 0, bd = Infinity;
+        shots.forEach(function(s, i){ var dd = Math.abs(center(s) - c); if(dd < bd){ bd = dd; best = i; } });
+        return best;
+      }
+      function go(i, smooth){
+        i = Math.max(0, Math.min(shots.length - 1, i));
+        film.scrollTo({left:center(shots[i]) - film.clientWidth / 2, behavior:(smooth && !REDUCE) ? 'smooth' : 'auto'});
+      }
+      function upd(){
+        ticking = false;
+        var i = idx(), c = film.scrollLeft + film.clientWidth / 2;
+        if(i !== cur){
+          cur = i; rng.value = i;
+          out.textContent = String(i + 1).padStart(2,'0') + ' / ' + String(shots.length).padStart(2,'0');
+          shots.forEach(function(s, j){ s.classList.toggle('on', j === i); });
+        }
+        if(REDUCE || !visible) return;
+        shots.forEach(function(s){
+          var d = (center(s) - c) / (s.offsetWidth + 34), a = Math.min(1.6, Math.abs(d));
+          s.firstElementChild.firstElementChild.style.transform =
+            'translateY(' + (a * 26).toFixed(1) + 'px) rotate(' + (Math.max(-1.6, Math.min(1.6, d)) * 5).toFixed(2) + 'deg) scale(' + (1 - a * .08).toFixed(3) + ')';
+        });
+      }
+      function req(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }
+      film.addEventListener('scroll', req, {passive:true});
+      addEventListener('resize', req);
+      if('IntersectionObserver' in window){
+        new IntersectionObserver(function(en){ visible = en[0].isIntersecting; if(visible) req(); }).observe(film);
+      }
+      rng.addEventListener('input', function(){ go(+rng.value, true); });
+      document.getElementById('fPrev').addEventListener('click', function(){ go(cur - 1, true); });
+      document.getElementById('fNext').addEventListener('click', function(){ go(cur + 1, true); });
+      film.addEventListener('keydown', function(e){
+        if(e.key === 'ArrowRight'){ e.preventDefault(); go(cur + 1, true); }
+        else if(e.key === 'ArrowLeft'){ e.preventDefault(); go(cur - 1, true); }
+        else if(e.key === 'Home'){ e.preventDefault(); go(0, true); }
+        else if(e.key === 'End'){ e.preventDefault(); go(shots.length - 1, true); }
+      });
+      // arrastre con el mouse (en táctil se usa el scroll nativo)
+      var drag = null;
+      film.addEventListener('pointerdown', function(e){
+        if(e.pointerType !== 'mouse' || e.button !== 0) return;
+        drag = {x:e.clientX, s:film.scrollLeft, moved:false, v:0, lx:e.clientX, lt:performance.now()};
+        film.classList.add('drag'); film.setPointerCapture(e.pointerId);
+      });
+      film.addEventListener('pointermove', function(e){
+        if(!drag) return;
+        var dx = e.clientX - drag.x; if(Math.abs(dx) > 4) drag.moved = true;
+        var now = performance.now(); drag.v = (e.clientX - drag.lx) / Math.max(1, now - drag.lt); drag.lx = e.clientX; drag.lt = now;
+        film.scrollLeft = drag.s - dx;
+      });
+      function end(){
+        if(!drag) return;
+        var fling = Math.round(-drag.v * 3);   // un poco de inercia: salta capturas según la velocidad
+        film.classList.remove('drag');
+        go(idx() + Math.max(-2, Math.min(2, fling)), true);
+        drag = null;
+      }
+      film.addEventListener('pointerup', end); film.addEventListener('pointercancel', end);
+      go(0, false); upd();
     })();
   </script>
 </body>
