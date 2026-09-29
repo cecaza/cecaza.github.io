@@ -6,18 +6,19 @@
 
   <!-- ============ SEO ============ -->
   <title data-en="Cesar Carvajal — Mobile &amp; web app developer | Flutter · .NET · Next.js">Cesar Carvajal — Desarrollador de apps móviles y web | Flutter · .NET · Next.js</title>
-  <meta name="description" data-en="Software developer with 7+ years building mobile apps (Flutter, .NET MAUI) and web platforms (Next.js). Products in production: Turno (booking SaaS), apps on Google Play and custom business software. Colombia." content="Desarrollador de software con +7 años creando apps móviles (Flutter, .NET MAUI) y plataformas web (Next.js). Productos en producción: Turno (SaaS de agenda), apps en Google Play y software empresarial a la medida. Colombia." />
+  <meta name="description" data-en="Software developer since 2019 (7+ years) building mobile apps (Flutter, .NET MAUI) and web platforms (Next.js). Products in production: Turno (booking SaaS), apps on Google Play and custom business software. Colombia." content="Desarrollador de software desde 2019 (+7 años) creando apps móviles (Flutter, .NET MAUI) y plataformas web (Next.js). Productos en producción: Turno (SaaS de agenda), apps en Google Play y software empresarial a la medida. Colombia." />
   <meta name="author" content="Cesar Carvajal" />
   <meta name="keywords" content="desarrollador móvil, mobile developer, Flutter, .NET MAUI, Xamarin, React Native, Next.js, full stack, software empresarial, Colombia, Cesar Carvajal" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0f1220" />
+  <meta name="theme-color" content="#f1ece1" />
+  <meta name="color-scheme" content="light" />
   <link rel="canonical" href="https://cecaza.github.io/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Cesar Carvajal" />
   <meta property="og:title" content="Cesar Carvajal — Desarrollador de apps móviles y web" />
-  <meta property="og:description" content="+7 años creando apps móviles (Flutter, .NET MAUI) y plataformas web (Next.js). Del diseño a producción: SaaS en vivo, apps en Google Play y software empresarial." />
+  <meta property="og:description" content="+7 años (desde 2019) creando apps móviles (Flutter, .NET MAUI) y plataformas web (Next.js). Del diseño a producción: SaaS en vivo, apps en Google Play y software empresarial." />
   <meta property="og:url" content="https://cecaza.github.io/" />
   <meta property="og:locale" content="es_CO" />
   <meta property="og:locale:alternate" content="en_US" />
@@ -29,7 +30,7 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Cesar Carvajal — Desarrollador de apps móviles y web" />
-  <meta name="twitter:description" content="+7 años creando apps móviles (Flutter, .NET MAUI) y plataformas web (Next.js). Del diseño a producción." />
+  <meta name="twitter:description" content="+7 años (desde 2019) creando apps móviles (Flutter, .NET MAUI) y plataformas web (Next.js). Del diseño a producción." />
   <meta name="twitter:image" content="https://cecaza.github.io/assets/og-image.png" />
 
   <!-- Icons -->
@@ -40,7 +41,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -51,7 +52,7 @@
     "url": "https://cecaza.github.io/",
     "image": "https://cecaza.github.io/assets/og-image.png",
     "jobTitle": "Desarrollador de software (móvil y web)",
-    "description": "Desarrollador de software con más de 7 años de experiencia en apps móviles y plataformas web.",
+    "description": "Desarrollador de software desde 2019, con más de 7 años de experiencia en apps móviles y plataformas web.",
     "address": { "@type": "PostalAddress", "addressCountry": "CO" },
     "email": "mailto:cecaza1085263@gmail.com",
     "sameAs": ["https://github.com/cecaza"],
@@ -74,157 +75,253 @@
 
   <style>
     :root{
-      --bg:#0f1220; --bg-soft:#171a2b; --card:#1c2034; --card-2:#222740; --line:#2c3252;
-      --text:#eef0f8; --soft:#d7daea; --muted:#9aa0c0; --accent:#7c8cff; --accent-2:#56e0c0;
+      --paper:#f1ece1; --paper-2:#e8e1d2; --paper-3:#ddd4c1;
+      --ink:#15130f; --ink-2:#39352d; --muted:#6a6457; --line:#cdc4b0;
+      --signal:#ff4a1c; --signal-ink:#c4360f; --ok:#1d6b4f;
+      --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+      --serif:"Instrument Serif",Georgia,serif;
+      --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
     }
     *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
+    html{scroll-behavior:smooth;scroll-padding-top:70px}
     body{
-      font-family:"Nunito",-apple-system,"Segoe UI",Roboto,sans-serif;
-      color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;
+      font-family:var(--display);font-size:1.02rem;color:var(--ink);background:var(--paper);
+      line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
     }
-    a{color:var(--accent);text-decoration:none}
+    /* grano de papel */
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.35;mix-blend-mode:multiply;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .45 0 0 0 0 .35 0 0 0 .25 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+    a{color:inherit}
     img{max-width:100%;display:block}
-    .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+    ::selection{background:var(--signal);color:var(--ink)}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+    .mono{font-family:var(--mono)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
 
-    .skip{position:absolute;left:-999px;top:0;background:var(--accent);color:#0f1220;padding:10px 16px;border-radius:8px;font-weight:800;z-index:50}
+    .skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:10px 16px;font-weight:700;z-index:200}
     .skip:focus{left:12px;top:12px}
+    :focus-visible{outline:2px solid var(--signal-ink);outline-offset:3px}
+
+    /* ---------- Progreso de lectura ---------- */
+    .progress{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--signal);transform-origin:0 50%;transform:scaleX(var(--p,0));z-index:60}
 
     /* ---------- Nav ---------- */
-    nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:rgba(15,18,32,.78);border-bottom:1px solid var(--line)}
-    nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
-    .brand{font-weight:900;letter-spacing:.2px;color:var(--text);display:flex;align-items:center;gap:9px;font-size:1.05rem}
-    .brand .mk{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;color:#0f1220;font-weight:900;font-size:.95rem}
-    .menu{display:flex;align-items:center;gap:6px}
-    .menu a{color:var(--muted);padding:8px 12px;font-weight:700;font-size:.95rem;border-radius:8px}
-    .menu a:hover{color:var(--text)}
-    .menu .cta{background:var(--accent);color:#0f1220;font-weight:800;padding:9px 18px;border-radius:999px}
-    .menu .cta:hover{filter:brightness(1.07)}
-    .lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-left:6px}
-    .lang button{background:transparent;color:var(--muted);border:0;padding:7px 11px;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit;line-height:1}
-    .lang button[aria-pressed="true"]{background:var(--accent);color:#0f1220}
-    @media (max-width:680px){ .menu a:not(.cta){display:none} }
+    nav{position:sticky;top:0;z-index:50;background:rgba(241,236,225,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--ink)}
+    nav .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:1rem;letter-spacing:-.01em}
+    .brand .mk{width:30px;height:30px;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--serif);font-style:italic;font-size:1.25rem;line-height:1}
+    .brand .yr{font-family:var(--mono);font-size:.72rem;color:var(--muted);font-weight:500}
+    .menu{display:flex;align-items:center;gap:2px;font-family:var(--mono);font-size:.8rem}
+    .menu a{text-decoration:none;padding:8px 10px;color:var(--ink-2)}
+    .menu a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var(--signal);text-decoration-thickness:2px;text-underline-offset:4px}
+    .menu .cta{background:var(--ink);color:var(--paper);padding:8px 14px;margin-left:6px}
+    .menu .cta:hover{background:var(--signal);color:var(--ink);text-decoration:none}
+    .lang{display:inline-flex;border:1px solid var(--ink);margin-left:8px}
+    .lang button{background:transparent;color:var(--ink);border:0;padding:6px 9px;font:700 .72rem var(--mono);cursor:pointer}
+    .lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+    @media (max-width:760px){ .menu a:not(.cta){display:none} .brand .yr{display:none} }
 
     /* ---------- Hero ---------- */
-    header.hero{position:relative;overflow:hidden;padding:74px 0 56px;
-      background:
-        radial-gradient(60% 80% at 15% 0%, rgba(124,140,255,.20) 0%, transparent 58%),
-        radial-gradient(55% 80% at 92% 8%, rgba(86,224,192,.16) 0%, transparent 55%);}
-    .eyebrow{display:inline-block;text-transform:uppercase;letter-spacing:.16em;font-weight:800;color:var(--accent-2);font-size:.78rem;margin-bottom:16px}
-    .hero h1{font-size:clamp(2.05rem,5.4vw,3.35rem);font-weight:900;line-height:1.08;letter-spacing:-.5px;max-width:18ch}
-    .hero h1 .grad{background:linear-gradient(100deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .hero .pitch{font-size:clamp(1.02rem,2.2vw,1.2rem);color:var(--soft);max-width:62ch;margin:20px 0 12px}
-    .hero .pitch strong{color:var(--text)}
-    .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 26px}
-    .chips span{background:var(--card);border:1px solid var(--line);color:var(--soft);font-size:.82rem;font-weight:700;padding:6px 13px;border-radius:999px}
-    .actions{display:flex;flex-wrap:wrap;gap:12px}
-    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:800;padding:13px 24px;border-radius:999px;font-size:.98rem;transition:transform .15s ease,filter .15s ease,background .15s ease}
-    .btn:hover{transform:translateY(-2px)}
-    .btn-primary{background:var(--accent);color:#0f1220}
-    .btn-wa{background:#25d366;color:#062b13}
-    .btn-ghost{border:1px solid var(--line);color:var(--text)}
-    .btn-ghost:hover{background:var(--card)}
+    .hero{position:relative;border-bottom:1px solid var(--ink)}
+    .hero-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:.75rem;color:var(--muted);padding-top:22px;text-transform:uppercase;letter-spacing:.08em}
+    .hero-meta b{color:var(--ink);font-weight:700}
+    .dot-live{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--signal);margin-right:8px;vertical-align:1px;animation:blink 1.6s steps(2,start) infinite}
+    @keyframes blink{to{visibility:hidden}}
 
-    /* stats */
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px}
-    .stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 16px}
-    .stat .n{font-size:1.5rem;font-weight:900;color:var(--text);line-height:1.1}
-    .stat .l{color:var(--muted);font-size:.86rem;margin-top:4px}
-    @media (max-width:680px){ .stats{grid-template-columns:repeat(2,1fr)} }
+    .stage{position:relative;height:clamp(190px,44vw,560px);margin:6px 0 0;touch-action:pan-y;cursor:crosshair}
+    .stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+    .stage .fallback{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-weight:800;font-size:clamp(3rem,11vw,9.5rem);line-height:.9;letter-spacing:-.04em}
+    .stage.live .fallback{display:none}
+    .stage-hint{position:absolute;left:24px;right:24px;bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+    .stage-hint .t{display:none}
+    @media (hover:none){ .stage-hint .m{display:none} .stage-hint .t{display:inline} }
 
-    /* ---------- Sections ---------- */
-    section{padding:62px 0}
-    .accentbar{width:46px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent-2));margin-bottom:16px}
-    .accentbar.mid{margin-inline:auto}
-    .section-title{font-size:clamp(1.5rem,3vw,1.9rem);font-weight:900;letter-spacing:-.3px;margin-bottom:6px}
-    .section-sub{color:var(--muted);margin-bottom:32px;max-width:64ch}
+    .stamp{position:absolute;right:max(24px,calc((100vw - 1180px)/2 + 24px));top:64px;width:clamp(86px,11vw,132px);aspect-ratio:1;transform:rotate(calc(var(--scroll,0) * .25deg));z-index:2;pointer-events:none}
+    .stamp svg{width:100%;height:100%;overflow:visible;animation:spin 28s linear infinite}
+    .stamp .yr{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-style:italic;font-size:clamp(1.9rem,3.4vw,2.9rem);color:var(--ink)}
+    .stamp .disc{position:absolute;inset:22%;border-radius:50%;background:var(--signal)}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media (max-width:600px){ .stamp{display:none} }
 
-    .intro p{margin-bottom:14px;max-width:78ch;color:var(--soft)}
-    .intro .lead{font-size:1.12rem;color:var(--text)}
-    .intro strong{color:var(--text)}
+    .hero-copy{display:grid;grid-template-columns:1.25fr 1fr;gap:36px;align-items:end;padding-top:18px;padding-bottom:40px}
+    .hero h1{font-size:clamp(2rem,4.6vw,3.6rem);font-weight:700;line-height:1.02;letter-spacing:-.035em}
+    .hero h1 em{color:var(--signal-ink);font-size:1.08em}
+    .pitch{color:var(--ink-2);font-size:1.05rem}
+    .pitch strong{color:var(--ink);font-weight:700}
+    .stackline{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin:14px 0 22px}
+    .actions{display:flex;flex-wrap:wrap;gap:10px}
+    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;padding:12px 20px;font-size:.95rem;text-decoration:none;border:1.5px solid var(--ink);transition:transform .15s ease,box-shadow .15s ease,background .15s ease}
+    .btn:hover{transform:translate(-3px,-3px);box-shadow:3px 3px 0 var(--ink)}
+    .btn-ink{background:var(--ink);color:var(--paper)}
+    .btn-ink:hover{box-shadow:3px 3px 0 var(--signal)}
+    .btn-sig{background:var(--signal);color:var(--ink)}
+    .btn-line{background:transparent;color:var(--ink)}
+    @media (max-width:860px){ .hero-copy{grid-template-columns:1fr;gap:18px} }
 
-    /* Stack */
-    .stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-    .scard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;transition:transform .15s ease,border-color .15s ease}
-    .scard:hover{transform:translateY(-3px);border-color:var(--accent)}
-    .scard .ic{font-size:1.5rem}
-    .scard h3{font-size:1.05rem;margin:8px 0 6px}
-    .scard.lead-card{border-color:rgba(124,140,255,.5);background:linear-gradient(160deg,var(--card),#1a1f3a)}
-    .scard .star{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-2)}
-    .tline{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
-    .tline span{background:var(--bg-soft);border:1px solid var(--line);color:var(--muted);font-size:.76rem;font-weight:700;padding:4px 11px;border-radius:999px}
+    /* ticker de datos */
+    .ticker{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--ink)}
+    .ticker > div{padding:14px 18px;border-right:1px solid var(--line)}
+    .ticker > div:last-child{border-right:0}
+    .ticker .n{font-weight:700;font-size:1.15rem;letter-spacing:-.02em;line-height:1.2}
+    .ticker .l{font-family:var(--mono);font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+    .ticker .up .n{font-family:var(--mono);font-size:1rem;font-weight:500;font-variant-numeric:tabular-nums;color:var(--signal-ink)}
+    @media (max-width:860px){ .ticker{grid-template-columns:repeat(2,1fr)} .ticker > div{border-bottom:1px solid var(--line)} .ticker .up{grid-column:1/-1;border-bottom:0} }
 
-    /* Experience */
-    .exp{display:grid;gap:18px}
-    .job{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;position:relative}
-    .job .role{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:4px}
-    .job h3{font-size:1.18rem}
-    .job .org{color:var(--accent-2);font-weight:800}
-    .job .when{margin-left:auto;color:var(--muted);font-size:.86rem;font-weight:700;white-space:nowrap}
-    .job p{color:var(--soft);margin-top:8px;max-width:80ch}
-    .job ul{margin:12px 0 0;padding-left:0;list-style:none;display:grid;gap:7px}
-    .job li{color:var(--soft);padding-left:24px;position:relative;font-size:.96rem}
-    .job li::before{content:"▹";position:absolute;left:2px;color:var(--accent)}
-    .job .subrole{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
-    .job h4{font-size:1.05rem}
+    /* ---------- Secciones ---------- */
+    section{padding:88px 0;border-bottom:1px solid var(--ink)}
+    .shead{display:grid;grid-template-columns:120px 1fr;gap:20px;margin-bottom:44px;align-items:start}
+    .sidx{font-family:var(--mono);font-size:.75rem;color:var(--muted);padding-top:14px}
+    .sidx b{color:var(--signal-ink);font-weight:700}
+    .stitle{font-size:clamp(2.4rem,7vw,5.2rem);font-weight:800;line-height:.95;letter-spacing:-.045em}
+    .ssub{color:var(--ink-2);max-width:62ch;margin-top:14px}
+    @media (max-width:700px){ .shead{grid-template-columns:1fr;gap:4px} .sidx{padding-top:0} section{padding:64px 0} }
 
-    /* Projects */
-    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
-    .project{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s ease,border-color .18s ease}
-    .project:hover{transform:translateY(-4px);border-color:var(--accent)}
-    .project.star{grid-column:1/-1;border-color:rgba(86,224,192,.45);background:linear-gradient(150deg,var(--card),#16243a)}
-    .project .top{padding:22px 22px 0;display:flex;align-items:center;gap:14px}
-    .project .ico{width:54px;height:54px;border-radius:14px;flex:0 0 auto;display:grid;place-items:center;font-size:1.7rem;background:var(--card-2);border:1px solid var(--line);overflow:hidden}
-    .project .ico img{width:54px;height:54px;border-radius:14px;object-fit:cover}
-    .project h3{font-size:1.2rem}
-    .project .kind{color:var(--muted);font-size:.85rem}
-    .badge{display:inline-block;font-size:.72rem;font-weight:800;padding:4px 11px;border-radius:999px;margin-left:auto;white-space:nowrap}
-    .badge.live{background:rgba(86,224,192,.15);color:var(--accent-2);border:1px solid rgba(86,224,192,.35)}
-    .badge.play{background:rgba(124,140,255,.15);color:var(--accent);border:1px solid rgba(124,140,255,.35)}
-    .badge.work{background:rgba(255,180,84,.14);color:#ffb454;border:1px solid rgba(255,180,84,.35)}
-    .badge.code{background:rgba(154,160,192,.14);color:var(--soft);border:1px solid rgba(154,160,192,.3)}
-    .project .body{padding:14px 22px 22px;display:flex;flex-direction:column;flex:1}
-    .project .body p{color:var(--soft);font-size:.97rem}
-    .feat{display:flex;flex-wrap:wrap;gap:8px 18px;margin:14px 0 4px;padding:0;list-style:none}
-    .feat li{color:var(--muted);font-size:.9rem;position:relative;padding-left:18px}
-    .feat li::before{content:"✓";position:absolute;left:0;color:var(--accent-2);font-weight:900}
-    .tags{margin:14px 0 16px;display:flex;flex-wrap:wrap;gap:7px}
-    .tags span{background:var(--bg-soft);color:var(--muted);font-size:.74rem;font-weight:700;padding:4px 10px;border-radius:999px;border:1px solid var(--line)}
-    .project .links{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
-    .project .links a{font-weight:800;font-size:.9rem;padding:10px 17px;border-radius:999px}
-    .a-fill{background:var(--accent);color:#0f1220}
-    .a-line{border:1px solid var(--line);color:var(--text)}
-    .a-line:hover{background:var(--card-2)}
-    .star .grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:8px}
-    @media (max-width:620px){ .star .grid2{grid-template-columns:1fr} }
+    /* Sobre mí */
+    .about{display:grid;grid-template-columns:120px 1fr 1fr;gap:20px 40px}
+    .about .lead{grid-column:2/-1;font-size:clamp(1.4rem,2.8vw,2.1rem);line-height:1.2;letter-spacing:-.02em;font-weight:500;max-width:30ch}
+    .about .lead strong{font-weight:500;background:linear-gradient(transparent 62%,rgba(255,74,28,.35) 62%)}
+    .about p{color:var(--ink-2)}
+    .about p strong{color:var(--ink)}
+    .about .c1{grid-column:2}
+    .about .c2{grid-column:3}
+    @media (max-width:860px){ .about{grid-template-columns:1fr} .about .lead,.about .c1,.about .c2{grid-column:1} }
 
-    /* Philosophy */
-    .philo{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-    .pcard{background:linear-gradient(160deg,var(--card),var(--bg-soft));border:1px solid var(--line);border-radius:16px;padding:20px}
-    .pcard h3{font-size:1.02rem;margin:6px 0 6px}
-    .pcard p{color:var(--muted);font-size:.92rem}
-    .pcard .ic{font-size:1.35rem}
+    /* Stack: tabla periódica */
+    .pt-legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;border:1px solid var(--ink);margin-bottom:22px}
+    .pt-legend button{all:unset;cursor:pointer;display:block;padding:14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transition:background .15s ease}
+    .pt-legend button:hover,.pt-legend button[aria-pressed="true"]{background:var(--paper-2)}
+    .pt-legend button:focus-visible{outline:2px solid var(--signal-ink);outline-offset:-2px}
+    .pt-legend .sw{display:inline-block;width:12px;height:12px;border:1px solid var(--ink);margin-right:8px;vertical-align:-1px}
+    .pt-legend .g{font-weight:700}
+    .pt-legend .d{display:block;font-size:.85rem;color:var(--muted);margin-top:2px}
+    .pt-legend .star{font-family:var(--mono);font-size:.68rem;color:var(--signal-ink);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-left:6px}
+    .pt{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:6px}
+    .el{position:relative;aspect-ratio:1/1.05;border:1px solid var(--ink);padding:8px 9px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .18s ease,box-shadow .18s ease,opacity .2s ease;background:var(--c,var(--paper))}
+    .el:hover{transform:translate(-3px,-3px);box-shadow:4px 4px 0 var(--ink)}
+    .el .z{font-family:var(--mono);font-size:.64rem}
+    .el .s{font-size:1.9rem;font-weight:700;letter-spacing:-.04em;line-height:1}
+    .el .nm{font-size:.74rem;line-height:1.2;font-weight:500}
+    .el[data-g="mob"]{--c:var(--signal)}
+    .el[data-g="net"]{--c:var(--ink);color:var(--paper)}
+    .el[data-g="web"]{--c:#c9d6cf}
+    .el[data-g="dat"]{--c:#e6d3a7}
+    .el[data-g="arq"]{--c:var(--paper)}
+    .el[data-g="int"]{--c:#d7cdea}
+    .sw[data-g="mob"]{background:var(--signal)} .sw[data-g="net"]{background:var(--ink)} .sw[data-g="web"]{background:#c9d6cf}
+    .sw[data-g="dat"]{background:#e6d3a7} .sw[data-g="arq"]{background:var(--paper)} .sw[data-g="int"]{background:#d7cdea}
+    .pt[data-focus] .el{opacity:.18}
+    .pt[data-focus="mob"] .el[data-g="mob"],.pt[data-focus="net"] .el[data-g="net"],.pt[data-focus="web"] .el[data-g="web"],
+    .pt[data-focus="dat"] .el[data-g="dat"],.pt[data-focus="arq"] .el[data-g="arq"],.pt[data-focus="int"] .el[data-g="int"]{opacity:1}
 
-    /* Contact */
-    .contact{text-align:center}
-    .contact .panel{background:linear-gradient(160deg,var(--card),var(--bg-soft));border:1px solid var(--line);border-radius:24px;padding:46px 26px}
-    .contact .section-sub{margin-inline:auto}
-    .contact .actions{justify-content:center}
+    /* Experiencia: git log --graph */
+    .gitcmd{font-family:var(--mono);font-size:.85rem;background:var(--ink);color:var(--paper);padding:12px 16px;margin-bottom:30px;overflow-x:auto;white-space:nowrap}
+    .gitcmd .ps{color:var(--signal)}
+    .gitcmd .cur{display:inline-block;width:.6em;height:1em;background:var(--paper);vertical-align:-2px;animation:blink 1s steps(2,start) infinite}
+    .log{list-style:none}
+    .commit{display:grid;grid-template-columns:64px 1fr;gap:0 14px}
+    .graph{position:relative}
+    .graph i{position:absolute;display:block}
+    .ln{width:2px}
+    .ln.a{left:15px;background:var(--ink)}
+    .ln.b{left:43px;background:var(--signal)}
+    .ln.t{top:0;height:26px} .ln.d{top:26px;bottom:0} .ln.f{top:0;bottom:0}
+    .node{top:18px;width:18px;height:18px;border-radius:50%;border:2px solid var(--ink);background:var(--paper)}
+    .node.a{left:7px} .node.b{left:35px;border-color:var(--signal-ink)}
+    .node.head{background:var(--ink);box-shadow:0 0 0 4px var(--paper),0 0 0 6px var(--ink)}
+    .fork{left:16px;top:26px;width:29px;height:46px;overflow:visible}
+    .cbody{padding:14px 0 52px;min-width:0}
+    .cmeta{font-family:var(--mono);font-size:.76rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+    .cmeta .h{color:var(--signal-ink);font-weight:700}
+    .ref{border:1px solid var(--ink);color:var(--ink);padding:1px 7px;font-weight:700}
+    .ref.hd{background:var(--ink);color:var(--paper)}
+    .ref.br{border-color:var(--signal-ink);color:var(--signal-ink)}
+    .ref.tg{background:var(--paper-3);border-color:var(--paper-3)}
+    .cmsg{font-family:var(--mono);font-size:.86rem;margin:6px 0 10px;color:var(--ink-2)}
+    .commit h3{font-size:clamp(1.25rem,2.4vw,1.6rem);font-weight:700;letter-spacing:-.025em;line-height:1.2}
+    .commit h3 .org{font-family:var(--serif);font-style:italic;font-weight:400;font-size:1.1em}
+    .commit .when{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-top:4px}
+    .commit p{color:var(--ink-2);margin-top:10px;max-width:78ch}
+    .commit ul{list-style:none;margin-top:12px;display:grid;gap:8px;max-width:82ch}
+    .commit li{padding-left:22px;position:relative;color:var(--ink-2);font-size:.97rem}
+    .commit li::before{content:"+";position:absolute;left:2px;font-family:var(--mono);font-weight:700;color:var(--ok)}
+    .commit strong{color:var(--ink)}
+    .commit a{color:var(--signal-ink);font-weight:700}
+    .commit.init .cbody{padding-bottom:6px}
 
-    footer{text-align:center;padding:30px 20px 48px;color:var(--muted);font-size:.9rem}
+    /* Proyectos */
+    .projects{border-top:1px solid var(--ink)}
+    .proj{display:grid;grid-template-columns:120px 1fr;gap:20px;padding:34px 0;border-bottom:1px solid var(--ink);position:relative}
+    .proj .num{font-family:var(--serif);font-style:italic;font-size:clamp(2.6rem,5vw,4rem);line-height:.9;color:var(--muted);transition:color .2s ease}
+    .proj:hover .num{color:var(--signal-ink)}
+    .phead{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+    .pico{width:56px;height:56px;border:1px solid var(--ink);display:grid;place-items:center;font-size:1.7rem;background:var(--paper-2);overflow:hidden;flex:0 0 auto}
+    .pico img{width:100%;height:100%;object-fit:cover}
+    .proj h3{font-size:clamp(1.9rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.045em;line-height:1;transition:transform .25s ease}
+    .proj:hover h3{transform:translateX(8px)}
+    .badge{font-family:var(--mono);font-size:.7rem;font-weight:700;padding:4px 9px;border:1px solid currentColor;white-space:nowrap;text-transform:uppercase;letter-spacing:.05em}
+    .badge.live{color:var(--ok)}
+    .badge.live::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:6px;vertical-align:1px}
+    .badge.work{color:#9a5b00}
+    .badge.code{color:var(--ink-2)}
+    .kind{font-family:var(--mono);font-size:.8rem;color:var(--muted);margin:10px 0 12px}
+    .pgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:28px}
+    .proj p{color:var(--ink-2);max-width:70ch}
+    .proj p strong{color:var(--ink)}
+    .feat{list-style:none;display:grid;gap:6px;align-content:start;font-size:.95rem}
+    .feat li{padding-left:22px;position:relative}
+    .feat li::before{content:"→";position:absolute;left:0;color:var(--signal-ink);font-weight:700}
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 18px}
+    .tags span{font-family:var(--mono);font-size:.72rem;padding:3px 8px;background:var(--paper-2);border:1px solid var(--line)}
+    .links{display:flex;flex-wrap:wrap;gap:8px}
+    .links a{font-size:.9rem;padding:9px 15px}
+    .proj.star{background:linear-gradient(90deg,transparent,rgba(255,74,28,.07))}
+    @media (max-width:760px){ .proj{grid-template-columns:1fr;gap:8px} .pgrid{grid-template-columns:1fr;gap:14px} }
+
+    /* Cómo trabajo */
+    .manifesto{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));border-top:1px solid var(--ink);border-left:1px solid var(--ink)}
+    .manifesto li{padding:26px 24px 28px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);transition:background .2s ease}
+    .manifesto li:hover{background:var(--paper-2)}
+    .manifesto .n{font-family:var(--serif);font-style:italic;font-size:2.6rem;line-height:1;color:var(--signal-ink)}
+    .manifesto h3{font-size:1.2rem;letter-spacing:-.02em;margin:10px 0 6px}
+    .manifesto p{color:var(--ink-2);font-size:.95rem}
+
+    /* Contacto */
+    .contact{background:var(--ink);color:var(--paper);border-bottom:0}
+    .contact .sidx{color:#a59e8f}
+    .contact .sidx b{color:var(--signal)}
+    .contact .big{font-size:clamp(3.4rem,13vw,11rem);font-weight:800;letter-spacing:-.06em;line-height:.85}
+    .contact .big em{color:var(--signal)}
+    .contact .ssub{color:#cfc8b8}
+    .contact .ssub strong{color:var(--paper)}
+    .clinks{margin-top:44px;border-top:1px solid #4a453b}
+    .clinks a{display:grid;grid-template-columns:140px 1fr auto;gap:16px;align-items:center;padding:20px 4px;border-bottom:1px solid #4a453b;text-decoration:none;transition:background .2s ease,padding .2s ease}
+    .clinks a:hover{background:var(--signal);color:var(--ink);padding-left:16px;padding-right:16px}
+    .clinks .k{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;opacity:.8}
+    .clinks .v{font-size:clamp(1.15rem,3vw,1.9rem);font-weight:600;letter-spacing:-.02em;overflow-wrap:anywhere}
+    .clinks .ar{font-size:1.5rem}
+    @media (max-width:600px){ .clinks a{grid-template-columns:1fr auto} .clinks .k{grid-column:1/-1} }
+
+    footer{background:var(--ink);color:#a59e8f;font-family:var(--mono);font-size:.75rem;padding:28px 0 40px;border-top:1px solid #4a453b}
+    footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
     @media (prefers-reduced-motion:no-preference){
-      .reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+      .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
       .reveal.in{opacity:1;transform:none}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .stamp svg,.dot-live,.gitcmd .cur{animation:none}
+      html{scroll-behavior:auto}
     }
   </style>
 </head>
 <body>
   <a class="skip" href="#main" data-en="Skip to content">Saltar al contenido</a>
+  <div class="progress" aria-hidden="true"></div>
 
   <nav>
     <div class="wrap">
-      <a class="brand" href="#main" aria-label="Cesar Carvajal — inicio"><span class="mk">C</span>Cesar Carvajal</a>
+      <a class="brand" href="#main" aria-label="Cesar Carvajal — inicio"><span class="mk">c</span>Cesar Carvajal <span class="yr">/ est. 2019</span></a>
       <div class="menu">
         <a href="#sobre-mi" data-en="About">Sobre mí</a>
         <a href="#stack" data-en="Stack">Stack</a>
@@ -243,413 +340,457 @@
 
     <!-- HERO -->
     <header class="hero">
-      <div class="wrap">
-        <span class="eyebrow" data-en="Software developer · Colombia">Desarrollador de software · Colombia</span>
-        <h1 data-en="I build mobile apps and web platforms that <span class='grad'>ship to production</span>.">Construyo apps móviles y plataformas web que <span class="grad">llegan a producción</span>.</h1>
-        <p class="pitch" data-en="I'm <strong>Cesar Carvajal</strong>, a <strong>mobile &amp; .NET</strong> developer with <strong>7+ years</strong> of experience. I design the architecture, build the product and ship it for real users: a <strong>live SaaS</strong>, apps published on <strong>Google&nbsp;Play</strong> and <strong>custom business software</strong>.">
-          Soy <strong>Cesar Carvajal</strong>, desarrollador <strong>móvil y .NET</strong> con
-          <strong>+7 años</strong> de experiencia. Diseño la arquitectura, construyo el producto y lo dejo
-          funcionando para usuarios reales: un <strong>SaaS en vivo</strong>, apps publicadas en
-          <strong>Google&nbsp;Play</strong> y <strong>software empresarial</strong> a la medida.
-        </p>
-        <div class="chips" aria-label="Tecnologías principales">
-          <span>Flutter</span><span>.NET MAUI</span><span>Xamarin</span><span>React Native</span>
-          <span>Next.js</span><span>ASP.NET</span><span>SQL Server / PostgreSQL</span>
-        </div>
-        <div class="actions">
-          <a class="btn btn-primary" href="#proyectos" data-en="View projects">Ver proyectos</a>
-          <a class="btn btn-wa" href="https://wa.me/573128569219" target="_blank" rel="noopener" data-en="Chat on WhatsApp">Hablar por WhatsApp</a>
-          <a class="btn btn-ghost" href="https://usaturno.com" target="_blank" rel="noopener" data-en="Try Turno (SaaS) →">Probar Turno (SaaS) →</a>
-        </div>
+      <div class="wrap hero-meta">
+        <span><span class="dot-live" aria-hidden="true"></span><b data-en="Software developer">Desarrollador de software</b> · Colombia</span>
+        <span data-en="Mobile · .NET · Web — since 2019">Móvil · .NET · Web — desde 2019</span>
+      </div>
 
-        <div class="stats">
-          <div class="stat"><div class="n" data-en="7+ years">+7 años</div><div class="l" data-en="of experience">de experiencia</div></div>
-          <div class="stat"><div class="n">Mobile + .NET</div><div class="l" data-en="my specialty">mi especialidad</div></div>
-          <div class="stat"><div class="n" data-en="Live SaaS">SaaS en vivo</div><div class="l" data-en="Turno, in production">Turno, en producción</div></div>
-          <div class="stat"><div class="n">Offline-first</div><div class="l" data-en="apps that work offline">apps que funcionan sin red</div></div>
+      <div class="stamp" aria-hidden="true">
+        <div class="disc"></div>
+        <svg viewBox="0 0 200 200">
+          <defs><path id="ring" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
+          <text font-family="JetBrains Mono, monospace" font-size="15" font-weight="700" letter-spacing="1" fill="#15130f">
+            <textPath href="#ring" textLength="486" data-en="CESAR CARVAJAL · SINCE 2019 · MOBILE + .NET · ">CESAR CARVAJAL · DESDE 2019 · MÓVIL + .NET · </textPath>
+          </text>
+        </svg>
+        <div class="yr">’19</div>
+      </div>
+
+      <div class="stage" id="stage">
+        <canvas id="glyphs" aria-hidden="true"></canvas>
+        <div class="fallback" aria-hidden="true">CESAR<br />CARVAJAL</div>
+        <p class="sr-only">Cesar Carvajal</p>
+        <p class="stage-hint" aria-hidden="true">
+          <span class="m" data-en="↳ hover to break it · click to recompile">↳ pasa el cursor para romperlo · clic para recompilar</span>
+          <span class="t" data-en="↳ tap to recompile">↳ toca para recompilar</span>
+        </p>
+      </div>
+
+      <div class="wrap hero-copy">
+        <h1 data-en="I build mobile apps and web platforms that <em>ship to production</em>.">Construyo apps móviles y plataformas web que <em>llegan a producción</em>.</h1>
+        <div>
+          <p class="pitch" data-en="I'm <strong>Cesar Carvajal</strong>, a <strong>mobile &amp; .NET</strong> developer writing software <strong>since 2019</strong> (7+ years). I design the architecture, build the product and ship it for real users: a <strong>live SaaS</strong>, apps published on <strong>Google&nbsp;Play</strong> and <strong>custom business software</strong>.">
+            Soy <strong>Cesar Carvajal</strong>, desarrollador <strong>móvil y .NET</strong> escribiendo software
+            <strong>desde 2019</strong> (+7 años). Diseño la arquitectura, construyo el producto y lo dejo
+            funcionando para usuarios reales: un <strong>SaaS en vivo</strong>, apps publicadas en
+            <strong>Google&nbsp;Play</strong> y <strong>software empresarial</strong> a la medida.
+          </p>
+          <p class="stackline" aria-label="Tecnologías principales">Flutter · .NET MAUI · Xamarin · React Native · Next.js · ASP.NET · SQL Server / PostgreSQL</p>
+          <div class="actions">
+            <a class="btn btn-ink" href="#proyectos" data-en="View projects ↓">Ver proyectos ↓</a>
+            <a class="btn btn-sig" href="https://wa.me/573128569219" target="_blank" rel="noopener" data-en="Chat on WhatsApp">Hablar por WhatsApp</a>
+            <a class="btn btn-line" href="https://usaturno.com" target="_blank" rel="noopener" data-en="Try Turno (SaaS) ↗">Probar Turno (SaaS) ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div class="ticker">
+          <div><div class="n" data-en="7+ years">+7 años</div><div class="l" data-en="of experience">de experiencia</div></div>
+          <div><div class="n">Mobile + .NET</div><div class="l" data-en="my specialty">mi especialidad</div></div>
+          <div><div class="n" data-en="Live SaaS">SaaS en vivo</div><div class="l" data-en="Turno, in production">Turno, en producción</div></div>
+          <div><div class="n">Offline-first</div><div class="l" data-en="apps that work offline">apps que funcionan sin red</div></div>
+          <div class="up"><div class="n" id="uptime">7a 000d 00:00:00</div><div class="l" data-en="uptime since 2019">uptime desde 2019</div></div>
         </div>
       </div>
     </header>
 
     <!-- SOBRE MÍ -->
-    <section id="sobre-mi" class="wrap intro reveal">
-      <div class="accentbar"></div>
-      <h2 class="section-title" data-en="About me">Sobre mí</h2>
-      <p class="lead" data-en="I think in <strong>products</strong>, not just code. I take an idea from architecture to the end user and own the result: that it works, is fast and stays maintainable.">
-        Pienso en <strong>productos</strong>, no solo en código. Llevo una idea desde la arquitectura
-        hasta el usuario final y me hago responsable de que funcione, sea rápida y se pueda mantener.
-      </p>
-      <p data-en="My core is <strong>mobile development</strong> (Flutter, .NET MAUI, Xamarin, React Native) and the <strong>.NET ecosystem</strong> on desktop and backend. I work with <strong>clean architecture</strong> and layered separation, <strong>offline-first</strong> designs where the domain doesn't depend on the database, and reliable sync with conflict handling.">
-        Mi base es el <strong>desarrollo móvil</strong> (Flutter, .NET MAUI, Xamarin, React Native) y el
-        <strong>ecosistema .NET</strong> en escritorio y backend. Trabajo con
-        <strong>arquitectura limpia</strong> y separación por capas, diseños <strong>offline-first</strong>
-        donde el dominio no depende de la base de datos, y sincronización confiable con manejo de conflictos.
-      </p>
-      <p data-en="I've built everything from a <strong>multi-tenant SaaS with payments</strong> to business software with <strong>Bluetooth printing</strong> for field sales teams. I quickly learn what each project needs and ship things people use every day.">
-        He construido desde un <strong>SaaS multi-tenant con pagos</strong> hasta software empresarial con
-        <strong>impresión Bluetooth</strong> para fuerza de ventas en campo.
-        Aprendo rápido lo que el proyecto necesita y entrego cosas que se usan en el día a día.
-      </p>
-      <p data-en="For the last 2 years I've also <strong>led a small team</strong> (2 people), handled <strong>customer support</strong> and been in charge of <strong>finding and diagnosing bugs</strong>. That keeps me close to what users actually need and to what breaks in the real world.">
-        Desde hace 2 años también <strong>lidero un equipo pequeño</strong> (2 personas), atiendo
-        <strong>soporte y solicitudes de clientes</strong> y me encargo de <strong>encontrar y diagnosticar
-        bugs</strong>. Eso me mantiene cerca de lo que el usuario necesita de verdad y de lo que falla en el mundo real.
-      </p>
+    <section id="sobre-mi">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§01</b> / about.md</div>
+          <h2 class="stitle" data-scramble data-en="About me">Sobre mí</h2>
+        </div>
+        <div class="about reveal">
+          <p class="lead" data-en="I think in <strong>products</strong>, not just code. I take an idea from architecture to the end user and own the result: that it works, is fast and stays maintainable.">
+            Pienso en <strong>productos</strong>, no solo en código. Llevo una idea desde la arquitectura
+            hasta el usuario final y me hago responsable de que funcione, sea rápida y se pueda mantener.
+          </p>
+          <div class="c1">
+            <p data-en="My core is <strong>mobile development</strong> (Flutter, .NET MAUI, Xamarin, React Native) and the <strong>.NET ecosystem</strong> on desktop and backend. I work with <strong>clean architecture</strong> and layered separation, <strong>offline-first</strong> designs where the domain doesn't depend on the database, and reliable sync with conflict handling.">
+              Mi base es el <strong>desarrollo móvil</strong> (Flutter, .NET MAUI, Xamarin, React Native) y el
+              <strong>ecosistema .NET</strong> en escritorio y backend. Trabajo con
+              <strong>arquitectura limpia</strong> y separación por capas, diseños <strong>offline-first</strong>
+              donde el dominio no depende de la base de datos, y sincronización confiable con manejo de conflictos.
+            </p>
+          </div>
+          <div class="c2">
+            <p data-en="I've built everything from a <strong>multi-tenant SaaS with payments</strong> to business software with <strong>Bluetooth printing</strong> for field sales teams. I quickly learn what each project needs and ship things people use every day.">
+              He construido desde un <strong>SaaS multi-tenant con pagos</strong> hasta software empresarial con
+              <strong>impresión Bluetooth</strong> para fuerza de ventas en campo.
+              Aprendo rápido lo que el proyecto necesita y entrego cosas que se usan en el día a día.
+            </p>
+            <p style="margin-top:14px" data-en="For the last 2 years I've also <strong>led a small team</strong> (2 people), handled <strong>customer support</strong> and been in charge of <strong>finding and diagnosing bugs</strong>. That keeps me close to what users actually need and to what breaks in the real world.">
+              Desde hace 2 años también <strong>lidero un equipo pequeño</strong> (2 personas), atiendo
+              <strong>soporte y solicitudes de clientes</strong> y me encargo de <strong>encontrar y diagnosticar
+              bugs</strong>. Eso me mantiene cerca de lo que el usuario necesita de verdad y de lo que falla en el mundo real.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- STACK -->
-    <section id="stack" class="wrap reveal">
-      <div class="accentbar"></div>
-      <h2 class="section-title" data-en="Tech stack">Stack tecnológico</h2>
-      <p class="section-sub" data-en="Grouped by where I add the most value. Mobile is my strength; then desktop and backend with .NET.">Agrupado por dónde aporto más valor. Mi fuerte es lo móvil; en segundo lugar, escritorio y backend con .NET.</p>
-      <div class="stack">
-
-        <div class="scard lead-card">
-          <div class="star" data-en="★ My specialty">★ Mi especialidad</div>
-          <div class="ic">📱</div>
-          <h3 data-en="Mobile development">Desarrollo móvil</h3>
-          <p style="color:var(--soft);font-size:.94rem" data-en="Cross-platform native apps, offline-first, published to stores.">Apps nativas multiplataforma, offline-first, con publicación en tienda.</p>
-          <div class="tline">
-            <span>Flutter</span><span>Dart</span><span>.NET MAUI</span><span>Xamarin</span>
-            <span>React Native</span><span>Riverpod</span><span>MVVM</span><span>Google Play</span>
+    <section id="stack">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§02</b> / stack.json</div>
+          <div>
+            <h2 class="stitle" data-scramble data-en="Periodic table">Tabla periódica</h2>
+            <p class="ssub" data-en="My tech stack, grouped by where I add the most value. Mobile is my strength; then desktop and backend with .NET. Pick a group to isolate it.">Mi stack tecnológico, agrupado por dónde aporto más valor. Mi fuerte es lo móvil; en segundo lugar, escritorio y backend con .NET. Elige un grupo para aislarlo.</p>
           </div>
         </div>
 
-        <div class="scard">
-          <div class="ic">🖥️</div>
-          <h3 data-en="Desktop &amp; .NET backend">Escritorio y backend .NET</h3>
-          <p style="color:var(--muted);font-size:.92rem" data-en="Business applications and services for companies.">Aplicaciones de negocio y servicios para empresas.</p>
-          <div class="tline">
-            <span>C#</span><span>VB.NET</span><span>ASP.NET</span><span>WinForms</span>
-            <span>Web Services</span><span>Entity Framework</span><span>SQL Server</span>
+        <div class="reveal">
+          <div class="pt-legend" id="ptLegend">
+            <button type="button" data-g="mob" aria-pressed="false"><span class="sw" data-g="mob"></span><span class="g" data-en="Mobile development">Desarrollo móvil</span><span class="star" data-en="★ specialty">★ especialidad</span><span class="d" data-en="Cross-platform native apps, offline-first, published to stores.">Apps nativas multiplataforma, offline-first, con publicación en tienda.</span></button>
+            <button type="button" data-g="net" aria-pressed="false"><span class="sw" data-g="net"></span><span class="g" data-en="Desktop &amp; .NET backend">Escritorio y backend .NET</span><span class="d" data-en="Business applications and services for companies.">Aplicaciones de negocio y servicios para empresas.</span></button>
+            <button type="button" data-g="web" aria-pressed="false"><span class="sw" data-g="web"></span><span class="g">Web</span><span class="d" data-en="Modern web platforms, deployed to the cloud.">Plataformas web modernas, desplegadas en la nube.</span></button>
+            <button type="button" data-g="dat" aria-pressed="false"><span class="sw" data-g="dat"></span><span class="g" data-en="Data &amp; cloud">Datos y nube</span><span class="d" data-en="Local and cloud persistence, plus sync.">Persistencia local, en la nube y sincronización.</span></button>
+            <button type="button" data-g="arq" aria-pressed="false"><span class="sw" data-g="arq"></span><span class="g" data-en="Architecture &amp; quality">Arquitectura y calidad</span><span class="d" data-en="Maintainable code and products that scale.">Código mantenible y productos que escalan.</span></button>
+            <button type="button" data-g="int" aria-pressed="false"><span class="sw" data-g="int"></span><span class="g" data-en="Integrations &amp; business">Integraciones y negocio</span><span class="d" data-en="What connects software with real operations.">Lo que conecta el software con la operación real.</span></button>
           </div>
-        </div>
 
-        <div class="scard">
-          <div class="ic">🌐</div>
-          <h3>Web</h3>
-          <p style="color:var(--muted);font-size:.92rem" data-en="Modern web platforms, deployed to the cloud.">Plataformas web modernas, desplegadas en la nube.</p>
-          <div class="tline">
-            <span>Next.js</span><span>React</span><span>TypeScript</span><span>Tailwind</span>
-            <span>Node</span><span>Vercel</span>
+          <div class="pt" id="pt" role="list" aria-label="Tecnologías">
+            <!-- generado por JS desde STACK; fallback en <noscript> -->
           </div>
+          <noscript>
+            <p class="ssub">Flutter, Dart, .NET MAUI, Xamarin, React Native, Riverpod, MVVM, Google Play · C#, VB.NET, ASP.NET, WinForms, Web Services, Entity Framework, SQL Server · Next.js, React, TypeScript, Tailwind, Node, Vercel · PostgreSQL, SQLite / Drift, LiteDB, Supabase, Firebase, RLS · Clean Architecture, Capas, Inyección de dependencias, Offline-first, Multi-tenant, Sentry / Crashlytics · Pagos (Wompi), In-App Purchase, WhatsApp, Impresión Bluetooth ESC/POS, Push</p>
+          </noscript>
         </div>
-
-        <div class="scard">
-          <div class="ic">🗄️</div>
-          <h3 data-en="Data &amp; cloud">Datos y nube</h3>
-          <p style="color:var(--muted);font-size:.92rem" data-en="Local and cloud persistence, plus sync.">Persistencia local, en la nube y sincronización.</p>
-          <div class="tline">
-            <span>PostgreSQL</span><span>SQL Server</span><span>SQLite / Drift</span><span>LiteDB</span>
-            <span>Supabase</span><span>Firebase</span><span>RLS</span>
-          </div>
-        </div>
-
-        <div class="scard">
-          <div class="ic">🏛️</div>
-          <h3 data-en="Architecture &amp; quality">Arquitectura y calidad</h3>
-          <p style="color:var(--muted);font-size:.92rem" data-en="Maintainable code and products that scale.">Código mantenible y productos que escalan.</p>
-          <div class="tline">
-            <span>Clean Architecture</span><span data-en="Layers">Capas</span><span data-en="Dependency injection">Inyección de dependencias</span>
-            <span>Offline-first</span><span>Multi-tenant</span><span>Sentry / Crashlytics</span>
-          </div>
-        </div>
-
-        <div class="scard">
-          <div class="ic">🔌</div>
-          <h3 data-en="Integrations &amp; business">Integraciones y negocio</h3>
-          <p style="color:var(--muted);font-size:.92rem" data-en="What connects software with real operations.">Lo que conecta el software con la operación real.</p>
-          <div class="tline">
-            <span data-en="Payments (Wompi)">Pagos (Wompi)</span><span>In-App Purchase</span>
-            <span>WhatsApp</span><span data-en="Bluetooth printing (ESC/POS)">Impresión Bluetooth ESC/POS</span><span>Push</span>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="scard lead-card" style="margin-top:16px">
-        <div class="star" data-en="⚡ A modern way of working">⚡ Forma de trabajar moderna</div>
-        <h3 style="margin-top:6px" data-en="AI-assisted development">Desarrollo asistido por IA</h3>
-        <p style="color:var(--soft);font-size:.96rem" data-en="I bring AI tools into my workflow to <strong>speed up development</strong>, validate technical decisions, improve code quality and cut delivery times — always keeping <strong>human judgment and review</strong>. I use it as a multiplier, not a replacement.">
-          Integro herramientas de IA en mi flujo para <strong>acelerar el desarrollo</strong>, validar decisiones
-          técnicas, mejorar la calidad del código y reducir tiempos de entrega — manteniendo siempre el
-          <strong>criterio y la revisión humana</strong>. La uso como un multiplicador, no como un reemplazo.
-        </p>
       </div>
     </section>
 
     <!-- EXPERIENCIA -->
-    <section id="experiencia" class="wrap reveal">
-      <div class="accentbar"></div>
-      <h2 class="section-title" data-en="Experience">Experiencia</h2>
-      <p class="section-sub" data-en="Real products in production, both at a company and independently.">Productos reales en producción, en empresa e independiente.</p>
-      <div class="exp">
-
-        <article class="job">
-          <div class="role">
-            <h3 data-en="Software developer · <span class='org'>SAMIT — Sistemas Corporativos</span>">Desarrollador de software · <span class="org">SAMIT — Sistemas Corporativos</span></h3>
-            <span class="when" data-en="2021 – Present">2021 – Actualidad</span>
+    <section id="experiencia">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§03</b> / .git</div>
+          <div>
+            <h2 class="stitle" data-scramble data-en="Experience">Experiencia</h2>
+            <p class="ssub" data-en="Real products in production, both at a company and independently. Told the way I'd tell it: as a commit history that starts in 2019.">Productos reales en producción, en empresa e independiente. Contado como lo contaría yo: un historial de commits que empieza en 2019.</p>
           </div>
-          <p data-en="I develop the software ecosystem of a business-solutions company serving Colombian companies. I've worked across the whole stack: mobile, desktop and backend.">
-            Desarrollo el ecosistema de software de una empresa de soluciones empresariales para compañías
-            colombianas. He trabajado en toda la pila: móvil, escritorio y backend.
-          </p>
-          <ul>
-            <li data-en="<strong>Field sales app (.NET MAUI):</strong> orders, invoicing and accounts receivable with <strong>offline-first</strong> operation, sync, permission-based access and receipt printing over <strong>Bluetooth (ESC/POS)</strong>. Published on Google Play as <strong>Samit Móvil</strong>."><strong>App de fuerza de ventas (.NET MAUI):</strong> pedidos, facturación y cartera con operación <strong>offline-first</strong>, sincronización, control por permisos e impresión de recibos por <strong>Bluetooth (ESC/POS)</strong>. Publicada en Google Play como <strong>Samit Móvil</strong>.</li>
-            <li data-en="<strong>Backend &amp; services (ASP.NET / SQL Server):</strong> a multi-company platform for invoicing, inventory, accounting, payroll and POS, with a <strong>multi-tenant</strong> setup in cloud and on-premise."><strong>Backend y servicios (ASP.NET / SQL Server):</strong> plataforma multiempresa para facturación, inventario, contabilidad, nómina y POS, con esquema <strong>multi-tenant</strong> en nube y local.</li>
-            <li data-en="<strong>Desktop ERP (WinForms) and earlier mobile apps</strong> in Xamarin and React Native for clients and field operations."><strong>ERP de escritorio (WinForms) y apps móviles previas</strong> en Xamarin y React Native para clientes y operaciones en campo.</li>
-            <li data-en="<strong>Time &amp; attendance system (Flutter + .NET 10):</strong> I designed and shipped the internal attendance system — a <strong>cross-platform app</strong> (Android, web/PWA and Windows) plus its own ASP.NET Core API — integrated with the office <strong>biometric terminal</strong>. <a href='horarios/'>See the project</a>."><strong>Control de horarios (Flutter + .NET 10):</strong> diseñé y puse en producción el sistema interno de asistencia — <strong>app multiplataforma</strong> (Android, web/PWA y Windows) y API propia en ASP.NET Core — integrada con el <strong>lector biométrico</strong> de la oficina. <a href="horarios/">Ver el proyecto</a>.</li>
-          </ul>
-          <div class="role subrole">
-            <h4 data-en="Project lead, support &amp; customer service">Líder de proyectos, soporte y atención al cliente</h4>
-            <span class="when" data-en="2024 – Present">2024 – Actualidad</span>
-          </div>
-          <p data-en="Besides developing, I lead the team's projects and act as the bridge between clients and development.">
-            Además de desarrollar, lidero los proyectos del equipo y soy el puente entre los clientes y desarrollo.
-          </p>
-          <ul>
-            <li data-en="<strong>Team lead:</strong> I run development projects with <strong>2 people in my charge</strong> — planning, task assignment, follow-up and review of their work."><strong>Liderazgo de equipo:</strong> dirijo proyectos de desarrollo con <strong>2 personas a cargo</strong> — planeación, asignación de tareas, seguimiento y revisión de su trabajo.</li>
-            <li data-en="<strong>Quality and debugging:</strong> I review, reproduce and diagnose bugs, and find failures in the software before they reach the client."><strong>Calidad y depuración:</strong> reviso, reproduzco y diagnostico bugs, y encuentro fallas en el software antes de que lleguen al cliente.</li>
-            <li data-en="<strong>Support and customer service:</strong> I handle client requests and incidents, turn them into technical tasks and follow them through to a solution."><strong>Soporte y atención al cliente:</strong> atiendo solicitudes e incidencias de los clientes, las convierto en tareas técnicas y les doy seguimiento hasta la solución.</li>
-          </ul>
-        </article>
+        </div>
 
-        <article class="job">
-          <div class="role">
-            <h3 data-en="Independent developer · <span class='org'>Own products</span>">Desarrollador independiente · <span class="org">Productos propios</span></h3>
-            <span class="when" data-en="Own projects">Proyectos propios</span>
-          </div>
-          <p data-en="I design and build complete products end to end, caring about architecture, UX and shipping.">
-            Diseño y construyo productos completos de punta a punta, cuidando arquitectura, UX y publicación.
-          </p>
-          <ul>
-            <li data-en="<strong>Turno</strong> — booking SaaS with an upfront deposit and WhatsApp reminders (Next.js + Supabase + Wompi). In production."><strong>Turno</strong> — SaaS de agenda con anticipo al reservar y recordatorios por WhatsApp (Next.js + Supabase + Wompi). En producción.</li>
-            <li data-en="<strong>Dulce Espera</strong> — pregnancy app in Flutter with offline-first, partner sync and in-app payments. Published on Google Play."><strong>Dulce Espera</strong> — App de embarazo en Flutter con offline-first, sincronización en pareja y pagos in-app. Publicada en Google Play.</li>
-            <li data-en="<strong>Cinexa</strong> — movie app in Flutter to master clean architecture and dependency injection."><strong>Cinexa</strong> — App de cine en Flutter para dominar clean architecture e inyección de dependencias.</li>
-            <li data-en="<strong>Control</strong> — Flutter app that reads payment-receipt screenshots with on-device OCR, verifies the destination number and detects duplicates. 100% on-device."><strong>Control</strong> — App Flutter que lee comprobantes de pago con OCR en el dispositivo, verifica el número de destino y detecta duplicados. 100% en el dispositivo.</li>
-          </ul>
-        </article>
+        <div class="gitcmd reveal" aria-hidden="true"><span class="ps">cesar@co</span>:~/carrera$ git log --graph --oneline --since=2019 <span class="cur"></span></div>
 
+        <ol class="log reveal">
+          <!-- HEAD -->
+          <li class="commit">
+            <div class="graph" aria-hidden="true"><i class="ln a d"></i><i class="node a head"></i></div>
+            <div class="cbody">
+              <div class="cmeta"><span class="h">e7c21a9</span><span class="ref hd">HEAD → samit</span><span>2026</span></div>
+              <p class="cmsg" data-en="feat(horarios): attendance system in production">feat(horarios): sistema de asistencia en producción</p>
+              <h3 data-en="Time &amp; attendance system · <span class='org'>SAMIT</span>">Control de horarios · <span class="org">SAMIT</span></h3>
+              <p data-en="I designed and shipped the internal attendance system — a <strong>cross-platform Flutter app</strong> (Android, web/PWA and Windows) plus its own <strong>ASP.NET Core API on .NET 10</strong> — integrated with the office <strong>biometric terminal</strong>. <a href='horarios/'>See the project →</a>">
+                Diseñé y puse en producción el sistema interno de asistencia — <strong>app Flutter multiplataforma</strong>
+                (Android, web/PWA y Windows) y API propia en <strong>ASP.NET Core sobre .NET 10</strong> — integrada con
+                el <strong>lector biométrico</strong> de la oficina. <a href="horarios/">Ver el proyecto →</a>
+              </p>
+            </div>
+          </li>
+
+          <!-- 2024 liderazgo -->
+          <li class="commit">
+            <div class="graph" aria-hidden="true"><i class="ln a f"></i><i class="node a"></i></div>
+            <div class="cbody">
+              <div class="cmeta"><span class="h">3b9f0d2</span><span>2024</span></div>
+              <p class="cmsg" data-en="feat(role): project lead, support &amp; customer service">feat(rol): líder de proyectos, soporte y atención al cliente</p>
+              <h3 data-en="Project lead, support &amp; customer service · <span class='org'>SAMIT</span>">Líder de proyectos, soporte y atención al cliente · <span class="org">SAMIT</span></h3>
+              <div class="when" data-en="2024 – Present">2024 – Actualidad</div>
+              <p data-en="Besides developing, I lead the team's projects and act as the bridge between clients and development.">
+                Además de desarrollar, lidero los proyectos del equipo y soy el puente entre los clientes y desarrollo.
+              </p>
+              <ul>
+                <li data-en="<strong>Team lead:</strong> I run development projects with <strong>2 people in my charge</strong> — planning, task assignment, follow-up and review of their work."><strong>Liderazgo de equipo:</strong> dirijo proyectos de desarrollo con <strong>2 personas a cargo</strong> — planeación, asignación de tareas, seguimiento y revisión de su trabajo.</li>
+                <li data-en="<strong>Quality and debugging:</strong> I review, reproduce and diagnose bugs, and find failures in the software before they reach the client."><strong>Calidad y depuración:</strong> reviso, reproduzco y diagnostico bugs, y encuentro fallas en el software antes de que lleguen al cliente.</li>
+                <li data-en="<strong>Support and customer service:</strong> I handle client requests and incidents, turn them into technical tasks and follow them through to a solution."><strong>Soporte y atención al cliente:</strong> atiendo solicitudes e incidencias de los clientes, las convierto en tareas técnicas y les doy seguimiento hasta la solución.</li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- rama independiente (en curso) -->
+          <li class="commit">
+            <div class="graph" aria-hidden="true"><i class="ln a f"></i><i class="ln b d"></i><i class="node b"></i></div>
+            <div class="cbody">
+              <div class="cmeta"><span class="h">9c4e1f7</span><span class="ref br" data-en="independent">independiente</span><span data-en="ongoing">en curso</span></div>
+              <p class="cmsg" data-en="feat: own products, end to end">feat: productos propios, de punta a punta</p>
+              <h3 data-en="Independent developer · <span class='org'>Own products</span>">Desarrollador independiente · <span class="org">Productos propios</span></h3>
+              <div class="when" data-en="2019 – Present">2019 – Actualidad</div>
+              <p data-en="I design and build complete products end to end, caring about architecture, UX and shipping.">
+                Diseño y construyo productos completos de punta a punta, cuidando arquitectura, UX y publicación.
+              </p>
+              <ul>
+                <li data-en="<strong>Turno</strong> — booking SaaS with an upfront deposit and WhatsApp reminders (Next.js + Supabase + Wompi). In production."><strong>Turno</strong> — SaaS de agenda con anticipo al reservar y recordatorios por WhatsApp (Next.js + Supabase + Wompi). En producción.</li>
+                <li data-en="<strong>Dulce Espera</strong> — pregnancy app in Flutter with offline-first, partner sync and in-app payments. Published on Google Play."><strong>Dulce Espera</strong> — App de embarazo en Flutter con offline-first, sincronización en pareja y pagos in-app. Publicada en Google Play.</li>
+                <li data-en="<strong>Cinexa</strong> — movie app in Flutter to master clean architecture and dependency injection."><strong>Cinexa</strong> — App de cine en Flutter para dominar clean architecture e inyección de dependencias.</li>
+                <li data-en="<strong>Control</strong> — Flutter app that reads payment-receipt screenshots with on-device OCR, verifies the destination number and detects duplicates. 100% on-device."><strong>Control</strong> — App Flutter que lee comprobantes de pago con OCR en el dispositivo, verifica el número de destino y detecta duplicados. 100% en el dispositivo.</li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- 2021 SAMIT: nace la rama -->
+          <li class="commit">
+            <div class="graph" aria-hidden="true">
+              <i class="ln a t"></i><i class="ln b f"></i><i class="node a"></i>
+              <svg class="fork" viewBox="0 0 29 46" style="position:absolute"><path d="M1 0 C1 26 28 18 28 46" fill="none" stroke="#15130f" stroke-width="2"/></svg>
+            </div>
+            <div class="cbody">
+              <div class="cmeta"><span class="h">5a0d83c</span><span class="ref">samit</span><span>2021</span></div>
+              <p class="cmsg" data-en="branch: joins SAMIT as a software developer">branch: entra a SAMIT como desarrollador de software</p>
+              <h3 data-en="Software developer · <span class='org'>SAMIT — Sistemas Corporativos</span>">Desarrollador de software · <span class="org">SAMIT — Sistemas Corporativos</span></h3>
+              <div class="when" data-en="2021 – Present">2021 – Actualidad</div>
+              <p data-en="I develop the software ecosystem of a business-solutions company serving Colombian companies. I've worked across the whole stack: mobile, desktop and backend.">
+                Desarrollo el ecosistema de software de una empresa de soluciones empresariales para compañías
+                colombianas. He trabajado en toda la pila: móvil, escritorio y backend.
+              </p>
+              <ul>
+                <li data-en="<strong>Field sales app (.NET MAUI):</strong> orders, invoicing and accounts receivable with <strong>offline-first</strong> operation, sync, permission-based access and receipt printing over <strong>Bluetooth (ESC/POS)</strong>. Published on Google Play as <strong>Samit Móvil</strong>."><strong>App de fuerza de ventas (.NET MAUI):</strong> pedidos, facturación y cartera con operación <strong>offline-first</strong>, sincronización, control por permisos e impresión de recibos por <strong>Bluetooth (ESC/POS)</strong>. Publicada en Google Play como <strong>Samit Móvil</strong>.</li>
+                <li data-en="<strong>Backend &amp; services (ASP.NET / SQL Server):</strong> a multi-company platform for invoicing, inventory, accounting, payroll and POS, with a <strong>multi-tenant</strong> setup in cloud and on-premise."><strong>Backend y servicios (ASP.NET / SQL Server):</strong> plataforma multiempresa para facturación, inventario, contabilidad, nómina y POS, con esquema <strong>multi-tenant</strong> en nube y local.</li>
+                <li data-en="<strong>Desktop ERP (WinForms) and earlier mobile apps</strong> in Xamarin and React Native for clients and field operations."><strong>ERP de escritorio (WinForms) y apps móviles previas</strong> en Xamarin y React Native para clientes y operaciones en campo.</li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- 2019 init -->
+          <li class="commit init">
+            <div class="graph" aria-hidden="true"><i class="ln b t"></i><i class="node b"></i></div>
+            <div class="cbody">
+              <div class="cmeta"><span class="h">0000001</span><span class="ref tg">tag: v2019</span><span>2019</span></div>
+              <p class="cmsg">git init</p>
+              <h3 data-en="First commit: I start building software professionally">Primer commit: empiezo a construir software de forma profesional</h3>
+            </div>
+          </li>
+        </ol>
       </div>
     </section>
 
     <!-- PROYECTOS -->
-    <section id="proyectos" class="wrap reveal">
-      <div class="accentbar"></div>
-      <h2 class="section-title" data-en="Featured projects">Proyectos destacados</h2>
-      <p class="section-sub" data-en="Real products you can see, try or download — not tutorial exercises.">Productos reales que puedes ver, probar o descargar — no ejercicios de tutorial.</p>
-      <div class="projects">
+    <section id="proyectos">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§04</b> / ./projects</div>
+          <div>
+            <h2 class="stitle" data-scramble data-en="Featured projects">Proyectos destacados</h2>
+            <p class="ssub" data-en="Real products you can see, try or download — not tutorial exercises.">Productos reales que puedes ver, probar o descargar — no ejercicios de tutorial.</p>
+          </div>
+        </div>
 
-        <!-- TURNO (star) -->
-        <article class="project star">
-          <div class="top">
-            <div class="ico">📅</div>
+        <div class="projects">
+
+          <!-- TURNO -->
+          <article class="proj star reveal">
+            <div class="num">01</div>
             <div>
-              <h3>Turno</h3>
+              <div class="phead">
+                <div class="pico" aria-hidden="true">📅</div>
+                <h3>Turno</h3>
+                <span class="badge live" data-en="Live">En vivo</span>
+              </div>
               <div class="kind" data-en="Booking SaaS with payments · Web">SaaS de agenda con pagos · Web</div>
+              <div class="pgrid">
+                <p data-en="Booking software for appointment-based businesses (salons, spas, tattoo studios, barbershops, vets). The client books on a <strong>public page</strong> and pays a <strong>deposit</strong>; if they don't show up, they lose it. That's how Turno <strong>ends no-shows</strong> and secures the business's income.">
+                  Software de reservas para negocios de cita previa (peluquerías, spa, tatuajes, barberías,
+                  veterinarias). El cliente reserva en una <strong>página pública</strong> y paga un
+                  <strong>anticipo</strong>; si no llega, lo pierde. Así Turno
+                  <strong>acaba con los plantones</strong> y le asegura ingresos al negocio.
+                </p>
+                <ul class="feat">
+                  <li data-en="24/7 online booking">Reservas online 24/7</li>
+                  <li data-en="Deposit via Wompi">Anticipo con Wompi</li>
+                  <li data-en="WhatsApp reminders">Recordatorios por WhatsApp</li>
+                  <li data-en="No double booking">Sin doble reserva</li>
+                  <li data-en="Multi-business (multi-tenant)">Multi-negocio (multi-tenant)</li>
+                  <li data-en="Owner dashboard">Panel del dueño</li>
+                </ul>
+              </div>
+              <div class="tags">
+                <span>Next.js</span><span>React</span><span>Tailwind</span><span>Supabase</span>
+                <span>PostgreSQL</span><span>Wompi</span><span>PWA</span><span>Vercel</span>
+              </div>
+              <div class="links">
+                <a class="btn btn-sig" href="https://usaturno.com" target="_blank" rel="noopener" data-en="Start free (30 days) ↗">Probar gratis (30 días) ↗</a>
+                <a class="btn btn-line" href="turno/" data-en="About the project →">Conocer el proyecto →</a>
+              </div>
             </div>
-            <span class="badge live" data-en="● Live">● En vivo</span>
-          </div>
-          <div class="body">
-            <div class="grid2">
-              <p data-en="Booking software for appointment-based businesses (salons, spas, tattoo studios, barbershops, vets). The client books on a <strong>public page</strong> and pays a <strong>deposit</strong>; if they don't show up, they lose it. That's how Turno <strong>ends no-shows</strong> and secures the business's income.">
-                Software de reservas para negocios de cita previa (peluquerías, spa, tatuajes, barberías,
-                veterinarias). El cliente reserva en una <strong>página pública</strong> y paga un
-                <strong>anticipo</strong>; si no llega, lo pierde. Así Turno
-                <strong>acaba con los plantones</strong> y le asegura ingresos al negocio.
-              </p>
-              <ul class="feat">
-                <li data-en="24/7 online booking">Reservas online 24/7</li>
-                <li data-en="Deposit via Wompi">Anticipo con Wompi</li>
-                <li data-en="WhatsApp reminders">Recordatorios por WhatsApp</li>
-                <li data-en="No double booking">Sin doble reserva</li>
-                <li data-en="Multi-business (multi-tenant)">Multi-negocio (multi-tenant)</li>
-                <li data-en="Owner dashboard">Panel del dueño</li>
-              </ul>
-            </div>
-            <div class="tags">
-              <span>Next.js</span><span>React</span><span>Tailwind</span><span>Supabase</span>
-              <span>PostgreSQL</span><span>Wompi</span><span>PWA</span><span>Vercel</span>
-            </div>
-            <div class="links">
-              <a class="a-fill" href="https://usaturno.com" target="_blank" rel="noopener" data-en="Start free (30 days) →">Probar gratis (30 días) →</a>
-              <a class="a-line" href="turno/" data-en="About the project">Conocer el proyecto</a>
-            </div>
-          </div>
-        </article>
+          </article>
 
-        <!-- SAMIT -->
-        <article class="project">
-          <div class="top">
-            <div class="ico"><img src="samit/img/logo-samit.png" alt="Logo de SAMIT" width="54" height="54" loading="lazy" decoding="async" /></div>
+          <!-- SAMIT -->
+          <article class="proj reveal">
+            <div class="num">02</div>
             <div>
-              <h3 data-en="SAMIT business suite">Suite empresarial SAMIT</h3>
+              <div class="phead">
+                <div class="pico"><img src="samit/img/logo-samit.png" alt="Logo de SAMIT" width="56" height="56" loading="lazy" decoding="async" /></div>
+                <h3 data-en="SAMIT business suite">Suite empresarial SAMIT</h3>
+                <span class="badge live" data-en="On Google Play">En Google Play</span>
+              </div>
               <div class="kind" data-en="Mobile + desktop + backend">Móvil + escritorio + backend</div>
+              <p data-en="Business software ecosystem: an <strong>offline-first field sales app</strong> in .NET MAUI (orders, receivables, Bluetooth printing) and a backend with <strong>invoicing, inventory, accounting and payroll</strong>.">
+                Ecosistema de software empresarial: app de <strong>fuerza de ventas offline-first</strong> en
+                .NET MAUI (pedidos, cartera, impresión Bluetooth) y backend con <strong>facturación,
+                inventario, contabilidad y nómina</strong>.
+              </p>
+              <div class="tags">
+                <span>.NET MAUI</span><span>C# / VB.NET</span><span>ASP.NET</span><span>SQL Server</span>
+                <span>LiteDB</span><span>Offline-first</span>
+              </div>
+              <div class="links">
+                <a class="btn btn-ink" href="samit/" data-en="View case study →">Ver el caso →</a>
+                <a class="btn btn-line" href="https://play.google.com/store/apps/details?id=com.samitsql.samitmobilemaui" target="_blank" rel="noopener" data-en="Samit Móvil on Google Play ↗">Samit Móvil en Google Play ↗</a>
+                <a class="btn btn-line" href="https://samit.com.co/" target="_blank" rel="noopener" data-en="SAMIT website ↗">Sitio de SAMIT ↗</a>
+              </div>
             </div>
-            <span class="badge live" data-en="● On Google Play">● En Google Play</span>
-          </div>
-          <div class="body">
-            <p data-en="Business software ecosystem: an <strong>offline-first field sales app</strong> in .NET MAUI (orders, receivables, Bluetooth printing) and a backend with <strong>invoicing, inventory, accounting and payroll</strong>.">
-              Ecosistema de software empresarial: app de <strong>fuerza de ventas offline-first</strong> en
-              .NET MAUI (pedidos, cartera, impresión Bluetooth) y backend con <strong>facturación,
-              inventario, contabilidad y nómina</strong>.
-            </p>
-            <div class="tags">
-              <span>.NET MAUI</span><span>C# / VB.NET</span><span>ASP.NET</span><span>SQL Server</span>
-              <span>LiteDB</span><span>Offline-first</span>
-            </div>
-            <div class="links">
-              <a class="a-fill" href="samit/" data-en="View case study →">Ver el caso →</a>
-              <a class="a-line" href="https://play.google.com/store/apps/details?id=com.samitsql.samitmobilemaui" target="_blank" rel="noopener" data-en="Samit Móvil on Google Play">Samit Móvil en Google Play</a>
-              <a class="a-line" href="https://samit.com.co/" target="_blank" rel="noopener" data-en="SAMIT website">Sitio de SAMIT</a>
-            </div>
-          </div>
-        </article>
+          </article>
 
-        <!-- DULCE ESPERA -->
-        <article class="project">
-          <div class="top">
-            <div class="ico"><img src="dulce-espera/img/icono.png" alt="Icono de Dulce Espera" width="54" height="54" loading="lazy" decoding="async" /></div>
+          <!-- CONTROL DE HORARIOS -->
+          <article class="proj reveal">
+            <div class="num">03</div>
             <div>
-              <h3>Dulce Espera</h3>
-              <div class="kind" data-en="Pregnancy app · Flutter">App de embarazo · Flutter</div>
-            </div>
-            <span class="badge live" data-en="● On Google Play">● En Google Play</span>
-          </div>
-          <div class="body">
-            <p data-en="An app to follow the pregnancy: memories, appointments with reminders, medications, weight and the bump week by week. <strong>True offline-first</strong>, with a <strong>custom sync engine</strong> to share as a couple and a <strong>free/Premium</strong> model with in-app payments.">
-              App para acompañar el embarazo: recuerdos, citas con recordatorios, medicinas, peso y la
-              barriguita semana a semana. <strong>Offline-first real</strong>, con un
-              <strong>motor de sincronización propio</strong> para compartir en pareja y modelo
-              <strong>gratis/Premium</strong> con pagos in-app.
-            </p>
-            <div class="tags">
-              <span>Flutter</span><span>Riverpod</span><span>Drift/SQLite</span><span>Firebase</span>
-              <span>In-App Purchase</span><span>Offline-first</span>
-            </div>
-            <div class="links">
-              <a class="a-fill" href="dulce-espera/" data-en="About the app →">Conocer la app →</a>
-              <a class="a-line" href="https://play.google.com/store/apps/details?id=com.samit.dulce_espera" target="_blank" rel="noopener" data-en="Get it on Google Play">Descargar en Google Play</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- CINEXA -->
-        <article class="project">
-          <div class="top">
-            <div class="ico"><img src="cinexa/img/cinexa-icon.png" alt="Logo de Cinexa" width="54" height="54" loading="lazy" decoding="async" /></div>
-            <div>
-              <h3>Cinexa</h3>
-              <div class="kind" data-en="Movie app · Flutter">App de cine · Flutter</div>
-            </div>
-            <span class="badge code" data-en="Open source">Código abierto</span>
-          </div>
-          <div class="body">
-            <p data-en="Mobile app for movies and series on the TMDB API, with <strong>clean architecture</strong>, authentication, trending, search, favorites and infinite scroll. It also has a <strong>couples Match mode</strong> — a 'Tinder for movies' in real time with Firebase: both swipe and, when they like the same film, it's a match.">
-              App móvil de películas y series sobre la API de TMDB, con <strong>arquitectura limpia</strong>,
-              autenticación, tendencias, búsqueda, favoritos y scroll infinito. Además tiene un
-              <strong>modo Match en pareja</strong> — un "Tinder de pelis" en tiempo real con Firebase:
-              ambos deslizan y, cuando coinciden en una, ¡hay match!
-            </p>
-            <div class="tags">
-              <span>Flutter</span><span>Dart</span><span>Clean Architecture</span><span>TMDB API</span><span>Firebase</span>
-            </div>
-            <div class="links">
-              <a class="a-fill" href="cinexa/" data-en="About the project →">Conocer el proyecto →</a>
-              <a class="a-line" href="https://github.com/cecaza/portafolio" target="_blank" rel="noopener" data-en="View code on GitHub">Ver código en GitHub</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- CONTROL -->
-        <article class="project">
-          <div class="top">
-            <div class="ico"><img src="control/img/control-icon.png" alt="Icono de Control" width="54" height="54" loading="lazy" decoding="async" /></div>
-            <div>
-              <h3>Control</h3>
-              <div class="kind" data-en="Receipt verification app · Flutter">App de verificación de comprobantes · Flutter</div>
-            </div>
-            <span class="badge work" data-en="In development">En desarrollo</span>
-          </div>
-          <div class="body">
-            <p data-en="Reads payment-receipt screenshots (Nequi and more) with <strong>on-device OCR</strong> to extract amount, date, sender and reference. It warns when a transfer was sent to a <strong>different number</strong> — the recycled-screenshot trick — and detects duplicates. <strong>100% on-device</strong>: no servers, no bank connection.">
-              Lee capturas de comprobantes de pago (Nequi y más) con <strong>OCR en el dispositivo</strong>
-              para extraer valor, fecha, remitente y referencia. Avisa cuando la transferencia fue a un
-              <strong>número distinto</strong> —el truco del pantallazo reciclado— y detecta duplicados.
-              <strong>100% en el dispositivo</strong>: sin servidores ni conexión con bancos.
-            </p>
-            <div class="tags">
-              <span>Flutter</span><span>Dart</span><span>Google ML Kit</span><span>OCR</span>
-              <span>SQLite</span><span>Clean Architecture</span><span data-en="On-device">Offline</span>
-            </div>
-            <div class="links">
-              <a class="a-fill" href="control/" data-en="About the project →">Conocer el proyecto →</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- CONTROL DE HORARIOS -->
-        <article class="project">
-          <div class="top">
-            <div class="ico">🕘</div>
-            <div>
-              <h3 data-en="Time &amp; Attendance">Control de Horarios</h3>
+              <div class="phead">
+                <div class="pico" aria-hidden="true">🕘</div>
+                <h3 data-en="Time &amp; Attendance">Control de Horarios</h3>
+                <span class="badge live" data-en="Live">En vivo</span>
+              </div>
               <div class="kind" data-en="Attendance with a biometric terminal · Flutter + .NET">Asistencia con lector biométrico · Flutter + .NET</div>
+              <p data-en="The office fingerprint and face terminal kept its data <strong>locked inside the device</strong>. Now the reader <strong>pushes every check-in</strong> out to its own server — no VPN and no open ports — and everyone reads their hours from their phone: entries, exits, <strong>lateness and absences</strong>, plus <strong>time-off and overtime requests</strong> with approval. <strong>Flutter app on Android, web (PWA) and Windows</strong> over an <strong>ASP.NET Core API on .NET 10</strong>.">
+                El lector de huella y rostro de la oficina guardaba sus datos <strong>encerrados en el
+                aparato</strong>. Ahora el lector <strong>empuja cada marcación</strong> a un servidor
+                propio —sin VPN ni puertos abiertos— y cada quien consulta su horario desde el celular:
+                entradas, salidas, <strong>tardanzas y ausencias</strong>, más <strong>permisos y horas
+                extra</strong> con aprobación. <strong>App Flutter en Android, web (PWA) y
+                Windows</strong> sobre una <strong>API en ASP.NET Core sobre .NET 10</strong>.
+              </p>
+              <div class="tags">
+                <span>Flutter</span><span>.NET 10</span><span>ASP.NET Core</span><span>SQLite</span>
+                <span>Hikvision ISAPI</span><span>Web Push</span><span>PWA</span><span>IIS</span>
+              </div>
+              <div class="links">
+                <a class="btn btn-ink" href="horarios/" data-en="About the project →">Conocer el proyecto →</a>
+              </div>
             </div>
-            <span class="badge live" data-en="● Live">● En vivo</span>
-          </div>
-          <div class="body">
-            <p data-en="The office fingerprint and face terminal kept its data <strong>locked inside the device</strong>. Now the reader <strong>pushes every check-in</strong> out to its own server — no VPN and no open ports — and everyone reads their hours from their phone: entries, exits, <strong>lateness and absences</strong>, plus <strong>time-off and overtime requests</strong> with approval. <strong>Flutter app on Android, web (PWA) and Windows</strong> over an <strong>ASP.NET Core API on .NET 10</strong>.">
-              El lector de huella y rostro de la oficina guardaba sus datos <strong>encerrados en el
-              aparato</strong>. Ahora el lector <strong>empuja cada marcación</strong> a un servidor
-              propio —sin VPN ni puertos abiertos— y cada quien consulta su horario desde el celular:
-              entradas, salidas, <strong>tardanzas y ausencias</strong>, más <strong>permisos y horas
-              extra</strong> con aprobación. <strong>App Flutter en Android, web (PWA) y
-              Windows</strong> sobre una <strong>API en ASP.NET Core sobre .NET 10</strong>.
-            </p>
-            <div class="tags">
-              <span>Flutter</span><span>.NET 10</span><span>ASP.NET Core</span><span>SQLite</span>
-              <span>Hikvision ISAPI</span><span>Web Push</span><span>PWA</span><span>IIS</span>
-            </div>
-            <div class="links">
-              <a class="a-fill" href="horarios/" data-en="About the project →">Conocer el proyecto →</a>
-            </div>
-          </div>
-        </article>
+          </article>
 
+          <!-- DULCE ESPERA -->
+          <article class="proj reveal">
+            <div class="num">04</div>
+            <div>
+              <div class="phead">
+                <div class="pico"><img src="dulce-espera/img/icono.png" alt="Icono de Dulce Espera" width="56" height="56" loading="lazy" decoding="async" /></div>
+                <h3>Dulce Espera</h3>
+                <span class="badge live" data-en="On Google Play">En Google Play</span>
+              </div>
+              <div class="kind" data-en="Pregnancy app · Flutter">App de embarazo · Flutter</div>
+              <p data-en="An app to follow the pregnancy: memories, appointments with reminders, medications, weight and the bump week by week. <strong>True offline-first</strong>, with a <strong>custom sync engine</strong> to share as a couple and a <strong>free/Premium</strong> model with in-app payments.">
+                App para acompañar el embarazo: recuerdos, citas con recordatorios, medicinas, peso y la
+                barriguita semana a semana. <strong>Offline-first real</strong>, con un
+                <strong>motor de sincronización propio</strong> para compartir en pareja y modelo
+                <strong>gratis/Premium</strong> con pagos in-app.
+              </p>
+              <div class="tags">
+                <span>Flutter</span><span>Riverpod</span><span>Drift/SQLite</span><span>Firebase</span>
+                <span>In-App Purchase</span><span>Offline-first</span>
+              </div>
+              <div class="links">
+                <a class="btn btn-ink" href="dulce-espera/" data-en="About the app →">Conocer la app →</a>
+                <a class="btn btn-line" href="https://play.google.com/store/apps/details?id=com.samit.dulce_espera" target="_blank" rel="noopener" data-en="Get it on Google Play ↗">Descargar en Google Play ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- CINEXA -->
+          <article class="proj reveal">
+            <div class="num">05</div>
+            <div>
+              <div class="phead">
+                <div class="pico"><img src="cinexa/img/cinexa-icon.png" alt="Logo de Cinexa" width="56" height="56" loading="lazy" decoding="async" /></div>
+                <h3>Cinexa</h3>
+                <span class="badge code" data-en="Open source">Código abierto</span>
+              </div>
+              <div class="kind" data-en="Movie app · Flutter">App de cine · Flutter</div>
+              <p data-en="Mobile app for movies and series on the TMDB API, with <strong>clean architecture</strong>, authentication, trending, search, favorites and infinite scroll. It also has a <strong>couples Match mode</strong> — a 'Tinder for movies' in real time with Firebase: both swipe and, when they like the same film, it's a match.">
+                App móvil de películas y series sobre la API de TMDB, con <strong>arquitectura limpia</strong>,
+                autenticación, tendencias, búsqueda, favoritos y scroll infinito. Además tiene un
+                <strong>modo Match en pareja</strong> — un "Tinder de pelis" en tiempo real con Firebase:
+                ambos deslizan y, cuando coinciden en una, ¡hay match!
+              </p>
+              <div class="tags">
+                <span>Flutter</span><span>Dart</span><span>Clean Architecture</span><span>TMDB API</span><span>Firebase</span>
+              </div>
+              <div class="links">
+                <a class="btn btn-ink" href="cinexa/" data-en="About the project →">Conocer el proyecto →</a>
+                <a class="btn btn-line" href="https://github.com/cecaza/portafolio" target="_blank" rel="noopener" data-en="View code on GitHub ↗">Ver código en GitHub ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- CONTROL -->
+          <article class="proj reveal">
+            <div class="num">06</div>
+            <div>
+              <div class="phead">
+                <div class="pico"><img src="control/img/control-icon.png" alt="Icono de Control" width="56" height="56" loading="lazy" decoding="async" /></div>
+                <h3>Control</h3>
+                <span class="badge work" data-en="In development">En desarrollo</span>
+              </div>
+              <div class="kind" data-en="Receipt verification app · Flutter">App de verificación de comprobantes · Flutter</div>
+              <p data-en="Reads payment-receipt screenshots (Nequi and more) with <strong>on-device OCR</strong> to extract amount, date, sender and reference. It warns when a transfer was sent to a <strong>different number</strong> — the recycled-screenshot trick — and detects duplicates. <strong>100% on-device</strong>: no servers, no bank connection.">
+                Lee capturas de comprobantes de pago (Nequi y más) con <strong>OCR en el dispositivo</strong>
+                para extraer valor, fecha, remitente y referencia. Avisa cuando la transferencia fue a un
+                <strong>número distinto</strong> —el truco del pantallazo reciclado— y detecta duplicados.
+                <strong>100% en el dispositivo</strong>: sin servidores ni conexión con bancos.
+              </p>
+              <div class="tags">
+                <span>Flutter</span><span>Dart</span><span>Google ML Kit</span><span>OCR</span>
+                <span>SQLite</span><span>Clean Architecture</span><span data-en="On-device">Offline</span>
+              </div>
+              <div class="links">
+                <a class="btn btn-ink" href="control/" data-en="About the project →">Conocer el proyecto →</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
       </div>
     </section>
 
-    <!-- FILOSOFÍA -->
-    <section id="filosofia" class="wrap reveal">
-      <div class="accentbar"></div>
-      <h2 class="section-title" data-en="How I work">Cómo trabajo</h2>
-      <p class="section-sub" data-en="Principles I apply on every project, regardless of the stack.">Principios que aplico en cada proyecto, sin importar el stack.</p>
-      <div class="philo">
-        <div class="pcard"><div class="ic">🎯</div><h3 data-en="Product before code">Producto antes que código</h3><p data-en="The problem and the user first; technology is the means, not the goal.">Primero el problema y el usuario; la tecnología es el medio, no el objetivo.</p></div>
-        <div class="pcard"><div class="ic">🏛️</div><h3 data-en="Clean architecture">Arquitectura limpia</h3><p data-en="Separate layers and a domain independent from the database. Easy to test and change.">Capas separadas y dominio independiente de la base de datos. Fácil de probar y de cambiar.</p></div>
-        <div class="pcard"><div class="ic">📶</div><h3 data-en="Offline-first and reliable data">Offline-first y datos confiables</h3><p data-en="The app works without a network and syncs without losing or duplicating data.">Que la app funcione sin red y sincronice sin perder ni duplicar información.</p></div>
-        <div class="pcard"><div class="ic">✨</div><h3 data-en="UX over complexity">UX antes que complejidad</h3><p data-en="Clear, fast interfaces. Less friction for users, less support for the business.">Interfaces claras y rápidas. Menos fricción para el usuario, menos soporte para el negocio.</p></div>
-        <div class="pcard"><div class="ic">📈</div><h3 data-en="Scalable and maintainable">Escalable y mantenible</h3><p data-en="Code built to grow: multi-tenant, reusable and with error monitoring.">Código pensado para crecer: multi-tenant, reutilizable y con monitoreo de errores.</p></div>
-        <div class="pcard"><div class="ic">⚡</div><h3 data-en="AI with judgment">IA con criterio</h3><p data-en="I speed up with AI to deliver faster, but I review and decide. Quality over blind speed.">Acelero con IA para entregar más rápido, pero reviso y decido yo. Calidad sobre velocidad ciega.</p></div>
+    <!-- CÓMO TRABAJO -->
+    <section id="filosofia">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§05</b> / README</div>
+          <div>
+            <h2 class="stitle" data-scramble data-en="How I work">Cómo trabajo</h2>
+            <p class="ssub" data-en="Principles I apply on every project, regardless of the stack.">Principios que aplico en cada proyecto, sin importar el stack.</p>
+          </div>
+        </div>
+        <ol class="manifesto reveal">
+          <li><div class="n">i.</div><h3 data-en="Product before code">Producto antes que código</h3><p data-en="The problem and the user first; technology is the means, not the goal.">Primero el problema y el usuario; la tecnología es el medio, no el objetivo.</p></li>
+          <li><div class="n">ii.</div><h3 data-en="Clean architecture">Arquitectura limpia</h3><p data-en="Separate layers and a domain independent from the database. Easy to test and change.">Capas separadas y dominio independiente de la base de datos. Fácil de probar y de cambiar.</p></li>
+          <li><div class="n">iii.</div><h3 data-en="Offline-first and reliable data">Offline-first y datos confiables</h3><p data-en="The app works without a network and syncs without losing or duplicating data.">Que la app funcione sin red y sincronice sin perder ni duplicar información.</p></li>
+          <li><div class="n">iv.</div><h3 data-en="UX over complexity">UX antes que complejidad</h3><p data-en="Clear, fast interfaces. Less friction for users, less support for the business.">Interfaces claras y rápidas. Menos fricción para el usuario, menos soporte para el negocio.</p></li>
+          <li><div class="n">v.</div><h3 data-en="Scalable and maintainable">Escalable y mantenible</h3><p data-en="Code built to grow: multi-tenant, reusable and with error monitoring.">Código pensado para crecer: multi-tenant, reutilizable y con monitoreo de errores.</p></li>
+          <li><div class="n">vi.</div><h3 data-en="AI with judgment">IA con criterio</h3><p data-en="I speed up with AI to deliver faster, but I review and decide. Quality over blind speed.">Acelero con IA para entregar más rápido, pero reviso y decido yo. Calidad sobre velocidad ciega.</p></li>
+        </ol>
       </div>
     </section>
 
     <!-- CONTACTO -->
     <section id="contacto" class="contact">
       <div class="wrap">
-        <div class="panel reveal">
-        <div class="accentbar mid"></div>
-        <h2 class="section-title" data-en="Let's talk">¿Hablamos?</h2>
-        <p class="section-sub" data-en="I'm open to <strong>job opportunities</strong> (mobile and .NET development) and to <strong>clients</strong> who want to build or use a product. I reply fast.">
+        <div class="shead reveal" style="margin-bottom:18px">
+          <div class="sidx"><b>§06</b> / contact</div>
+          <div></div>
+        </div>
+        <h2 class="big reveal" data-en="Let's <em>talk</em>.">¿Habla<em>mos</em>?</h2>
+        <p class="ssub reveal" data-en="I'm open to <strong>job opportunities</strong> (mobile and .NET development) and to <strong>clients</strong> who want to build or use a product. I reply fast.">
           Estoy abierto a <strong>oportunidades laborales</strong> (desarrollo móvil y .NET) y a
           <strong>clientes</strong> que quieran construir o usar un producto. Respondo rápido.
         </p>
-        <div class="actions">
-          <a class="btn btn-wa" href="https://wa.me/573128569219" target="_blank" rel="noopener">WhatsApp: +57 312 856 9219</a>
-          <a class="btn btn-primary" href="mailto:cecaza1085263@gmail.com" data-en="✉️ Send me an email">✉️ Escríbeme un correo</a>
-          <a class="btn btn-ghost" href="https://github.com/cecaza" target="_blank" rel="noopener">GitHub</a>
-        </div>
+        <div class="clinks reveal">
+          <a href="https://wa.me/573128569219" target="_blank" rel="noopener"><span class="k">WhatsApp</span><span class="v">+57 312 856 9219</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a href="mailto:cecaza1085263@gmail.com"><span class="k" data-en="Email">Correo</span><span class="v">cecaza1085263@gmail.com</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a href="https://github.com/cecaza" target="_blank" rel="noopener"><span class="k">GitHub</span><span class="v">github.com/cecaza</span><span class="ar" aria-hidden="true">↗</span></a>
         </div>
       </div>
     </section>
@@ -657,10 +798,49 @@
   </main>
 
   <footer>
-    <p data-en="Cesar Carvajal · Mobile &amp; web app developer · Colombia · © 2026">Cesar Carvajal · Desarrollador de apps móviles y web · Colombia · © 2026</p>
+    <div class="wrap">
+      <span data-en="© 2019 – 2026 · Cesar Carvajal · Mobile &amp; web app developer · Colombia">© 2019 – 2026 · Cesar Carvajal · Desarrollador de apps móviles y web · Colombia</span>
+      <span data-en="Handmade: HTML, CSS and JavaScript, no frameworks.">Hecho a mano: HTML, CSS y JavaScript, sin frameworks.</span>
+    </div>
   </footer>
 
   <script>
+    var REDUCE = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var GLYPHS = '{}[]()<>;:=+-*/&|!?#$%_01λ=>';
+
+    // ---------- Tabla periódica (datos) ----------
+    (function(){
+      var STACK = [
+        ['mob','Fl','Flutter'],['mob','Dt','Dart'],['mob','Ma','.NET MAUI'],['mob','Xa','Xamarin'],
+        ['mob','Rn','React Native'],['mob','Rp','Riverpod'],['mob','Mv','MVVM'],['mob','Gp','Google Play'],
+        ['net','Cs','C#'],['net','Vb','VB.NET'],['net','As','ASP.NET'],['net','Wf','WinForms'],
+        ['net','Ws','Web Services'],['net','Ef','Entity Framework'],['net','Sq','SQL Server'],
+        ['web','Nx','Next.js'],['web','Re','React'],['web','Ts','TypeScript'],['web','Tw','Tailwind'],
+        ['web','No','Node'],['web','Ve','Vercel'],
+        ['dat','Pg','PostgreSQL'],['dat','Sl','SQLite / Drift'],['dat','Ld','LiteDB'],['dat','Sb','Supabase'],
+        ['dat','Fb','Firebase'],['dat','Rl','RLS'],
+        ['arq','Ca','Clean Architecture'],['arq','Cp','Capas|Layers'],['arq','Di','Inyección de dependencias|Dependency injection'],
+        ['arq','Of','Offline-first'],['arq','Mt','Multi-tenant'],['arq','Se','Sentry / Crashlytics'],
+        ['int','Wo','Pagos (Wompi)|Payments (Wompi)'],['int','Ia','In-App Purchase'],['int','Wa','WhatsApp'],
+        ['int','Ep','Impresión Bluetooth ESC/POS|Bluetooth printing (ESC/POS)'],['int','Pu','Push']
+      ];
+      var pt = document.getElementById('pt'), html = '';
+      STACK.forEach(function(t, i){
+        var nm = t[2].split('|'), en = nm[1] ? ' data-en="'+nm[1]+'"' : '';
+        html += '<div class="el" role="listitem" data-g="'+t[0]+'"><span class="z">'+String(i+1).padStart(2,'0')+'</span>'
+              + '<span class="s" aria-hidden="true">'+t[1]+'</span><span class="nm"'+en+'>'+nm[0]+'</span></div>';
+      });
+      pt.innerHTML = html;
+      var legend = document.getElementById('ptLegend');
+      legend.addEventListener('click', function(e){
+        var b = e.target.closest('button'); if(!b) return;
+        var on = b.getAttribute('aria-pressed') !== 'true';
+        legend.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+        if(on){ b.setAttribute('aria-pressed','true'); pt.dataset.focus = b.dataset.g; }
+        else { delete pt.dataset.focus; }
+      });
+    })();
+
     // ---------- i18n (ES/EN), sin recargar ----------
     (function(){
       var KEY='site-lang';
@@ -673,6 +853,7 @@
                           : el.innerHTML;
           }
           var v = (l==='en') ? el.getAttribute('data-en') : el.dataset.es;
+          el._scr = null; // cancela un scramble en curso
           if(el.tagName==='META'){ el.setAttribute('content', v); }
           else if(el.tagName==='TITLE'){ document.title = v; }
           else { el.innerHTML = v; }
@@ -691,14 +872,219 @@
       apply(initial);
     })();
 
+    // ---------- Uptime desde 2019 ----------
+    (function(){
+      var el = document.getElementById('uptime');
+      var since = Date.UTC(2019,0,1,5); // 1 ene 2019, 00:00 hora Colombia
+      function p(n){ return String(n).padStart(2,'0'); }
+      function tick(){
+        var s = Math.floor((Date.now()-since)/1000), Y = 31556952;
+        var y = Math.floor(s/Y); s -= y*Y;
+        var d = Math.floor(s/86400); s -= d*86400;
+        var en = document.documentElement.lang === 'en';
+        el.textContent = y+(en?'y ':'a ')+String(d).padStart(3,'0')+'d '+p(Math.floor(s/3600))+':'+p(Math.floor(s%3600/60))+':'+p(s%60);
+      }
+      tick(); setInterval(tick, 1000);
+    })();
+
+    // ---------- Scroll: barra de progreso + sello ----------
+    (function(){
+      var root = document.documentElement, ticking = false;
+      function upd(){
+        ticking = false;
+        var max = root.scrollHeight - innerHeight;
+        root.style.setProperty('--p', max > 0 ? (scrollY/max).toFixed(4) : 0);
+        root.style.setProperty('--scroll', Math.round(scrollY));
+      }
+      addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+      upd();
+    })();
+
+    // ---------- Títulos que se "descifran" ----------
+    function scramble(el){
+      if(REDUCE || el.children.length) return;
+      var id = {}; el._scr = id;
+      var target = el.textContent, n = target.length, t0 = performance.now(), dur = Math.min(1100, 300 + n*45);
+      (function f(t){
+        if(el._scr !== id) return;
+        var k = Math.min(1, (t - t0)/dur), r = Math.floor(k*n), out = '';
+        for(var i=0;i<n;i++){
+          var c = target[i];
+          out += (i < r || c === ' ') ? c : GLYPHS[(Math.random()*GLYPHS.length)|0];
+        }
+        el.textContent = out;
+        if(k < 1) requestAnimationFrame(f); else { el.textContent = target; el._scr = null; }
+      })(t0);
+    }
+
     // ---------- Reveal on scroll ----------
     (function(){
       var els = document.querySelectorAll('.reveal');
       if(!('IntersectionObserver' in window) || !els.length){ els.forEach(function(e){e.classList.add('in')}); return; }
       var io = new IntersectionObserver(function(entries){
-        entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+        entries.forEach(function(en){
+          if(!en.isIntersecting) return;
+          en.target.classList.add('in'); io.unobserve(en.target);
+          en.target.querySelectorAll('[data-scramble]').forEach(scramble);
+        });
       }, {rootMargin:'0px 0px -8% 0px'});
       els.forEach(function(e){ io.observe(e); });
+    })();
+
+    // ---------- Hero: el nombre armado con miles de glifos de código ----------
+    (function(){
+      var stage = document.getElementById('stage'), cv = document.getElementById('glyphs');
+      var ctx = cv.getContext && cv.getContext('2d');
+      if(!ctx) return;
+
+      var W=0, H=0, dpr=1, gap=6, gsz=10, P=[], atlas=[], running=false, visible=true, raf=0, fc=0;
+      var mouse = {x:-9999, y:-9999, on:false}, scrollF = 0;
+      var INK = '#15130f', SIG = '#ff4a1c';
+
+      function makeAtlas(){
+        atlas = [INK, SIG].map(function(col){
+          return GLYPHS.split('').map(function(ch){
+            var c = document.createElement('canvas'), s = Math.ceil(gsz*dpr);
+            c.width = c.height = s;
+            var x = c.getContext('2d');
+            x.fillStyle = col; x.textAlign = 'center'; x.textBaseline = 'middle';
+            x.font = '700 ' + (gsz*0.92*dpr) + 'px "JetBrains Mono", monospace';
+            x.fillText(ch, s/2, s/2 + dpr*0.5);
+            return c;
+          });
+        });
+      }
+
+      function sample(lines, fs, g){
+        var off = document.createElement('canvas'); off.width = W; off.height = H;
+        var o = off.getContext('2d');
+        o.fillStyle = '#000'; o.textAlign = 'center'; o.textBaseline = 'middle';
+        o.font = '800 ' + fs + 'px "Bricolage Grotesque", sans-serif';
+        var lh = fs*0.9, y0 = H/2 - (lines.length-1)*lh/2;
+        lines.forEach(function(t, i){ o.fillText(t, W/2, y0 + i*lh); });
+        var data = o.getImageData(0,0,W,H).data, pts = [];
+        for(var y=0; y<H; y+=g) for(var x=0; x<W; x+=g){
+          if(data[(y*W + x)*4 + 3] > 140) pts.push(x + (Math.random()-.5)*g*.35, y + (Math.random()-.5)*g*.35);
+        }
+        return pts;
+      }
+
+      function build(){
+        W = stage.clientWidth; H = stage.clientHeight;
+        if(!W || !H) return;
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        cv.width = W*dpr; cv.height = H*dpr;
+
+        var lines = ['CESAR','CARVAJAL'];
+        var m = document.createElement('canvas').getContext('2d'), fs = 400;
+        m.font = '800 100px "Bricolage Grotesque", sans-serif';
+        var wide = Math.max.apply(null, lines.map(function(t){ return m.measureText(t).width; }));
+        fs = Math.min(100 * (W*0.9)/wide, (H*0.9)/(lines.length*0.9));
+
+        var target = W < 700 ? 1500 : 3400, pts;
+        gap = Math.max(4, Math.round(fs/24));
+        for(var tries=0; tries<12; tries++){
+          pts = sample(lines, fs, gap);
+          if(pts.length/2 <= target) break;
+          gap++;
+        }
+        gsz = gap*1.55;
+        makeAtlas();
+
+        var n = pts.length/2, old = P; P = new Array(n);
+        for(var i=0;i<n;i++){
+          var q = old[i] || {
+            x: Math.random()*W, y: Math.random()*H*1.6 - H*.3, vx:(Math.random()-.5)*20, vy:(Math.random()-.5)*20,
+            k: .035 + Math.random()*.05, g: (Math.random()*GLYPHS.length)|0, c: Math.random() < .09 ? 1 : 0, hot:0
+          };
+          q.tx = pts[i*2]; q.ty = pts[i*2+1];
+          q.ox = (Math.random()-.5)*W*.9; q.oy = -Math.random()*H*1.1;
+          P[i] = q;
+        }
+        if(REDUCE){ P.forEach(function(p){ p.x = p.tx; p.y = p.ty; p.vx = p.vy = 0; }); draw(); }
+        stage.classList.add('live');
+        start();
+      }
+
+      function draw(){
+        ctx.setTransform(1,0,0,1,0,0);
+        ctx.clearRect(0,0,cv.width,cv.height);
+        var h = gsz/2;
+        for(var i=0;i<P.length;i++){
+          var p = P[i], img = atlas[(p.c || p.hot > .25) ? 1 : 0][p.g];
+          ctx.drawImage(img, (p.x - h)*dpr, (p.y - h)*dpr);
+        }
+      }
+
+      function frame(){
+        raf = 0;
+        if(!running) return;
+        raf = requestAnimationFrame(frame);
+        var R = Math.max(70, Math.min(W,H)*.22), R2 = R*R, s2 = scrollF*scrollF, energy = 0;
+        for(var i=0;i<P.length;i++){
+          var p = P[i];
+          var tx = p.tx + p.ox*s2, ty = p.ty + p.oy*s2;
+          p.vx += (tx - p.x)*p.k; p.vy += (ty - p.y)*p.k;
+          if(mouse.on){
+            var dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx*dx + dy*dy;
+            if(d2 < R2 && d2 > .01){
+              var d = Math.sqrt(d2), f = (1 - d/R)*7;
+              p.vx += dx/d*f; p.vy += dy/d*f; p.hot = 1;
+            }
+          }
+          p.vx *= .83; p.vy *= .83;
+          p.x += p.vx; p.y += p.vy;
+          p.hot *= .96;
+          energy += Math.abs(p.vx) + Math.abs(p.vy);
+        }
+        // el código "vive": algunos glifos mutan
+        for(var j=0;j<6;j++){ P[(Math.random()*P.length)|0].g = (Math.random()*GLYPHS.length)|0; }
+        var settled = energy/P.length < .04 && !mouse.on;
+        if(settled && (fc++ % 5)) return; // en reposo: ~12 fps, suficiente para las mutaciones
+        draw();
+      }
+
+      function start(){ if(REDUCE) return; running = visible && !document.hidden; if(running && !raf) raf = requestAnimationFrame(frame); }
+      function stop(){ running = false; if(raf){ cancelAnimationFrame(raf); raf = 0; } }
+
+      function burst(x, y){
+        P.forEach(function(p){
+          var dx = p.x - x, dy = p.y - y, d = Math.sqrt(dx*dx + dy*dy) || 1, f = 18 + Math.random()*26;
+          p.vx += dx/d*f; p.vy += dy/d*f - Math.random()*8; p.hot = 1;
+        });
+      }
+
+      function pos(e){ var r = cv.getBoundingClientRect(); return {x: e.clientX - r.left, y: e.clientY - r.top}; }
+      stage.addEventListener('pointermove', function(e){ if(e.pointerType === 'touch') return; var q = pos(e); mouse.x = q.x; mouse.y = q.y; mouse.on = true; });
+      stage.addEventListener('pointerleave', function(){ mouse.on = false; });
+      stage.addEventListener('pointerdown', function(e){ if(REDUCE) return; var q = pos(e); burst(q.x, q.y); });
+
+      addEventListener('scroll', function(){
+        var b = stage.offsetTop + stage.offsetHeight;
+        scrollF = Math.max(0, Math.min(1, scrollY / b));
+      }, {passive:true});
+
+      if('IntersectionObserver' in window){
+        new IntersectionObserver(function(en){ visible = en[0].isIntersecting; visible ? start() : stop(); }).observe(stage);
+      }
+      document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : start(); });
+
+      var lastW = 0, rt;
+      if('ResizeObserver' in window){
+        new ResizeObserver(function(){
+          if(stage.clientWidth === lastW) return;
+          lastW = stage.clientWidth; clearTimeout(rt); rt = setTimeout(build, 150);
+        }).observe(stage);
+      }
+
+      var fontsReady = document.fonts && document.fonts.load
+        ? Promise.all([
+            document.fonts.load('800 100px "Bricolage Grotesque"'),
+            document.fonts.load('700 20px "JetBrains Mono"')
+          ])
+        : Promise.resolve();
+      Promise.race([fontsReady, new Promise(function(r){ setTimeout(r, 1800); })])
+        .then(function(){ lastW = stage.clientWidth; build(); }, function(){ build(); });
     })();
   </script>
 </body>
