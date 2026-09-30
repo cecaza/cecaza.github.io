@@ -6,7 +6,7 @@
 <title>Juego de Baloncesto</title>
 <meta name="description" content="Recreación de un juego de baloncesto que Cesar Carvajal hizo en 2017 con HTML y JavaScript. El original se perdió.">
 <meta name="robots" content="noindex">
-<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="shortcut icon" href="../assets/favicon.png">
 <style type="text/css">
 body {
 	margin: 0px;
@@ -124,6 +124,8 @@ legend {
 //  JUEGO DE BALONCESTO
 //  Hecho por: Cesar Carvajal - 2017
 // ============================================
+// TODO: que suene cuando encesta
+// TODO: tiros de 3 puntos??
 
 var canvas;
 var ctx;
@@ -135,6 +137,8 @@ var ALTO = 400;
 var PISO = 370;
 var ZONA = 260; // hasta aqui se puede tirar
 var GRAVEDAD = 0.35;
+//var GRAVEDAD = 0.5; // muy pesada
+var velocidad = 5; // no se usa
 
 // aro y tablero
 var aroY = 170;
@@ -194,6 +198,7 @@ function iniciar() {
 		soltar();
 	};
 
+	//timer = setInterval(juego, 30); // muy lento
 	timer = setInterval(juego, 16); // mas o menos 60 fps
 }
 
@@ -228,6 +233,7 @@ function ponerPelota() {
 
 // convierte la posicion del mouse a coordenadas del canvas
 // (esto es por si el canvas esta mas pequeño en la pantalla, me costo un monton)
+// sacado de stackoverflow
 function posX(x) {
 	var r = canvas.getBoundingClientRect();
 	return (x - r.left) * (ANCHO / r.width);
@@ -273,6 +279,7 @@ function mover(x, y) {
 
 function soltar() {
 	if (estado != 1) return;
+	//alert(bx + " , " + by);
 
 	// si la suelta fuera de la zona es falta
 	if (bx > ZONA) {
@@ -341,13 +348,14 @@ function fisica() {
 		if (Math.abs(vy) < 1) vy = 0;
 	}
 	// paredes
-	if (bx < radio) {
+	if (bx < radio)
+	{
 		bx = radio;
 		vx = -vx * 0.6;
 	}
-	if (bx > ANCHO - radio) {
-		bx = ANCHO - radio;
-		vx = -vx * 0.6;
+	if(bx>ANCHO-radio){
+        bx = ANCHO - radio;
+        vx = -vx*0.6;
 	}
 	// tablero
 	if (bx + radio > tableroX && bx < tableroX + 8 && by > tableroArriba && by < tableroAbajo && vx > 0) {
@@ -364,6 +372,7 @@ function fisica() {
 		canastas++;
 		actualizarMarcador();
 		mensaje("CANASTAAAA!!! :D", "#27ae60");
+		//console.log("canasta " + canastas);
 	}
 
 	tiempo++;

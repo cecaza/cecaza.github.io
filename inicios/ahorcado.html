@@ -6,7 +6,7 @@
 <title>Juego del Ahorcado</title>
 <meta name="description" content="Recreación del juego del ahorcado que Cesar Carvajal hizo en sus inicios con HTML y JavaScript. El original se perdió.">
 <meta name="robots" content="noindex">
-<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="shortcut icon" href="../assets/favicon.png">
 <style type="text/css">
 body {
 	margin: 0px;
@@ -136,6 +136,8 @@ body {
 //  JUEGO DEL AHORCADO
 //  Hecho por: Cesar Carvajal
 // ============================================
+// TODO: poner niveles (facil, medio, dificil)
+// TODO: agregar mas palabras
 
 var palabras = new Array("COMPUTADOR", "PROGRAMA", "TECLADO", "INTERNET", "UNIVERSIDAD", "JAVASCRIPT", "PANTALLA", "MONTAÑA", "GUITARRA", "BALONCESTO", "ELEFANTE", "CHOCOLATE", "BICICLETA", "ARCHIVO", "VARIABLE");
 var pistas = new Array("Maquina", "Lo que hace un programador", "Tiene muchas teclas", "La red de redes", "Donde se estudia una carrera", "Lenguaje de la web", "Se mira todo el dia", "Paisaje", "Instrumento", "Deporte", "Animal", "Dulce", "Transporte", "Se guarda en una carpeta", "Guarda un valor");
@@ -145,6 +147,7 @@ var palabra = "";
 var usadas = "";
 var fallos = 0;
 var jugando = false;
+var intentos = 6; // ya no se usa, ahora es fallos
 var canvas;
 var ctx;
 
@@ -155,6 +158,7 @@ function iniciar() {
 }
 
 function nuevoJuego() {
+	//var n = parseInt(Math.random() * 10);
 	var n = Math.floor(Math.random() * palabras.length);
 	// para que no salga la misma palabra dos veces seguidas
 	if (palabras[n] == palabra) {
@@ -188,10 +192,13 @@ function jugar(l) {
 	var boton = document.getElementById("btn" + l);
 	boton.disabled = true;
 
-	if (palabra.indexOf(l) != -1) {
+	if (palabra.indexOf(l) != -1)
+	{
 		boton.className = "letra acierto";
-	} else {
+	}
+	else{
 		boton.className = "letra error";
+		//boton.style.backgroundColor = "red";
 		fallos++;
 	}
 	//console.log("letra: " + l + " fallos: " + fallos);
@@ -223,7 +230,8 @@ function revisar() {
 	}
 
 	if (gano == true) {
-		jugando = false;
+		//alert("gano");
+        jugando = false;
 		document.getElementById("mensaje").innerHTML = "<font color='green'>GANASTE!!! :D</font>";
 		// el timeout es para que alcance a pintar antes del alert
 		setTimeout(function () { alert("Felicitaciones!!! adivinaste la palabra"); }, 100);
@@ -253,6 +261,7 @@ function dibujar() {
 	ctx.clearRect(0, 0, 200, 220);
 
 	// piso
+	//ctx.fillStyle = "green";
 	ctx.fillStyle = "#7dcea0";
 	ctx.fillRect(0, 205, 200, 15);
 
@@ -270,7 +279,7 @@ function dibujar() {
 	ctx.strokeStyle = "#000000";
 	ctx.lineWidth = 3;
 	if (fallos >= 1) { // cabeza
-		ctx.beginPath();
+        ctx.beginPath();
 		ctx.arc(140, 58, 18, 0, Math.PI * 2, true);
 		ctx.stroke();
 	}
