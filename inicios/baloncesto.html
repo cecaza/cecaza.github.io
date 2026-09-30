@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baloncesto · recreación 2017</title>
+<meta name="description" content="Recreación de un juego de baloncesto que Cesar Carvajal hizo en 2017 con HTML y JavaScript. El original se perdió.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<style>
+/* de aqui para abajo: estilo 2017 */
+body{margin:0;background:#dfe9f3;font-family:Verdana,Arial,sans-serif;color:#222}
+#contenedor{max-width:680px;margin:20px auto;padding:0 16px;text-align:center}
+h1{color:#d35400;font-size:28px;margin:10px 0 4px;text-shadow:1px 1px 0 #fff}
+.sub{font-size:13px;color:#555;margin:0 0 12px}
+#marcador{background:#fff;border:2px solid #333;padding:8px;margin-bottom:10px;font-size:16px}
+#marcador b{color:#d35400}
+canvas{display:block;width:100%;height:auto;border:3px solid #333;background:#fff;touch-action:none;cursor:pointer}
+#mensaje{font-weight:bold;height:24px;margin:10px 0;font-size:17px}
+.instrucciones{font-size:13px;text-align:left;background:#fffbe6;border:1px dashed #c9a400;padding:8px 12px}
+button{font-size:14px;padding:4px 12px;margin-top:8px}
+hr{border:0;border-top:1px solid #9ab}
+.pie{font-size:11px;color:#666}
+</style>
+</head>
+<body>
+
+<div id="contenedor">
+  <h1>🏀 BALONCESTO 🏀</h1>
+  <p class="sub">Encesta la pelota lanzándola desde la zona permitida</p>
+
+  <div id="marcador">Canastas: <b id="canastas">0</b> &nbsp;|&nbsp; Tiros: <b id="tiros">0</b> &nbsp;|&nbsp; Faltas: <b id="faltas">0</b></div>
+
+  <canvas id="cancha" width="640" height="400"></canvas>
+  <div id="mensaje"></div>
+
+  <div class="instrucciones">
+    <b>Instrucciones:</b><br>
+    1. Agarra la pelota con el mouse (o el dedo).<br>
+    2. Arrástrala y suéltala con fuerza hacia el aro.<br>
+    3. Solo vale si la sueltas dentro de la <b>zona de tiro</b> (la parte amarilla). Si no, es falta.
+  </div>
+  <button onclick="reiniciar()">Reiniciar marcador</button>
+  <hr>
+  <p class="pie">Hecho con HTML y JavaScript</p>
+  <p class="pie"><a href="../#experiencia">&larr; Volver</a></p>
+</div>
+
+<script>
+var canvas = document.getElementById("cancha");
+var ctx = canvas.getContext("2d");
+
+var ANCHO = 640, ALTO = 400;
+var PISO = 370;
+var ZONA = 260;            // hasta aqui se puede tirar
+var GRAVEDAD = 0.35;
+var ARO_Y = 170, ARO_X1 = 518, ARO_X2 = 584;
+var TABLERO_X = 590, TABLERO_ARRIBA = 100, TABLERO_ABAJO = 200;
+
+var pelota = { x: 120, y: PISO - 14, vx: 0, vy: 0, r: 14 };
+var estado = "lista";      // lista, agarrada, volando
+var historial = [];
+var anoto = false;
+var tiempoVuelo = 0;
+var canastas = 0, tiros = 0, faltas = 0;
+
+function mensaje(texto, color) {
+  var m = document.getElementById("mensaje");
+  m.innerHTML = texto;
+  m.style.color = color || "#222";
+}
+
+function actualizarMarcador() {
+  document.getElementById("canastas").innerHTML = canastas;
+  document.getElementById("tiros").innerHTML = tiros;
+  document.getElementById("faltas").innerHTML = faltas;
+}
+
+function reiniciar() {
+  canastas = 0; tiros = 0; faltas = 0;
+  actualizarMarcador();
+  ponerPelota();
+  mensaje("");
+}
+
+function ponerPelota() {
+  pelota.x = 120; pelota.y = PISO - pelota.r;
+  pelota.vx = 0; pelota.vy = 0;
+  estado = "lista";
+  anoto = false;
+  tiempoVuelo = 0;
+}
+
+function posicionMouse(e) {
+  var r = canvas.getBoundingClientRect();
+  return {
+    x: (e.clientX - r.left) * (ANCHO / r.width),
+    y: (e.clientY - r.top) * (ALTO / r.height)
+  };
+}
+
+canvas.addEventListener("pointerdown", function (e) {
+  if (estado != "lista") return;
+  var p = posicionMouse(e);
+  var dx = p.x - pelota.x, dy = p.y - pelota.y;
+  if (Math.sqrt(dx * dx + dy * dy) < pelota.r + 20) {
+    estado = "agarrada";
+    historial = [{ x: p.x, y: p.y, t: Date.now() }];
+    canvas.setPointerCapture(e.pointerId);
+    mensaje("");
+  }
+});
+
+canvas.addEventListener("pointermove", function (e) {
+  if (estado != "agarrada") return;
+  var p = posicionMouse(e);
+  pelota.x = Math.max(pelota.r, Math.min(ANCHO - pelota.r, p.x));
+  pelota.y = Math.max(pelota.r, Math.min(PISO - pelota.r, p.y));
+  historial.push({ x: pelota.x, y: pelota.y, t: Date.now() });
+  if (historial.length > 6) historial.shift();
+});
+
+function soltar() {
+  if (estado != "agarrada") return;
+  if (pelota.x > ZONA) {
+    faltas++;
+    actualizarMarcador();
+    mensaje("¡FALTA! Tienes que tirar desde la zona permitida", "#c0392b");
+    ponerPelota();
+    return;
+  }
+  var primero = historial[0], ultimo = historial[historial.length - 1];
+  var dt = Math.max(ultimo.t - primero.t, 1);
+  var vx = (ultimo.x - primero.x) / dt * 16;
+  var vy = (ultimo.y - primero.y) / dt * 16;
+  var vel = Math.sqrt(vx * vx + vy * vy);
+  if (vel < 2) { ponerPelota(); return; }
+  if (vel > 22) { vx = vx / vel * 22; vy = vy / vel * 22; }
+  pelota.vx = vx; pelota.vy = vy;
+  estado = "volando";
+  tiros++;
+  actualizarMarcador();
+}
+canvas.addEventListener("pointerup", soltar);
+canvas.addEventListener("pointercancel", soltar);
+
+// choque de la pelota contra un punto (las puntas del aro)
+function chocarPunto(px, py) {
+  var dx = pelota.x - px, dy = pelota.y - py;
+  var d = Math.sqrt(dx * dx + dy * dy);
+  var minimo = pelota.r + 3;
+  if (d < minimo && d > 0) {
+    var nx = dx / d, ny = dy / d;
+    pelota.x = px + nx * minimo;
+    pelota.y = py + ny * minimo;
+    var vn = pelota.vx * nx + pelota.vy * ny;
+    if (vn < 0) {
+      pelota.vx -= 1.6 * vn * nx;
+      pelota.vy -= 1.6 * vn * ny;
+    }
+  }
+}
+
+function mover() {
+  if (estado != "volando") return;
+  var yAntes = pelota.y;
+  pelota.vy += GRAVEDAD;
+  pelota.x += pelota.vx;
+  pelota.y += pelota.vy;
+
+  // piso
+  if (pelota.y > PISO - pelota.r) {
+    pelota.y = PISO - pelota.r;
+    pelota.vy = -pelota.vy * 0.6;
+    pelota.vx = pelota.vx * 0.85;
+    if (Math.abs(pelota.vy) < 1) pelota.vy = 0;
+  }
+  // paredes
+  if (pelota.x < pelota.r) { pelota.x = pelota.r; pelota.vx = -pelota.vx * 0.6; }
+  if (pelota.x > ANCHO - pelota.r) { pelota.x = ANCHO - pelota.r; pelota.vx = -pelota.vx * 0.6; }
+  // tablero
+  if (pelota.x + pelota.r > TABLERO_X && pelota.x < TABLERO_X + 8 &&
+      pelota.y > TABLERO_ARRIBA && pelota.y < TABLERO_ABAJO && pelota.vx > 0) {
+    pelota.x = TABLERO_X - pelota.r;
+    pelota.vx = -pelota.vx * 0.6;
+  }
+  // aro
+  chocarPunto(ARO_X1, ARO_Y);
+  chocarPunto(ARO_X2, ARO_Y);
+
+  // canasta: cruza la linea del aro hacia abajo por dentro
+  if (!anoto && yAntes < ARO_Y && pelota.y >= ARO_Y && pelota.vy > 0 &&
+      pelota.x > ARO_X1 + 4 && pelota.x < ARO_X2 - 4) {
+    anoto = true;
+    canastas++;
+    actualizarMarcador();
+    mensaje("¡¡¡CANASTA!!! 🎉", "#27ae60");
+  }
+
+  tiempoVuelo++;
+  var quieta = pelota.y >= PISO - pelota.r - 0.5 && Math.abs(pelota.vx) < 0.3;
+  if (tiempoVuelo > 60 * 5 || (quieta && tiempoVuelo > 30)) {
+    if (!anoto) mensaje("Fallaste... intenta otra vez", "#7f8c8d");
+    ponerPelota();
+  }
+}
+
+function dibujar() {
+  ctx.clearRect(0, 0, ANCHO, ALTO);
+
+  // zona de tiro
+  ctx.fillStyle = "#fff3b0";
+  ctx.fillRect(0, 0, ZONA, PISO);
+  ctx.strokeStyle = "#c9a400";
+  ctx.setLineDash([8, 6]);
+  ctx.beginPath(); ctx.moveTo(ZONA, 0); ctx.lineTo(ZONA, PISO); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = "#a08200";
+  ctx.font = "bold 14px Verdana";
+  ctx.fillText("ZONA DE TIRO", 70, 30);
+
+  // piso
+  ctx.fillStyle = "#c68642";
+  ctx.fillRect(0, PISO, ANCHO, ALTO - PISO);
+
+  // poste y tablero
+  ctx.fillStyle = "#555";
+  ctx.fillRect(TABLERO_X + 20, TABLERO_ARRIBA + 40, 10, PISO - TABLERO_ARRIBA - 40);
+  ctx.fillRect(TABLERO_X + 8, TABLERO_ARRIBA + 60, 14, 6);
+  ctx.fillStyle = "#fff";
+  ctx.strokeStyle = "#333";
+  ctx.lineWidth = 2;
+  ctx.fillRect(TABLERO_X, TABLERO_ARRIBA, 8, TABLERO_ABAJO - TABLERO_ARRIBA);
+  ctx.strokeRect(TABLERO_X, TABLERO_ARRIBA, 8, TABLERO_ABAJO - TABLERO_ARRIBA);
+
+  // malla
+  ctx.strokeStyle = "#999";
+  ctx.lineWidth = 1;
+  for (var i = 0; i <= 4; i++) {
+    var xa = ARO_X1 + (ARO_X2 - ARO_X1) * i / 4;
+    var xb = ARO_X1 + 12 + (ARO_X2 - ARO_X1 - 24) * i / 4;
+    ctx.beginPath(); ctx.moveTo(xa, ARO_Y); ctx.lineTo(xb, ARO_Y + 40); ctx.stroke();
+  }
+  ctx.beginPath(); ctx.moveTo(ARO_X1 + 6, ARO_Y + 20); ctx.lineTo(ARO_X2 - 6, ARO_Y + 20); ctx.stroke();
+
+  // aro
+  ctx.strokeStyle = "#e74c3c";
+  ctx.lineWidth = 4;
+  ctx.beginPath(); ctx.moveTo(ARO_X1, ARO_Y); ctx.lineTo(TABLERO_X, ARO_Y); ctx.stroke();
+
+  // pelota
+  ctx.fillStyle = "#e67e22";
+  ctx.beginPath(); ctx.arc(pelota.x, pelota.y, pelota.r, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = "#7a3d00";
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(pelota.x - pelota.r, pelota.y); ctx.lineTo(pelota.x + pelota.r, pelota.y); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(pelota.x, pelota.y - pelota.r); ctx.lineTo(pelota.x, pelota.y + pelota.r); ctx.stroke();
+
+  if (estado == "lista") {
+    ctx.fillStyle = "#333";
+    ctx.font = "12px Verdana";
+    ctx.fillText("¡agárrame!", pelota.x - 30, pelota.y - 22);
+  }
+}
+
+function ciclo() {
+  mover();
+  dibujar();
+  requestAnimationFrame(ciclo);
+}
+ciclo();
+</script>
+</body>
+</html>

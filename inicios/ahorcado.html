@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Ahorcado · recreación 2016</title>
+<meta name="description" content="Recreación del juego del ahorcado que Cesar Carvajal hizo en sus inicios con HTML y JavaScript. El original se perdió.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<style>
+/* de aqui para abajo: estilo 2016 */
+body{margin:0;background:#e8f5e9;font-family:Verdana,Arial,sans-serif;color:#222}
+#contenedor{max-width:620px;margin:20px auto;padding:0 16px;text-align:center}
+h1{color:#2e7d32;font-size:30px;margin:10px 0 4px;letter-spacing:2px}
+.sub{font-size:13px;color:#555;margin:0 0 14px}
+table.juego{margin:0 auto;border-collapse:collapse;background:#fff;border:2px solid #2e7d32;width:100%}
+table.juego td{padding:10px;vertical-align:middle}
+canvas{width:200px;max-width:100%;height:auto}
+#palabra{font-family:"Courier New",monospace;font-size:30px;font-weight:bold;letter-spacing:6px;word-break:break-all}
+#pista{font-size:13px;color:#666;margin-top:6px}
+#intentos{font-size:14px;margin-top:10px}
+#mensaje{font-weight:bold;font-size:18px;height:26px;margin:12px 0}
+#letras button{font-family:Verdana,Arial,sans-serif;font-size:15px;width:38px;height:36px;margin:2px;cursor:pointer}
+#letras button:disabled{cursor:default}
+.bien{background:#a5d6a7}
+.mal{background:#ef9a9a}
+#otra{font-size:15px;padding:6px 16px;margin-top:12px}
+hr{border:0;border-top:1px solid #9b9}
+.pie{font-size:11px;color:#666}
+@media (max-width:480px){ table.juego td{display:block;width:auto} #palabra{font-size:24px;letter-spacing:4px} }
+</style>
+</head>
+<body>
+
+<div id="contenedor">
+  <h1>EL AHORCADO</h1>
+  <p class="sub">Adivina la palabra antes de que se complete el muñeco</p>
+
+  <table class="juego">
+    <tr>
+      <td><canvas id="dibujo" width="200" height="220"></canvas></td>
+      <td>
+        <div id="palabra"></div>
+        <div id="pista"></div>
+        <div id="intentos"></div>
+      </td>
+    </tr>
+  </table>
+
+  <div id="mensaje"></div>
+  <div id="letras"></div>
+  <button id="otra" onclick="nuevoJuego()">Jugar otra vez</button>
+  <hr>
+  <p class="pie">Hecho con HTML y JavaScript · también puedes usar el teclado</p>
+  <p class="pie"><a href="../#experiencia">&larr; Volver</a></p>
+</div>
+
+<script>
+var palabras = [
+  ["COMPUTADOR", "Máquina"],
+  ["PROGRAMA", "Lo que hace un programador"],
+  ["TECLADO", "Tiene muchas teclas"],
+  ["INTERNET", "La red de redes"],
+  ["UNIVERSIDAD", "Donde se estudia una carrera"],
+  ["JAVASCRIPT", "Lenguaje de la web"],
+  ["PANTALLA", "Se mira todo el día"],
+  ["MONTAÑA", "Paisaje"],
+  ["GUITARRA", "Instrumento"],
+  ["BALONCESTO", "Deporte"],
+  ["ELEFANTE", "Animal"],
+  ["CHOCOLATE", "Dulce"],
+  ["BICICLETA", "Transporte"],
+  ["ARCHIVO", "Se guarda en una carpeta"],
+  ["VARIABLE", "Guarda un valor"]
+];
+var abecedario = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+var MAX_ERRORES = 6;
+
+var palabra = "";
+var adivinadas = [];
+var errores = 0;
+var terminado = false;
+
+var canvas = document.getElementById("dibujo");
+var ctx = canvas.getContext("2d");
+
+function nuevoJuego() {
+  var elegida = palabras[Math.floor(Math.random() * palabras.length)];
+  if (elegida[0] == palabra) elegida = palabras[(palabras.indexOf(elegida) + 1) % palabras.length];
+  palabra = elegida[0];
+  document.getElementById("pista").innerHTML = "Pista: " + elegida[1];
+  adivinadas = [];
+  errores = 0;
+  terminado = false;
+  document.getElementById("mensaje").innerHTML = "";
+
+  var html = "";
+  for (var i = 0; i < abecedario.length; i++) {
+    var l = abecedario.charAt(i);
+    html += '<button id="letra_' + l + '" onclick="probar(\'' + l + '\')">' + l + '</button>';
+  }
+  document.getElementById("letras").innerHTML = html;
+  mostrar();
+}
+
+function probar(letra) {
+  if (terminado || adivinadas.indexOf(letra) != -1) return;
+  adivinadas.push(letra);
+  var boton = document.getElementById("letra_" + letra);
+  boton.disabled = true;
+  if (palabra.indexOf(letra) != -1) {
+    boton.className = "bien";
+  } else {
+    boton.className = "mal";
+    errores++;
+  }
+  mostrar();
+}
+
+function mostrar() {
+  var texto = "";
+  var completa = true;
+  for (var i = 0; i < palabra.length; i++) {
+    var l = palabra.charAt(i);
+    if (adivinadas.indexOf(l) != -1 || terminado) {
+      texto += l;
+    } else {
+      texto += "_";
+      completa = false;
+    }
+  }
+  document.getElementById("palabra").innerHTML = texto;
+  document.getElementById("intentos").innerHTML = "Errores: " + errores + " de " + MAX_ERRORES;
+  dibujar();
+
+  if (terminado) return;
+  var m = document.getElementById("mensaje");
+  if (completa) {
+    terminado = true;
+    m.innerHTML = "¡GANASTE! 😃";
+    m.style.color = "#2e7d32";
+    bloquear();
+  } else if (errores >= MAX_ERRORES) {
+    terminado = true;
+    m.innerHTML = "Perdiste :( la palabra era " + palabra;
+    m.style.color = "#c62828";
+    bloquear();
+    mostrar();
+  }
+}
+
+function bloquear() {
+  var botones = document.getElementById("letras").getElementsByTagName("button");
+  for (var i = 0; i < botones.length; i++) botones[i].disabled = true;
+}
+
+function linea(x1, y1, x2, y2) {
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+}
+
+function dibujar() {
+  ctx.clearRect(0, 0, 200, 220);
+  ctx.strokeStyle = "#5d4037";
+  ctx.lineWidth = 5;
+  // horca
+  linea(20, 210, 120, 210);
+  linea(50, 210, 50, 15);
+  linea(48, 15, 140, 15);
+  linea(140, 15, 140, 40);
+
+  ctx.strokeStyle = "#222";
+  ctx.lineWidth = 3;
+  if (errores > 0) { ctx.beginPath(); ctx.arc(140, 58, 18, 0, Math.PI * 2); ctx.stroke(); }
+  if (errores > 1) linea(140, 76, 140, 135);
+  if (errores > 2) linea(140, 90, 115, 115);
+  if (errores > 3) linea(140, 90, 165, 115);
+  if (errores > 4) linea(140, 135, 120, 170);
+  if (errores > 5) {
+    linea(140, 135, 160, 170);
+    // ojitos en X
+    ctx.lineWidth = 2;
+    linea(131, 51, 137, 57); linea(137, 51, 131, 57);
+    linea(143, 51, 149, 57); linea(149, 51, 143, 57);
+  }
+}
+
+document.onkeydown = function (e) {
+  var l = (e.key || "").toUpperCase();
+  if (l.length == 1 && abecedario.indexOf(l) != -1) probar(l);
+};
+
+nuevoJuego();
+</script>
+</body>
+</html>

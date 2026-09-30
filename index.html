@@ -247,7 +247,13 @@
     .commit li::before{content:"+";position:absolute;left:2px;font-family:var(--mono);font-weight:700;color:var(--ok)}
     .commit strong{color:var(--ink)}
     .commit a{color:var(--signal-ink);font-weight:700}
-    .commit.init .cbody{padding-bottom:6px}
+    .commit.init .cbody{padding-bottom:40px}
+    .ln.dash{width:0;background:none;border-left:2px dashed var(--signal-ink)}
+    .node.ghost{border-style:dashed}
+    .commit.pre .cbody{padding-bottom:6px}
+    .commit.pre .cmeta .h{color:var(--muted)}
+    .ref.ut{border-style:dashed;border-color:var(--muted);color:var(--muted)}
+    .commit.pre li::before{content:"?";color:var(--muted)}
 
     /* Proyectos */
     .projects{border-top:1px solid var(--ink)}
@@ -555,11 +561,32 @@
 
           <!-- 2019 init -->
           <li class="commit init">
-            <div class="graph" aria-hidden="true"><i class="ln b t"></i><i class="node b"></i></div>
+            <div class="graph" aria-hidden="true"><i class="ln b t"></i><i class="ln b d dash"></i><i class="node b"></i></div>
             <div class="cbody">
               <div class="cmeta"><span class="h">0000001</span><span class="ref tg">tag: v2019</span><span>2019</span></div>
               <p class="cmsg">git init</p>
               <h3 data-en="First commit: I start building software professionally">Primer commit: empiezo a construir software de forma profesional</h3>
+            </div>
+          </li>
+
+          <!-- 2016 antes del repo -->
+          <li class="commit pre">
+            <div class="graph" aria-hidden="true"><i class="ln b t dash"></i><i class="node b ghost"></i></div>
+            <div class="cbody">
+              <div class="cmeta"><span class="h">???????</span><span class="ref ut" data-en="untracked">sin versionar</span><span>2016</span></div>
+              <p class="cmsg" data-en="# before git init: nothing was under version control yet"># antes del git init: aún nada estaba versionado</p>
+              <h3 data-en="Where it all started · <span class='org'>university + self-taught</span>">Donde empezó todo · <span class="org">la U + por mi cuenta</span></h3>
+              <div class="when">2016 – 2019</div>
+              <p data-en="I started 10 years ago, between university and whatever I could learn on my own. I knew little and had a lot left to learn — there's no repo to prove it, so I show it for what it is: the history before the first commit.">
+                Empecé hace 10 años, entre la universidad y lo que iba aprendiendo por mi lado. Sabía poco y me
+                faltaba mucho — no hay repositorio que lo pruebe, así que lo muestro como lo que es: el historial
+                de antes del primer commit.
+              </p>
+              <ul>
+                <li data-en="<strong>My first app:</strong> a music player built in Flash. It's gone — and so is Flash."><strong>Mi primera app:</strong> un reproductor de música hecho en Flash. Ya no existe — y Flash tampoco.</li>
+                <li data-en="<strong>Hangman on the web:</strong> a hangman game in HTML and JavaScript — my first steps with the web. <a href='inicios/ahorcado.html'>Play a recreation →</a>"><strong>El ahorcado en la web:</strong> un juego del ahorcado en HTML y JavaScript — mis primeros pasos con la web. <a href="inicios/ahorcado.html">Jugar la recreación →</a></li>
+                <li data-en="<strong>A basketball game (2017):</strong> a ball you had to shoot into the hoop from an allowed zone, in HTML and JavaScript — my first go at physics and collisions. <a href='inicios/baloncesto.html'>Play a recreation →</a>"><strong>Un juego de baloncesto (2017):</strong> una pelota que había que encestar lanzándola desde un área permitida, en HTML y JavaScript — mi primer contacto con física y colisiones. <a href="inicios/baloncesto.html">Jugar la recreación →</a></li>
+              </ul>
             </div>
           </li>
         </ol>
