@@ -43,6 +43,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://cecaza.github.io/finanzas/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://cecaza.github.io/privacidad.html</loc>
     <lastmod>2026-06-29</lastmod>
     <changefreq>yearly</changefreq>

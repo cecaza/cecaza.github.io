@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-en="Samit Finanzas — Every expense with its invoice, ready for the accountant (Flutter + .NET) | Cesar Carvajal">Samit Finanzas — Cada gasto con su factura, listo para el contador (Flutter + .NET) | Cesar Carvajal</title>
+  <meta name="description" data-en="Samit Finanzas is a personal-finance app for people who must file taxes in Colombia: expenses with their invoice (the e-invoice QR fills the expense), deductibles, receivables, recurring payments and read-only access for the accountant. Offline-first Flutter app + ASP.NET Core .NET 10 API with one SQLite file per client and a Blazor web." content="Samit Finanzas es una app de finanzas personales para quienes declaran renta en Colombia: gastos con su factura (el QR de la factura electrónica llena el gasto), deducibles, cartera, recurrentes y acceso de solo lectura para el contador. App Flutter offline-first + API ASP.NET Core .NET 10 con un archivo SQLite por cliente y web en Blazor." />
+  <meta name="author" content="Cesar Carvajal" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#eef1f6" />
+  <meta name="color-scheme" content="light" />
+  <link rel="canonical" href="https://cecaza.github.io/finanzas/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Samit Finanzas — Cada gasto con su factura, listo para el contador" />
+  <meta property="og:description" content="App Flutter offline-first + API .NET 10 + web Blazor: gastos con soporte, QR de la factura electrónica, deducibles, cartera y acceso del contador." />
+  <meta property="og:url" content="https://cecaza.github.io/finanzas/" />
+  <meta property="og:image" content="https://cecaza.github.io/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" href="img/finanzas-icon.png" />
+  <link rel="apple-touch-icon" href="img/finanzas-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      /* papel teñido hacia los grises fríos de la app */
+      --paper:#eef1f6; --paper-2:#e2e7f0; --paper-3:#d3dae6;
+      --ink:#121826; --ink-2:#2d3646; --muted:#566074; --line:#c3ccda;
+      /* colores de la app (lib/pantallas/tema.dart) */
+      --blue:#1b56d6; --blue-ink:#1747b3; --blue-deep:#123c9c; --blue-soft:#e8eefc;
+      --green:#1f8a54; --green-ink:#17703f; --green-soft:#e4f4ea;
+      --red:#c03a2b; --amber:#b7791f; --amber-soft:#fbf1dc;
+      /* logo Samit */
+      --yellow:#f6c500; --lime:#86bc25; --orange:#ef8a1f;
+      --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+      --serif:"Instrument Serif",Georgia,serif;
+      --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;scroll-padding-top:70px}
+    body{font-family:var(--display);font-size:1.02rem;color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.3;mix-blend-mode:multiply;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .45 0 0 0 0 .55 0 0 0 .25 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+    a{color:inherit}
+    img{max-width:100%;display:block}
+    ::selection{background:var(--yellow);color:var(--ink)}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
+    .skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:10px 16px;font-weight:700;z-index:200}
+    .skip:focus{left:12px;top:12px}
+    :focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+    .progress{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--blue);transform-origin:0 50%;transform:scaleX(var(--p,0));z-index:60}
+
+    /* ---------- Nav ---------- */
+    nav{position:sticky;top:0;z-index:50;background:rgba(238,241,246,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--ink)}
+    nav .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:1rem;letter-spacing:-.01em;white-space:nowrap}
+    .brand .yr{font-family:var(--mono);font-size:.72rem;color:var(--muted);font-weight:500}
+    .navr{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.8rem}
+    .appname{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--ink)}
+    .appname img{width:24px;height:24px;border-radius:6px;background:#fff}
+    .lang{display:inline-flex;border:1px solid var(--ink);margin-left:6px}
+    .lang button{background:transparent;color:var(--ink);border:0;padding:6px 9px;font:700 .72rem var(--mono);cursor:pointer}
+    .lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+    @media (max-width:560px){ .brand .yr{display:none} .appname span{display:none} }
+
+    /* ---------- Botones ---------- */
+    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;padding:12px 20px;font-size:.95rem;text-decoration:none;border:1.5px solid var(--ink);transition:transform .15s ease,box-shadow .15s ease,background .15s ease;font-family:var(--display);cursor:pointer}
+    .btn:hover{transform:translate(-3px,-3px);box-shadow:3px 3px 0 var(--ink)}
+    .btn-ink{background:var(--ink);color:var(--paper)}
+    .btn-ink:hover{box-shadow:3px 3px 0 var(--blue)}
+    .btn-line{background:transparent;color:var(--ink)}
+
+    /* ---------- Hero ---------- */
+    .hero{border-bottom:1px solid var(--ink)}
+    .hero-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:.75rem;color:var(--muted);padding-top:22px;text-transform:uppercase;letter-spacing:.08em}
+    .hero-meta b{color:var(--ink);font-weight:700}
+    .dot-dev{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue);margin-right:8px;vertical-align:1px;animation:blink 1.6s steps(2,start) infinite}
+    @keyframes blink{to{visibility:hidden}}
+    .titlerow{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:10px}
+    .bigt{font-size:clamp(3.6rem,13.5vw,11.5rem);font-weight:800;letter-spacing:-.045em;line-height:.9;padding:.04em 0 .1em;margin-left:-.04em}
+    .bigt .s{display:block;font-family:var(--mono);font-size:.13em;font-weight:700;letter-spacing:.3em;color:var(--blue-ink);margin:0 0 .2em .35em}
+    .bigt .d{display:inline-block;color:var(--blue)}
+    @media (prefers-reduced-motion:no-preference){
+      .bigt .d{animation:drop .7s cubic-bezier(.2,1.5,.4,1) both;animation-delay:calc(.25s + var(--i) * .05s)}
+    }
+    @keyframes drop{from{transform:translateY(-.5em) rotate(-8deg);opacity:0}to{transform:none;opacity:1}}
+
+    .stamp{position:relative;flex:0 0 auto;width:clamp(120px,14vw,176px);aspect-ratio:1;transform:rotate(calc(var(--scroll,0) * .25deg))}
+    .stamp svg{width:100%;height:100%;overflow:visible;animation:spin 30s linear infinite}
+    .stamp img{position:absolute;inset:24%;width:52%;height:52%;border-radius:22%;background:#fff;border:1.5px solid var(--ink)}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media (max-width:640px){ .stamp{display:none} }
+
+    .hero-copy{display:grid;grid-template-columns:1fr 1.15fr;gap:40px;align-items:start;padding-top:14px;padding-bottom:40px}
+    .tagline{font-size:clamp(1.6rem,3.4vw,2.6rem);font-weight:700;line-height:1.08;letter-spacing:-.03em}
+    .tagline em{color:var(--blue-ink);font-size:1.1em}
+    .tagline small{display:block;font-size:.5em;font-weight:500;color:var(--ink-2);letter-spacing:-.01em;margin-top:12px;line-height:1.35}
+    .pitch{color:var(--ink-2);font-size:1.05rem}
+    .pitch strong{color:var(--ink);font-weight:700}
+    .status{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--blue-ink);border:1px solid currentColor;padding:5px 10px;margin:18px 0 20px}
+    .status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+    .actions{display:flex;flex-wrap:wrap;gap:10px}
+    @media (max-width:860px){ .hero-copy{grid-template-columns:1fr;gap:20px} }
+
+    .ticker{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--ink)}
+    .ticker > div{padding:14px 18px;border-right:1px solid var(--line)}
+    .ticker > div:last-child{border-right:0}
+    .ticker .n{font-weight:700;font-size:1.12rem;letter-spacing:-.02em;line-height:1.2}
+    .ticker .l{font-family:var(--mono);font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+    .ticker .hl .n{color:var(--blue-ink)}
+    @media (max-width:860px){ .ticker{grid-template-columns:repeat(2,1fr)} .ticker > div{border-bottom:1px solid var(--line)} .ticker > div:nth-child(2n){border-right:0} .ticker > div:last-child{grid-column:1/-1;border-bottom:0} }
+
+    /* ---------- Secciones ---------- */
+    section{padding:88px 0;border-bottom:1px solid var(--ink)}
+    .shead{display:grid;grid-template-columns:120px 1fr;gap:20px;margin-bottom:44px;align-items:start}
+    .sidx{font-family:var(--mono);font-size:.75rem;color:var(--muted);padding-top:14px}
+    .sidx b{color:var(--blue-ink);font-weight:700}
+    .stitle{font-size:clamp(2.4rem,7vw,5.2rem);font-weight:800;line-height:.95;letter-spacing:-.045em}
+    .stitle em{color:var(--blue-ink)}
+    .ssub{color:var(--ink-2);max-width:62ch;margin-top:14px}
+    @media (max-width:700px){ .shead{grid-template-columns:1fr;gap:4px} .sidx{padding-top:0} section{padding:64px 0} }
+
+    /* ---------- §01 Demo: de la factura a la nube ---------- */
+    .lab{display:grid;grid-template-columns:minmax(0,1fr) 300px minmax(0,1fr);border:1px solid var(--ink);background:var(--paper)}
+    .lab > *{min-width:0}
+    .lab-h{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:12px 16px;border-bottom:1px solid var(--line)}
+    .lab-l{border-right:1px solid var(--ink);display:flex;flex-direction:column}
+    .steps{list-style:none}
+    .steps button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:34px 1fr;gap:2px 8px;width:100%;padding:13px 16px;border-bottom:1px solid var(--line);transition:background .15s ease}
+    .steps button:hover:not(:disabled){background:var(--paper-2)}
+    .steps button:focus-visible{outline:2px solid var(--blue);outline-offset:-3px}
+    .steps button:disabled{cursor:default;opacity:.42}
+    .steps .cn{grid-row:span 2;font-family:var(--serif);font-style:italic;font-size:1.9rem;line-height:1;color:var(--blue-ink)}
+    .steps .ct{font-weight:700;line-height:1.25}
+    .steps .cd{font-size:.82rem;color:var(--muted);line-height:1.35}
+    .steps button.done .cn::after{content:" ✓";font-family:var(--mono);font-style:normal;font-size:.9rem;color:var(--green-ink)}
+    .net{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;border-bottom:1px solid var(--ink)}
+    .net span{font-weight:700;font-size:.92rem}
+    .net span small{display:block;font:500 .7rem var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+    .sw{all:unset;cursor:pointer;width:52px;height:28px;border:1.5px solid var(--ink);background:var(--paper-3);position:relative;flex:0 0 auto}
+    .sw::after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;background:var(--ink);transition:transform .2s ease}
+    .sw[aria-checked="true"]{background:var(--green)}
+    .sw[aria-checked="true"]::after{transform:translateX(24px);background:#fff}
+    .sw:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+    .ctrls{display:flex}
+    .ctrls button{flex:1;background:transparent;border:0;border-right:1px solid var(--line);padding:11px 8px;font:700 .72rem var(--mono);color:var(--ink);cursor:pointer;text-transform:uppercase;letter-spacing:.04em}
+    .ctrls button:last-child{border-right:0}
+    .ctrls button:hover{background:var(--paper-2)}
+    .ctrls button:focus-visible{outline:2px solid var(--blue);outline-offset:-3px}
+    .log{flex:1;list-style:none;background:var(--ink);color:#cfd8e8;font:500 .72rem/1.55 var(--mono);padding:12px 14px;min-height:170px;overflow:hidden;border-top:1px solid var(--ink)}
+    .log li{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .log .p{color:#8fb2ff}
+    .log .g{color:#6fd3a0}
+    .log .w{color:#f3c068}
+
+    .lab-c{position:relative;display:grid;place-items:center;padding:30px 16px;border-right:1px solid var(--ink);background:
+      linear-gradient(var(--line) 1px,transparent 1px) 0 0/28px 28px,
+      linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/28px 28px,var(--paper-2)}
+    .phone{width:262px;max-width:100%;border:10px solid var(--ink);border-radius:34px;background:var(--ink);box-shadow:8px 8px 0 var(--blue);position:relative}
+    .phone::before{content:"";position:absolute;top:7px;left:50%;width:62px;height:16px;margin-left:-31px;background:var(--ink);border-radius:10px;z-index:3}
+    .scr{position:relative;border-radius:24px;overflow:hidden;background:#f4f6f9;color:#161b25;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;height:520px;display:flex;flex-direction:column}
+    .sbar{display:flex;justify-content:space-between;align-items:center;padding:10px 20px 0;font-size:.7rem;font-weight:700;height:30px}
+    .cloud{display:inline-flex;align-items:center;gap:4px;font-size:.62rem;font-weight:700;color:#616c7e}
+    .cloud b{display:inline-grid;place-items:center;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#b7791f;color:#fff;font-size:.6rem}
+    .cloud.ok b{background:#1f8a54}
+    .ahdr{display:flex;align-items:center;gap:12px;padding:8px 16px 6px;font-size:1.05rem;font-weight:800}
+    .seg{display:flex;margin:4px 14px 8px;background:#eef1f5;border-radius:12px;padding:3px;font-size:.74rem;font-weight:700}
+    .seg span{flex:1;text-align:center;padding:6px 0;border-radius:9px;color:#616c7e}
+    .seg span.on{background:#fff;color:#161b25;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+    .seg span.on::before{content:"↗ ";color:#c03a2b}
+    .val{text-align:center;padding:4px 0 10px}
+    .val small{display:block;font-size:.68rem;color:#616c7e;font-weight:600}
+    .val b{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#c8ced8;transition:color .3s ease}
+    .val b.on{color:#161b25}
+    .card{margin:0 12px;background:#fff;border:1px solid #e3e7ee;border-radius:14px;overflow:hidden}
+    .row{display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:center;padding:8px 12px;border-bottom:1px solid #eef1f5;transition:background .4s ease}
+    .row:last-child{border-bottom:0}
+    .row i{width:28px;height:28px;border-radius:8px;background:#e8eefc;color:#1b56d6;display:grid;place-items:center;font-style:normal;font-size:.8rem}
+    .row small{display:block;font-size:.6rem;color:#616c7e;font-weight:600;line-height:1.2}
+    .row span{font-size:.78rem;font-weight:600;color:#9aa3b2;line-height:1.3;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .row span.on{color:#161b25}
+    .row.flash{background:#e8eefc}
+    .chiprow{display:flex;gap:6px;flex-wrap:wrap;margin:10px 12px 0}
+    .chip{font-size:.62rem;font-weight:700;padding:4px 8px;border-radius:20px;background:#eef1f5;color:#616c7e}
+    .chip.on{background:#e4f4ea;color:#1f8a54}
+    .chip.ds{background:#fbf1dc;color:#8a5a12}
+    .save{margin:auto 12px 12px;border-radius:14px;background:#1b56d6;color:#fff;text-align:center;font-weight:800;font-size:.84rem;padding:11px;transition:transform .15s ease,background .2s ease}
+    .save.pressed{transform:scale(.95);background:#123c9c}
+    .toast{position:absolute;left:12px;right:12px;bottom:58px;background:#161b25;color:#fff;font-size:.72rem;font-weight:600;padding:9px 12px;border-radius:10px;opacity:0;transform:translateY(8px);transition:opacity .25s ease,transform .25s ease}
+    .toast.on{opacity:1;transform:none}
+
+    /* la factura impresa, sobre el celular */
+    .inv{position:absolute;inset:0;z-index:4;display:grid;place-items:center;background:rgba(18,24,38,.55);opacity:0;pointer-events:none;transition:opacity .3s ease}
+    .inv.on{opacity:1}
+    .paper{width:84%;background:#fffef9;border-radius:4px;padding:12px 12px 14px;font:500 .58rem/1.45 var(--mono);color:#222;position:relative;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+    .paper b{display:block;font-size:.66rem}
+    .paper .qr{width:92px;height:92px;margin:8px auto;position:relative}
+    .paper .qr svg{width:100%;height:100%}
+    .paper .tt{display:flex;justify-content:space-between;border-top:1px dashed #999;margin-top:6px;padding-top:4px;font-weight:700}
+    .scanbox{position:absolute;inset:-6px;border:2px solid #1b56d6;border-radius:6px}
+    .laser{position:absolute;left:-6px;right:-6px;top:0;height:2px;background:#1b56d6;box-shadow:0 0 12px 3px rgba(27,86,214,.7);opacity:0}
+
+    .fly{position:absolute;left:0;top:0;z-index:6;background:var(--blue);color:#fff;font:700 .7rem/1 var(--mono);padding:5px 7px;white-space:nowrap;pointer-events:none;box-shadow:3px 3px 0 var(--ink);will-change:transform}
+
+    .lab-r{display:flex;flex-direction:column}
+    .tray{list-style:none;padding:6px 16px;min-height:150px}
+    .tray li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line);font-size:.86rem;transition:opacity .4s ease,transform .4s ease}
+    .tray li code{font:700 .7rem var(--mono);background:var(--paper-2);border:1px solid var(--line);padding:2px 6px}
+    .tray li .st{font:700 .66rem var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--amber)}
+    .tray li.up .st{color:var(--green-ink)}
+    .tray li.go{opacity:0;transform:translateX(30px)}
+    .tray .empty{display:block;border:0;color:var(--muted);font-size:.86rem;padding:12px 0}
+    .srv{border-top:1px solid var(--ink);padding:12px 16px 16px;background:var(--paper-2)}
+    .srv .lab-h{padding:0 0 8px;border:0}
+    .db{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+    .db div{border:1.5px solid var(--ink);background:var(--paper);padding:8px 6px;text-align:center;font:700 .62rem/1.3 var(--mono);position:relative}
+    .db div small{display:block;font-weight:500;color:var(--muted)}
+    .db div.mine{background:var(--blue);color:#fff;border-color:var(--blue-deep)}
+    .db div.mine small{color:#d6e2ff}
+    .db div.lock::after{content:"🔒";position:absolute;right:3px;top:2px;font-size:.6rem}
+    .db div.pulse{animation:pulse .7s ease}
+    @keyframes pulse{50%{transform:scale(1.08);box-shadow:0 0 0 4px rgba(27,86,214,.25)}}
+    .verdict{padding:16px;border-top:1px solid var(--ink);font-weight:800;font-size:1.08rem;letter-spacing:-.02em;line-height:1.25;min-height:78px;background:var(--paper);transition:background .25s ease,color .25s ease}
+    .verdict small{display:block;font-weight:500;font-size:.82rem;letter-spacing:0;margin-top:4px;opacity:.85}
+    .verdict.ok{background:var(--green);color:#fff}
+    .verdict.wait{background:var(--amber-soft);color:#6b4510}
+    .lab-note{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-top:12px}
+
+    @media (max-width:1040px){
+      .lab{grid-template-columns:1fr 1fr}
+      .lab-l{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--ink)}
+      .steps{display:grid;grid-template-columns:repeat(3,1fr)}
+      .steps li + li button{border-left:1px solid var(--line)}
+      .log{min-height:0;height:120px}
+    }
+    @media (max-width:700px){
+      .lab{grid-template-columns:1fr}
+      .lab-c{border-right:0;border-bottom:1px solid var(--ink);padding:26px 12px 32px}
+      .steps button{grid-template-columns:1fr;padding:12px 10px}
+      .steps .cn{grid-row:auto;font-size:1.5rem}
+      .steps .cd{display:none}
+      .steps .ct{font-size:.86rem}
+    }
+
+    /* ---------- §02 Qué hace: el libro de registros ---------- */
+    .ledger{border-top:2px solid var(--ink);counter-reset:f}
+    .ledger > div{display:grid;grid-template-columns:110px 1fr 1.3fr 150px;gap:20px;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--line);transition:background .2s ease}
+    .ledger > div:hover{background:linear-gradient(90deg,transparent,rgba(27,86,214,.07))}
+    .ledger .dt{font-family:var(--mono);font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+    .ledger h3{font-size:1.25rem;letter-spacing:-.025em;line-height:1.15}
+    .ledger p{color:var(--ink-2);font-size:.95rem}
+    .ledger .amt{font:700 .9rem var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+    .ledger .in{color:var(--green-ink)} .ledger .out{color:var(--ink)} .ledger .neg{color:var(--red)} .ledger .note{color:var(--blue-ink)}
+    .ledger .tot{border-bottom:3px double var(--ink);font-weight:800}
+    .ledger .tot h3{font-size:1.4rem}
+    @media (max-width:860px){ .ledger > div{grid-template-columns:1fr auto;gap:4px 16px} .ledger .dt{grid-column:1/-1} .ledger p{grid-column:1/-1;grid-row:3} .ledger .amt{grid-column:2;grid-row:2} }
+
+    /* ---------- §03 El contador: la web ---------- */
+    .acct{display:grid;grid-template-columns:1fr minmax(0,1.25fr);gap:48px;align-items:start}
+    .acct .side .lead{font-size:clamp(1.2rem,2.2vw,1.6rem);line-height:1.3;letter-spacing:-.02em;font-weight:500}
+    .roles{list-style:none;margin-top:26px;border-top:1px solid var(--ink)}
+    .roles li{display:grid;grid-template-columns:110px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:.93rem;color:var(--ink-2)}
+    .roles b{font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink);padding-top:3px}
+    .browser{border:1.5px solid var(--ink);background:#fff;box-shadow:8px 8px 0 var(--ink)}
+    .bbar{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1.5px solid var(--ink);background:var(--paper-2)}
+    .bbar i{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--ink)}
+    .bbar span{margin-left:10px;flex:1;font:500 .7rem var(--mono);color:var(--muted);background:#fff;border:1px solid var(--line);padding:3px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .wbody{padding:20px 22px 24px;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#161b25}
+    .wtop{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+    .wtop h4{font-size:1.15rem;font-weight:800}
+    .wtop select{font:600 .8rem system-ui,sans-serif;border:1px solid #e3e7ee;border-radius:8px;padding:5px 8px;background:#f4f6f9;color:#161b25}
+    .ro{font:700 .62rem var(--mono);text-transform:uppercase;letter-spacing:.05em;color:#616c7e;border:1px solid #e3e7ee;border-radius:20px;padding:3px 8px}
+    .gauge{margin:14px 0 4px}
+    .gauge .gl{display:flex;justify-content:space-between;font-size:.78rem;font-weight:600;margin-bottom:5px}
+    .gauge .gl span:last-child{color:#616c7e;font-weight:500}
+    .gbar{position:relative;height:12px;background:#eef1f5;border-radius:6px;overflow:visible}
+    .gbar b{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:#1b56d6;width:0;transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+    .gbar b.over{background:#c03a2b}
+    .gbar i{position:absolute;top:-4px;bottom:-4px;width:2px;background:#161b25}
+    .gbar i::after{content:attr(data-l);position:absolute;top:-16px;left:50%;transform:translateX(-50%);font:700 .58rem var(--mono);white-space:nowrap}
+    .wverd{margin-top:16px;padding:10px 12px;border-radius:10px;font-size:.84rem;font-weight:700}
+    .wverd.yes{background:#fae4e0;color:#8f2a1f}
+    .wverd.no{background:#e4f4ea;color:#17703f}
+    .wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+    .wgrid div{border:1px solid #e3e7ee;border-radius:10px;padding:9px 10px;background:#f9fafc}
+    .wgrid small{display:block;font-size:.66rem;color:#616c7e;font-weight:600}
+    .wgrid b{font-size:.92rem;font-variant-numeric:tabular-nums}
+    .wnote{font:500 .68rem var(--mono);color:var(--muted);margin-top:12px}
+    @media (max-width:860px){ .acct{grid-template-columns:1fr;gap:30px} }
+    @media (max-width:480px){ .wgrid{grid-template-columns:1fr 1fr} .roles li{grid-template-columns:1fr;gap:2px} }
+
+    /* ---------- §04 Cómo está hecha ---------- */
+    .arch{display:grid;grid-template-columns:1fr 80px 1.1fr 80px 1fr;align-items:center;border:1px solid var(--ink);padding:30px;margin-bottom:48px;background:var(--paper-2)}
+    .node{border:2px solid var(--ink);background:var(--paper);padding:16px 16px 18px;position:relative}
+    .node .k{font:700 .68rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--blue-ink);display:block;margin-bottom:6px}
+    .node h3{font-size:1.15rem;letter-spacing:-.02em;line-height:1.15;margin-bottom:8px}
+    .node ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+    .node li{font:500 .7rem var(--mono);padding:3px 7px;border:1px solid var(--line);background:var(--paper-2)}
+    .node.api{background:var(--blue);color:#fff;border-color:var(--ink)}
+    .node.api .k{color:#d6e2ff}
+    .node.api li{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35)}
+    .wire{position:relative;height:2px;background:var(--ink);margin:0 6px}
+    .wire span{position:absolute;left:50%;top:-22px;transform:translateX(-50%);font:700 .6rem var(--mono);white-space:nowrap;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+    .wire::after{content:"";position:absolute;top:-4px;width:10px;height:10px;background:var(--yellow);border:1.5px solid var(--ink);left:0}
+    .wire.ro::after{background:var(--paper)}
+    @media (prefers-reduced-motion:no-preference){ .wire::after{animation:pkt 2.2s cubic-bezier(.5,0,.5,1) infinite} .wire.ro::after{animation-direction:reverse} }
+    @keyframes pkt{0%{left:0}50%,100%{left:calc(100% - 10px)}}
+    .arch figcaption{grid-column:1/-1;margin-top:24px;font-size:clamp(1.1rem,2.1vw,1.45rem);font-weight:700;letter-spacing:-.02em;line-height:1.25}
+    .arch figcaption em{color:var(--blue-ink)}
+    @media (max-width:900px){ .arch{grid-template-columns:1fr;padding:20px} .wire{height:46px;width:2px;margin:6px auto} .wire span{top:50%;left:14px;transform:translateY(-50%)} .wire::after{left:-4px;top:0} @keyframes pkt{0%{top:0}50%,100%{top:calc(100% - 10px)}} }
+
+    .tech{list-style:none;border-top:1px solid var(--ink);counter-reset:t}
+    .tech li{counter-increment:t;display:block;padding:22px 0 22px 140px;border-bottom:1px solid var(--line);color:var(--ink-2);position:relative;transition:background .2s ease}
+    .tech li::before{content:counter(t,lower-alpha) ".";position:absolute;left:0;top:20px;font-family:var(--serif);font-style:italic;font-size:2.2rem;line-height:1;color:var(--blue-ink)}
+    .tech li:hover{background:linear-gradient(90deg,transparent,rgba(27,86,214,.08))}
+    .tech strong{display:block;color:var(--ink);font-size:1.2rem;letter-spacing:-.02em;margin-bottom:2px}
+    @media (max-width:700px){ .tech li{padding-left:48px} .tech li::before{font-size:1.7rem} }
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:28px}
+    .tags span{font-family:var(--mono);font-size:.74rem;padding:4px 9px;background:var(--paper-2);border:1px solid var(--line)}
+
+    /* ---------- Cierre ---------- */
+    .close{background:var(--ink);color:var(--paper);border-bottom:0}
+    .close .sidx{color:#9aa6bd} .close .sidx b{color:var(--yellow)}
+    .close .big{font-size:clamp(3rem,10vw,8.4rem);font-weight:800;letter-spacing:-.06em;line-height:.88}
+    .close .big em{color:#8fb2ff}
+    .clinks{margin-top:44px;border-top:1px solid #313a4d}
+    .clinks a{display:grid;grid-template-columns:140px 1fr auto;gap:16px;align-items:center;padding:20px 4px;border-bottom:1px solid #313a4d;text-decoration:none;transition:background .2s ease,padding .2s ease}
+    .clinks a:hover{background:var(--yellow);color:var(--ink);padding-left:16px;padding-right:16px}
+    .clinks .k{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;opacity:.8}
+    .clinks .v{font-size:clamp(1.15rem,3vw,1.9rem);font-weight:600;letter-spacing:-.02em;overflow-wrap:anywhere}
+    .clinks .ar{font-size:1.5rem}
+    @media (max-width:600px){ .clinks a{grid-template-columns:1fr auto} .clinks .k{grid-column:1/-1} }
+
+    footer{background:var(--ink);color:#9aa6bd;font-family:var(--mono);font-size:.75rem;padding:28px 0 40px;border-top:1px solid #313a4d}
+    footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+    footer a{color:var(--paper)}
+
+    @media (prefers-reduced-motion:no-preference){
+      .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+      .reveal.in{opacity:1;transform:none}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .stamp svg,.dot-dev{animation:none}
+      html{scroll-behavior:auto}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main" data-en="Skip to content">Saltar al contenido</a>
+  <div class="progress" aria-hidden="true"></div>
+
+  <nav>
+    <div class="wrap">
+      <a class="brand" href="../" data-en="← Cesar Carvajal <span class='yr'>/ est. 2019</span>">← Cesar Carvajal <span class="yr">/ est. 2019</span></a>
+      <div class="navr">
+        <span class="appname"><img src="img/finanzas-icon.png" alt="" width="24" height="24" /><span>Samit Finanzas</span></span>
+        <div class="lang" role="group" aria-label="Idioma / Language">
+          <button type="button" data-lang-btn="es">ES</button>
+          <button type="button" data-lang-btn="en">EN</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="wrap hero-meta">
+        <span><span class="dot-dev" aria-hidden="true"></span><b data-en="Project 07">Proyecto 07</b> · <span data-en="Personal finance for tax filers">Finanzas para quien declara renta</span></span>
+        <span>Flutter · .NET 10 · Blazor</span>
+      </div>
+
+      <div class="wrap titlerow">
+        <h1 class="bigt"><span class="s">SAMIT</span><span class="sr-only">Samit </span><span aria-hidden="true" id="bigword"></span><span class="sr-only">Finanzas</span></h1>
+        <div class="stamp" aria-hidden="true">
+          <svg viewBox="0 0 200 200">
+            <defs><path id="ring" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
+            <text font-family="JetBrains Mono, monospace" font-size="13" font-weight="700" letter-spacing="1" fill="#121826">
+              <textPath href="#ring" textLength="486" data-en="EXPENSES WITH BACKING · FOR THE ACCOUNTANT · ">GASTOS CON SOPORTE · PARA EL CONTADOR · </textPath>
+            </text>
+          </svg>
+          <img src="img/finanzas-icon.png" alt="" width="88" height="88" />
+        </div>
+      </div>
+
+      <div class="wrap hero-copy">
+        <p class="tagline" data-en="Every expense with its invoice. <em>Ready for the accountant.</em> <small>Log it on your phone — even offline — and hand over your year already sorted.</small>">Cada gasto con su factura. <em>Listo para el contador.</em> <small>Regístralo en el celular —aun sin internet— y entrega el año ya ordenado.</small></p>
+        <div>
+          <p class="pitch" data-en="Whoever has to file taxes in Colombia spends March hunting for invoices. <strong>Samit Finanzas</strong> keeps them in order as they happen: each expense with its <strong>photo or PDF</strong>, the <strong>e-invoice QR fills the expense</strong> on its own, what's <strong>deductible</strong> is set apart, and the accountant gets a <strong>read-only login</strong> with everything sorted. It also tracks <strong>who owes you and what you owe</strong>, recurring payments and loans. It isn't a banking app: no accounts or balances, just expenses with their backing.">
+            Quien está obligado a declarar renta pasa marzo buscando facturas. <strong>Samit Finanzas</strong>
+            las guarda en orden desde el día uno: cada gasto con su <strong>foto o PDF</strong>, el
+            <strong>QR de la factura electrónica llena el gasto</strong> solo, lo <strong>deducible</strong>
+            queda aparte y el contador entra con un <strong>usuario de solo lectura</strong> con todo
+            ordenado. Además lleva <strong>lo que me deben y lo que debo</strong>, lo que se repite cada
+            mes y los préstamos. No es una app de bancos: sin cuentas ni saldos, solo gastos con su soporte.
+          </p>
+          <div class="status" data-en="In use · coming soon to Google Play">En uso · próximamente en Google Play</div>
+          <div class="actions">
+            <a class="btn btn-ink" href="#demo" data-en="From invoice to the cloud ↓">De la factura a la nube ↓</a>
+            <a class="btn btn-line" href="../" data-en="← Back to portfolio">← Volver al portafolio</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div class="ticker">
+          <div class="hl"><div class="n" data-en="Offline-first">Offline-first</div><div class="l" data-en="log it without signal">registra sin señal</div></div>
+          <div><div class="n" data-en="E-invoice QR">QR de la factura</div><div class="l" data-en="fills the expense · ML Kit">llena el gasto · ML Kit</div></div>
+          <div><div class="n" data-en="1 file per client">1 archivo por cliente</div><div class="l" data-en="SQLite · isolated data">SQLite · datos aislados</div></div>
+          <div class="hl"><div class="n" data-en="93 tests">93 pruebas</div><div class="l" data-en="server + app">servidor + app</div></div>
+          <div><div class="n">Flutter + .NET 10</div><div class="l" data-en="Android · API · Blazor web">Android · API · web Blazor</div></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- §01 DEMO -->
+    <section id="demo">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§01</b> / sync</div>
+          <div>
+            <h2 class="stitle" data-en="From the invoice <em>to the cloud</em>">De la factura <em>a la nube</em></h2>
+            <p class="ssub" data-en="An illustrative simulation: scan the e-invoice QR, save the expense with no signal and watch it upload when the connection comes back — without losing or duplicating anything. Turn the internet off and on as you like.">Una simulación ilustrativa: escanea el QR de la factura electrónica, guarda el gasto sin señal y mira cómo sube cuando vuelve la conexión, sin perder ni duplicar nada. Apaga y prende el internet cuando quieras.</p>
+          </div>
+        </div>
+
+        <div class="lab reveal" id="lab">
+          <p class="sr-only" data-en="Interactive demo. Step 1 reads a fictitious e-invoice QR and fills amount, seller, tax ID, number, date and VAT. Step 2 saves the expense: it goes to the local database and to the outbox in the same transaction. If there's internet, the outbox uploads to the server, which assigns the number. Step 3 sends the same operation again and the server recognizes it and ignores it. The result is shown as text below the server panel.">Demostración interactiva. El paso 1 lee el QR de una factura electrónica ficticia y llena valor, vendedor, NIT, número, fecha e IVA. El paso 2 guarda el gasto: va a la base local y a la bandeja de salida en la misma transacción. Si hay internet, la bandeja sube al servidor, que asigna el número. El paso 3 envía otra vez la misma operación y el servidor la reconoce y la ignora. El resultado se muestra como texto debajo del panel del servidor.</p>
+
+          <div class="lab-l">
+            <div class="lab-h" data-en="Try it">Pruébalo</div>
+            <ol class="steps">
+              <li><button type="button" id="b-scan"><span class="cn">i.</span><span class="ct" data-en="Scan the QR">Escanear el QR</span><span class="cd" data-en="The e-invoice fills the expense">La factura electrónica llena el gasto</span></button></li>
+              <li><button type="button" id="b-save"><span class="cn">ii.</span><span class="ct" data-en="Save">Guardar</span><span class="cd" data-en="Local database + outbox, one transaction">Base local + bandeja, una sola transacción</span></button></li>
+              <li><button type="button" id="b-dup"><span class="cn">iii.</span><span class="ct" data-en="Send it again">Enviarlo otra vez</span><span class="cd" data-en="Simulates a dropped connection">Simula un corte a mitad de envío</span></button></li>
+            </ol>
+            <div class="net">
+              <span><small data-en="Phone">Celular</small><span id="netlbl"></span></span>
+              <button type="button" class="sw" id="sw" role="switch" aria-checked="false" aria-label="Internet"></button>
+            </div>
+            <div class="ctrls"><button type="button" id="reset" data-en="↻ Start over">↻ Empezar de nuevo</button></div>
+            <ul class="log" id="log" aria-hidden="true"></ul>
+          </div>
+
+          <div class="lab-c" aria-hidden="true">
+            <div class="phone">
+              <div class="scr" id="scr">
+                <div class="sbar"><span>9:41</span><span class="cloud" id="cloud">☁ <b id="pend">0</b></span></div>
+                <div class="ahdr"><span>✕</span><span data-en="New expense">Nuevo gasto</span></div>
+                <div class="seg"><span class="on" data-en="Expense">Gasto</span><span data-en="↙ Income">↙ Ingreso</span></div>
+                <div class="val"><small data-en="Amount">Valor</small><b id="v-valor">$0</b></div>
+                <div class="card">
+                  <div class="row" data-f="vende"><i>🏪</i><div><small data-en="Who sells">Quién vende</small><span id="v-vende" data-ph="—"></span></div></div>
+                  <div class="row" data-f="numero"><i>#</i><div><small data-en="Invoice">Factura</small><span id="v-numero"></span></div></div>
+                  <div class="row" data-f="fecha"><i>📅</i><div><small data-en="Date">Fecha</small><span id="v-fecha"></span></div></div>
+                  <div class="row" data-f="cat"><i>▲</i><div><small data-en="Category">Categoría</small><span id="v-cat"></span></div></div>
+                </div>
+                <div class="chiprow"><span class="chip" id="c-sop"></span><span class="chip" id="c-ded"></span><span class="chip" id="c-iva"></span></div>
+                <div class="save" id="savebtn" data-en="Save">Guardar</div>
+                <div class="toast" id="toast"></div>
+
+                <div class="inv" id="inv">
+                  <div class="paper">
+                    <b>ESTACIÓN DE SERVICIO LA 80 S.A.S.</b>
+                    NIT 900.321.654-9<br />
+                    <span data-en="E-INVOICE">FACTURA ELECTRÓNICA</span> FE48213
+                    <div class="qr"><svg id="qrsvg" viewBox="0 0 25 25" shape-rendering="crispEdges"></svg><div class="scanbox"></div><div class="laser" id="laser"></div></div>
+                    <div class="tt"><span>TOTAL</span><span>$250.000</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lab-r">
+            <div class="lab-h" data-en="Outbox (on the phone)">Bandeja de salida (en el celular)</div>
+            <ul class="tray" id="tray"></ul>
+            <div class="srv">
+              <div class="lab-h" data-en="Server · one file per client">Servidor · un archivo por cliente</div>
+              <div class="db">
+                <div class="lock">samit.db<small data-en="users">usuarios</small></div>
+                <div class="mine" id="mydb">carolina.db<small id="mycount"></small></div>
+                <div class="lock">otro.db<small data-en="not opened">sin abrir</small></div>
+              </div>
+            </div>
+            <div class="verdict" id="verdict" role="status" aria-live="polite"></div>
+          </div>
+        </div>
+        <p class="lab-note" data-en="* Fictitious invoice, seller and person (the same demo data the app uses for its screenshots). The QR is decorative.">* Factura, vendedor y persona ficticios (los mismos datos de ejemplo que usa la app para sus capturas). El QR es decorativo.</p>
+      </div>
+    </section>
+
+    <!-- §02 QUÉ HACE -->
+    <section id="que-hace">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§02</b> / features</div>
+          <div>
+            <h2 class="stitle" data-scramble data-en="What it does">Qué hace</h2>
+            <p class="ssub" data-en="Written like what it keeps: a ledger.">Contado como lo que guarda: un libro de registros.</p>
+          </div>
+        </div>
+        <div class="ledger reveal">
+          <div><span class="dt" data-en="Expenses &amp; income">Gastos e ingresos</span><h3 data-en="With their backing">Con su soporte</h3><p data-en="Photo from the camera or gallery, or the e-invoice PDF. Two-level categories, split lines, projects (“the house”, “the car”) with their own balance.">Foto de la cámara o la galería, o el PDF de la factura electrónica. Categorías de dos niveles, varias líneas, proyectos ("la casa", "el carro") con su propio balance.</p><span class="amt out">−$250.000</span></div>
+          <div><span class="dt" data-en="E-invoice">Factura electrónica</span><h3 data-en="The QR fills the expense">El QR llena el gasto</h3><p data-en="Reads the QR with ML Kit (from a photo or the PDF): amount, date, seller and VAT. If the QR only carries the tax authority's link, it reads the printed text instead.">Lee el QR con ML Kit (de una foto o del PDF): valor, fecha, vendedor e IVA. Si el QR solo trae el enlace de la DIAN, lee el texto impreso.</p><span class="amt note">QR → $</span></div>
+          <div><span class="dt" data-en="Deductibles">Deducibles</span><h3 data-en="Set apart from day one">Aparte desde el día uno</h3><p data-en="Each category suggests whether it's deductible; the home screen warns about deductible expenses still missing their invoice photo.">Cada categoría sugiere si es deducible; Inicio avisa los gastos deducibles que aún no tienen la foto de la factura.</p><span class="amt in">$742.000</span></div>
+          <div><span class="dt" data-en="Support document">Documento soporte</span><h3 data-en="For those who don't invoice">Para quien no factura</h3><p data-en="Buying from someone who doesn't issue invoices: tax-authority numbering, a number assigned by the server and a PDF generated without libraries. Never deleted — voided.">Comprarle a quien no factura: numeración DIAN, número que asigna el servidor y un PDF hecho sin librerías. Nunca se borra: se anula.</p><span class="amt out">DS-80</span></div>
+          <div><span class="dt" data-en="Receivables">Cartera</span><h3 data-en="Owed to me · I owe">Me deben · Debo</h3><p data-en="Accounts with partial payments and due dates; overdue ones show up on the home screen. Loans keep principal apart from interest: only interest counts.">Cuentas con abonos y fecha de pago; las vencidas salen en Inicio. Los préstamos separan el capital de los intereses: solo los intereses cuentan.</p><span class="amt in">+$2.920.000</span></div>
+          <div><span class="dt" data-en="Recurring">Recurrentes</span><h3 data-en="What repeats, logs itself">Lo que se repite, se registra solo</h3><p data-en="Rent and internet log themselves each month; utilities warn you because the amount changes. Refunds are a negative expense.">El arriendo y el internet se registran solos cada mes; la luz y el agua avisan porque el valor cambia. Un reembolso es un gasto en negativo.</p><span class="amt neg">−$61.900</span></div>
+          <div><span class="dt" data-en="People &amp; companies">Personas y empresas</span><h3 data-en="With tax-authority data">Con los datos de la DIAN</h3><p data-en="Type “Cédula or NIT” in one field: it detects the type, computes and validates the check digit with the DIAN algorithm and splits a person's names and surnames.">Se escribe "Cédula o NIT" en un solo campo: detecta el tipo, calcula y valida el dígito de verificación con el algoritmo de la DIAN y separa nombres y apellidos.</p><span class="amt note">900.321.654-<b>9</b></span></div>
+          <div class="tot"><span class="dt" data-en="Close of the year">Cierre del año</span><h3 data-en="Ready for the accountant">Listo para el contador</h3><p data-en="Search across every record, month-by-month view by category and by person, light or dark mode, and a tax-return summary on the web.">Buscador en todos los registros, mes a mes por categoría y por persona, modo claro u oscuro, y un resumen para la declaración en la web.</p><span class="amt" data-en="in order ✓">en orden ✓</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- §03 EL CONTADOR -->
+    <section id="contador">
+      <div class="wrap acct">
+        <div class="side reveal">
+          <div class="shead" style="grid-template-columns:1fr;gap:4px;margin-bottom:24px">
+            <div class="sidx" style="padding-top:0"><b>§03</b> / web</div>
+            <h2 class="stitle" data-scramble data-en="The accountant">El contador</h2>
+          </div>
+          <p class="lead" data-en="Everything is logged on the phone. The web is <strong>read-only</strong>: for you to review, export to Excel — and for your accountant.">Todo se registra en el celular. La web es <strong>solo consulta</strong>: para revisar, descargar para Excel y para tu contador.</p>
+          <ul class="roles">
+            <li><b data-en="Owner">Titular</b><span data-en="Logs from their single “registering phone” and reviews on the web.">Registra desde su único "celular de registro" y consulta en la web.</span></li>
+            <li><b data-en="Accountant">Contador</b><span data-en="Invited from the phone or the web. Sees everything, changes nothing — and can handle many clients with one login.">Lo invitan desde el celular o la web. Ve todo, no cambia nada, y lleva varios clientes con un solo usuario.</span></li>
+            <li><b data-en="Admin">Admin</b><span data-en="Manages clients and plans. Doesn't see financial data, by design.">Maneja clientes y planes. No ve datos financieros, a propósito.</span></li>
+          </ul>
+        </div>
+
+        <div class="reveal">
+          <div class="browser" id="web">
+            <div class="bbar" aria-hidden="true"><i></i><i></i><i></i><span>/finanzas/renta</span></div>
+            <div class="wbody">
+              <div class="wtop">
+                <h4 data-en="Tax return summary">Resumen para la renta</h4>
+                <label><span class="sr-only" data-en="Tax year">Año gravable</span>
+                  <select id="anio">
+                    <option value="0">2026</option>
+                    <option value="1">2025</option>
+                  </select>
+                </label>
+                <span class="ro" data-en="Accountant · read-only">Contador · solo lectura</span>
+              </div>
+              <div class="gauge">
+                <div class="gl"><span data-en="Gross income">Ingresos brutos</span><span id="g1t"></span></div>
+                <div class="gbar"><b id="g1"></b><i style="left:70%" data-l="1.400 UVT"></i></div>
+              </div>
+              <div class="gauge" style="margin-top:22px">
+                <div class="gl"><span data-en="Purchases &amp; consumption">Compras y consumos</span><span id="g2t"></span></div>
+                <div class="gbar"><b id="g2"></b><i style="left:70%" data-l="1.400 UVT"></i></div>
+              </div>
+              <div class="wverd" id="wverd" role="status" aria-live="polite"></div>
+              <div class="wgrid">
+                <div><small data-en="Deductibles">Deducibles</small><b id="w-ded"></b></div>
+                <div><small data-en="Missing invoice">Sin factura</small><b id="w-sin"></b></div>
+                <div><small data-en="Debts at Dec 31">Deudas al 31 dic</small><b id="w-deu"></b></div>
+              </div>
+              <p class="wnote" data-en="* Illustrative figures. The real page also lists the other filing triggers with their UVT caps, and the filing deadline by the last digits of the tax ID.">* Cifras ilustrativas. La página real también nombra los demás motivos para declarar con su tope en UVT y el vencimiento por los últimos dígitos del NIT.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- §04 CÓMO ESTÁ HECHA -->
+    <section id="como-esta-hecha">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§04</b> / build</div>
+          <div>
+            <h2 class="stitle" data-scramble data-en="How it's built">Cómo está hecha</h2>
+            <p class="ssub" data-en="One phone writes, everyone else reads. That one decision removes sync conflicts.">Un celular escribe, los demás leen. Esa sola decisión elimina los conflictos de sincronización.</p>
+          </div>
+        </div>
+
+        <figure class="arch reveal">
+          <div class="node">
+            <span class="k" data-en="Phone">Celular</span>
+            <h3 data-en="Flutter app (Android)">App Flutter (Android)</h3>
+            <ul><li>SQLite · sqflite</li><li data-en="outbox">bandeja de salida</li><li>ML Kit</li><li data-en="Keystore">Keystore</li></ul>
+          </div>
+          <div class="wire"><span data-en="sync">sync</span></div>
+          <div class="node api">
+            <span class="k" data-en="Server">Servidor</span>
+            <h3>ASP.NET Core .NET 10</h3>
+            <ul><li>Minimal APIs</li><li>Dapper</li><li data-en="1 SQLite file per client">1 SQLite por cliente</li><li>IIS</li></ul>
+          </div>
+          <div class="wire ro"><span data-en="read-only">solo lectura</span></div>
+          <div class="node">
+            <span class="k">Web</span>
+            <h3 data-en="Blazor (server-rendered)">Blazor (render en el servidor)</h3>
+            <ul><li data-en="owner">titular</li><li data-en="accountant">contador</li><li>Excel</li><li data-en="tax summary">renta</li></ul>
+          </div>
+          <figcaption data-en="<em>Offline-first from day one:</em> adding it later means rewriting the app.">
+            <em>Offline-first desde el día uno:</em> agregarlo después es rehacer la app.
+          </figcaption>
+        </figure>
+
+        <ul class="tech reveal">
+          <li data-en="<strong>Idempotent sync with an outbox.</strong> Every change goes to the local database and to the outbox in the same transaction. Uploads are batches of operations the server records as processed, so a retry never duplicates anything; downloads use a per-file version counter maintained by triggers."><strong>Sincronización idempotente con bandeja de salida.</strong> Cada cambio va a la base local y a la bandeja en la misma transacción. Sube en lotes de operaciones que el servidor marca como procesadas: un reintento nunca duplica nada; la bajada usa un contador de versión por archivo que mantienen disparadores.</li>
+          <li data-en="<strong>One SQLite file per client.</strong> A query can't see another client because it doesn't have their file open — and every table still filters by client as a second lock. Backing up, moving or deleting a client is a file."><strong>Un archivo SQLite por cliente.</strong> Una consulta no puede ver a otro cliente porque no tiene abierto su archivo, y además cada tabla filtra por cliente como segundo candado. Respaldar, mover o borrar un cliente es un archivo.</li>
+          <li data-en="<strong>Money is never a float:</strong> decimal in C#, integer ten-thousandths in SQLite and integer cents on the phone."><strong>La plata nunca es flotante:</strong> decimal en C#, entero en diezmilésimas en SQLite y centavos enteros en el celular.</li>
+          <li data-en="<strong>Documents are voided, never deleted,</strong> and the server assigns their numbers — no gaps or duplicates even when the phone was offline. The accountant can trust the books."><strong>Los documentos se anulan, no se borran,</strong> y el número lo pone el servidor: sin huecos ni duplicados aunque el celular estuviera sin señal. El contador puede confiar en el libro.</li>
+          <li data-en="<strong>Same rules on both sides:</strong> validations (including the tax-ID check digit) and totals match on the phone and on the server, with 43 server tests (xUnit + WebApplicationFactory) and 50 app tests using a real SQLite database."><strong>Las mismas reglas a los dos lados:</strong> las validaciones (incluido el dígito de verificación) y los totales coinciden en el celular y en el servidor, con 43 pruebas del servidor (xUnit + WebApplicationFactory) y 50 de la app con SQLite real.</li>
+          <li data-en="<strong>Security without extras:</strong> opaque revocable tokens (only their SHA-256 is stored), PBKDF2 passwords, session token encrypted with the Android Keystore, and a server-rendered web that doesn't depend on JavaScript."><strong>Seguridad sin adornos:</strong> tokens opacos revocables (solo se guarda su SHA-256), claves con PBKDF2, el token cifrado con el Keystore de Android y una web que se arma en el servidor sin depender de JavaScript.</li>
+        </ul>
+        <div class="tags reveal">
+          <span>Flutter</span><span>Dart</span><span>SQLite / sqflite</span><span>Google ML Kit</span>
+          <span>.NET 10</span><span>ASP.NET Core</span><span>Minimal APIs</span><span>Dapper</span>
+          <span>Blazor SSR</span><span>xUnit</span><span>IIS</span><span>Offline-first</span><span>Multi-tenant</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CIERRE -->
+    <section class="close">
+      <div class="wrap">
+        <div class="shead reveal" style="margin-bottom:18px">
+          <div class="sidx"><b>§05</b> / fin</div>
+          <div></div>
+        </div>
+        <p class="big reveal" data-en="March, <em>without the hunt</em>.">Marzo, <em>sin buscar facturas</em>.</p>
+        <div class="clinks reveal">
+          <a href="../"><span class="k" data-en="Portfolio">Portafolio</span><span class="v" data-en="See all projects">Ver todos los proyectos</span><span class="ar" aria-hidden="true">←</span></a>
+          <a href="https://wa.me/573128569219" target="_blank" rel="noopener"><span class="k">WhatsApp</span><span class="v">+57 312 856 9219</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a href="mailto:cecaza1085263@gmail.com"><span class="k" data-en="Email">Correo</span><span class="v">cecaza1085263@gmail.com</span><span class="ar" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span data-en="© 2019 – 2026 · Cesar Carvajal · Samit Finanzas">© 2019 – 2026 · Cesar Carvajal · Samit Finanzas</span>
+      <a href="../" data-en="← Back to portfolio">← Volver al portafolio</a>
+    </div>
+  </footer>
+
+  <script>
+    var REDUCE = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var GLYPHS = '{}[]()<>;:=+-*/&|!?#$%_01λ=>';
+    var LANG = 'es';
+
+    // ---------- Título: letras que caen ----------
+    (function(){
+      var w = 'Finanzas', el = document.getElementById('bigword'), h = '';
+      for(var i=0;i<w.length;i++) h += '<span class="d" style="--i:'+i+'">'+w[i]+'</span>';
+      el.innerHTML = h;
+    })();
+
+    // ---------- i18n (ES/EN), sin recargar ----------
+    (function(){
+      var KEY='site-lang';
+      function apply(l){
+        LANG = l;
+        document.documentElement.lang=l;
+        document.querySelectorAll('[data-en]').forEach(function(el){
+          if(el.dataset.es===undefined){
+            el.dataset.es = (el.tagName==='META') ? el.getAttribute('content')
+                          : (el.tagName==='TITLE') ? el.textContent
+                          : el.innerHTML;
+          }
+          var v = (l==='en') ? el.getAttribute('data-en') : el.dataset.es;
+          el._scr = null;
+          if(el.tagName==='META'){ el.setAttribute('content', v); }
+          else if(el.tagName==='TITLE'){ document.title = v; }
+          else { el.innerHTML = v; }
+        });
+        document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+          b.setAttribute('aria-pressed', String(b.getAttribute('data-lang-btn')===l));
+        });
+        try{ localStorage.setItem(KEY,l); }catch(e){}
+        document.dispatchEvent(new CustomEvent('site-lang', {detail:l}));
+      }
+      var saved; try{ saved=localStorage.getItem(KEY); }catch(e){}
+      var initial = saved || (((navigator.language||'es').toLowerCase().indexOf('es')===0)?'es':'en');
+      document.addEventListener('click', function(e){
+        var b = e.target.closest('[data-lang-btn]');
+        if(b){ e.preventDefault(); apply(b.getAttribute('data-lang-btn')); }
+      });
+      apply(initial);
+    })();
+
+    // ---------- Scroll: barra de progreso + sello ----------
+    (function(){
+      var root = document.documentElement, ticking = false;
+      function upd(){
+        ticking = false;
+        var max = root.scrollHeight - innerHeight;
+        root.style.setProperty('--p', max > 0 ? (scrollY/max).toFixed(4) : 0);
+        root.style.setProperty('--scroll', Math.round(scrollY));
+      }
+      addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+      upd();
+    })();
+
+    // ---------- Títulos que se "descifran" ----------
+    function scramble(el){
+      if(REDUCE || el.children.length) return;
+      var id = {}; el._scr = id;
+      var target = el.textContent, n = target.length, t0 = performance.now(), dur = Math.min(1100, 300 + n*45);
+      (function f(t){
+        if(el._scr !== id) return;
+        var k = Math.min(1, (t - t0)/dur), r = Math.floor(k*n), out = '';
+        for(var i=0;i<n;i++){
+          var c = target[i];
+          out += (i < r || c === ' ') ? c : GLYPHS[(Math.random()*GLYPHS.length)|0];
+        }
+        el.textContent = out;
+        if(k < 1) requestAnimationFrame(f); else { el.textContent = target; el._scr = null; }
+      })(t0);
+    }
+
+    // ---------- Reveal on scroll ----------
+    (function(){
+      var els = document.querySelectorAll('.reveal');
+      if(!('IntersectionObserver' in window) || !els.length){ els.forEach(function(e){e.classList.add('in')}); return; }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(!en.isIntersecting) return;
+          en.target.classList.add('in'); io.unobserve(en.target);
+          en.target.querySelectorAll('[data-scramble]').forEach(scramble);
+        });
+      }, {rootMargin:'0px 0px -8% 0px'});
+      els.forEach(function(e){ io.observe(e); });
+    })();
+
+    // ---------- §01 De la factura a la nube ----------
+    (function(){
+      var $ = function(id){ return document.getElementById(id); };
+      var lab = $('lab'); if(!lab) return;
+      var T = {
+        es:{ on:'Con internet', off:'Sin internet', empty:'Nada por subir.', pend:'pendiente', up:'subido',
+             vende:'Estación de Servicio La 80 S.A.S.', numero:'FE48213 · NIT 900.321.654-9', fecha:'Viernes 9 de octubre',
+             cat:'Vehículos › Combustible', sop:'📎 Soporte: factura', ded:'No deducible', iva:'IVA $39.916',
+             saved:'Guardado. Se sube cuando haya señal.', savedOn:'Guardado y subido.',
+             recs:' registros', vStart:'Escanea el QR de la factura para empezar.',
+             vFilled:'El QR llenó el gasto.', vFilledS:'Tú solo eliges la categoría y guardas.',
+             vWait:'Guardado en el celular.', vWaitS:'Queda en la bandeja hasta que vuelva el internet.',
+             vOk:'En el servidor, con su número.', vOkS:'Documento E-128 en el archivo de Carolina, y nada más.',
+             vDup:'Reintento ignorado: ya estaba.', vDupS:'La misma operación llegó dos veces y se aplicó una sola.',
+             l:{ scan:'leer QR de la factura…', qr:'QR: NIT, número, fecha, total, IVA', tx:'BEGIN · documento + bandeja', commit:'COMMIT (local)',
+                 noNet:'sin red: queda pendiente', post:'POST /api/sync/subir', ok:'200 · aplicado · número E-128', pull:'GET /api/sync/bajar → versión 129',
+                 adj:'adjunto.subir (la foto, sola en su envío)', dup:'POST /api/sync/subir (la misma operación)', dupOk:'200 · ya procesada → se ignora', net:'red: ' } },
+        en:{ on:'Online', off:'Offline', empty:'Nothing to upload.', pend:'pending', up:'uploaded',
+             vende:'Estación de Servicio La 80 S.A.S.', numero:'FE48213 · NIT 900.321.654-9', fecha:'Friday, October 9',
+             cat:'Vehicles › Fuel', sop:'📎 Backing: invoice', ded:'Not deductible', iva:'VAT $39,916',
+             saved:'Saved. It uploads when there\'s signal.', savedOn:'Saved and uploaded.',
+             recs:' records', vStart:'Scan the invoice QR to start.',
+             vFilled:'The QR filled the expense.', vFilledS:'You just pick the category and save.',
+             vWait:'Saved on the phone.', vWaitS:'It waits in the outbox until the internet is back.',
+             vOk:'On the server, with its number.', vOkS:'Document E-128 in Carolina\'s file, and nowhere else.',
+             vDup:'Retry ignored: already there.', vDupS:'The same operation arrived twice and was applied once.',
+             l:{ scan:'reading invoice QR…', qr:'QR: tax ID, number, date, total, VAT', tx:'BEGIN · document + outbox', commit:'COMMIT (local)',
+                 noNet:'no network: stays pending', post:'POST /api/sync/subir', ok:'200 · applied · number E-128', pull:'GET /api/sync/bajar → version 129',
+                 adj:'adjunto.subir (the photo, in its own request)', dup:'POST /api/sync/subir (same operation)', dupOk:'200 · already processed → ignored', net:'network: ' } }
+      };
+      function L(){ return T[LANG] || T.es; }
+      var S, timers = [], auto = true;
+      var bScan = $('b-scan'), bSave = $('b-save'), bDup = $('b-dup'), sw = $('sw');
+
+      // QR decorativo (fijo, con los tres cuadros de posición)
+      (function(){
+        var n = 25, h = '', seed = 7;
+        function rnd(){ seed = (seed*9301 + 49297) % 233280; return seed/233280; }
+        function finder(x,y){ h += '<rect x="'+x+'" y="'+y+'" width="7" height="7"/><rect x="'+(x+1)+'" y="'+(y+1)+'" width="5" height="5" fill="#fffef9"/><rect x="'+(x+2)+'" y="'+(y+2)+'" width="3" height="3"/>'; }
+        for(var y=0;y<n;y++) for(var x=0;x<n;x++){
+          var inF = (x<8&&y<8)||(x>n-9&&y<8)||(x<8&&y>n-9);
+          if(!inF && rnd() < .48) h += '<rect x="'+x+'" y="'+y+'" width="1" height="1"/>';
+        }
+        finder(0,0); finder(n-7,0); finder(0,n-7);
+        $('qrsvg').innerHTML = '<g fill="#161b25">'+h+'</g>';
+      })();
+
+      function later(fn, ms){ var t = setTimeout(fn, REDUCE ? 0 : ms); timers.push(t); return t; }
+      function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+      function log(txt, cls){
+        var ul = $('log'), li = document.createElement('li');
+        li.textContent = '› ' + txt; if(cls) li.className = cls;
+        ul.appendChild(li); while(ul.children.length > 9) ul.removeChild(ul.firstChild);
+      }
+      function verdict(k, cls){
+        var v = $('verdict'); v.className = 'verdict ' + (cls||'');
+        v.innerHTML = L()[k] + (L()[k+'S'] ? '<small>' + L()[k+'S'] + '</small>' : '');
+        S.v = [k, cls];
+      }
+      function fmt(n){ return LANG === 'en' ? n.toLocaleString('en-US') : n.toLocaleString('es-CO'); }
+
+      function paint(){
+        var l = L();
+        $('netlbl').textContent = S.net ? l.on : l.off;
+        sw.setAttribute('aria-checked', String(S.net));
+        $('v-valor').textContent = S.filled ? '$' + fmt(250000) : '$0';
+        $('v-valor').classList.toggle('on', S.filled);
+        [['vende'],['numero'],['fecha']].forEach(function(a){
+          var e = $('v-'+a[0]); e.textContent = S.filled ? l[a[0]] : '—'; e.classList.toggle('on', S.filled);
+        });
+        $('v-cat').textContent = S.cat ? l.cat : '—'; $('v-cat').classList.toggle('on', S.cat);
+        var c1 = $('c-sop'), c2 = $('c-ded'), c3 = $('c-iva');
+        c1.textContent = l.sop; c2.textContent = l.ded; c3.textContent = l.iva;
+        [c1,c2,c3].forEach(function(c){ c.style.visibility = S.filled ? 'visible' : 'hidden'; });
+        c1.className = 'chip on'; c2.className = 'chip'; c3.className = 'chip ds';
+        // bandeja
+        var tray = $('tray'), h = '';
+        if(!S.tray.length) h = '<li class="empty">' + l.empty + '</li>';
+        S.tray.forEach(function(o){
+          h += '<li class="' + (o.up ? 'up' : '') + '"><code>' + o.op + '</code><span>' + o.what + '</span><span class="st">' + (o.up ? l.up : l.pend) + '</span></li>';
+        });
+        tray.innerHTML = h;
+        var p = S.tray.filter(function(o){ return !o.up; }).length;
+        $('pend').textContent = p ? p : '✓';
+        $('cloud').classList.toggle('ok', !p);
+        $('mycount').textContent = fmt(S.count) + l.recs;
+        bScan.disabled = S.filled;
+        bSave.disabled = !S.filled || S.saved;
+        bDup.disabled = !S.synced;
+        bScan.classList.toggle('done', S.filled);
+        bSave.classList.toggle('done', S.saved);
+        if(S.v) verdict(S.v[0], S.v[1]);
+      }
+
+      function reset(){
+        clearTimers();
+        S = { net:false, filled:false, cat:false, saved:false, synced:false, busy:false, tray:[], count:745, v:null };
+        $('log').innerHTML = ''; $('inv').classList.remove('on'); $('toast').classList.remove('on');
+        verdict('vStart', '');
+        paint();
+      }
+
+      function fly(text, rowSel){
+        if(REDUCE) return;
+        var from = $('qrsvg').getBoundingClientRect(), base = lab.getBoundingClientRect(),
+            to = lab.querySelector(rowSel).getBoundingClientRect();
+        var f = document.createElement('span'); f.className = 'fly'; f.textContent = text; lab.style.position = 'relative'; lab.appendChild(f);
+        var sx = from.left - base.left + 10, sy = from.top - base.top + 30, dx = to.left - base.left + 40, dy = to.top - base.top + 6, t0 = performance.now();
+        (function step(t){
+          var p = Math.min(1, (t - t0)/650), e = p<.5 ? 2*p*p : 1 - Math.pow(-2*p+2,2)/2;
+          var cx = (sx+dx)/2, cy = Math.min(sy,dy) - 50;
+          var x = (1-e)*(1-e)*sx + 2*(1-e)*e*cx + e*e*dx, y = (1-e)*(1-e)*sy + 2*(1-e)*e*cy + e*e*dy;
+          f.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+          if(p < 1) requestAnimationFrame(step); else f.remove();
+        })(t0);
+      }
+
+      function scan(){
+        if(S.filled || S.busy) return;
+        S.busy = true; var l = L().l;
+        log(l.scan, 'p');
+        $('inv').classList.add('on');
+        var las = $('laser');
+        if(!REDUCE && las.animate) las.animate([{top:'0%',opacity:1},{top:'100%',opacity:1},{top:'0%',opacity:1},{top:'100%',opacity:0}], {duration:1300, easing:'ease-in-out'});
+        later(function(){
+          log(l.qr, 'g');
+          $('inv').classList.remove('on');
+          fly('$250.000', '.val'); fly('NIT 900.321.654-9', '[data-f="vende"]');
+          later(function(){
+            S.filled = true; S.busy = false;
+            lab.querySelectorAll('.row').forEach(function(r){ r.classList.add('flash'); setTimeout(function(){ r.classList.remove('flash'); }, 700); });
+            verdict('vFilled', ''); paint();
+            if(auto) later(save, 1300);
+          }, 650);
+        }, 1350);
+      }
+
+      function save(){
+        if(!S.filled || S.saved || S.busy) return;
+        var l = L().l; S.busy = true; S.cat = true; paint();
+        $('savebtn').classList.add('pressed'); later(function(){ $('savebtn').classList.remove('pressed'); }, 160);
+        log(l.tx, 'p');
+        S.tray.push({op:'documento.guardar', what:'EGR $250.000'});
+        S.tray.push({op:'adjunto.subir', what:LANG==='en'?'invoice photo':'foto de la factura'});
+        later(function(){
+          log(l.commit, 'g'); S.saved = true; S.busy = false;
+          var t = $('toast'); t.textContent = S.net ? L().savedOn : L().saved; t.classList.add('on');
+          later(function(){ t.classList.remove('on'); }, 2200);
+          paint();
+          if(S.net) sync();
+          else { log(l.noNet, 'w'); verdict('vWait', 'wait');
+            if(auto) later(function(){ setNet(true); }, 1800); }
+        }, 450);
+      }
+
+      function sync(){
+        var pend = S.tray.filter(function(o){ return !o.up; });
+        if(!pend.length || !S.net || S.busy) return;
+        var l = L().l; S.busy = true;
+        log(l.post, 'p');
+        later(function(){
+          S.tray[0].up = true; S.count++; log(l.ok, 'g'); pulse(); paint();
+          later(function(){
+            log(l.adj, 'p');
+            later(function(){
+              S.tray[1].up = true; log(l.pull, 'g'); S.synced = true; S.busy = false; verdict('vOk', 'ok'); paint();
+              auto = false;
+            }, 600);
+          }, 500);
+        }, 700);
+      }
+
+      function dup(){
+        if(!S.synced || S.busy) return;
+        var l = L().l;
+        if(!S.net){ setNet(true); }
+        log(l.dup, 'p');
+        later(function(){ log(l.dupOk, 'w'); pulse(); verdict('vDup', 'ok'); paint(); }, 600);
+      }
+
+      function pulse(){ var d = $('mydb'); d.classList.remove('pulse'); void d.offsetWidth; d.classList.add('pulse'); }
+
+      function setNet(on){
+        S.net = on; log(L().l.net + (on ? 'on' : 'off'), on ? 'g' : 'w'); paint();
+        if(on && S.saved) sync();
+      }
+
+      function user(){ if(auto){ auto = false; } }
+      bScan.addEventListener('click', function(){ user(); scan(); });
+      bSave.addEventListener('click', function(){ user(); save(); });
+      bDup.addEventListener('click', function(){ user(); dup(); });
+      sw.addEventListener('click', function(){ user(); setNet(!S.net); });
+      $('reset').addEventListener('click', function(){ auto = false; reset(); });
+
+      document.addEventListener('site-lang', function(){ if(S) paint(); });
+      reset();
+
+      // arranca solo la primera vez que se ve (si no hay movimiento reducido, se recorre paso a paso)
+      if('IntersectionObserver' in window && !REDUCE){
+        var io = new IntersectionObserver(function(en){
+          if(en[0].isIntersecting){ io.disconnect(); if(auto) later(scan, 600); }
+        }, {threshold:.35});
+        io.observe(lab);
+      } else { auto = false; }
+    })();
+
+    // ---------- §03 Renta: medidores contra 1.400 UVT ----------
+    (function(){
+      var D = [
+        { ing:.86, comp:.48, ded:'$8.904.000', sin:'12', deu:'$3.200.000', yes:true },
+        { ing:.62, comp:.41, ded:'$6.115.000', sin:'0',  deu:'$5.800.000', yes:false }
+      ];
+      var TX = {
+        es:{ yes:'Sí debe declarar: los ingresos brutos llegan al tope.', no:'Por ingresos y compras no está obligado (revisar los demás motivos).', of:' del tope' },
+        en:{ yes:'Must file: gross income reaches the cap.', no:'Not required by income or purchases (check the other triggers).', of:' of the cap' }
+      };
+      var sel = document.getElementById('anio'), web = document.getElementById('web'), shown = false;
+      function pct(x){ return Math.round(x / .7 * 100) + '%'; }
+      function paint(){
+        var d = D[+sel.value], t = TX[LANG] || TX.es;
+        var g1 = document.getElementById('g1'), g2 = document.getElementById('g2');
+        g1.style.width = shown ? (d.ing*100) + '%' : 0; g2.style.width = shown ? (d.comp*100) + '%' : 0;
+        g1.classList.toggle('over', d.ing >= .7); g2.classList.toggle('over', d.comp > .7);
+        document.getElementById('g1t').textContent = pct(d.ing) + t.of;
+        document.getElementById('g2t').textContent = pct(d.comp) + t.of;
+        var v = document.getElementById('wverd'); v.textContent = d.yes ? t.yes : t.no; v.className = 'wverd ' + (d.yes ? 'yes' : 'no');
+        document.getElementById('w-ded').textContent = d.ded;
+        document.getElementById('w-sin').textContent = d.sin;
+        document.getElementById('w-deu').textContent = d.deu;
+      }
+      sel.addEventListener('change', paint);
+      document.addEventListener('site-lang', paint);
+      if('IntersectionObserver' in window && !REDUCE){
+        var io = new IntersectionObserver(function(en){ if(en[0].isIntersecting){ io.disconnect(); shown = true; paint(); } }, {threshold:.4});
+        io.observe(web);
+      } else shown = true;
+      paint();
+    })();
+  </script>
+</body>
+</html>
