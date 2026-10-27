@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-en="SAMIT business suite — Field sales, ERP and backend | Cesar Carvajal">Suite empresarial SAMIT — Fuerza de ventas, ERP y backend | Cesar Carvajal</title>
-  <meta name="description" data-en="Real case: software ecosystem for SAMIT (Colombia). Offline-first field sales app in .NET MAUI with Bluetooth printing, and a backend with invoicing, inventory, accounting and payroll." content="Caso real: ecosistema de software para SAMIT (Colombia). App de fuerza de ventas offline-first en .NET MAUI con impresión Bluetooth, y backend con facturación, inventario, contabilidad y nómina." />
+  <meta name="description" data-en="Real case: software ecosystem for SAMIT (Colombia). Offline-first field sales app in .NET MAUI with Bluetooth printing and a restaurant mode (table map, kitchen screen), and a backend with invoicing, inventory, accounting and payroll." content="Caso real: ecosistema de software para SAMIT (Colombia). App de fuerza de ventas offline-first en .NET MAUI con impresión Bluetooth y modo restaurante (mapa de mesas, pantalla de cocina), y backend con facturación, inventario, contabilidad y nómina." />
   <meta name="author" content="Cesar Carvajal" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#eef0ea" />
@@ -282,6 +282,77 @@
       .app{min-height:0}
     }
 
+    /* §04 modo restaurante: mapa de mesas + pantalla de cocina */
+    .resto{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);border:1px solid var(--ink);background:var(--paper)}
+    .r-pane{min-width:0;display:flex;flex-direction:column}
+    .r-pane + .r-pane{border-left:1px solid var(--ink)}
+    .r-h{display:flex;justify-content:space-between;align-items:center;gap:6px 12px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--ink);font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+    .r-h b{color:var(--ink)}
+    .r-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}
+    .r-chip{all:unset;cursor:pointer;font:700 .7rem var(--mono);border:1.5px solid var(--ink);padding:5px 9px;background:var(--paper);text-transform:uppercase;letter-spacing:.03em}
+    .r-chip:hover{background:var(--paper-2)}
+    .r-chip[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+    .r-chip:focus-visible{outline:2px solid var(--signal-ink);outline-offset:2px}
+    .r-sum{margin-left:auto;font:500 .72rem var(--mono);color:var(--muted)}
+    .r-sum b{color:var(--ink)}
+    .salon{position:relative;width:100%;aspect-ratio:4/3;min-height:330px;overflow:hidden;background-color:var(--paper-2);
+      background-image:linear-gradient(rgba(14,21,36,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(14,21,36,.06) 1px,transparent 1px);background-size:22px 22px}
+    .salon.edit{box-shadow:inset 0 0 0 3px var(--yellow)}
+    .deco{position:absolute;font:700 .6rem var(--mono);letter-spacing:.14em;color:var(--muted);border:1.5px dashed var(--line);display:grid;place-items:center;pointer-events:none}
+    .deco.bar{left:6%;right:40%;top:4%;height:9%;background:var(--paper)}
+    .deco.door{left:42%;right:42%;bottom:0;height:6%;border-bottom:0}
+    .mesa{position:absolute;transform:translate(-50%,-50%);width:clamp(54px,13%,76px);aspect-ratio:1;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);display:grid;place-content:center;gap:1px;text-align:center;cursor:pointer;line-height:1.1;padding:0;box-shadow:3px 3px 0 var(--ink);transition:background .2s ease,box-shadow .15s ease}
+    .mesa.r{border-radius:50%}
+    .mesa b{font-size:1.15rem;font-weight:800}
+    .mesa small{font:500 .56rem var(--mono);color:var(--muted);white-space:nowrap}
+    .mesa.occ{background:var(--signal);color:#fff}
+    .mesa.occ small{color:#dfe8fb}
+    .mesa:hover{box-shadow:5px 5px 0 var(--ink)}
+    .mesa:focus-visible{outline:2px solid var(--orange-ink);outline-offset:3px}
+    .mesa .rdy{position:absolute;top:-10px;right:-12px;background:var(--green);color:var(--ink);font:700 .55rem var(--mono);padding:2px 5px;border:1.5px solid var(--ink);white-space:nowrap;text-transform:uppercase}
+    .salon.edit .mesa{cursor:grab;touch-action:none;box-shadow:3px 3px 0 var(--yellow)}
+    .mesa.drag{cursor:grabbing;z-index:3;box-shadow:7px 7px 0 var(--yellow)}
+    .sheet{position:absolute;left:0;right:0;bottom:0;z-index:5;max-height:94%;overflow:auto;background:var(--paper);border-top:1.5px solid var(--ink);padding:14px 16px 16px;box-shadow:0 -10px 24px rgba(14,21,36,.14);transform:translateY(104%);transition:transform .25s cubic-bezier(.3,.7,.3,1)}
+    .sheet.on{transform:none}
+    .sheet:focus{outline:none}
+    .sheet h4{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:1.05rem;letter-spacing:-.02em}
+    .sheet h4 small{font:500 .7rem var(--mono);color:var(--muted)}
+    .rounds{list-style:none;margin:8px 0 6px;border-top:1px dashed var(--line)}
+    .rounds li{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line);font-size:.86rem}
+    .rounds li small{display:block;color:var(--muted);font-size:.74rem}
+    .r-link{all:unset;cursor:pointer;font:700 .68rem var(--mono);color:var(--signal-ink);text-decoration:underline;text-underline-offset:3px}
+    .r-link:focus-visible{outline:2px solid var(--signal-ink);outline-offset:2px}
+    .stot{display:flex;justify-content:space-between;font-weight:800}
+    .shint{font-size:.8rem;color:var(--ink-2);margin-top:6px}
+    .sbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .sbtns .btn{padding:8px 12px;font-size:.82rem}
+    .btn[disabled]{opacity:.42;cursor:not-allowed;transform:none;box-shadow:none}
+    .pre{background:var(--receipt);border:1px solid var(--line);color:#1a1a1a;font:500 .72rem/1.5 var(--mono);padding:10px 12px;margin-top:2px}
+    .pre .c{text-align:center} .pre .b{font-weight:700} .pre .sm{font-size:.6rem;margin-top:6px}
+    .pre .rule{border-top:1px dashed #9a9a9a;margin:5px 0}
+    .pre .pl{display:flex;justify-content:space-between;gap:10px}
+    .kds{flex:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#2b3550}
+    .kcol{background:#121a2c;min-height:300px;display:flex;flex-direction:column;min-width:0}
+    .kcol h4{display:flex;justify-content:space-between;gap:6px;font:700 .66rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:#aab4c8;padding:9px 10px;border-top:3px solid var(--c)}
+    .kcol[data-s="0"]{--c:var(--yellow)} .kcol[data-s="1"]{--c:var(--orange)} .kcol[data-s="2"]{--c:var(--green)}
+    .klist{list-style:none;padding:0 8px 10px;display:grid;gap:8px;align-content:start}
+    .kempty{color:#5d6880;font:500 .7rem var(--mono);padding:4px 2px}
+    .kord{all:unset;box-sizing:border-box;display:block;width:100%;cursor:pointer;background:#fff;color:#151515;border-left:5px solid var(--c);padding:7px 9px 8px;font-size:.78rem;line-height:1.35;transition:transform .12s ease,background .3s ease}
+    .kord:hover{transform:translateY(-2px)}
+    .kord:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+    .kord .kt{display:flex;justify-content:space-between;gap:6px;font:700 .68rem var(--mono)}
+    .kord .kt > span:last-child{color:#666;white-space:nowrap}
+    .kord .kis{display:block;margin-top:4px}
+    .kord .kis > span{display:block}
+    .kord em.nt{display:block;font-family:var(--display);font-size:.72rem;color:var(--orange-ink);padding-left:16px}
+    .kord .chg{font-style:normal;background:var(--yellow);font:700 .56rem var(--mono);padding:1px 5px;margin-left:6px;vertical-align:1px}
+    .kord .ka{display:block;margin-top:5px;font:700 .62rem var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--signal-ink)}
+    .kord.late{background:#ffe1dc}
+    .kord.late .kt > span:last-child{color:#b3261e}
+    .rfeats{margin-top:36px}
+    @media (max-width:900px){ .resto{grid-template-columns:1fr} .r-pane + .r-pane{border-left:0;border-top:1px solid var(--ink)} .kcol{min-height:200px} }
+    @media (max-width:520px){ .kds{grid-template-columns:1fr} .kcol{min-height:0} .r-sum{margin-left:0;flex-basis:100%} }
+
     /* §04 capturas: filmstrip */
     .film{position:relative;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
       background:repeating-linear-gradient(90deg,var(--paper-2) 0 1px,transparent 1px 64px)}
@@ -379,6 +450,7 @@
       <a class="brand" href="../" aria-label="Volver al portafolio de Cesar Carvajal"><span class="mk" aria-hidden="true">←</span>Cesar Carvajal <span class="yr">/ est. 2019</span></a>
       <div class="menu">
         <a href="#offline" data-en="Offline-first">Offline-first</a>
+        <a href="#restaurantes" data-en="Restaurants">Restaurantes</a>
         <a href="#capturas" data-en="Screenshots">Capturas</a>
         <a href="#arquitectura" data-en="Architecture">Arquitectura</a>
         <span class="appname"><img src="img/logo-samit.png" alt="" width="22" height="22" /><span>SAMIT</span></span>
@@ -555,11 +627,59 @@
       </div>
     </section>
 
-    <!-- §04 CAPTURAS -->
+    <!-- §04 MODO RESTAURANTE (demo) -->
+    <section id="restaurantes">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§04</b> / <span data-en="restaurants">restaurantes</span></div>
+          <div>
+            <h2 class="stitle" data-scramble data-en="Restaurant mode">Modo restaurante</h2>
+            <p class="ssub" data-en="The same app, for restaurants: the waiter sees the <strong>table map</strong> and takes the order, the <strong>kitchen</strong> sees it on its screen and the waiter prints the <strong>pre-bill</strong> over Bluetooth. The cash desk bills it in the ERP. Restaurants that are SAMIT clients already use it. Try it: tap a free table, move orders along in the kitchen, or turn on “Arrange” and drag the tables.">La misma app, para restaurantes: el mesero ve el <strong>mapa de mesas</strong> y toma el pedido, la <strong>cocina</strong> lo ve en su pantalla y el mesero imprime la <strong>precuenta</strong> por Bluetooth. La factura la hace la caja, en el ERP. Ya lo usan restaurantes clientes de SAMIT. Pruébalo: toca una mesa libre, avanza los pedidos en la cocina o activa “Ubicar” y arrastra las mesas.</p>
+          </div>
+        </div>
+
+        <div class="resto reveal" id="resto">
+          <p class="sr-only" data-en="Interactive demo with two panels. Left, the waiter's table map: free and occupied tables with their total; a free table lets you take an order or just mark it occupied, and an occupied one opens its bill with its rounds, the pre-bill and billing at the cash desk. Right, the kitchen screen with three columns: new, preparing and ready; each order advances with one tap and turns red after 15 minutes. All data is illustrative.">Demostración interactiva con dos paneles. A la izquierda, el mapa de mesas del mesero: mesas libres y ocupadas con su total; una mesa libre permite tomar el pedido o solo marcarla ocupada, y una ocupada abre su cuenta con sus rondas, la precuenta y la facturación en caja. A la derecha, la pantalla de cocina con tres columnas: nuevos, en preparación y listos; cada pedido avanza con un toque y se pone en rojo a los 15 minutos. Todos los datos son ilustrativos.</p>
+          <div class="r-pane">
+            <div class="r-h"><span><b data-en="Waiter's phone">Celular del mesero</b> · <span data-en="table map">mapa de mesas</span></span></div>
+            <div class="r-bar">
+              <button type="button" class="r-chip" id="rWaiter"></button>
+              <button type="button" class="r-chip" id="rEdit" aria-pressed="false" data-en="✥ Arrange">✥ Ubicar</button>
+              <button type="button" class="r-chip" id="rReset" data-en="↺ Reset">↺ Reiniciar</button>
+              <span class="r-sum" id="rSum"></span>
+            </div>
+            <div class="salon" id="salon">
+              <span class="deco bar" aria-hidden="true" data-en="BAR">BARRA</span>
+              <span class="deco door" aria-hidden="true" data-en="ENTRANCE">ENTRADA</span>
+              <div class="sheet" id="rSheet" tabindex="-1"></div>
+            </div>
+          </div>
+          <div class="r-pane">
+            <div class="r-h"><span><b data-en="Kitchen screen">Pantalla de cocina</b> · <span data-en="refreshes on its own">se actualiza sola</span></span><span>⏱ <b id="rClock">12:30</b></span></div>
+            <div class="kds" id="kds">
+              <div class="kcol" data-s="0"><h4><span data-en="New">Nuevos</span><span class="kn"></span></h4><ul class="klist"></ul></div>
+              <div class="kcol" data-s="1"><h4><span data-en="Preparing">En preparación</span><span class="kn"></span></h4><ul class="klist"></ul></div>
+              <div class="kcol" data-s="2"><h4><span data-en="Ready">Listos</span><span class="kn"></span></h4><ul class="klist"></ul></div>
+            </div>
+          </div>
+        </div>
+        <p class="sr-only" id="rLive" aria-live="polite"></p>
+        <p class="simnote" data-en="↳ Illustrative demo: sample tables, waiters, dishes and prices. The kitchen clock runs fast (one second = one minute) so you can see an order turn red at 15 minutes.">↳ Demo ilustrativa: mesas, meseros, platos y precios de ejemplo. El reloj de la cocina va acelerado (un segundo = un minuto) para ver cómo un pedido se pone en rojo a los 15 minutos.</p>
+
+        <ul class="feats rfeats reveal">
+          <li data-g="m"><div class="top"><span class="num">01</span><span class="grp" data-en="mobile">móvil</span></div><h3 data-en="Table map">Mapa de mesas</h3><p data-en="Free and occupied, with the floor total, as a grid or as a floor plan you lay out by dragging the tables. Offline, it's built from the stored tables plus the orders not yet uploaded.">Libres y ocupadas con el total del salón, en cuadrícula o en un plano que se arma arrastrando las mesas. Sin internet, se arma con las mesas guardadas y los pedidos que aún no suben.</p></li>
+          <li data-g="m"><div class="top"><span class="num">02</span><span class="grp" data-en="mobile">móvil</span></div><h3 data-en="Kitchen screen">Pantalla de cocina</h3><p data-en="New, preparing and ready. It refreshes itself, turns red after 15 minutes and flags when a waiter changed an order already sent.">Nuevos, en preparación y listos. Se actualiza sola, se pone en rojo a los 15 minutos y avisa si el mesero cambió un pedido ya enviado.</p></li>
+          <li data-g="m"><div class="top"><span class="num">03</span><span class="grp" data-en="mobile">móvil</span></div><h3 data-en="Rounds and pre-bill">Rondas y precuenta</h3><p data-en="Several rounds per table, kitchen notes per dish (it remembers the usual ones) and the pre-bill printed on a thermal printer (ESC/POS).">Varias rondas por mesa, notas de cocina por plato (recuerda las de siempre) y la precuenta impresa en térmica (ESC/POS).</p></li>
+          <li data-g="b"><div class="top"><span class="num">04</span><span class="grp" data-en="backend">backend</span></div><h3 data-en="Tied to the ERP">Ligado al ERP</h3><p data-en="Tables and waiters are created on the desktop (VB.NET + WPF) and sync down to the phone; each waiter is an ERP salesperson, so the cash desk bills it complete.">Mesas y meseros se crean en el escritorio (VB.NET + WPF) y bajan al celular; cada mesero es un vendedor del ERP, así la caja factura completo.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- §05 CAPTURAS -->
     <section id="capturas">
       <div class="wrap">
         <div class="shead reveal">
-          <div class="sidx"><b>§04</b> / <span data-en="screenshots">capturas</span></div>
+          <div class="sidx"><b>§05</b> / <span data-en="screenshots">capturas</span></div>
           <div>
             <h2 class="stitle" data-scramble data-en="How the app looks">Así se ve la app</h2>
             <p class="ssub" data-en="Real screenshots of the field sales app in use. Drag, use the arrows or the slider.">Capturas reales de la aplicación de fuerza de ventas en uso. Arrastra, usa las flechas o el deslizador.</p>
@@ -590,11 +710,11 @@
       </div>
     </section>
 
-    <!-- §05 ARQUITECTURA -->
+    <!-- §06 ARQUITECTURA -->
     <section id="arquitectura">
       <div class="wrap">
         <div class="shead reveal">
-          <div class="sidx"><b>§05</b> / <span data-en="architecture">arquitectura</span></div>
+          <div class="sidx"><b>§06</b> / <span data-en="architecture">arquitectura</span></div>
           <div>
             <h2 class="stitle" data-scramble data-en="How it's built">Cómo está hecho</h2>
             <p class="ssub" data-en="In plain words, no extra jargon. Layer by layer, from the phone to the database.">En palabras sencillas, sin tecnicismos de más. Capa por capa, del celular a la base de datos.</p>
@@ -638,7 +758,7 @@
             <div class="card">
               <div class="lk" data-en="desktop">escritorio</div>
               <h3 data-en="Desktop ERP">ERP de escritorio</h3>
-              <p data-en="A WinForms application for the office, part of the same ecosystem.">Aplicación WinForms para la oficina, parte del mismo ecosistema.</p>
+              <p data-en="A WinForms application for the office, with WPF modules (like the restaurant one), part of the same ecosystem.">Aplicación WinForms para la oficina, con módulos en WPF (como el de restaurantes), parte del mismo ecosistema.</p>
             </div>
             <div class="card">
               <div class="lk" data-en="before MAUI">antes de MAUI</div>
@@ -651,16 +771,16 @@
         <div class="tags reveal">
           <span>.NET MAUI</span><span>C#</span><span>VB.NET</span><span>ASP.NET</span><span>SQL Server</span>
           <span>LiteDB</span><span>MVVM</span><span>Offline-first</span><span>Multi-tenant</span>
-          <span>Bluetooth ESC/POS</span><span>Sentry</span><span>WinForms</span><span>Xamarin</span><span>React Native</span>
+          <span>Bluetooth ESC/POS</span><span>Sentry</span><span>WinForms</span><span>WPF</span><span>Xamarin</span><span>React Native</span>
         </div>
       </div>
     </section>
 
-    <!-- §06 CTA -->
+    <!-- §07 CTA -->
     <section id="contacto" class="contact">
       <div class="wrap">
         <div class="shead reveal" style="margin-bottom:18px">
-          <div class="sidx"><b>§06</b> / <span data-en="contact">contacto</span></div>
+          <div class="sidx"><b>§07</b> / <span data-en="contact">contacto</span></div>
           <div></div>
         </div>
         <h2 class="big reveal" data-en="Have a project like this <em>in mind</em>?">¿Tienes un proyecto así <em>en mente</em>?</h2>
@@ -1108,7 +1228,218 @@
     })();
 
     // ============================================================
-    // §04 — Filmstrip de capturas: arrastrar, flechas, deslizador
+    // §04 — Modo restaurante: mapa de mesas del mesero + pantalla de cocina
+    // ============================================================
+    (function(){
+      var $ = function(id){ return document.getElementById(id); };
+      var salon = $('salon'), kds = $('kds'); if(!salon || !kds) return;
+      var resto = $('resto'), sheet = $('rSheet'), live = $('rLive'), sum = $('rSum'), clock = $('rClock'), wBtn = $('rWaiter'), eBtn = $('rEdit');
+      var COLS = kds.querySelectorAll('.kcol');
+      var MENU = [['Bandeja paisa',32000],['Ajiaco',26000],['Churrasco',38000],['Sancocho',24000],['Mojarra frita',35000],['Arepa con queso',8000],['Patacones',9000],['Limonada de coco',9500],['Jugo de mora',7000],['Gaseosa',5000]];
+      var NOTES = [['sin cebolla','no onion'],['término medio','medium'],['poco hielo','light ice'],['sin sal','no salt'],['salsa aparte','sauce on the side'],['sin azúcar','no sugar']];
+      var DN = [[0,3],[3],[1,4],[3],[4,0],[3],[4],[2,5],[2,5],[2]];   // notas que tienen sentido para cada plato
+      var WAITERS = ['Ana','Luis','Marta'];
+      var LAYOUT = [[1,.15,.36,4,0],[2,.38,.36,2,1],[3,.61,.36,4,0],[4,.84,.36,6,0],[5,.15,.74,2,1],[6,.38,.74,4,0],[7,.61,.74,4,0],[8,.84,.74,2,1]];
+      var S, els = {}, visible = false, drag = null;
+
+      function rnd(n){ return Math.floor(Math.random() * n); }
+      function it(d, q, n){ return {d:d, q:q, n:(n === undefined ? -1 : n)}; }
+      function price(x){ return MENU[x.d][1] * x.q; }
+      function oTotal(o){ return o.items.reduce(function(a, x){ return a + price(x); }, 0); }
+      function tOrders(t){ return S.orders.filter(function(o){ return o.mesa === t.n; }); }
+      function tTotal(t){ return tOrders(t).reduce(function(a, o){ return a + oTotal(o); }, 0); }
+      function find(id){ for(var i = 0; i < S.orders.length; i++) if(S.orders[i].id === id) return S.orders[i]; return null; }
+      function hhmm(m){ var h = Math.floor(m / 60) % 24, mm = m % 60; return h + ':' + (mm < 10 ? '0' : '') + mm; }
+      function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+      function say(m){ live.textContent = m; }
+      function tName(n){ return T('Mesa ', 'Table ') + n; }
+      function order(mesa, items, st, ago){ S.seq++; return {id:S.seq, mesa:mesa, w:S.w, items:items, st:st, t0:S.min - ago, chg:false}; }
+      function fresh(mesa){
+        var pool = MENU.map(function(_, i){ return i; }), items = [], k = 2 + rnd(2);
+        for(var i = 0; i < k; i++) items.push(it(pool.splice(rnd(pool.length), 1)[0], 1 + rnd(2)));
+        if(Math.random() < .75){ var x = items[rnd(items.length)]; x.n = DN[x.d][rnd(DN[x.d].length)]; }
+        return order(mesa, items, 0, 0);
+      }
+
+      function init(){
+        S = {min:12 * 60 + 30, w:1, edit:false, seq:0, sheet:null, orders:[],
+             tables:LAYOUT.map(function(a){ return {n:a[0], x:a[1], y:a[2], s:a[3], r:a[4], occ:false}; })};
+        S.orders.push(order(2, [it(1, 2, 3), it(7, 2)], 1, 9)); S.tables[1].occ = true;            // en preparación, a punto de ponerse en rojo
+        S.w = 0; S.orders.push(order(4, [it(0, 1), it(2, 1, 1), it(8, 2)], 0, 2)); S.tables[3].occ = true;
+        S.w = 2; S.orders.push(order(7, [it(4, 1), it(6, 1), it(9, 2)], 2, 13)); S.tables[6].occ = true;  // listo: la mesa muestra el aviso
+        S.w = 0;
+      }
+
+      function renderTables(){
+        var occ = 0, total = 0;
+        S.tables.forEach(function(t){
+          var b = els[t.n], tot = tTotal(t), rdy = tOrders(t).filter(function(o){ return o.st === 2; }).length;
+          if(t.occ){ occ++; total += tot; }
+          b.classList.toggle('occ', t.occ);
+          b.style.left = (t.x * 100) + '%'; b.style.top = (t.y * 100) + '%';
+          b.innerHTML = '<b>' + t.n + '</b><small>' + (t.occ ? (tot ? money(tot) : T('ocupada', 'occupied')) : T(t.s + ' puestos', t.s + ' seats')) + '</small>' +
+            (rdy ? '<span class="rdy">' + rdy + ' ' + T(rdy > 1 ? 'listos' : 'listo', 'ready') + '</span>' : '');
+          b.setAttribute('aria-label', tName(t.n) + ', ' + (t.occ ? T('ocupada', 'occupied') + (tot ? ', ' + money(tot) : '') : T('libre', 'free')) +
+            (rdy ? ', ' + rdy + ' ' + T('pedido listo en cocina', 'order ready in the kitchen') : ''));
+        });
+        sum.innerHTML = '<b>' + occ + '</b> ' + T('ocupadas', 'occupied') + ' · <b>' + (S.tables.length - occ) + '</b> ' + T('libres', 'free') + ' · ' + T('salón', 'floor') + ' <b>' + money(total) + '</b>';
+        wBtn.textContent = T('Atiende: ', 'Waiter: ') + WAITERS[S.w] + ' ↻';
+        eBtn.setAttribute('aria-pressed', String(S.edit));
+        salon.classList.toggle('edit', S.edit);
+      }
+
+      function card(o){
+        var m = S.min - o.t0, late = o.st < 2 && m >= 15;
+        var act = [T('Empezar', 'Start'), T('Marcar listo', 'Mark ready'), T('Entregado', 'Served')][o.st];
+        return '<li><button type="button" class="kord' + (late ? ' late' : '') + '" data-id="' + o.id + '" aria-label="' + tName(o.mesa) + ', ' + m + ' min' + (o.chg ? ', ' + T('pedido cambiado', 'order changed') : '') + '. ' + act + '">' +
+          '<span class="kt"><span>' + tName(o.mesa) + ' · ' + WAITERS[o.w] + (o.chg ? '<i class="chg">' + T('CAMBIÓ', 'CHANGED') + '</i>' : '') + '</span><span>' + m + ' min</span></span>' +
+          '<span class="kis">' + o.items.map(function(x){
+            return '<span><b>' + x.q + '×</b> ' + MENU[x.d][0] + (x.n >= 0 ? '<em class="nt">' + NOTES[x.n][isEN() ? 1 : 0] + '</em>' : '') + '</span>';
+          }).join('') + '</span><span class="ka">' + act + ' →</span></button></li>';
+      }
+      function renderKds(){
+        var a = document.activeElement, keep = (a && a.classList && a.classList.contains('kord')) ? a.dataset.id : null;
+        clock.textContent = hhmm(S.min);
+        [0, 1, 2].forEach(function(s){
+          var list = S.orders.filter(function(o){ return o.st === s; }).sort(function(x, y){ return x.t0 - y.t0; });
+          COLS[s].querySelector('.kn').textContent = list.length;
+          COLS[s].querySelector('.klist').innerHTML = list.length ? list.map(card).join('') : '<li class="kempty">—</li>';
+        });
+        if(keep){ var nb = kds.querySelector('.kord[data-id="' + keep + '"]'); if(nb) nb.focus(); }
+      }
+
+      function renderSheet(){
+        var sh = S.sheet;
+        sheet.classList.toggle('on', !!sh);
+        sheet.setAttribute('aria-hidden', String(!sh)); sheet.inert = !sh;
+        if(!sh){ sheet.innerHTML = ''; return; }
+        var t = S.tables[sh.n - 1], os = tOrders(t), h;
+        var close = '<button type="button" class="btn btn-line" data-act="close">' + T('Cerrar', 'Close') + '</button>';
+        if(sh.mode === 'free'){
+          h = '<h4>' + tName(t.n) + ' <small>' + T('libre · ' + t.s + ' puestos', 'free · ' + t.s + ' seats') + '</small></h4>' +
+            '<p class="shint">' + T('Atiende ', 'Served by ') + WAITERS[S.w] + '.</p>' +
+            '<div class="sbtns"><button type="button" class="btn btn-ink" data-act="take">' + T('Tomar pedido', 'Take order') + '</button>' +
+            '<button type="button" class="btn btn-line" data-act="occ">' + T('Solo marcar ocupada', 'Just mark occupied') + '</button>' + close + '</div>';
+        } else if(sh.mode === 'bill'){
+          h = '<h4>' + T('Cuenta · mesa ', 'Bill · table ') + t.n + ' <small>' + WAITERS[os.length ? os[0].w : S.w] + '</small></h4>';
+          if(os.length){
+            h += '<ol class="rounds">' + os.map(function(o, i){
+              var st = [T('en cola', 'queued'), T('en preparación', 'preparing'), T('listo', 'ready'), T('entregado', 'served')][o.st];
+              var n = o.items.reduce(function(a, x){ return a + x.q; }, 0);
+              return '<li><span>' + T('Ronda ', 'Round ') + (i + 1) + '<small>' + n + T(' platos · ', ' items · ') + st + '</small></span><span class="mono">' + money(oTotal(o)) + '</span>' +
+                (o.st < 3 ? '<button type="button" class="r-link" data-act="edit" data-id="' + o.id + '">' + T('Editar', 'Edit') + '</button>' : '<span></span>') + '</li>';
+            }).join('') + '</ol><p class="stot"><span>Total</span><span>' + money(tTotal(t)) + '</span></p>' +
+              '<div class="sbtns"><button type="button" class="btn btn-ink" data-act="round">' + T('+ Otra ronda', '+ Another round') + '</button>' +
+              '<button type="button" class="btn btn-sig" data-act="pre">' + T('Precuenta', 'Pre-bill') + '</button>' + close + '</div>';
+          } else {
+            h += '<p class="shint">' + T('Ocupada, todavía sin pedidos.', 'Occupied, no orders yet.') + '</p>' +
+              '<div class="sbtns"><button type="button" class="btn btn-ink" data-act="take">' + T('Tomar pedido', 'Take order') + '</button>' +
+              '<button type="button" class="btn btn-line" data-act="free">' + T('Liberar mesa', 'Free the table') + '</button>' + close + '</div>';
+          }
+        } else {
+          var pend = os.some(function(o){ return o.st < 3; }), lines = [];
+          os.forEach(function(o){ o.items.forEach(function(x){ lines.push(x); }); });
+          h = '<div class="pre"><div class="c b">' + T('PRECUENTA', 'PRE-BILL') + '</div><div class="c">' + tName(t.n) + ' · ' + hhmm(S.min) + '</div><div class="rule"></div>' +
+            lines.map(function(x){ return '<div class="pl"><span>' + x.q + ' ' + MENU[x.d][0] + '</span><span>' + money(price(x)) + '</span></div>'; }).join('') +
+            '<div class="rule"></div><div class="pl b"><span>TOTAL</span><span>' + money(tTotal(t)) + '</span></div>' +
+            '<div class="c sm">' + T('ESTE DOCUMENTO NO ES UNA FACTURA DE VENTA', 'THIS DOCUMENT IS NOT A SALES INVOICE') + '</div></div>' +
+            '<p class="shint">' + (sh.printed ? T('✓ Enviada a la impresora Bluetooth. ', '✓ Sent to the Bluetooth printer. ') : '') +
+            (pend ? T('Hay platos sin entregar: la caja factura cuando salgan todos.', 'Some dishes are still out: the cash desk bills once all are served.') : '') + '</p>' +
+            '<div class="sbtns"><button type="button" class="btn btn-ink" data-act="print">' + T('Imprimir', 'Print') + '</button>' +
+            '<button type="button" class="btn btn-sig" data-act="bill"' + (pend ? ' disabled' : '') + '>' + T('Facturar en caja (ERP)', 'Bill at the cash desk (ERP)') + '</button>' +
+            '<button type="button" class="btn btn-line" data-act="back">' + T('Volver', 'Back') + '</button></div>';
+        }
+        sheet.innerHTML = h;
+      }
+
+      function render(){ renderTables(); renderKds(); renderSheet(); }
+      function closeSheet(n){ S.sheet = null; render(); if(n) els[n].focus(); }
+
+      // mesas: abrir (o arrastrar en modo Ubicar)
+      salon.addEventListener('click', function(e){
+        var b = e.target.closest('.mesa'); if(!b || S.edit) return;
+        var t = S.tables[+b.dataset.n - 1];
+        S.sheet = {n:t.n, mode:t.occ ? 'bill' : 'free'}; render(); sheet.focus();
+      });
+      salon.addEventListener('pointerdown', function(e){
+        if(!S.edit) return; var b = e.target.closest('.mesa'); if(!b) return;
+        e.preventDefault(); drag = {t:S.tables[+b.dataset.n - 1], b:b};
+        b.classList.add('drag'); b.setPointerCapture(e.pointerId);
+      });
+      salon.addEventListener('pointermove', function(e){
+        if(!drag) return; var r = salon.getBoundingClientRect();
+        drag.t.x = clamp((e.clientX - r.left) / r.width, .08, .92);
+        drag.t.y = clamp((e.clientY - r.top) / r.height, .1, .9);
+        drag.b.style.left = (drag.t.x * 100) + '%'; drag.b.style.top = (drag.t.y * 100) + '%';
+      });
+      function endDrag(){ if(!drag) return; drag.b.classList.remove('drag'); say(tName(drag.t.n) + T(' ubicada.', ' placed.')); drag = null; }
+      salon.addEventListener('pointerup', endDrag); salon.addEventListener('pointercancel', endDrag);
+      salon.addEventListener('keydown', function(e){
+        if(e.key === 'Escape' && S.sheet){ closeSheet(S.sheet.n); return; }
+        if(!S.edit) return; var b = e.target.closest('.mesa'); if(!b) return;
+        var d = {ArrowLeft:[-.03, 0], ArrowRight:[.03, 0], ArrowUp:[0, -.04], ArrowDown:[0, .04]}[e.key]; if(!d) return;
+        e.preventDefault(); var t = S.tables[+b.dataset.n - 1];
+        t.x = clamp(t.x + d[0], .08, .92); t.y = clamp(t.y + d[1], .1, .9);
+        b.style.left = (t.x * 100) + '%'; b.style.top = (t.y * 100) + '%';
+      });
+
+      // acciones de la hoja (cuenta, pedido, precuenta)
+      sheet.addEventListener('click', function(e){
+        var b = e.target.closest('[data-act]'); if(!b || b.disabled || !S.sheet) return;
+        var sh = S.sheet, t = S.tables[sh.n - 1], a = b.dataset.act, o;
+        if(a === 'close'){ closeSheet(t.n); return; }
+        if(a === 'free'){ t.occ = false; say(tName(t.n) + T(' libre.', ' free.')); closeSheet(t.n); return; }
+        if(a === 'bill'){
+          S.orders = S.orders.filter(function(x){ return x.mesa !== t.n; }); t.occ = false;
+          say(tName(t.n) + T(' facturada en caja: queda libre.', ' billed at the cash desk: now free.')); closeSheet(t.n); return;
+        }
+        if(a === 'take' || a === 'round'){ t.occ = true; S.orders.push(fresh(t.n)); sh.mode = 'bill'; say(T('Pedido de la mesa ', 'Order for table ') + t.n + T(' enviado a la cocina.', ' sent to the kitchen.')); }
+        else if(a === 'occ'){ t.occ = true; sh.mode = 'bill'; say(tName(t.n) + T(' ocupada.', ' occupied.')); }
+        else if(a === 'edit'){
+          o = find(+b.dataset.id); if(!o) return;
+          var d = rnd(MENU.length), ex = o.items.filter(function(x){ return x.d === d; })[0];
+          if(ex) ex.q++; else o.items.push(it(d, 1));
+          o.chg = true; say(T('Pedido editado: la cocina lo ve marcado como cambiado.', 'Order edited: the kitchen sees it flagged as changed.'));
+        }
+        else if(a === 'pre'){ sh.mode = 'pre'; sh.printed = false; }
+        else if(a === 'print'){ sh.printed = true; say(T('Precuenta enviada a la impresora Bluetooth.', 'Pre-bill sent to the Bluetooth printer.')); }
+        else if(a === 'back'){ sh.mode = 'bill'; }
+        render(); sheet.focus();
+      });
+
+      // cocina: un toque avanza el pedido (nuevo → en preparación → listo → entregado)
+      kds.addEventListener('click', function(e){
+        var b = e.target.closest('.kord'); if(!b) return;
+        var o = find(+b.dataset.id); if(!o) return;
+        o.st++; o.chg = false;
+        say(tName(o.mesa) + ': ' + [T('', ''), T('en preparación', 'preparing'), T('listo para servir', 'ready to serve'), T('entregado', 'served')][o.st] + '.');
+        render();
+      });
+
+      wBtn.addEventListener('click', function(){ S.w = (S.w + 1) % WAITERS.length; render(); say(T('Atiende ', 'Waiter: ') + WAITERS[S.w] + '.'); });
+      eBtn.addEventListener('click', function(){
+        S.edit = !S.edit; S.sheet = null; render();
+        say(S.edit ? T('Modo Ubicar: arrastra las mesas o usa las flechas del teclado.', 'Arrange mode: drag the tables or use the arrow keys.') : T('Mapa guardado.', 'Layout saved.'));
+      });
+      $('rReset').addEventListener('click', function(){ init(); render(); say(T('Demo reiniciada.', 'Demo reset.')); });
+
+      init();
+      S.tables.forEach(function(t){
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'mesa' + (t.r ? ' r' : ''); b.dataset.n = t.n;
+        salon.insertBefore(b, sheet); els[t.n] = b;
+      });
+      render();
+      langHooks.push(render);
+
+      // el reloj de la cocina corre acelerado (1 s = 1 min) solo mientras se ve
+      if('IntersectionObserver' in window){
+        new IntersectionObserver(function(en){ visible = en[0].isIntersecting; }, {threshold:.2}).observe(resto);
+      } else { visible = true; }
+      if(!REDUCE) setInterval(function(){ if(!visible || document.hidden) return; S.min++; renderKds(); }, 1000);
+    })();
+
+    // ============================================================
+    // §05 — Filmstrip de capturas: arrastrar, flechas, deslizador
     // ============================================================
     (function(){
       var film = document.getElementById('film'), shots = [].slice.call(film.querySelectorAll('.shot'));
