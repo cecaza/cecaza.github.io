@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-en="SAMIT business suite — Field sales, ERP and backend | Cesar Carvajal">Suite empresarial SAMIT — Fuerza de ventas, ERP y backend | Cesar Carvajal</title>
-  <meta name="description" data-en="Real case: software ecosystem for SAMIT (Colombia). Offline-first field sales app in .NET MAUI with Bluetooth printing and a restaurant mode (table map, kitchen screen), and a backend with invoicing, inventory, accounting and payroll." content="Caso real: ecosistema de software para SAMIT (Colombia). App de fuerza de ventas offline-first en .NET MAUI con impresión Bluetooth y modo restaurante (mapa de mesas, pantalla de cocina), y backend con facturación, inventario, contabilidad y nómina." />
+  <meta name="description" data-en="Real case: software ecosystem for SAMIT (Colombia). Offline-first field sales app in .NET MAUI with Bluetooth printing and a restaurant mode (table map, kitchen screen), an online store per company whose orders go into the ERP, and a backend with invoicing, inventory, accounting and payroll." content="Caso real: ecosistema de software para SAMIT (Colombia). App de fuerza de ventas offline-first en .NET MAUI con impresión Bluetooth y modo restaurante (mapa de mesas, pantalla de cocina), tienda en línea por empresa con pedidos que entran al ERP, y backend con facturación, inventario, contabilidad y nómina." />
   <meta name="author" content="Cesar Carvajal" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#eef0ea" />
@@ -83,7 +83,7 @@
     .lang{display:inline-flex;border:1px solid var(--ink);margin-left:8px}
     .lang button{background:transparent;color:var(--ink);border:0;padding:6px 9px;font:700 .72rem var(--mono);cursor:pointer}
     .lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
-    @media (max-width:860px){ .menu a{display:none} .menu .appname{border-left:0;margin-left:0} }
+    @media (max-width:900px){ .menu a{display:none} .menu .appname{border-left:0;margin-left:0} }
     @media (max-width:520px){ .brand .yr{display:none} }
     @media (max-width:380px){ .menu .appname span{display:none} }
 
@@ -353,7 +353,191 @@
     @media (max-width:900px){ .resto{grid-template-columns:1fr} .r-pane + .r-pane{border-left:0;border-top:1px solid var(--ink)} .kcol{min-height:200px} }
     @media (max-width:520px){ .kds{grid-template-columns:1fr} .kcol{min-height:0} .r-sum{margin-left:0;flex-basis:100%} }
 
-    /* §04 capturas: filmstrip */
+    /* §05 tienda en línea: celular del comprador → portero → escritorio del ERP */
+    .shop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.72fr) minmax(0,1.1fr);border:1px solid var(--ink);background:var(--paper)}
+    .s-pane{min-width:0;display:flex;flex-direction:column}
+    .s-pane + .s-pane{border-left:1px solid var(--ink)}
+    .s-buyer{background-color:var(--paper-2);background-image:linear-gradient(rgba(14,21,36,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(14,21,36,.06) 1px,transparent 1px);background-size:22px 22px}
+    .s-buyer .r-h,.s-erp .r-h{background:var(--paper)}
+    .s-stage{flex:1;padding:18px 16px 22px;display:flex;justify-content:center;align-items:flex-start}
+    .s-phone{width:100%;max-width:340px;min-height:560px;display:flex;flex-direction:column;background:#f3f4f7;border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--blue);color:#151a26}
+    .s-sbar{display:flex;justify-content:space-between;align-items:center;background:var(--signal-ink);color:#dfe8fb;font:500 .64rem var(--mono);padding:4px 10px}
+    .s-url{display:flex;align-items:center;gap:6px;background:#fff;border-bottom:1px solid #d9dde5;padding:6px 10px;font:500 .66rem var(--mono);color:#3b4457;white-space:nowrap;overflow:hidden}
+    .s-url span{overflow:hidden;text-overflow:ellipsis}
+    .shop mark{background:var(--yellow);color:var(--ink);padding:0 2px}
+    .app-mode .s-url{display:none}
+    .s-head{display:flex;align-items:center;gap:10px;background:var(--signal);color:#fff;padding:10px 12px}
+    .s-logo{flex:0 0 auto;width:34px;height:34px;display:grid;place-items:center;background:#fff;color:var(--signal);font-weight:800;font-size:1.05rem;border-radius:9px}
+    .s-head b{display:block;font-size:.92rem;line-height:1.15}
+    .s-head small{display:block;font-size:.66rem;opacity:.88;line-height:1.3}
+    .s-mine{all:unset;cursor:pointer;margin-left:auto;display:inline-flex;align-items:center;gap:4px;font:700 .68rem var(--mono);border:1px solid rgba(255,255,255,.65);padding:5px 7px;white-space:nowrap}
+    .s-mine svg{width:16px;height:16px;fill:currentColor}
+    .s-mine:hover{background:rgba(255,255,255,.14)}
+    .s-mine[hidden]{display:none}
+    .s-view{flex:1;display:flex;flex-direction:column;gap:9px;padding:10px;font-size:.8rem;line-height:1.4}
+    .s-view:focus{outline:none}
+    .s-view .c{text-align:center}
+    .s-h{font-size:1rem;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+    .s-ok{background:#e8f4df;border-left:3px solid var(--green);padding:6px 8px;font-size:.74rem;color:#22420c}
+    .s-warn{background:#fff3df;border-left:3px solid var(--orange);padding:6px 8px;font-size:.74rem;color:#5a3305}
+    .s-warn.err{background:#ffe3de;border-left-color:#b3261e;color:#7a1712}
+    .s-hint{font-size:.72rem;color:#4a5263}
+    .s-meta{font:500 .66rem var(--mono);color:#5a6273}
+    .s-empty{padding:18px 6px;text-align:center;color:#5a6273}
+    .s-inst{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #d9dde5;padding:7px 8px;font-size:.72rem;line-height:1.3}
+    .s-inst .s-logo{width:28px;height:28px;font-size:.8rem;background:var(--signal);color:#fff;border-radius:7px}
+    .s-inst .sp{flex:1;min-width:0}
+    .s-inst b{display:block;font-size:.76rem}
+    .s-x{all:unset;cursor:pointer;width:24px;height:24px;display:grid;place-items:center;font-size:1.05rem;color:#5a6273}
+    .s-chips{display:flex;flex-wrap:wrap;gap:5px}
+    .s-chip{all:unset;cursor:pointer;font:700 .62rem var(--mono);text-transform:uppercase;letter-spacing:.03em;border:1.5px solid #c3c9d4;background:#fff;padding:4px 8px}
+    .s-chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+    .p-grid{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+    .p-card{position:relative;min-width:0;display:flex;flex-direction:column;gap:1px;background:#fff;border:1px solid #d9dde5;padding:7px 8px 8px}
+    .p-card.out{opacity:.62}
+    .p-ph{height:40px;display:grid;place-items:center;font-size:1.35rem;background:#eef1f6;margin-bottom:5px}
+    .p-card b{font-size:.78rem;line-height:1.2}
+    .p-card small{color:#5a6273;font-size:.66rem}
+    .p-pr{font-weight:800;font-size:.84rem;margin-top:2px}
+    .p-pr s{font-weight:500;font-size:.68rem;color:#6a7282}
+    .p-st{font:500 .6rem var(--mono);color:var(--green-ink);margin-bottom:5px}
+    .p-st.low{color:var(--orange-ink)} .p-st.none{color:#b3261e}
+    .p-tag{position:absolute;top:5px;left:5px;background:var(--yellow);color:var(--ink);font:700 .54rem var(--mono);padding:1px 5px;text-transform:uppercase}
+    .p-add{all:unset;box-sizing:border-box;cursor:pointer;margin-top:auto;text-align:center;font:700 .72rem var(--display);background:var(--signal);color:#fff;padding:6px 8px;border:1.5px solid var(--ink)}
+    .p-add[disabled]{background:#e3e6ec;color:#5a6273;border-color:#c3c9d4;cursor:not-allowed}
+    .qty{margin-top:auto;display:inline-flex;align-items:center;justify-content:space-between;align-self:stretch;border:1.5px solid var(--ink);background:#fff}
+    .c-r .qty{align-self:auto;margin-top:4px}
+    .qty button{all:unset;cursor:pointer;width:28px;height:26px;display:grid;place-items:center;font-weight:800;font-size:.95rem}
+    .qty button:hover{background:#eef1f6}
+    .qty button[disabled]{opacity:.3;cursor:not-allowed}
+    .qty output{min-width:22px;text-align:center;font:700 .74rem var(--mono)}
+    .s-cartbar{all:unset;box-sizing:border-box;cursor:pointer;position:sticky;bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--ink);color:#fff;padding:10px 12px;font-size:.8rem;box-shadow:3px 3px 0 var(--yellow);margin-top:2px}
+    .s-cartbar b{background:var(--yellow);color:var(--ink);padding:0 5px;font-family:var(--mono)}
+    .s-back{all:unset;cursor:pointer;align-self:flex-start;font:700 .66rem var(--mono);color:var(--signal-ink);text-transform:uppercase;letter-spacing:.03em}
+    .c-lines,.m-list{list-style:none;display:grid;gap:6px}
+    .c-line{display:flex;justify-content:space-between;gap:8px;background:#fff;border:1px solid #d9dde5;padding:7px 8px}
+    .c-line b{display:block;font-size:.78rem}
+    .c-line small{display:block;color:#5a6273;font-size:.66rem}
+    .c-r{display:flex;flex-direction:column;align-items:flex-end;flex:0 0 auto;font-family:var(--mono);font-size:.74rem}
+    .s-fs{border:0;min-width:0}
+    .s-fs legend{font-weight:800;font-size:.76rem;margin-bottom:5px}
+    .s-opt{display:flex;gap:6px}
+    .s-opt.col{flex-direction:column}
+    .s-radio{flex:1;min-width:0;display:flex;gap:7px;align-items:flex-start;cursor:pointer;background:#fff;border:1.5px solid #c3c9d4;padding:7px 8px;font-size:.74rem;line-height:1.25}
+    .s-radio.on{border-color:var(--signal);background:#eef3fc}
+    .s-radio input{accent-color:var(--signal);margin-top:2px;flex:0 0 auto}
+    .s-radio small{display:block;color:#5a6273;font-size:.64rem}
+    .s-field{display:grid;gap:4px;font-size:.72rem;font-weight:700}
+    .s-field select,.s-field input{width:100%;font:500 .82rem var(--display);color:#151a26;background:#fff;border:1.5px solid #c3c9d4;border-radius:0;padding:7px 8px}
+    .s-field input[readonly]{background:#eef1f6}
+    .s-zone{font:500 .64rem/1.55 var(--mono);color:#3b4457;background:#fff;border:1px dashed #aeb6c4;padding:6px 8px}
+    .s-zone b{color:var(--ink)}
+    .s-free{display:grid;gap:4px;font-size:.72rem;color:#22420c}
+    .s-free i{display:block;height:6px;background:#dde2ea}
+    .s-free i b{display:block;height:100%;background:var(--green)}
+    .s-tot{display:grid;gap:2px;font-size:.78rem}
+    .s-tot div{display:flex;justify-content:space-between;gap:8px}
+    .s-tot dd{font-family:var(--mono)}
+    .s-tot .t{font-weight:800;font-size:.9rem;border-top:1px solid #c3c9d4;padding-top:4px;margin-top:2px}
+    .s-btn{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;text-align:center;background:var(--signal);color:#fff;font-weight:700;font-size:.84rem;padding:10px 12px;border:1.5px solid var(--ink)}
+    .s-btn.line{background:#fff;color:var(--ink)}
+    .s-btn[disabled]{opacity:.45;cursor:not-allowed}
+    .s-mini{all:unset;cursor:pointer;font:700 .62rem var(--mono);text-transform:uppercase;letter-spacing:.03em;border:1.5px solid var(--ink);background:#fff;color:var(--ink);padding:5px 8px;white-space:nowrap}
+    .s-mini:hover{background:var(--yellow)}
+    .s-link{all:unset;cursor:pointer;font:700 .72rem var(--mono);color:var(--signal-ink);text-decoration:underline;text-underline-offset:3px}
+    .s-code{display:flex;gap:6px;align-items:flex-end}
+    .s-code .s-field{flex:1;min-width:0}
+    .s-code .s-mini{padding:9px 9px}
+    .s-kv,.s-acct{background:#fff;border:1px solid #d9dde5;padding:7px 8px;font-size:.76rem;line-height:1.5}
+    .s-acct{display:grid}
+    .s-acct strong{font-family:var(--mono)}
+    .s-due{display:flex;justify-content:space-between;align-items:baseline;font-weight:700}
+    .s-due strong{font:800 1rem var(--mono)}
+    .s-seal{width:44px;height:44px;margin:4px auto 0;border-radius:50%;display:grid;place-items:center;background:var(--green);color:var(--ink);border:1.5px solid var(--ink);font-weight:800;font-size:1.1rem}
+    .s-sum{list-style:none;display:grid;gap:3px;background:#fff;border:1px solid #d9dde5;padding:7px 8px;font-size:.74rem}
+    .s-sum li{display:flex;justify-content:space-between;gap:8px}
+    .s-sum li span:last-child{font-family:var(--mono);white-space:nowrap}
+    .s-sum .t{font-weight:800;border-top:1px dashed #c3c9d4;padding-top:3px}
+    .s-lk{display:grid;gap:3px;background:#fff;border:1px dashed #aeb6c4;padding:7px 8px}
+    .s-lk span{font:500 .68rem var(--mono);overflow-wrap:anywhere}
+    .s-lk small{font-size:.64rem;color:#5a6273}
+    .tl{list-style:none;margin:2px 0}
+    .tl li{position:relative;padding:0 0 12px 28px;font-size:.78rem}
+    .tl li::before{content:"";position:absolute;left:9px;top:20px;bottom:0;width:2px;background:#c3c9d4}
+    .tl li:last-child{padding-bottom:0}
+    .tl li:last-child::before{display:none}
+    .tl .dot{position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#fff;border:2px solid #c3c9d4;font-size:.62rem;font-weight:800}
+    .tl li.done .dot{background:var(--green);border-color:var(--green-ink);color:var(--ink)}
+    .tl li.done::before{background:var(--green)}
+    .tl li.cur .dot{border-color:var(--signal);box-shadow:0 0 0 3px rgba(20,71,160,.2)}
+    .tl li.cur b{color:var(--signal-ink)}
+    .tl li.rej .dot{background:#b3261e;border-color:#7a1712;color:#fff}
+    .tl b{display:block;line-height:20px}
+    .tl small{display:block;font:500 .62rem var(--mono);color:#5a6273}
+    .s-upd{font:500 .62rem var(--mono);color:#5a6273}
+    .m-item{display:grid;gap:6px;background:#fff;border:1px solid #d9dde5;padding:7px 8px}
+    .m-item small{display:block;color:#5a6273;font-size:.66rem}
+    .m-item .acts{display:flex;flex-wrap:wrap;gap:6px}
+    .s-jump{display:none;font-weight:700;color:var(--signal-ink)}
+    .shop :is(.s-btn,.s-mini,.s-chip,.s-back,.s-link,.s-x,.p-add,.s-cartbar,.s-mine,.e-row,.qty button):focus-visible{outline:2px solid var(--orange-ink);outline-offset:2px}
+    /* portero */
+    .s-gate{background:var(--ink);color:#c9d3e6}
+    .s-gate .r-h{color:#8792a8;border-bottom-color:#2b3550}
+    .s-gate .r-h b{color:#fff}
+    .g-log{list-style:none;flex:1;display:grid;gap:5px;align-content:start;padding:12px;font:500 .68rem/1.5 var(--mono);min-height:180px}
+    .g-log li{border-left:2px solid #2b3550;padding-left:8px;overflow-wrap:anywhere}
+    .g-log .in{color:#7fb0ff} .g-log .ok{color:#9be36a} .g-log .er{color:var(--orange)} .g-log .k{color:var(--yellow)} .g-log .mu{color:#8f9ab0}
+    .g-log .new{animation:gnew .6s ease}
+    @keyframes gnew{from{background:rgba(127,176,255,.22)}}
+    .g-foot{border-top:1px solid #2b3550;padding:10px 12px;font:500 .64rem/1.55 var(--mono);color:#8f9ab0}
+    /* escritorio del ERP (simulado) */
+    .e-win{flex:1;display:flex;flex-direction:column;min-width:0;margin:16px;background:#fff;border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--green)}
+    .e-title{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#e3e7ee;border-bottom:1px solid var(--ink);padding:5px 9px;font:700 .64rem var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+    .e-dots{display:inline-flex;gap:4px}
+    .e-dots i{width:9px;height:9px;border:1px solid var(--ink);background:#fff}
+    .e-list{list-style:none;border-bottom:1px solid var(--line)}
+    .e-row{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 10px;border-bottom:1px solid #e6e9ef;font-size:.78rem;line-height:1.3}
+    .e-list li:last-child .e-row{border-bottom:0}
+    .e-row:hover{background:#f3f5f9}
+    .e-row[aria-pressed="true"]{background:#eef3fc;box-shadow:inset 4px 0 0 var(--signal)}
+    .e-row .n{font:700 .74rem var(--mono)}
+    .e-row small{display:block;color:#5a6273;font-size:.66rem}
+    .e-row .v{display:grid;justify-items:end;gap:3px;font:700 .72rem var(--mono)}
+    .e-row.fresh{animation:flash 1.4s ease}
+    .you{font:700 .52rem var(--mono);font-style:normal;background:var(--ink);color:#fff;padding:1px 4px;margin-left:5px;vertical-align:1px;text-transform:uppercase}
+    .est{display:inline-block;font:700 .56rem var(--mono);padding:2px 5px;text-transform:uppercase;letter-spacing:.03em;background:#e3e6ec;color:var(--ink)}
+    .est[data-e="PENDIENTE"]{background:var(--yellow)}
+    .est[data-e="ACEPTADO"]{background:var(--signal);color:#fff}
+    .est[data-e="DESPACHADO"]{background:var(--orange)}
+    .est[data-e="FINALIZADO"]{background:var(--green)}
+    .est[data-e="RECHAZADO"]{background:#b3261e;color:#fff}
+    .e-det{flex:1;display:grid;gap:8px;align-content:start;padding:10px 12px 14px;font-size:.8rem}
+    .e-det:focus{outline:none}
+    .e-det h4{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:1rem;letter-spacing:-.01em}
+    .e-who{font-size:.76rem;color:var(--ink-2)}
+    .e-obs{font:500 .64rem/1.55 var(--mono);color:#3b4457;background:#f5f6f9;border:1px solid #e3e6ec;padding:6px 8px;overflow-wrap:anywhere}
+    .e-acts{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+    .e-acts .btn{padding:7px 12px;font-size:.8rem}
+    .e-lbl{font:500 .7rem var(--mono);color:var(--muted)}
+    .e-hint{font:500 .7rem var(--mono);color:var(--signal-ink);background:#eef3fc;padding:6px 8px}
+    .e-mirror{font:500 .68rem/1.5 var(--mono);color:var(--green-ink)}
+    .feats [data-g="w"]{--c:var(--orange)}
+    @media (max-width:1100px){
+      .shop{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"buy erp" "gate gate"}
+      .s-buyer{grid-area:buy} .s-erp{grid-area:erp} .s-gate{grid-area:gate}
+      .shop .s-gate{border-left:0;border-top:1px solid var(--ink)}
+      .g-log{min-height:0}
+    }
+    @media (max-width:760px){
+      .shop{grid-template-columns:minmax(0,1fr);grid-template-areas:"buy" "gate" "erp"}
+      .shop .s-erp{border-left:0;border-top:1px solid var(--ink)}
+      .s-stage{padding:14px 10px 18px}
+      .s-phone{min-height:0}
+      .e-win{margin:12px}
+      .s-jump{display:inline}
+    }
+
+    /* §06 capturas: filmstrip */
     .film{position:relative;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
       background:repeating-linear-gradient(90deg,var(--paper-2) 0 1px,transparent 1px 64px)}
     .film::-webkit-scrollbar{display:none}
@@ -381,7 +565,7 @@
     .note::before{content:"🔒";font-family:initial}
     @media (max-width:560px){ .shot{width:200px} .strip{padding:36px calc(50% - 100px) 30px;gap:24px} .scrub{grid-template-columns:auto auto 1fr} .scrub output{grid-column:1/-1;text-align:left;order:-1} }
 
-    /* §05 arquitectura por capas */
+    /* §07 arquitectura por capas */
     .arch{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:36px}
     .layers{display:grid;gap:0}
     .layer{position:relative;border:1.5px solid var(--ink);background:var(--paper);padding:20px 22px 22px;box-shadow:6px 6px 0 var(--c);transition:transform .2s ease,box-shadow .2s ease}
@@ -408,7 +592,7 @@
     .tags span{font-family:var(--mono);font-size:.72rem;padding:3px 8px;background:var(--paper-2);border:1px solid var(--line)}
     @media (max-width:900px){ .arch{grid-template-columns:1fr} }
 
-    /* §06 CTA */
+    /* §08 CTA */
     .contact{background:var(--ink);color:var(--paper);border-bottom:0}
     .contact .sidx{color:#9aa5b8}
     .contact .sidx b{color:var(--yellow)}
@@ -436,7 +620,7 @@
     @media (prefers-reduced-motion:reduce){
       .dot-live,.led{animation:none}
       html{scroll-behavior:auto}
-      .bump,.dblog li.new{animation:none}
+      .bump,.dblog li.new,.g-log .new,.e-row.fresh{animation:none}
       .switch .knob,.switch .trk,.layer,.btn{transition:none}
     }
   </style>
@@ -451,6 +635,7 @@
       <div class="menu">
         <a href="#offline" data-en="Offline-first">Offline-first</a>
         <a href="#restaurantes" data-en="Restaurants">Restaurantes</a>
+        <a href="#tienda" data-en="Store">Tienda</a>
         <a href="#capturas" data-en="Screenshots">Capturas</a>
         <a href="#arquitectura" data-en="Architecture">Arquitectura</a>
         <span class="appname"><img src="img/logo-samit.png" alt="" width="22" height="22" /><span>SAMIT</span></span>
@@ -474,13 +659,14 @@
       <div class="wrap hero-grid">
         <div>
           <img class="logo" src="img/logo-samit.png" alt="Logo de SAMIT Sistemas Corporativos" width="64" height="64" />
-          <p class="kicker" data-en="Case study · 02">Caso de estudio · 02</p>
+          <p class="kicker" data-en="Case study · 03">Caso de estudio · 03</p>
           <h1 data-en="SAMIT business <em>suite</em>">Suite empresarial <em>SAMIT</em></h1>
           <div class="ribbon" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-          <p class="pitch" data-en="Field sales software, ERP and business backend for Colombian companies: from the <strong>rep's phone</strong> — orders, receivables and a receipt printed on the spot — to <strong>invoicing and accounting</strong> at the office.">
+          <p class="pitch" data-en="Field sales software, ERP and business backend for Colombian companies: from the <strong>rep's phone</strong> — orders, receivables and a receipt printed on the spot — to <strong>invoicing and accounting</strong> at the office. And since 2026, an <strong>online store</strong> per company whose orders go straight into the ERP.">
             Software de fuerza de ventas, ERP y backend de negocio para empresas colombianas: del
             <strong>celular del vendedor</strong> —pedidos, cartera y recibo impreso en el momento— hasta la
-            <strong>facturación y contabilidad</strong> de la oficina.
+            <strong>facturación y contabilidad</strong> de la oficina. Y desde 2026, una
+            <strong>tienda en línea</strong> por empresa cuyos pedidos entran directo al ERP.
           </p>
           <p class="stackline">.NET MAUI · C# · VB.NET · ASP.NET · SQL Server · LiteDB · Bluetooth ESC/POS</p>
           <div class="actions">
@@ -675,11 +861,69 @@
       </div>
     </section>
 
-    <!-- §05 CAPTURAS -->
+    <!-- §05 TIENDA EN LÍNEA (demo) -->
+    <section id="tienda">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§05</b> / <span data-en="online store">tienda en línea</span></div>
+          <div>
+            <h2 class="stitle" data-scramble data-en="Online store">Tienda en línea</h2>
+            <p class="ssub" data-en="Since October 2026, each company can have its own <strong>web store</strong>: the buyer builds the order with no username or password, sends it, and the order lands in the ERP's <strong>Orders module</strong>, where the owner accepts it. In between I built a <strong>gatekeeper</strong> in ASP.NET Core (.NET 10): the browser never talks to the ERP. Try it: add products, pick the delivery city, send the order and accept it on the desktop; the buyer's link catches up on its own.">Desde octubre de 2026, cada empresa puede tener su propia <strong>tienda web</strong>: el comprador arma el pedido sin usuario ni clave, lo envía y el pedido entra al módulo de <strong>Pedidos del ERP</strong>, donde el dueño lo acepta. En medio construí un <strong>portero</strong> en ASP.NET Core (.NET 10): el navegador nunca habla con el ERP. Pruébalo: agrega productos, elige la ciudad del domicilio, envía el pedido y acéptalo en el escritorio; el link del comprador se pone al día solo.</p>
+          </div>
+        </div>
+
+        <div class="shop reveal" id="shop">
+          <p class="sr-only" data-en="Interactive demo with three panels. Left, the buyer's phone with the web store: catalog with stock, cart, delivery by city with a minimum and a fee that depend on the zone, the customer's details (new, or registered with a text-message code and available credit) and, after sending, the tracking link. Middle, the gatekeeper, which shows what the server checks. Right, a simulated ERP desktop where the owner accepts, dispatches, completes or rejects each order; the buyer's link updates itself. All data is illustrative.">Demostración interactiva con tres paneles. A la izquierda, el celular del comprador con la tienda web: catálogo con existencia, carrito, domicilio por ciudad con mínimo y valor según la zona, datos del cliente (nuevo, o registrado con código por mensaje y cupo disponible) y, al enviar, el link de seguimiento. En el centro, el portero, que muestra lo que valida el servidor. A la derecha, un escritorio del ERP simulado, donde el dueño acepta, despacha, finaliza o rechaza cada pedido; el link del comprador se actualiza solo. Todos los datos son ilustrativos.</p>
+          <div class="s-pane s-buyer">
+            <div class="r-h"><span><b data-en="Buyer's phone">Celular del comprador</b> · <span data-en="web store">tienda web</span></span><button type="button" class="r-chip" id="sReset" data-en="↺ Reset">↺ Reiniciar</button></div>
+            <div class="s-stage">
+              <div class="s-phone" id="sPhone">
+                <div class="s-sbar" aria-hidden="true"><span id="sTime">10:42</span><span class="sig"><i></i><i></i><i></i><i></i></span></div>
+                <div class="s-url" aria-hidden="true">🔒 <span id="sUrlTxt">tienda.demo/ejemplo</span></div>
+                <div class="s-head">
+                  <span class="s-logo" aria-hidden="true">D</span>
+                  <span><b data-en="Sample Distributor">Distribuidora de ejemplo</b><small data-en="Order online and pay on delivery">Pide en línea y paga al recibir</small></span>
+                  <button type="button" class="s-mine" id="sMine" hidden></button>
+                </div>
+                <div class="s-view" id="sView" tabindex="-1"></div>
+              </div>
+            </div>
+          </div>
+          <div class="s-pane s-gate">
+            <div class="r-h"><span><b data-en="Gatekeeper">Portero</b> · ASP.NET Core · .NET 10</span></div>
+            <ol class="g-log" id="gLog" aria-hidden="true"></ol>
+            <p class="g-foot" data-en="The browser never talks to the ERP: it only sees a few public store operations. The ERP token is kept encrypted, one per store.">El navegador nunca habla con el ERP: solo ve unas pocas operaciones públicas de la tienda. El token del ERP se guarda cifrado, uno por tienda.</p>
+          </div>
+          <div class="s-pane s-erp" id="sErp">
+            <div class="r-h"><span><b data-en="ERP desktop">Escritorio del ERP</b> · <span data-en="simulated">simulado</span></span></div>
+            <div class="e-win" id="eWin">
+              <div class="e-title"><span data-en="Orders · online store">Pedidos · tienda en línea</span><span class="e-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+              <ul class="e-list" id="eList"></ul>
+              <div class="e-det" id="eDet" tabindex="-1"></div>
+            </div>
+          </div>
+        </div>
+        <p class="sr-only" id="sLive" aria-live="polite"></p>
+        <p class="simnote" data-en="↳ Illustrative demo: sample store, products, prices, cities, zones and customers. The ERP desktop is a simulation and the text-message code is fake. Here the buyer's link checks the order every few seconds; in the real store, every minute.">↳ Demo ilustrativa: tienda, productos, precios, ciudades, zonas y clientes de ejemplo. El escritorio del ERP es una simulación y el código del mensaje es de mentira. Aquí el link del comprador revisa el pedido cada pocos segundos; en la tienda real, cada minuto.</p>
+
+        <ul class="feats rfeats reveal">
+          <li data-g="w"><div class="top"><span class="num">01</span><span class="grp">web</span></div><h3 data-en="No username, no password">Sin usuario ni clave</h3><p data-en="One link per company. The buyer searches, filters by category, builds the order and sends it, for delivery or store pickup, which has no minimum order.">Un link por empresa. El comprador busca, filtra por categoría, arma el pedido y lo envía, a domicilio o para recoger en la tienda, que no tiene pedido mínimo.</p></li>
+          <li data-g="w"><div class="top"><span class="num">02</span><span class="grp">web</span></div><h3 data-en="Tracking with a key">Seguimiento con clave</h3><p data-en="The order link carries a key after the #, which the browser doesn't send in the URL, so it never lands in the logs; without it, the order answers as if it didn't exist. “My orders” keeps the last 10 and lets you reorder at today's price and stock.">El link del pedido lleva una clave después del #, que el navegador no manda en la URL: no queda en los registros y, sin ella, el pedido responde como si no existiera. “Mis pedidos” guarda los últimos 10 y deja pedir lo mismo con el precio y la existencia de hoy.</p></li>
+          <li data-g="w"><div class="top"><span class="num">03</span><span class="grp">web</span></div><h3 data-en="Installs as an app">Se instala como app</h3><p data-en="Each store installs on the phone (PWA) with its own name and icon: the company logo or, if there isn't one, its initial. Customer data is never stored in the cache.">Cada tienda se instala en el celular (PWA) con su propio nombre y su ícono: el logo de la empresa o, si no tiene, su inicial. Los datos del cliente nunca quedan guardados en la caché.</p></li>
+          <li data-g="b"><div class="top"><span class="num">04</span><span class="grp" data-en="backend">backend</span></div><h3 data-en="Live stock">Existencia en vivo</h3><p data-en="Stock is checked live; prices, names and categories come from a catalog copy that refreshes itself. The company picks in the ERP which products show up and sets up the store: delivery or pickup, payment methods, sold-out items and pausing orders.">La existencia se consulta en vivo; precios, nombres y categorías vienen de una copia del catálogo que se refresca sola. La empresa elige en el ERP qué productos salen y configura la tienda: domicilio o recoger, formas de pago, agotados y pausar pedidos.</p></li>
+          <li data-g="b"><div class="top"><span class="num">05</span><span class="grp" data-en="backend">backend</span></div><h3 data-en="Delivery zones">Domicilio por zonas</h3><p data-en="A whole department or a single city, each with its own minimum order, delivery fee and free-delivery threshold. The browser only sends the city: the server recalculates the minimum and the fee.">Un departamento entero o una ciudad, cada uno con su pedido mínimo, su valor de domicilio y desde cuánto sale gratis. El navegador solo manda la ciudad: el servidor vuelve a calcular el mínimo y el domicilio.</p></li>
+          <li data-g="b"><div class="top"><span class="num">06</span><span class="grp" data-en="backend">backend</span></div><h3 data-en="Registered customer">Cliente registrado</h3><p data-en="The ID number alone only reveals how the phone number ends. Details and credit arrive once the buyer confirms a code sent by SMS, with attempts limited per ID and per IP; after that, the device remembers them for a few days.">Con la cédula sola solo se dice en qué termina el celular. Los datos y el cupo llegan cuando el comprador confirma un código que le llega por SMS, con intentos limitados por documento y por IP; después, el dispositivo lo recuerda unos días.</p></li>
+          <li data-g="b"><div class="top"><span class="num">07</span><span class="grp" data-en="backend">backend</span></div><h3 data-en="Credit limit and pay on credit">Cupo y pago a crédito</h3><p data-en="The buyer sees their available credit, not the limit. If the company enables it, they can pay on credit, and an overdue balance blocks it. The server checks credit and receivables on every order, and its messages never reveal amounts.">El comprador ve su cupo disponible, no el cupo. Si la empresa lo habilita, puede pagar a crédito, y la cartera vencida lo frena. El servidor valida cupo y cartera en cada pedido, y sus mensajes no dicen cifras.</p></li>
+          <li data-g="b"><div class="top"><span class="num">08</span><span class="grp" data-en="backend">backend</span></div><h3 data-en="A gatekeeper in front of the ERP">Un portero frente al ERP</h3><p data-en="It keeps one encrypted token per store and exposes only a few operations. Prices come from the catalog, never from the browser, and a repeated submit doesn't duplicate the order. It runs behind Cloudflare (real IP, optional Turnstile) and ships with an IIS installer that keeps the configuration.">Guarda cifrado un token por tienda y solo expone unas pocas operaciones. Los precios salen del catálogo, nunca del navegador, y un envío repetido no duplica el pedido. Funciona detrás de Cloudflare (IP real, Turnstile opcional) y trae un instalador para IIS que conserva la configuración.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- §06 CAPTURAS -->
     <section id="capturas">
       <div class="wrap">
         <div class="shead reveal">
-          <div class="sidx"><b>§05</b> / <span data-en="screenshots">capturas</span></div>
+          <div class="sidx"><b>§06</b> / <span data-en="screenshots">capturas</span></div>
           <div>
             <h2 class="stitle" data-scramble data-en="How the app looks">Así se ve la app</h2>
             <p class="ssub" data-en="Real screenshots of the field sales app in use. Drag, use the arrows or the slider.">Capturas reales de la aplicación de fuerza de ventas en uso. Arrastra, usa las flechas o el deslizador.</p>
@@ -710,11 +954,11 @@
       </div>
     </section>
 
-    <!-- §06 ARQUITECTURA -->
+    <!-- §07 ARQUITECTURA -->
     <section id="arquitectura">
       <div class="wrap">
         <div class="shead reveal">
-          <div class="sidx"><b>§06</b> / <span data-en="architecture">arquitectura</span></div>
+          <div class="sidx"><b>§07</b> / <span data-en="architecture">arquitectura</span></div>
           <div>
             <h2 class="stitle" data-scramble data-en="How it's built">Cómo está hecho</h2>
             <p class="ssub" data-en="In plain words, no extra jargon. Layer by layer, from the phone to the database.">En palabras sencillas, sin tecnicismos de más. Capa por capa, del celular a la base de datos.</p>
@@ -761,6 +1005,11 @@
               <p data-en="A WinForms application for the office, with WPF modules (like the restaurant one), part of the same ecosystem.">Aplicación WinForms para la oficina, con módulos en WPF (como el de restaurantes), parte del mismo ecosistema.</p>
             </div>
             <div class="card">
+              <div class="lk" data-en="web · online store">web · tienda en línea</div>
+              <h3 data-en="Store gatekeeper">Portero de la tienda</h3>
+              <p data-en="A service in ASP.NET Core (.NET 10, Minimal APIs) between the public store and the ERP: an encrypted token per store, per-IP limits and server-side checks. Deployed on IIS with its own installer.">Servicio en ASP.NET Core (.NET 10, Minimal APIs) entre la tienda pública y el ERP: token cifrado por tienda, límites por IP y validaciones en el servidor. Se publica en IIS con un instalador propio.</p>
+            </div>
+            <div class="card">
               <div class="lk" data-en="before MAUI">antes de MAUI</div>
               <h3 data-en="Earlier mobile apps">Apps móviles previas</h3>
               <p data-en="In Xamarin and React Native, for clients and field operations.">En Xamarin y React Native, para clientes y operaciones en campo.</p>
@@ -772,15 +1021,16 @@
           <span>.NET MAUI</span><span>C#</span><span>VB.NET</span><span>ASP.NET</span><span>SQL Server</span>
           <span>LiteDB</span><span>MVVM</span><span>Offline-first</span><span>Multi-tenant</span>
           <span>Bluetooth ESC/POS</span><span>Sentry</span><span>WinForms</span><span>WPF</span><span>Xamarin</span><span>React Native</span>
+          <span>ASP.NET Core</span><span>.NET 10</span><span>PWA</span><span>Cloudflare</span>
         </div>
       </div>
     </section>
 
-    <!-- §07 CTA -->
+    <!-- §08 CTA -->
     <section id="contacto" class="contact">
       <div class="wrap">
         <div class="shead reveal" style="margin-bottom:18px">
-          <div class="sidx"><b>§07</b> / <span data-en="contact">contacto</span></div>
+          <div class="sidx"><b>§08</b> / <span data-en="contact">contacto</span></div>
           <div></div>
         </div>
         <h2 class="big reveal" data-en="Have a project like this <em>in mind</em>?">¿Tienes un proyecto así <em>en mente</em>?</h2>
@@ -1439,7 +1689,583 @@
     })();
 
     // ============================================================
-    // §05 — Filmstrip de capturas: arrastrar, flechas, deslizador
+    // §05 — Tienda en línea: celular del comprador → portero → escritorio del ERP
+    // Todo es de ejemplo. El portero recalcula precios, zona, mínimo y cupo; el
+    // link de seguimiento solo ve el estado cuando "revisa" (se pausa fuera de pantalla).
+    // ============================================================
+    (function(){
+      var $ = function(id){ return document.getElementById(id); };
+      var shop = $('shop'); if(!shop) return;
+      var phone = $('sPhone'), view = $('sView'), urlT = $('sUrlTxt'), mineB = $('sMine'), clockEl = $('sTime');
+      var gLog = $('gLog'), eWin = $('eWin'), eList = $('eList'), eDet = $('eDet'), live = $('sLive');
+      // [id, ícono, nombre, presentación, precio, precio anterior, existencia, categoría]
+      var PRODS = [
+        ['cafe',   '☕', ['Café molido', 'Ground coffee'],             '500 g', 18900, 0,    24, 1],
+        ['arroz',  '🍚', ['Arroz blanco', 'White rice'],              '5 kg',  21500, 0,    12, 0],
+        ['aceite', '🧴', ['Aceite vegetal', 'Vegetable oil'],         '1 L',   11200, 0,     3, 0],
+        ['panela', '🍯', ['Panela', 'Panela (cane sugar)'],           '1 kg',   5800, 6500, 40, 0],
+        ['choco',  '🍫', ['Chocolate de mesa', 'Drinking chocolate'], '250 g',  7400, 0,    18, 1],
+        ['deter',  '🧼', ['Detergente', 'Laundry detergent'],         '1 kg',   9900, 0,     0, 2]
+      ];
+      var CATS = [['Despensa', 'Pantry'], ['Bebidas', 'Drinks'], ['Aseo', 'Cleaning']];
+      var CITIES = [['bog', 'Bogotá', 'Bogotá D.C.'], ['chia', 'Chía', 'Cundinamarca'], ['soa', 'Soacha', 'Cundinamarca'], ['zip', 'Zipaquirá', 'Cundinamarca'], ['tun', 'Tunja', 'Boyacá']];
+      // Zonas de ejemplo: una ciudad o un departamento entero (city null). free 0 = nunca gratis.
+      var ZONES = [{dep:'Bogotá D.C.', city:'bog', min:30000, fee:6000, free:120000}, {dep:'Cundinamarca', city:null, min:60000, fee:12000, free:200000}];
+      var GENERAL = {min:80000, fee:18000, free:0};
+      var CODE = '246810', CUPO = 120000, DEBE = 180000, PISTA = '321', MAXTRY = 5;
+      var ST = ['PENDIENTE', 'ACEPTADO', 'DESPACHADO', 'FINALIZADO', 'RECHAZADO'];
+      var ST_EN = {PENDIENTE:'PENDING', ACEPTADO:'ACCEPTED', DESPACHADO:'DISPATCHED', FINALIZADO:'COMPLETED', RECHAZADO:'REJECTED'};
+      var STEPS = [['PENDIENTE', ['Recibido', 'Received']], ['ACEPTADO', ['Confirmado', 'Confirmed']], ['DESPACHADO', null], ['FINALIZADO', ['Entregado', 'Delivered']]];
+      var WHY = [['No hacemos domicilio a esa dirección', 'We don\'t deliver to that address'], ['Un producto se agotó en bodega', 'A product ran out in the warehouse'], ['No pudimos confirmar el pedido', 'We couldn\'t confirm the order']];
+      var S;
+
+      function L(a){ return isEN() ? a[1] : a[0]; }
+      function P(id){ for(var i = 0; i < PRODS.length; i++) if(PRODS[i][0] === id) return PRODS[i]; return null; }
+      function city(id){ for(var i = 0; i < CITIES.length; i++) if(CITIES[i][0] === id) return CITIES[i]; return null; }
+      function find(n){ for(var i = 0; i < S.orders.length; i++) if(S.orders[i].n === n) return S.orders[i]; return null; }
+      function two(n){ return (n < 10 ? '0' : '') + n; }
+      function hm(d){ return two(d.getHours()) + ':' + two(d.getMinutes()); }
+      function hms(d){ return hm(d) + ':' + two(d.getSeconds()); }
+      function say(m){ live.textContent = m; }
+      function stName(s){ return isEN() ? ST_EN[s] : s; }
+      function payName(p){ return p === 'CR' ? T('Crédito', 'Credit') : p === 'TJ' ? T('Tarjeta', 'Card') : T('Efectivo', 'Cash'); }
+      function newKey(){ var a = 'abcdefghijkmnpqrstuvwxyz23456789', k = ''; for(var i = 0; i < 10; i++) k += a[Math.floor(Math.random() * a.length)]; return k; }
+      function units(c){ var u = 0; for(var id in c) u += c[id]; return u; }
+      function sub(c){ var s = 0; for(var id in c) s += P(id)[4] * c[id]; return s; }
+      function fee(z, s){ return z.free > 0 && s >= z.free ? 0 : z.fee; }
+      // Misma regla que el portero: la zona de la ciudad, si no la de su departamento, si no la general.
+      function zoneFor(cid){
+        var c = city(cid), i; if(!c) return null;
+        for(i = 0; i < ZONES.length; i++) if(ZONES[i].city === cid) return {z:ZONES[i], kind:'city', c:c};
+        for(i = 0; i < ZONES.length; i++) if(!ZONES[i].city && ZONES[i].dep === c[2]) return {z:ZONES[i], kind:'dep', c:c};
+        return {z:GENERAL, kind:'gen', c:c};
+      }
+      function quote(){
+        var s = sub(S.cart), q = {sub:s, fee:0, tot:s, zone:null, err:''};
+        if(S.ent !== 'D') return q;
+        q.zone = zoneFor(S.city);
+        if(!q.zone){ q.err = T('Escoge la ciudad a donde lo llevamos.', 'Choose the city we deliver to.'); return q; }
+        var z = q.zone.z; q.fee = fee(z, s); q.tot = s + q.fee;
+        if(z.min > 0 && s < z.min) q.err = T('El pedido mínimo es de ' + money(z.min) + ' para domicilio a ' + q.zone.c[1] + '. Te faltan ' + money(z.min - s) + '.',
+                                             'The minimum order for delivery to ' + q.zone.c[1] + ' is ' + money(z.min) + '. You need ' + money(z.min - s) + ' more.');
+        return q;
+      }
+      function confirmed(){ return S.who === 'reg' && S.reg.step === 'ok'; }
+      function dataErr(q){
+        if(S.who === 'reg' && S.reg.step !== 'ok') return T('Confirma el código o elige “Soy nuevo”.', 'Confirm the code or choose “I\'m new”.');
+        if(S.who === 'reg' && q.tot > CUPO) return T('Este pedido (' + money(q.tot) + ') pasa de tu cupo disponible. Quita algunos productos o comunícate con la tienda.',
+                                                     'This order (' + money(q.tot) + ') goes over your available credit. Remove some products or contact the store.');
+        return '';
+      }
+
+      function log(c, es, en){
+        var f = typeof es === 'function' ? es : function(){ return T(es, en); };
+        S.log.push({c:c, f:f, fresh:true});
+        while(S.log.length > 9) S.log.shift();
+      }
+      function later(fn, ms){ S.timers.push(setTimeout(fn, ms)); }
+      function seq(items, done){
+        var i = 0;
+        (function step(){
+          if(i >= items.length){ done(); return; }
+          var it = items[i++]; log(it[0], it[1]); renderGate();
+          if(REDUCE) step(); else later(step, 280);
+        })();
+      }
+
+      function price(o){   // los precios los pone el servidor, desde el catálogo
+        o.sub = 0; o.lines.forEach(function(l){ l[2] = P(l[0])[4]; o.sub += l[2] * l[1]; });
+        o.zone = o.ent === 'D' ? zoneFor(o.city) : null;
+        o.fee = o.zone ? fee(o.zone.z, o.sub) : 0; o.tot = o.sub + o.fee;
+      }
+      function seed(n, who, ent, cid, pay, lines, st, ago){
+        var o = {n:n, who:who, ent:ent, city:cid, pay:pay, lines:lines, st:st, seen:st, hist:{}, why:-1, mine:false, key:'', fresh:false};
+        price(o); o.t0 = new Date(Date.now() - ago * 60000); o.hist.PENDIENTE = o.t0; return o;
+      }
+      function init(){
+        if(S) S.timers.forEach(clearTimeout);
+        S = {view:'cat', cat:-1, cart:{}, ent:'D', city:'', who:'new', reg:{step:'', tries:0, err:null}, sess:false, sessUsed:false, pay:'EF',
+             installed:false, instHidden:false, note:null, repeat:null, next:1043, last:0, track:0, orders:[], mine:[], sel:1042, rejecting:0,
+             busy:false, log:[], timers:[], stock:{}};
+        PRODS.forEach(function(p){ S.stock[p[0]] = p[6]; });
+        S.orders.push(seed(1041, ['Cliente B', 'Customer B'], 'R', '', 'EF', [['cafe', 1, 0], ['panela', 1, 0]], 'FINALIZADO', 95));
+        S.orders.push(seed(1042, ['Cliente C', 'Customer C'], 'D', 'bog', 'TJ', [['arroz', 2, 0], ['choco', 1, 0], ['aceite', 1, 0]], 'ACEPTADO', 24));
+        log('k', '● token de la tienda: guardado cifrado', '● store token: stored encrypted');
+        log('mu', '› catálogo: una copia que se refresca sola; la existencia, en vivo', '› catalog: a copy that refreshes itself; stock, live');
+        log('mu', '● esperando pedidos…', '● waiting for orders…');
+      }
+
+      // Pinta y deja el foco donde estaba (por data-f), aunque el botón cambie.
+      function paint(el, html){
+        var a = document.activeElement, k = (a && a !== el && el.contains(a)) ? a.getAttribute('data-f') : null;
+        el.innerHTML = html;
+        if(!k) return;
+        var id = k.split(':')[1] || '', c = [k, 'inc:' + id, 'add:' + id, 'dec:' + id];
+        for(var i = 0; i < c.length; i++){ var n = el.querySelector('[data-f="' + c[i] + '"]'); if(n && !n.disabled){ n.focus({preventScroll:true}); return; } }
+        if(el.hasAttribute('tabindex')) el.focus({preventScroll:true});
+      }
+
+      // ---------- celular del comprador ----------
+      function back(v, label){ return '<button type="button" class="s-back" data-act="go" data-v="' + v + '" data-f="back">‹ ' + label + '</button>'; }
+      function radio(name, val, on, title, help){
+        return '<label class="s-radio' + (on ? ' on' : '') + '"><input type="radio" name="s-' + name + '" value="' + val + '" data-act="' + name + '" data-f="' + name + ':' + val + '"' + (on ? ' checked' : '') + '>' +
+          '<span><b>' + title + '</b>' + (help ? '<small>' + help + '</small>' : '') + '</span></label>';
+      }
+      function stockTxt(n){
+        if(n <= 0) return T('Agotado', 'Sold out');
+        if(n <= 5) return n === 1 ? T('Solo queda 1', 'Only 1 left') : T('Solo quedan ' + n, 'Only ' + n + ' left');
+        return T(n + ' disponibles', n + ' available');
+      }
+      function qty(id, q, max, name){
+        return '<span class="qty" role="group" aria-label="' + T('Cantidad de ', 'Quantity of ') + name + '">' +
+          '<button type="button" data-act="dec" data-id="' + id + '" data-f="dec:' + id + '" aria-label="' + T('Quitar uno', 'Remove one') + '">−</button>' +
+          '<output>' + q + '</output>' +
+          '<button type="button" data-act="inc" data-id="' + id + '" data-f="inc:' + id + '" aria-label="' + T('Agregar uno', 'Add one') + '"' + (q >= max ? ' disabled' : '') + '>+</button></span>';
+      }
+      function card(p){
+        var id = p[0], n = S.stock[id], q = S.cart[id] || 0, name = L(p[2]), act;
+        if(n <= 0) act = '<button type="button" class="p-add" disabled>' + T('Agotado', 'Sold out') + '</button>';
+        else if(!q) act = '<button type="button" class="p-add" data-act="inc" data-id="' + id + '" data-f="add:' + id + '" aria-label="' + T('Agregar ', 'Add ') + name + '">' + T('Agregar', 'Add') + '</button>';
+        else act = qty(id, q, n, name);
+        return '<li class="p-card' + (n <= 0 ? ' out' : '') + '">' + (n > 0 && p[5] ? '<span class="p-tag">' + T('Oferta', 'Sale') + '</span>' : '') +
+          '<span class="p-ph" aria-hidden="true">' + p[1] + '</span><b>' + name + '</b><small>' + p[3] + '</small>' +
+          '<span class="p-pr">' + money(p[4]) + (p[5] ? ' <s>' + money(p[5]) + '</s>' : '') + '</span>' +
+          '<span class="p-st' + (n <= 0 ? ' none' : n <= 5 ? ' low' : '') + '">' + stockTxt(n) + '</span>' + act + '</li>';
+      }
+      function vCat(){
+        var h = '';
+        if(S.note) h += '<p class="s-ok" role="status">' + S.note() + '</p>';
+        if(!S.installed && !S.instHidden){
+          h += '<div class="s-inst"><span class="s-logo" aria-hidden="true">D</span><span class="sp"><b>' + T('Instala la tienda', 'Install the store') + '</b>' +
+            T('Tenla en tu celular como una app.', 'Keep it on your phone like an app.') + '</span>' +
+            '<button type="button" class="s-mini" data-act="install" data-f="install">' + T('Instalar', 'Install') + '</button>' +
+            '<button type="button" class="s-x" data-act="noinst" data-f="noinst" aria-label="' + T('Ahora no', 'Not now') + '">×</button></div>';
+        }
+        h += '<div class="s-chips" role="group" aria-label="' + T('Categorías', 'Categories') + '">' + [-1, 0, 1, 2].map(function(c){
+          return '<button type="button" class="s-chip" data-act="cat" data-c="' + c + '" data-f="cat:' + c + '" aria-pressed="' + (S.cat === c) + '">' + (c < 0 ? T('Todas', 'All') : L(CATS[c])) + '</button>';
+        }).join('') + '</div>';
+        // los agotados se ven, pero al final
+        var list = PRODS.filter(function(p){ return S.cat < 0 || p[7] === S.cat; })
+          .sort(function(a, b){ return (S.stock[a[0]] > 0 ? 0 : 1) - (S.stock[b[0]] > 0 ? 0 : 1); });
+        h += '<ul class="p-grid">' + list.map(card).join('') + '</ul>';
+        var u = units(S.cart);
+        if(u) h += '<button type="button" class="s-cartbar" data-act="go" data-v="cart" data-f="cartbar"><span>' + T('Ver pedido', 'View order') + ' · <b>' + u + '</b></span><strong>' + money(sub(S.cart)) + '</strong></button>';
+        return h;
+      }
+      function groups(){
+        var deps = [];
+        CITIES.forEach(function(c){ if(deps.indexOf(c[2]) < 0) deps.push(c[2]); });
+        return deps.map(function(d){
+          return '<optgroup label="' + d + '">' + CITIES.filter(function(c){ return c[2] === d; }).map(function(c){
+            return '<option value="' + c[0] + '"' + (S.city === c[0] ? ' selected' : '') + '>' + c[1] + '</option>';
+          }).join('') + '</optgroup>';
+        }).join('');
+      }
+      function totals(q){
+        return '<dl class="s-tot"><div><dt>' + T('Productos', 'Products') + '</dt><dd>' + money(q.sub) + '</dd></div>' +
+          (S.ent === 'D' ? '<div><dt>' + T('Domicilio', 'Delivery') + '</dt><dd>' + (!q.zone ? '—' : q.fee ? money(q.fee) : T('Gratis', 'Free')) + '</dd></div>' : '') +
+          '<div class="t"><dt>Total</dt><dd>' + money(q.tot) + '</dd></div></dl>';
+      }
+      function vCart(){
+        var ids = Object.keys(S.cart), q = quote(), zz = zoneFor(S.city);
+        var h = back('cat', T('Seguir comprando', 'Keep shopping')) + '<h3 class="s-h">' + T('Tu pedido', 'Your order') + '</h3>';
+        if(S.repeat) h += '<p class="s-warn" role="status">' + S.repeat() + '</p>';
+        if(!ids.length) return h + '<p class="s-empty">' + T('Todavía no has agregado productos.', 'You haven\'t added any products yet.') + '</p>';
+        h += '<ul class="c-lines">' + ids.map(function(id){
+          var p = P(id), c = S.cart[id], name = L(p[2]);
+          return '<li class="c-line"><span><b>' + name + '</b><small>' + p[3] + ' · ' + money(p[4]) + T(' c/u', ' each') + '</small></span>' +
+            '<span class="c-r"><b>' + money(p[4] * c) + '</b>' + qty(id, c, S.stock[id], name) + '</span></li>';
+        }).join('') + '</ul>';
+        h += '<fieldset class="s-fs"><legend>' + T('¿Cómo lo recibes?', 'How do you get it?') + '</legend><div class="s-opt">' +
+          radio('ent', 'D', S.ent === 'D', T('Domicilio', 'Delivery'), zz ? (fee(zz.z, q.sub) ? T('Envío ', 'Fee ') + money(fee(zz.z, q.sub)) : T('Envío gratis', 'Free delivery')) : T('Según tu ciudad', 'Depends on your city')) +
+          radio('ent', 'R', S.ent === 'R', T('Recoger en la tienda', 'Store pickup'), T('Sin pedido mínimo', 'No minimum order')) + '</div></fieldset>';
+        if(S.ent === 'D'){
+          h += '<label class="s-field">' + T('¿A qué ciudad lo llevamos?', 'Which city do we deliver to?') + '<select data-act="city" data-f="city">' +
+            '<option value="">' + T('Escoge…', 'Choose…') + '</option>' + groups() + '</select></label>';
+          if(q.zone){
+            var z = q.zone.z, k = q.zone.kind;
+            h += '<p class="s-zone">' + (k === 'city' ? T('Zona: <b>' + q.zone.c[1] + '</b> (ciudad)', 'Zone: <b>' + q.zone.c[1] + '</b> (city)')
+                : k === 'dep' ? T('Zona: <b>' + z.dep + '</b> (todo el departamento)', 'Zone: <b>' + z.dep + '</b> (whole department)')
+                : T('Sin zona: valores generales de la tienda', 'No zone: the store\'s general values')) + '<br>' +
+              T('mínimo ', 'minimum ') + money(z.min) + ' · ' + T('domicilio ', 'fee ') + money(z.fee) + ' · ' +
+              (z.free ? T('gratis desde ', 'free from ') + money(z.free) : T('nunca gratis', 'never free')) + '</p>';
+            if(z.free && q.sub < z.free){
+              h += '<div class="s-free"><span>' + T('Te faltan ' + money(z.free - q.sub) + ' para el domicilio gratis', money(z.free - q.sub) + ' more for free delivery') + '</span>' +
+                '<i aria-hidden="true"><b style="width:' + Math.round(q.sub / z.free * 100) + '%"></b></i></div>';
+            }
+          }
+        }
+        h += totals(q);
+        if(q.err) h += '<p class="s-warn">' + q.err + '</p>';
+        return h + '<button type="button" class="s-btn" data-act="go" data-v="data" data-f="next"' + (q.err ? ' disabled' : '') + '>' + T('Continuar', 'Continue') + '</button>';
+      }
+      function vData(){
+        var q = quote(), r = S.reg, conf = confirmed();
+        var h = back('cart', T('Volver', 'Back')) + '<h3 class="s-h">' + T('Tus datos', 'Your details') + '</h3>' +
+          '<fieldset class="s-fs"><legend class="sr-only">' + T('¿Quién pide?', 'Who is ordering?') + '</legend><div class="s-opt">' +
+          radio('who', 'new', S.who === 'new', T('Soy nuevo', 'I\'m new'), T('Datos a mano', 'Details by hand')) +
+          radio('who', 'reg', S.who === 'reg', T('Ya soy cliente', 'I\'m a customer'), T('Por cédula', 'By ID number')) + '</div></fieldset>';
+        if(S.who === 'new'){
+          h += '<p class="s-kv">' + T('Cliente de ejemplo', 'Sample customer') + '<br>cliente@ejemplo.com<br>Calle 1 # 2-3, ' + T('barrio Centro', 'Centro district') + '</p>';
+        } else {
+          h += '<label class="s-field">' + T('Cédula o documento', 'ID number') + '<input value="12345678" readonly data-f="doc"></label>';
+          if(r.step === 'hint'){
+            h += '<p class="s-ok">' + T('Ya estás registrado. Tu celular termina en ' + PISTA + '; toca “Enviar código” y traemos tus datos.', 'You\'re already registered. Your phone ends in ' + PISTA + '; tap “Send code” and we\'ll bring your details.') + '</p>' +
+              '<button type="button" class="s-btn line" data-act="sms" data-f="sms">' + T('Enviar código por mensaje', 'Send code by text message') + '</button>';
+          } else if(r.step === 'code' || r.step === 'lock'){
+            h += '<p class="s-ok">' + T('Te enviamos un código por mensaje al celular que termina en ' + PISTA + '. Escríbelo aquí.', 'We sent a code by text message to the phone ending in ' + PISTA + '. Type it here.') + '</p>';
+            if(r.err) h += '<p class="s-warn err" role="alert">' + r.err() + '</p>';
+            if(r.step === 'code'){
+              h += '<div class="s-code"><label class="s-field">' + T('Código que te llegó por mensaje', 'Code from the text message') +
+                '<input id="sCode" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="' + T('6 dígitos', '6 digits') + '" data-f="code"></label>' +
+                '<button type="button" class="s-mini" data-act="confirm" data-f="confirm">' + T('Confirmar', 'Confirm') + '</button></div>' +
+                '<p class="s-hint">' + T('Código de la demo: ', 'Demo code: ') + '<button type="button" class="s-link" data-act="democode" data-f="democode" aria-label="' + T('Usar el código de la demo', 'Use the demo code') + '">' + CODE + '</button></p>';
+            }
+          } else if(conf){
+            h += '<p class="s-ok">' + (S.sessUsed ? T('Te reconocimos en este dispositivo. Revisa tus datos antes de enviar.', 'We recognized you on this device. Check your details before sending.')
+                                                  : T('Listo, confirmamos tu identidad. Revisa tus datos antes de enviar.', 'Done, we confirmed it\'s you. Check your details before sending.')) + '</p>' +
+              '<div class="s-acct"><span>' + T('Cliente registrado (demo)', 'Registered customer (demo)') + '</span>' +
+              '<span>' + T('Tienes un saldo pendiente de ', 'You have a pending balance of ') + '<strong>' + money(DEBE) + '</strong></span>' +
+              '<span>' + T('Cupo disponible: ', 'Available credit: ') + '<strong>' + money(CUPO) + '</strong></span></div>' +
+              '<button type="button" class="s-link" data-act="logout" data-f="logout">' + T('No soy yo / salir', 'Not me / sign out') + '</button>';
+          }
+        }
+        var pays = ['EF', 'TJ'].concat(conf ? ['CR'] : []);
+        if(pays.indexOf(S.pay) < 0) S.pay = 'EF';
+        var help = {EF:T('Pagas al recibir', 'Pay on delivery'), TJ:T('Con datáfono al recibir', 'Card terminal on delivery'), CR:T('A tu cuenta, lo pagas después', 'On your account, pay later')};
+        h += '<fieldset class="s-fs"><legend>' + T('¿Cómo pagas?', 'How do you pay?') + '</legend><div class="s-opt col">' +
+          pays.map(function(p){ return radio('pay', p, S.pay === p, payName(p), help[p]); }).join('') + '</div></fieldset>';
+        var err = q.err || dataErr(q);
+        if(err) h += '<p class="s-warn err">' + err + '</p>';
+        return h + '<div class="s-due"><span>' + T('Total a pagar', 'Total to pay') + '</span><strong>' + money(q.tot) + '</strong></div>' +
+          '<button type="button" class="s-btn" data-act="send" data-f="send"' + (err || S.busy ? ' disabled' : '') + '>' + (S.busy ? T('Enviando…', 'Sending…') : T('Enviar pedido', 'Send order')) + '</button>';
+      }
+      function lines(o){
+        return '<ul class="s-sum">' + o.lines.map(function(l){
+          var p = P(l[0]); return '<li><span>' + l[1] + ' × ' + L(p[2]) + ' (' + p[3] + ')</span><span>' + money(l[2] * l[1]) + '</span></li>';
+        }).join('') + (o.ent === 'D' ? '<li><span>' + T('Domicilio', 'Delivery') + '</span><span>' + (o.fee ? money(o.fee) : T('Gratis', 'Free')) + '</span></li>' : '') +
+          '<li class="t"><span>Total</span><span>' + money(o.tot) + '</span></li></ul>';
+      }
+      function link(o){ return 'tienda.demo/…/' + o.n + '<mark>#' + o.key + '</mark>'; }
+      function vDone(){
+        var o = find(S.last); if(!o) return vCat();
+        return '<div class="s-seal" aria-hidden="true">✓</div><h3 class="s-h c">' + T('¡Pedido #' + o.n + ' recibido!', 'Order #' + o.n + ' received!') + '</h3>' +
+          '<p class="c">' + (o.ent === 'D' ? T('Lo llevamos a Calle 1 # 2-3 (' + o.zone.c[1] + '). La tienda te contactará para confirmar.', 'We\'ll take it to Calle 1 # 2-3 (' + o.zone.c[1] + '). The store will contact you to confirm.')
+                                           : T('Lo recoges en la tienda. Te avisaremos cuando esté listo.', 'You pick it up at the store. We\'ll let you know when it\'s ready.')) + '</p>' +
+          lines(o) +
+          '<div class="s-lk"><small>' + T('Tu link de seguimiento', 'Your tracking link') + '</small><span>' + link(o) + '</span>' +
+          '<small>' + T('La clave va después del #: el navegador no la manda en la URL, así no queda en los registros. Sin ella, el pedido responde como si no existiera.',
+                        'The key goes after the #: the browser doesn\'t send it in the URL, so it never lands in the logs. Without it, the order answers as if it didn\'t exist.') + '</small></div>' +
+          '<button type="button" class="s-btn" data-act="track" data-n="' + o.n + '" data-f="track">' + T('Ver cómo va mi pedido', 'See how my order is doing') + '</button>' +
+          '<button type="button" class="s-btn line" data-act="go" data-v="cat" data-f="shop">' + T('Hacer otro pedido', 'Place another order') + '</button>' +
+          '<p class="s-hint">↳ ' + T('Ahora acéptalo en el escritorio del ERP.', 'Now accept it on the ERP desktop.') + ' <a class="s-jump" href="#sErp">' + T('Ir al escritorio ↓', 'Go to the desktop ↓') + '</a></p>';
+      }
+      function stateText(o){
+        var s = o.seen;
+        if(s === 'PENDIENTE') return [T('Pedido recibido', 'Order received'), T('La tienda lo va a revisar y te contactará para confirmarlo.', 'The store will review it and contact you to confirm.')];
+        if(s === 'ACEPTADO') return [T('Pedido confirmado', 'Order confirmed'), T('La tienda está preparando tu pedido.', 'The store is preparing your order.')];
+        if(s === 'DESPACHADO') return o.ent === 'R' ? [T('Listo para recoger', 'Ready for pickup'), T('Ya puedes pasar por él a la tienda.', 'You can pick it up at the store now.')]
+                                                    : [T('Tu pedido va en camino', 'Your order is on its way'), T('Ya salió hacia tu dirección.', 'It has left for your address.')];
+        if(s === 'FINALIZADO') return [T('Pedido entregado', 'Order delivered'), T('Gracias por tu compra.', 'Thanks for your purchase.')];
+        return [T('La tienda no pudo atender tu pedido', 'The store couldn\'t fill your order'), T('Si tienes dudas, escríbele a la tienda.', 'If you have questions, message the store.')];
+      }
+      function isFinal(s){ return s === 'FINALIZADO' || s === 'RECHAZADO'; }
+      function upd(o){ return T('Esta página se actualiza sola. Última revisión: ', 'This page updates itself. Last check: ') + (o.checked ? hms(o.checked) : '—'); }
+      function vTrack(){
+        var o = find(S.track); if(!o) return vCat();
+        var tx = stateText(o), fin = isFinal(o.seen), steps;
+        if(o.seen === 'RECHAZADO'){
+          steps = [[T('Recibido', 'Received'), o.hist.PENDIENTE, 'done'], [T('No atendido', 'Not filled'), o.hist.RECHAZADO, 'rej']];
+        } else {
+          var cur = ST.indexOf(o.seen);
+          steps = STEPS.map(function(s, i){
+            var name = s[1] ? L(s[1]) : (o.ent === 'R' ? T('Listo para recoger', 'Ready for pickup') : T('En camino', 'On the way'));
+            return [name, i <= cur ? o.hist[s[0]] : null, i < cur || (i === cur && fin) ? 'done' : i === cur ? 'cur' : ''];
+          });
+        }
+        var h = back('cat', T('Ir a la tienda', 'Go to the store')) +
+          '<p class="s-meta">' + T('Pedido #', 'Order #') + o.n + ' · ' + hm(o.t0) + '</p><h3 class="s-h">' + tx[0] + '</h3><p>' + tx[1] + '</p>' +
+          (o.seen === 'RECHAZADO' && o.why >= 0 ? '<p class="s-warn err">' + T('Motivo: ', 'Reason: ') + L(WHY[o.why]) + '</p>' : '') +
+          '<ol class="tl">' + steps.map(function(s){
+            return '<li class="' + s[2] + '"' + (s[2] === 'cur' ? ' aria-current="step"' : '') + '><span class="dot" aria-hidden="true">' + (s[2] === 'done' ? '✓' : s[2] === 'rej' ? '✕' : '') + '</span>' +
+              '<b>' + s[0] + '</b>' + (s[1] ? '<small>' + hm(s[1]) + '</small>' : '') + '</li>';
+          }).join('') + '</ol>' +
+          (fin ? '' : '<p class="s-upd" id="sUpd">' + upd(o) + '</p>') + lines(o) +
+          '<button type="button" class="s-btn line" data-act="again" data-n="' + o.n + '" data-f="again">' + T('Pedir lo mismo otra vez', 'Order the same again') + '</button>';
+        if(o.seen === 'PENDIENTE') h += '<p class="s-hint">↳ ' + T('Acéptalo en el escritorio del ERP.', 'Accept it on the ERP desktop.') + ' <a class="s-jump" href="#sErp">' + T('Ir al escritorio ↓', 'Go to the desktop ↓') + '</a></p>';
+        return h;
+      }
+      function vMine(){
+        var h = back('cat', T('Ir a la tienda', 'Go to the store')) + '<h3 class="s-h">' + T('Mis pedidos', 'My orders') + '</h3>' +
+          '<p class="s-meta">' + T('Los que hiciste desde este dispositivo (los últimos 10).', 'The ones you placed from this device (the last 10).') + '</p>';
+        if(!S.mine.length) return h + '<p class="s-empty">' + T('Todavía no hay pedidos desde este dispositivo.', 'No orders from this device yet.') + '</p>';
+        return h + '<ul class="m-list">' + S.mine.map(function(n){
+          var o = find(n), u = o.lines.reduce(function(a, l){ return a + l[1]; }, 0);
+          return '<li class="m-item"><span><b>' + T('Pedido #', 'Order #') + o.n + '</b><small>' + hm(o.t0) + ' · ' + money(o.tot) + ' · ' + (u === 1 ? T('1 producto', '1 product') : T(u + ' productos', u + ' products')) + '</small></span>' +
+            '<span class="acts"><button type="button" class="s-mini" data-act="track" data-n="' + n + '" data-f="track:' + n + '">' + T('Ver estado', 'See status') + '</button>' +
+            '<button type="button" class="s-mini" data-act="again" data-n="' + n + '" data-f="again:' + n + '">' + T('Pedir lo mismo', 'Order the same') + '</button></span></li>';
+        }).join('') + '</ul>';
+      }
+      function renderPhone(nav){
+        var o = S.view === 'done' ? find(S.last) : S.view === 'track' ? find(S.track) : null;
+        phone.classList.toggle('app-mode', S.installed);
+        clockEl.textContent = hm(new Date());
+        urlT.innerHTML = o ? link(o) : 'tienda.demo/' + T('ejemplo', 'sample');
+        mineB.hidden = !S.mine.length;
+        mineB.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h12a1 1 0 0 1 1 1v18l-3-2-2 2-2-2-2 2-2-2-3 2V3a1 1 0 0 1 1-1Zm1 2v13.3l1-.7 2 2 2-2 2 2 2-2 1 .7V4H7Zm2 3h6v2H9V7Zm0 4h6v2H9v-2Z"/></svg>' + S.mine.length;
+        mineB.setAttribute('aria-label', T('Mis pedidos', 'My orders') + ' (' + S.mine.length + ')');
+        mineB.title = T('Mis pedidos', 'My orders');
+        paint(view, S.view === 'cart' ? vCart() : S.view === 'data' ? vData() : S.view === 'done' ? vDone() : S.view === 'track' ? vTrack() : S.view === 'mine' ? vMine() : vCat());
+        if(nav){
+          view.focus({preventScroll:true});
+          if(phone.getBoundingClientRect().top < 60) phone.scrollIntoView({block:'start', behavior:REDUCE ? 'auto' : 'smooth'});
+        }
+      }
+
+      // ---------- portero ----------
+      function renderGate(){
+        gLog.innerHTML = S.log.map(function(e){ return '<li class="' + e.c + (e.fresh && !REDUCE ? ' new' : '') + '">' + e.f() + '</li>'; }).join('');
+        S.log.forEach(function(e){ e.fresh = false; });
+      }
+
+      // ---------- escritorio del ERP (simulado) ----------
+      function who(o){ return o.who === 'new' ? T('Cliente de ejemplo', 'Sample customer') : o.who === 'reg' ? T('Cliente registrado', 'Registered customer') : L(o.who); }
+      function ent(o){ return o.ent === 'D' ? T('Domicilio', 'Delivery') + ' · ' + o.zone.c[1] : T('Recoger', 'Pickup'); }
+      function est(s){ return '<span class="est" data-e="' + s + '">' + stName(s) + '</span>'; }
+      function renderErp(){
+        paint(eList, S.orders.slice().sort(function(a, b){ return b.n - a.n; }).map(function(o){
+          return '<li><button type="button" class="e-row' + (o.fresh && !REDUCE ? ' fresh' : '') + '" data-act="sel" data-n="' + o.n + '" data-f="sel:' + o.n + '" aria-pressed="' + (S.sel === o.n) + '">' +
+            '<span class="n">#' + o.n + '</span><span>' + who(o) + (o.mine ? '<i class="you">' + T('tú', 'you') + '</i>' : '') + '<small>' + ent(o) + ' · ' + payName(o.pay) + '</small></span>' +
+            '<span class="v">' + money(o.tot) + est(o.st) + '</span></button></li>';
+        }).join(''));
+        S.orders.forEach(function(o){ o.fresh = false; });
+        var o = find(S.sel), h = '';
+        if(!S.mine.length) h += '<p class="e-hint">↳ ' + T('Envía un pedido desde el celular: llega aquí como PENDIENTE.', 'Send an order from the phone: it arrives here as PENDING.') + '</p>';
+        if(o){
+          h += '<h4><span>' + T('Pedido #', 'Order #') + o.n + '</span>' + est(o.st) + '</h4>' +
+            '<p class="e-who">' + who(o) + ' · ' + ent(o) + ' · ' + T('pago: ', 'payment: ') + payName(o.pay) + (o.pay === 'CR' ? T(' (va a cartera)', ' (to receivables)') : '') + '</p>' +
+            lines(o) +
+            '<p class="e-obs">' + T('Observaciones: Contacto: ', 'Notes: Contact: ') + who(o) +
+            (o.ent === 'D' ? ' | ' + T('Domicilio a: ', 'Deliver to: ') + (o.zone.c[1] + ' (' + o.zone.c[2] + ')').toUpperCase() : '') + '</p>';
+          if(S.rejecting === o.n){
+            h += '<p class="e-lbl">' + T('Motivo del rechazo (lo ve el comprador):', 'Reason for rejecting (the buyer sees it):') + '</p><div class="e-acts">' +
+              WHY.map(function(w, i){ return '<button type="button" class="r-chip" data-act="why" data-i="' + i + '" data-f="why:' + i + '">' + L(w) + '</button>'; }).join('') +
+              '<button type="button" class="r-link" data-act="nowhy" data-f="nowhy">' + T('Cancelar', 'Cancel') + '</button></div>';
+          } else if(o.st === 'PENDIENTE'){
+            h += '<div class="e-acts"><button type="button" class="btn btn-sig" data-act="to" data-s="ACEPTADO" data-f="accept">' + T('Aceptar', 'Accept') + '</button>' +
+              '<button type="button" class="btn btn-line" data-act="reject" data-f="reject">' + T('Rechazar', 'Reject') + '</button></div>';
+          } else if(o.st === 'ACEPTADO'){
+            h += '<div class="e-acts"><button type="button" class="btn btn-ink" data-act="to" data-s="DESPACHADO" data-f="dispatch">' + (o.ent === 'R' ? T('Despachar (listo para recoger)', 'Dispatch (ready for pickup)') : T('Despachar', 'Dispatch')) + '</button></div>';
+          } else if(o.st === 'DESPACHADO'){
+            h += '<div class="e-acts"><button type="button" class="btn btn-ink" data-act="to" data-s="FINALIZADO" data-f="finish">' + T('Finalizar', 'Complete') + '</button></div>';
+          } else {
+            h += '<p class="e-lbl">' + T('Pedido cerrado.', 'Order closed.') + '</p>';
+          }
+          if(o.mine){
+            var open = S.view === 'track' && S.track === o.n;
+            h += '<p class="e-mirror">↳ ' + (!open ? T('El comprador lo ve al abrir su link de seguimiento.', 'The buyer sees it when opening the tracking link.')
+              : o.seen !== o.st ? T('El link del comprador se pone al día en la próxima revisión…', 'The buyer\'s link catches up on its next check…')
+              : T('El link del comprador muestra: «' + stateText(o)[0] + '».', 'The buyer\'s link shows: “' + stateText(o)[0] + '”.')) +
+              ' <a class="s-jump" href="#sPhone">' + T('Ver el celular ↑', 'See the phone ↑') + '</a></p>';
+          }
+        }
+        paint(eDet, h);
+      }
+      function render(){ renderPhone(); renderGate(); renderErp(); }
+
+      // El link de seguimiento consulta al portero: al abrirlo y luego cada tanto, solo mientras se ve.
+      function sync(o, opened){
+        o.checked = new Date();
+        var changed = o.seen !== o.st, s = o.st;
+        if(changed || opened){
+          o.seen = s;
+          log('in', function(){ return T('› el link consulta #' + o.n + ' (clave en un encabezado) → ' + stName(s), '› the link checks #' + o.n + ' (key in a header) → ' + stName(s)); });
+        }
+        return changed;
+      }
+
+      // ---------- acciones del comprador ----------
+      function lookup(){
+        if(S.sess){ S.reg.step = 'ok'; S.sessUsed = true; log('ok', '› sesión firmada en este dispositivo: sin SMS', '› signed session on this device: no SMS'); return; }
+        if(!S.reg.step){ S.reg.step = 'hint'; log('in', '› cédula ••5678 registrada: solo se dice en qué termina su celular', '› ID ••5678 registered: only the end of the phone number is shown'); }
+      }
+      function confirmCode(){
+        var inp = $('sCode'), r = S.reg; if(!inp || r.step !== 'code') return;
+        var v = inp.value.replace(/\D/g, '');
+        if(v.length !== 6){
+          r.err = function(){ return T('Escribe el código de 6 dígitos que te llegó por mensaje.', 'Type the 6-digit code from the text message.'); };
+        } else if(v === CODE){
+          r.step = 'ok'; r.tries = 0; r.err = null; S.sess = true; S.sessUsed = false;
+          log('ok', '✓ código correcto: llegan sus datos y su cupo; queda la sesión en este dispositivo', '✓ correct code: details and credit arrive; the session stays on this device');
+          say(T('Identidad confirmada. Cupo disponible: ', 'Identity confirmed. Available credit: ') + money(CUPO) + '.');
+        } else {
+          var n = ++r.tries;
+          if(n >= MAXTRY){
+            r.step = 'lock';
+            r.err = function(){ return T('Hiciste muchos intentos. Escribe tus datos a mano o intenta más tarde.', 'Too many attempts. Enter your details by hand or try again later.'); };
+            log('er', '✗ 5 intentos fallidos: la confirmación se cierra 30 min para ese documento', '✗ 5 failed attempts: confirmation locked for 30 min for that ID');
+          } else {
+            r.err = function(){ return T('El código no es correcto o ya venció. Revísalo o pide uno nuevo.', 'The code is wrong or has expired. Check it or ask for a new one.'); };
+            log('er', function(){ return T('✗ código incorrecto · intento ' + n + ' de ' + MAXTRY, '✗ wrong code · attempt ' + n + ' of ' + MAXTRY); });
+          }
+        }
+        renderPhone(); renderGate();
+        var ni = $('sCode'); if(ni && r.step === 'code') ni.focus({preventScroll:true});
+      }
+      function send(){
+        if(S.busy || !units(S.cart)) return;
+        var q = quote(); if(q.err || dataErr(q)) return;
+        S.busy = true; renderPhone();
+        var o = {n:S.next++, who:S.who, ent:S.ent, city:S.ent === 'D' ? S.city : '', pay:S.pay, st:'PENDIENTE', seen:'PENDIENTE', hist:{}, why:-1, mine:true, key:newKey(), fresh:true,
+                 lines:Object.keys(S.cart).map(function(id){ return [id, S.cart[id], 0]; })};
+        price(o);
+        var u = units(S.cart), z = o.zone, items = [
+          ['in', function(){ return T('› llega un pedido: ' + u + ' productos · ' + (z ? 'domicilio a ' + z.c[1] : 'recoger en la tienda'), '› an order arrives: ' + u + ' products · ' + (z ? 'delivery to ' + z.c[1] : 'store pickup')); }],
+          ['mu', function(){ return T('· el navegador manda códigos, cantidades y la ciudad; nunca precios', '· the browser sends codes, quantities and the city; never prices'); }],
+          ['ok', function(){ return T('✓ precios del catálogo · productos ' + money(o.sub), '✓ catalog prices · products ' + money(o.sub)); }],
+          ['ok', function(){ return T('✓ existencia en vivo: alcanza', '✓ live stock: enough'); }],
+          ['ok', z ? function(){
+            var nm = z.kind === 'city' ? z.c[1] : z.kind === 'dep' ? z.z.dep : T('general', 'general');
+            return T('✓ zona ' + nm + ': mínimo ' + money(z.z.min) + ' · domicilio ' + (o.fee ? money(o.fee) : 'gratis'), '✓ zone ' + nm + ': minimum ' + money(z.z.min) + ' · fee ' + (o.fee ? money(o.fee) : 'free'));
+          } : function(){ return T('✓ recoger en la tienda: sin mínimo ni domicilio', '✓ store pickup: no minimum, no fee'); }]
+        ];
+        if(o.who === 'reg') items.push(['ok', function(){ return T('✓ cupo y cartera: se validan aquí, no en el navegador', '✓ credit and receivables: checked here, not in the browser'); }]);
+        if(o.pay === 'CR') items.push(['ok', function(){ return T('✓ crédito: habilitado por la empresa, sin cartera vencida', '✓ credit: enabled by the company, nothing overdue'); }]);
+        items.push(['k', function(){ return T('→ al ERP, con el token cifrado de la tienda', '→ to the ERP, with the store\'s encrypted token'); }]);
+        items.push(['ok', function(){ return T('✓ pedido #' + o.n + ' en Pedidos · ', '✓ order #' + o.n + ' in Orders · ') + stName('PENDIENTE'); }]);
+        seq(items, function(){
+          o.t0 = new Date(); o.hist.PENDIENTE = o.t0;
+          // la existencia descuenta los pedidos de la tienda que siguen pendientes
+          o.lines.forEach(function(l){ S.stock[l[0]] = Math.max(0, S.stock[l[0]] - l[1]); });
+          S.orders.push(o); S.mine.unshift(o.n); if(S.mine.length > 10) S.mine.length = 10;
+          S.sel = o.n; S.rejecting = 0; S.cart = {}; S.repeat = null; S.last = o.n; S.view = 'done'; S.busy = false;
+          renderPhone(true); renderGate(); renderErp();
+          say(T('Pedido #' + o.n + ' enviado: llegó al escritorio del ERP como pendiente.', 'Order #' + o.n + ' sent: it reached the ERP desktop as pending.'));
+        });
+      }
+      // Lo de un pedido anterior vuelve al carrito con el precio y la existencia de hoy.
+      function again(n){
+        var o = find(n); if(!o) return;
+        var miss = 0;
+        o.lines.forEach(function(l){
+          var have = S.stock[l[0]];
+          if(have <= 0){ miss++; return; }
+          var c = Math.min(l[1], have);
+          if(c < l[1]) miss++;
+          S.cart[l[0]] = Math.max(S.cart[l[0]] || 0, c);
+        });
+        S.repeat = miss ? function(){
+          return miss === 1 ? T('1 producto de tu pedido anterior ya no está disponible o tiene menos existencia.', '1 product from your previous order is no longer available or has less stock.')
+                            : T(miss + ' productos de tu pedido anterior ya no están disponibles o tienen menos existencia.', miss + ' products from your previous order are no longer available or have less stock.');
+        } : null;
+        log('mu', '› pedir lo mismo: con el precio y la existencia de hoy', '› order the same: at today\'s price and stock');
+        S.view = 'cart'; renderPhone(true); renderGate();
+      }
+
+      view.addEventListener('click', function(e){
+        var b = e.target.closest('[data-act]'); if(!b || b.disabled || b.tagName === 'INPUT' || b.tagName === 'SELECT') return;
+        var a = b.dataset.act, id = b.dataset.id, p = id ? P(id) : null;
+        if(a === 'cat'){ S.cat = +b.dataset.c; renderPhone(); }
+        else if(a === 'inc'){
+          if((S.cart[id] || 0) < S.stock[id]) S.cart[id] = (S.cart[id] || 0) + 1;
+          S.note = null; renderPhone(); say(L(p[2]) + ': ' + S.cart[id]);
+        }
+        else if(a === 'dec'){
+          S.cart[id] = (S.cart[id] || 0) - 1;
+          if(S.cart[id] <= 0) delete S.cart[id];
+          renderPhone(); say(L(p[2]) + ': ' + (S.cart[id] || 0));
+        }
+        else if(a === 'go'){
+          S.view = b.dataset.v; S.note = null;
+          if(S.view === 'cat') S.repeat = null;
+          renderPhone(true); renderErp();
+        }
+        else if(a === 'install'){
+          S.installed = true;
+          S.note = function(){ return T('Instalada: abre como app, con el nombre y el ícono de la tienda.', 'Installed: it opens as an app, with the store\'s name and icon.'); };
+          log('ok', '› manifest propio de esta tienda: su nombre y su ícono (logo o inicial)', '› this store\'s own manifest: its name and icon (logo or initial)');
+          renderPhone(); renderGate(); view.focus({preventScroll:true}); say(S.note());
+        }
+        else if(a === 'noinst'){ S.instHidden = true; renderPhone(); view.focus({preventScroll:true}); }
+        else if(a === 'sms'){
+          S.reg.step = 'code'; S.reg.err = null;
+          log('in', '› código por SMS al celular que tiene el ERP (nunca al navegador)', '› SMS code to the phone on file in the ERP (never to the browser)');
+          renderPhone(); renderGate();
+          var ci = $('sCode'); if(ci) ci.focus({preventScroll:true});
+        }
+        else if(a === 'democode'){ var di = $('sCode'); if(di){ di.value = CODE; confirmCode(); } }
+        else if(a === 'confirm'){ confirmCode(); }
+        else if(a === 'logout'){
+          S.sess = false; S.sessUsed = false; S.who = 'new'; S.reg = {step:'', tries:S.reg.tries, err:null};
+          log('mu', '› sesión cerrada en este dispositivo', '› session closed on this device');
+          renderPhone(); renderGate(); view.focus({preventScroll:true});
+        }
+        else if(a === 'send'){ send(); }
+        else if(a === 'track'){
+          S.track = +b.dataset.n; S.view = 'track'; sync(find(S.track), true);
+          renderPhone(true); renderGate(); renderErp();
+        }
+        else if(a === 'again'){ again(+b.dataset.n); }
+      });
+      view.addEventListener('change', function(e){
+        var t = e.target, a = t.dataset ? t.dataset.act : null;
+        if(a === 'ent') S.ent = t.value;
+        else if(a === 'city') S.city = t.value;
+        else if(a === 'pay') S.pay = t.value;
+        else if(a === 'who'){ S.who = t.value; if(S.who === 'reg') lookup(); }
+        else return;
+        renderPhone(); renderGate();
+      });
+      view.addEventListener('input', function(e){
+        if(e.target.id !== 'sCode') return;
+        var v = e.target.value.replace(/\D/g, '');
+        if(v !== e.target.value) e.target.value = v;
+        if(v.length === 6) confirmCode();
+      });
+      view.addEventListener('keydown', function(e){ if(e.key === 'Enter' && e.target.id === 'sCode'){ e.preventDefault(); confirmCode(); } });
+      mineB.addEventListener('click', function(){ S.view = 'mine'; S.note = null; renderPhone(true); renderErp(); });
+
+      // ---------- acciones del dueño en el escritorio ----------
+      eWin.addEventListener('click', function(e){
+        var b = e.target.closest('[data-act]'); if(!b || b.disabled) return;
+        var a = b.dataset.act, o;
+        if(a === 'sel'){ S.sel = +b.dataset.n; S.rejecting = 0; renderErp(); return; }
+        o = find(S.sel); if(!o) return;
+        if(a === 'to' || a === 'why'){
+          var s = a === 'why' ? 'RECHAZADO' : b.dataset.s;
+          if(a === 'why') o.why = +b.dataset.i;
+          o.st = s; o.hist[s] = new Date(); S.rejecting = 0;
+          say(T('Pedido #' + o.n + ': ', 'Order #' + o.n + ': ') + stName(s) + '.');
+        }
+        else if(a === 'reject') S.rejecting = o.n;
+        else if(a === 'nowhy') S.rejecting = 0;
+        renderErp();
+        var first = a === 'reject' ? eDet.querySelector('[data-f="why:0"]') : null;
+        if(first) first.focus({preventScroll:true});
+        else if(!eDet.contains(document.activeElement)) eDet.focus({preventScroll:true});
+      });
+
+      $('sReset').addEventListener('click', function(){ init(); render(); say(T('Demo reiniciada.', 'Demo reset.')); });
+
+      init(); render();
+      langHooks.push(render);
+
+      // el link "revisa" el pedido cada 1,5 s, solo mientras la demo está en pantalla
+      function onScreen(){ var r = shop.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; }
+      setInterval(function(){
+        if(document.hidden || S.view !== 'track' || !onScreen()) return;
+        var o = find(S.track); if(!o || (isFinal(o.seen) && o.seen === o.st)) return;
+        if(sync(o)){
+          renderPhone(); renderGate(); renderErp();
+          say(T('Tu pedido #', 'Your order #') + o.n + ': ' + stateText(o)[0] + '.');
+        } else {
+          var u = $('sUpd'); if(u) u.textContent = upd(o);
+        }
+      }, 1500);
+    })();
+
+    // ============================================================
+    // §06 — Filmstrip de capturas: arrastrar, flechas, deslizador
     // ============================================================
     (function(){
       var film = document.getElementById('film'), shots = [].slice.call(film.querySelectorAll('.shot'));
