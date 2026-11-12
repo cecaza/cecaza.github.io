@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-en="Time &amp; Attendance — biometric terminal to phone (Flutter + .NET 10) | Cesar Carvajal">Control de Horarios — del lector biométrico al celular (Flutter + .NET 10) | Cesar Carvajal</title>
-  <meta name="description" data-en="Time and attendance system in production: a Flutter app (Android, installable web/PWA and Windows) and its own ASP.NET Core API on .NET 10, fed by the office fingerprint/face biometric terminal. Late arrivals, absences, time-off and overtime requests, and Web Push notifications without Firebase." content="Sistema de control de asistencia en producción: app Flutter (Android, web instalable/PWA y Windows) y API propia en ASP.NET Core sobre .NET 10, alimentada por el lector biométrico de huella y rostro de la oficina. Tardanzas, ausencias, permisos y horas extra, y notificaciones Web Push sin Firebase." />
+  <meta name="description" data-en="Time and attendance system in production: a Flutter app (Android, installable web/PWA and Windows) and its own ASP.NET Core API on .NET 10, fed by the office fingerprint/face biometric terminal. Live check-ins, lateness and absences, time-off and overtime requests with an Excel report, and notifications without Firebase. Ready for rotating shifts and multiple sites." content="Sistema de control de asistencia en producción: app Flutter (Android, web instalable/PWA y Windows) y API propia en ASP.NET Core sobre .NET 10, alimentada por el lector biométrico de huella y rostro de la oficina. Marcaciones en vivo, tardanzas y ausencias, permisos y horas extra con informe en Excel, y avisos sin Firebase. Listo para turnos rotativos y varias sedes." />
   <meta name="author" content="Cesar Carvajal" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#1f6fd1" />
@@ -13,7 +13,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Cesar Carvajal" />
   <meta property="og:title" content="Control de Horarios — del lector biométrico al celular (Flutter + .NET 10)" />
-  <meta property="og:description" content="App Flutter multiplataforma y API propia en .NET 10 que leen el terminal biométrico de la oficina. En producción." />
+  <meta property="og:description" content="App Flutter multiplataforma y API propia en .NET 10: cada marcación del lector biométrico de la oficina llega en vivo al celular. En producción." />
   <meta property="og:url" content="https://cecaza.github.io/horarios/" />
   <meta property="og:locale" content="es_CO" />
   <meta property="og:locale:alternate" content="en_US" />
@@ -173,6 +173,7 @@
     .phone li .k{font-weight:700}
     .phone li .k.in{color:var(--blue-ink)}
     .phone .empty{font-family:var(--mono);font-size:.64rem;color:var(--muted);padding:4px 2px}
+    .phone .lv{color:var(--ok);font-weight:700}
     @keyframes pop{from{transform:scale(.7);opacity:0}to{transform:none;opacity:1}}
     .packet{position:absolute;left:0;top:0;z-index:5;pointer-events:none;font:700 .68rem/1 var(--mono);background:var(--blue-ink);color:var(--paper);padding:6px 8px;white-space:nowrap;opacity:0;box-shadow:3px 3px 0 var(--ink);will-change:transform}
     .packet.ok{background:var(--ok);box-shadow:none}
@@ -345,7 +346,69 @@
     .idle{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
     @media (max-width:640px){ .flow-g{grid-template-columns:1fr} .flow-g > div + div{border-left:0;border-top:1px solid var(--ink)} }
 
-    /* §06 cómo está hecha */
+    /* §06 otras empresas — módulos */
+    .mods{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ink)}
+    .mods > article{padding:22px 20px 24px;min-width:0}
+    .mods > article + article{border-left:1px solid var(--ink)}
+    .mtag{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+    .mtag.off{color:var(--amber-ink);font-weight:700}
+    .sw{position:relative;display:inline-block;width:24px;height:13px;border:1.5px solid currentColor;border-radius:7px;flex:0 0 auto}
+    .sw::after{content:"";position:absolute;left:2px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:currentColor}
+    .mods h3{font-size:1.3rem;letter-spacing:-.02em;line-height:1.2;margin:12px 0 8px}
+    .mods p{color:var(--ink-2);font-size:.95rem}
+    .mods .ex{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:.7rem;background:var(--paper-2);border:1px solid var(--line);padding:4px 8px}
+    @media (max-width:900px){ .mods{grid-template-columns:1fr} .mods > article + article{border-left:0;border-top:1px solid var(--ink)} }
+    /* "Sugerir" (demo) */
+    .sug{margin-top:48px;border:1px solid var(--ink);background:var(--paper)}
+    .sug-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--ink);background:var(--paper-2)}
+    .sug-h h3{font-size:1.05rem;letter-spacing:-.01em}
+    .sug-ctl{display:flex;gap:8px;flex-wrap:wrap}
+    .sug .btn:disabled{cursor:not-allowed;opacity:.45}
+    .sug-lead{padding:14px 16px;color:var(--ink-2);font-size:.93rem;border-bottom:1px solid var(--line)}
+    .rules{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--ink)}
+    .rules > div{padding:12px 16px 14px;min-width:0}
+    .rules > div + div{border-left:1px solid var(--line)}
+    .rules .k{font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px}
+    .rules ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+    .rules li{font-family:var(--mono);font-size:.7rem;line-height:1.35;padding:3px 8px;border:1px solid var(--line);background:var(--paper)}
+    .rules .must li{border-color:var(--ink)}
+    .rules .soft li{border-style:dashed;border-color:var(--amber-ink)}
+    .wkwrap{padding:0 13px 8px 0}
+    .wkgrid{width:100%;border-collapse:collapse;table-layout:fixed;font-family:var(--mono)}
+    .wkgrid thead th{font-size:.64rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:500;padding:10px 3px 6px;text-align:center}
+    .wkgrid thead th:first-child{text-align:left;padding-left:16px;width:170px}
+    .wkgrid th.p{text-align:left;padding:6px 6px 6px 16px;font-family:var(--display);font-weight:700;font-size:.92rem;letter-spacing:-.01em;border-top:1px solid var(--line)}
+    .wkgrid th.p small{display:block;font-family:var(--mono);font-size:.62rem;color:var(--muted);font-weight:400;letter-spacing:0}
+    .wkgrid td{padding:4px 3px;border-top:1px solid var(--line);text-align:center}
+    .cell{display:grid;place-items:center;height:32px;font-weight:700;font-size:.8rem;border:1px dashed var(--line);color:var(--muted)}
+    .cell.M{background:var(--amber);border:1px solid var(--amber-ink);color:var(--ink)}
+    .cell.T{background:var(--blue-soft);border:1px solid var(--blue-ink);color:var(--blue-ink)}
+    .cell.N{background:var(--ink);border:1px solid var(--ink);color:var(--paper)}
+    .cell.R{border:1px solid var(--line);font-weight:500}
+    .cell.pop{animation:pop .35s cubic-bezier(.2,.8,.2,1.2) both}
+    .wkgrid tr.cov th,.wkgrid tr.cov td{border-top:1px solid var(--ink);font-size:.74rem}
+    .wkgrid tr.cov th.p{font-family:var(--mono);font-size:.62rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+    .cov .ok{color:var(--ok);font-weight:700}
+    .cov .miss{color:var(--amber-ink);font-weight:700}
+    .legend .sM{background:var(--amber);border:1px solid var(--amber-ink)}
+    .legend .sT{background:var(--blue-soft);border:1px solid var(--blue-ink)}
+    .legend .sN{background:var(--ink)}
+    .sug-out{padding:12px 16px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.74rem;color:var(--ink-2);min-height:3.6em}
+    .sug-out b{color:var(--blue-ink)}
+    .sug-out .am{color:var(--amber-ink);font-weight:700}
+    @media (max-width:760px){ .rules{grid-template-columns:1fr} .rules > div + div{border-left:0;border-top:1px solid var(--line)} }
+    @media (max-width:640px){
+      .wkwrap{padding-right:8px}
+      .wkgrid thead th{font-size:.56rem;letter-spacing:0;padding-left:1px;padding-right:1px}
+      .wkgrid thead th:first-child{width:80px;padding-left:10px}
+      .wkgrid th.p{padding-left:10px;font-size:.8rem}
+      .wkgrid th.p small{font-size:.56rem}
+      .wkgrid td{padding:3px 2px}
+      .cell{height:28px;font-size:.72rem}
+      .sug-h,.sug-lead,.sug-out{padding-left:12px;padding-right:12px}
+    }
+
+    /* §07 cómo está hecha */
     .spec{list-style:none;border-top:1px solid var(--ink)}
     .spec li{display:grid;grid-template-columns:170px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--line)}
     .spec .k{font-family:var(--mono);font-size:.74rem;color:var(--blue-ink);font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding-top:4px}
@@ -355,7 +418,7 @@
     .tags span{font-family:var(--mono);font-size:.72rem;padding:3px 8px;background:var(--paper-2);border:1px solid var(--line)}
     @media (max-width:640px){ .spec li{grid-template-columns:1fr;gap:4px} }
 
-    /* §07 pruebas */
+    /* §08 pruebas */
     .runner{background:var(--ink);color:#e9e3d6;font-family:var(--mono);font-size:.86rem;padding:22px 22px 20px;max-width:880px}
     .runner .rh{color:#a59e8f;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:1px solid #4a453b;padding-bottom:10px;margin-bottom:12px}
     .runner ol{list-style:none;display:grid;gap:10px}
@@ -386,7 +449,7 @@
     }
     @media (prefers-reduced-motion:reduce){
       .dot-live,.flip .c{animation:none}
-      .flip .d span,.phone li.new,.toast{animation:none!important}
+      .flip .d span,.phone li.new,.toast,.cell.pop{animation:none!important}
       .node,.btn{transition:none}
       html{scroll-behavior:auto}
     }
@@ -414,7 +477,7 @@
     <!-- HERO -->
     <header class="hero">
       <div class="wrap hero-meta">
-        <span><span class="dot-live" aria-hidden="true"></span><b data-en="Project 03">Proyecto 03</b> · SAMIT</span>
+        <span><span class="dot-live" aria-hidden="true"></span><b data-en="Project 04">Proyecto 04</b> · SAMIT</span>
         <span data-en="Flutter · ASP.NET Core · .NET 10">Flutter · ASP.NET Core · .NET 10</span>
       </div>
 
@@ -423,9 +486,10 @@
           <h1 data-en="Time &amp; <em>attendance</em>">Control de <em>horarios</em></h1>
           <p class="tagline" data-en="From the office biometric terminal to everyone's phone">Del lector biométrico de la oficina al celular de cada quien</p>
           <div class="status" data-en="In production · in daily internal use">En producción · en uso interno a diario</div>
-          <p class="stackline">Flutter · .NET 10 · ASP.NET Core · SQLite · Hikvision ISAPI · Web Push · IIS</p>
+          <p class="stackline">Flutter · .NET 10 · ASP.NET Core · SQLite · SignalR · Hikvision ISAPI · Web Push · IIS</p>
           <div class="actions">
             <a class="btn btn-ink" href="#un-dia" data-en="Read a day ↓">Leer un día ↓</a>
+            <a class="btn btn-line" href="#otras-empresas" data-en="For other companies ↓">Para otras empresas ↓</a>
             <a class="btn btn-line" href="../" data-en="← Back to portfolio">← Volver al portafolio</a>
           </div>
         </div>
@@ -465,14 +529,14 @@
           </article>
           <div class="link edge" aria-hidden="true">
             <span class="side l" data-en="office">oficina</span><span class="side r">internet</span>
-            <span class="bg"><b class="ln" data-en="push ⟶">empuja ⟶</b><span class="ln">HTTPS</span><span class="ln" data-en="no VPN">sin VPN</span><span class="ln" data-en="no open ports">sin puertos abiertos</span></span>
+            <span class="bg"><b class="ln" data-en="push ⟶">empuja ⟶</b><span class="ln">HTTP Listening</span><span class="ln" data-en="no VPN">sin VPN</span><span class="ln" data-en="no open ports">sin puertos abiertos</span></span>
           </div>
           <article class="node" data-node="1">
             <i class="port" aria-hidden="true"></i>
             <div class="nk"><b>02</b><span>internet</span></div>
             <h3 data-en="The reader sends it out">El lector lo envía</h3>
             <div class="who" data-en="Own API · .NET 10 on IIS">API propia · .NET 10 en IIS</div>
-            <p data-en="It posts the event to the server by itself, over HTTPS.">Manda el evento al servidor por su cuenta, por HTTPS.</p>
+            <p data-en="It posts the event to the server by itself, the moment it happens.">Manda el evento al servidor por su cuenta, apenas ocurre.</p>
             <div class="live" id="live1" aria-hidden="true"></div>
           </article>
           <div class="link" aria-hidden="true"><span class="bg"><b class="ln">Dapper</b><span class="ln" data-en="ignores repeats">descarta repetidos</span></span></div>
@@ -481,18 +545,18 @@
             <div class="nk"><b>03</b><span>SQLite</span></div>
             <h3 data-en="The server files it">El servidor lo guarda</h3>
             <div class="who" data-en="SQLite database">Base de datos SQLite</div>
-            <p data-en="It reads the event, ignores repeats and stores the check-in.">Lee el evento, descarta los repetidos y guarda la marcación.</p>
+            <p data-en="It reads the event, ignores repeats, stores the check-in and announces what changed.">Lee el evento, descarta los repetidos, guarda la marcación y avisa qué cambió.</p>
             <div class="live" id="live2" aria-hidden="true"></div>
           </article>
-          <div class="link" aria-hidden="true"><span class="bg"><b class="ln">API ⟶ app</b><span class="ln">Android</span><span class="ln">Web</span><span class="ln">Windows</span></span></div>
+          <div class="link" aria-hidden="true"><span class="bg"><b class="ln" data-en="live ⟶">en vivo ⟶</b><span class="ln">SignalR</span><span class="ln">Android</span><span class="ln">Web</span><span class="ln">Windows</span></span></div>
           <article class="node" data-node="3">
             <i class="port" aria-hidden="true"></i>
             <div class="nk"><b>04</b><span>Flutter</span></div>
             <h3 data-en="The app shows it">La app lo muestra</h3>
             <div class="who" data-en="Flutter app, on the phone">App Flutter, en el celular</div>
-            <p data-en="Entry, exit, lateness and absences, from anywhere.">Entrada, salida, tardanzas y ausencias, desde donde sea.</p>
+            <p data-en="No refresh: the server signals and the app updates itself. Entry, exit, lateness and absences, from anywhere.">Sin recargar: el servidor avisa y la app se actualiza sola. Entrada, salida, tardanzas y ausencias, desde donde sea.</p>
             <div class="phone" aria-hidden="true">
-              <div class="bar"><span data-en="My check-ins">Mis marcaciones</span><span data-en="today">hoy</span></div>
+              <div class="bar"><span data-en="My check-ins">Mis marcaciones</span><span class="lv" data-en="● live">● en vivo</span></div>
               <ul id="phoneList"></ul>
             </div>
           </article>
@@ -510,18 +574,18 @@
           <h2 class="stitle" data-scramble data-en="Data locked in a box">Datos encerrados en un aparato</h2>
         </div>
         <div class="body reveal">
-          <p class="lead" data-en="The office has a fingerprint and face terminal, but its data stayed <strong>locked inside the device</strong>, on the office network: to know who arrived late you had to walk over and export a file. This system takes those check-ins <strong>out to a server</strong> and turns them into something anyone can read from their phone — each employee sees their own hours, and whoever runs the team sees everyone's. It also handles what a reader can never know: <strong>time-off and overtime requests</strong>, approved from the app.">
+          <p class="lead" data-en="The office has a fingerprint and face terminal, but its data stayed <strong>locked inside the device</strong>, on the office network: to know who arrived late you had to walk over and export a file. This system takes those check-ins <strong>out to a server</strong> and turns them into something anyone can read from their phone, <strong>live</strong> — each employee sees their own hours, and whoever runs the team sees everyone's. It also handles what a reader can never know: <strong>time-off and overtime requests</strong>, approved from the app.">
             La oficina tiene un lector de huella y rostro, pero sus datos se quedaban
             <strong>encerrados en el aparato</strong>, en la red de la oficina: para saber quién llegó
             tarde tocaba ir hasta allá y exportar un archivo. Este sistema saca esas marcaciones
             <strong>hacia un servidor</strong> y las convierte en algo que cualquiera consulta desde el
-            celular — cada empleado ve su horario y quien dirige el equipo los ve todos. Además resuelve
+            celular, <strong>en vivo</strong> — cada empleado ve su horario y quien dirige el equipo los ve todos. Además resuelve
             lo que un lector nunca puede saber: los <strong>permisos y las horas extra</strong>,
             aprobados desde la app.
           </p>
           <div class="then-now">
             <div><div class="k" data-en="Before">Antes</div><div class="v" data-en="Walk to the terminal and export a file">Ir hasta el lector y exportar un archivo</div></div>
-            <div><div class="k" data-en="Now">Ahora</div><div class="v" data-en="Open the app: your hours, up to date">Abrir la app: tu horario, al día</div></div>
+            <div><div class="k" data-en="Now">Ahora</div><div class="v" data-en="Open the app: your hours, live">Abrir la app: tu horario, en vivo</div></div>
           </div>
         </div>
       </div>
@@ -554,6 +618,16 @@
             <p data-en="The server always answers OK so the reader never retries in a loop, and it keeps the last raw payloads so a misconfigured terminal can be diagnosed without being in front of it.">
               El servidor siempre responde OK para que el lector no reintente sin fin, y guarda los últimos
               envíos tal como llegaron: así se diagnostica un lector mal configurado sin estar frente a él.
+            </p>
+          </div>
+          <div class="aside">
+            <div class="k" data-en="Live">En vivo</div>
+            <p data-en="So a check-in shows up in the app the moment someone places a finger, the server signals over SignalR — but long polling only: no WebSocket, because the production IIS might not have it and enabling it meant touching the server. The clients, in Dart and in Kotlin, are hand-written, without the SignalR library. And the signal only says what changed: the app fetches the data again with its own permissions, so nobody gets through it what isn't theirs.">
+              Para que la marca salga en la app apenas alguien pone la huella, el servidor avisa por SignalR,
+              pero solo con long polling: sin WebSocket, porque el IIS de producción podría no tenerlo y
+              activarlo era tocar el servidor. Los clientes, en Dart y en Kotlin, están hechos a mano, sin la
+              librería de SignalR. Y el aviso solo dice qué cambió: la app vuelve a pedir los datos con sus
+              propios permisos, así que nadie recibe por ahí lo que no le toca.
             </p>
           </div>
         </div>
@@ -627,13 +701,17 @@
         </div>
         <ol class="idx reveal">
           <li><div class="n" aria-hidden="true">01</div><div><h3 data-en="The day, read properly">El día, bien leído</h3><p data-en="It splits check-ins into morning and afternoon, takes the first as the entry and the last as the exit, and merges repeats seconds apart.">Reparte las marcaciones en mañana y tarde, toma la primera como entrada y la última como salida, y une las repetidas con segundos de diferencia.</p></div></li>
-          <li><div class="n" aria-hidden="true">02</div><div><h3 data-en="Lateness and absences">Tardanzas y ausencias</h3><p data-en="Against the company's real schedule, including the shorter Saturday. It also shows who simply never checked in.">Contra el horario real de la empresa, con el sábado más corto incluido. También muestra a quien sencillamente no marcó.</p></div></li>
-          <li><div class="n" aria-hidden="true">03</div><div><h3 data-en="Requests with approval">Peticiones con aprobación</h3><p data-en="An employee asks for time off or overtime, attaches a photo or a document, and an admin accepts or rejects it. Only accepted ones change the calculation.">Un empleado pide un permiso u horas extra, adjunta una foto o un documento, y un administrador acepta o rechaza. Solo las aceptadas cambian el cálculo.</p></div></li>
-          <li><div class="n" aria-hidden="true">04</div><div><h3 data-en="Notifications">Avisos</h3><p data-en="A new request notifies the admins; the answer notifies the employee. On Android and on the phone's home screen on iPhone.">Una petición nueva avisa a los administradores; la respuesta le avisa al empleado. En Android y en la pantalla de inicio del iPhone.</p></div></li>
-          <li><div class="n" aria-hidden="true">05</div><div><h3 data-en="Employees, without paperwork">Empleados, sin papeleo</h3><p data-en="They create themselves the first time they check in. You can rename them, deactivate whoever left, or exclude from the schedule anyone who doesn't have to keep one.">Se crean solos la primera vez que marcan. Se les puede cambiar el nombre, desactivar a quien se retiró o quitarle el control de horario a quien no debe cumplirlo.</p></div></li>
-          <li><div class="n" aria-hidden="true">06</div><div><h3 data-en="Company-wide exceptions">Novedades de la empresa</h3><p data-en="Training sessions, holidays or a one-off change of entry or exit time, for one person or for everyone, applied to the calculation.">Capacitaciones, festivos o un cambio puntual de la hora de entrada o salida, para una persona o para todos, aplicados al cálculo.</p></div></li>
-          <li><div class="n" aria-hidden="true">07</div><div><h3 data-en="Each one sees their own">Cada quien ve lo suyo</h3><p data-en="An admin sees the whole team and answers requests. An employee only sees their own hours and their own requests — enforced on the server, not just hidden in the UI.">Un administrador ve todo el equipo y responde las peticiones. Un empleado solo ve su horario y sus peticiones — y eso lo impone el servidor, no solo la pantalla.</p></div></li>
-          <li><div class="n" aria-hidden="true">08</div><div><h3 data-en="One codebase, three platforms">Un código, tres plataformas</h3><p data-en="Android, installable web (PWA) for iPhone and Windows — the same app, built once.">Android, web instalable (PWA) para iPhone y Windows — la misma app, hecha una sola vez.</p></div></li>
+          <li><div class="n" aria-hidden="true">02</div><div><h3 data-en="Lateness, early exits and absences">Tardanzas, salidas tempranas y ausencias</h3><p data-en="Against the company's real schedule, including the shorter Saturday. Leaving early counts just like arriving late, and it also shows who simply never checked in.">Contra el horario real de la empresa, con el sábado más corto incluido. Salir antes cuenta igual que llegar tarde, y también se ve a quien sencillamente no marcó.</p></div></li>
+          <li><div class="n" aria-hidden="true">03</div><div><h3 data-en="Live">En vivo</h3><p data-en="The moment someone places a finger, the screen updates by itself, no refresh. Same with a new request, its answer, or whatever another admin changes.">Apenas alguien pone la huella, la pantalla se actualiza sola, sin recargar. Igual con una petición nueva, su respuesta o lo que cambie otro administrador.</p></div></li>
+          <li><div class="n" aria-hidden="true">04</div><div><h3 data-en="The team at a glance">El equipo de un vistazo</h3><p data-en="A period bar — today, yesterday, this week, this month or any dates — and counters that double as filters: All · Late · Left early · Not checked in. Each person gets one block per part of the day.">Una barra de periodo —hoy, ayer, la semana, el mes o las fechas que elijas— y contadores que también filtran: Todos · Tarde · Salió antes · Sin marcar. Cada persona, con un bloque por tramo del día.</p></div></li>
+          <li><div class="n" aria-hidden="true">05</div><div><h3 data-en="Requests with approval">Peticiones con aprobación</h3><p data-en="An employee asks for time off or overtime, attaches a photo or a document, and an admin accepts or rejects it. Only accepted ones change the calculation.">Un empleado pide un permiso u horas extra, adjunta una foto o un documento, y un administrador acepta o rechaza. Solo las aceptadas cambian el cálculo.</p></div></li>
+          <li><div class="n" aria-hidden="true">06</div><div><h3 data-en="Overtime, in one go">Horas extra, de una vez</h3><p data-en="An admin records overtime for one or several people in a single step — the day, from and to, the reason and with whom. It is stored as already accepted, and each person gets notified.">El administrador registra las horas extra de una o varias personas en un solo paso: el día, desde y hasta, el porqué y con quién. Quedan aceptadas y a cada uno le llega el aviso.</p></div></li>
+          <li><div class="n" aria-hidden="true">07</div><div><h3 data-en="Requests report, in Excel">Informe de peticiones, en Excel</h3><p data-en="Who asked for time off or overtime in a date range, how many and on which days, with totals per person. It downloads as an .xlsx — a sheet with one row per request and another with the totals per employee — ready to filter and add up.">Quién pidió permisos u horas extra en un rango, cuántas y qué días, con totales por persona. Se descarga como .xlsx —una hoja con una fila por petición y otra con los totales por empleado—, listo para filtrar y sumar.</p></div></li>
+          <li><div class="n" aria-hidden="true">08</div><div><h3 data-en="Notifications">Avisos</h3><p data-en="A new request notifies the admins; the answer notifies the employee. On Android and on the iPhone home screen. On Android, admins can turn on “Immediate”: a service stays connected and notifies them instantly.">Una petición nueva avisa a los administradores; la respuesta le avisa al empleado. En Android y en la pantalla de inicio del iPhone. En Android, los administradores pueden activar «Inmediatas»: un servicio queda conectado y avisa al instante.</p></div></li>
+          <li><div class="n" aria-hidden="true">09</div><div><h3 data-en="Employees, without paperwork">Empleados, sin papeleo</h3><p data-en="They create themselves the first time they check in. You can rename them, deactivate whoever left, or exclude from the schedule anyone who doesn't have to keep one.">Se crean solos la primera vez que marcan. Se les puede cambiar el nombre, desactivar a quien se retiró o quitarle el control de horario a quien no debe cumplirlo.</p></div></li>
+          <li><div class="n" aria-hidden="true">10</div><div><h3 data-en="Company-wide exceptions">Novedades de la empresa</h3><p data-en="Training sessions, holidays or a one-off change of entry or exit time, for one person or for everyone, applied to the calculation.">Capacitaciones, festivos o un cambio puntual de la hora de entrada o salida, para una persona o para todos, aplicados al cálculo.</p></div></li>
+          <li><div class="n" aria-hidden="true">11</div><div><h3 data-en="Each one sees their own">Cada quien ve lo suyo</h3><p data-en="An admin sees the whole team and answers requests. An employee only sees their own hours and their own requests — enforced on the server, not just hidden in the UI.">Un administrador ve todo el equipo y responde las peticiones. Un empleado solo ve su horario y sus peticiones — y eso lo impone el servidor, no solo la pantalla.</p></div></li>
+          <li><div class="n" aria-hidden="true">12</div><div><h3 data-en="One codebase, three platforms">Un código, tres plataformas</h3><p data-en="Android, installable web (PWA) for iPhone and Windows — the same app, built once.">Android, web instalable (PWA) para iPhone y Windows — la misma app, hecha una sola vez.</p></div></li>
         </ol>
       </div>
     </section>
@@ -672,9 +750,24 @@
               <div role="cell"><span class="ck" aria-hidden="true">✓</span><span class="t" data-en="only their own">solo lo suyo</span></div>
             </div>
             <div class="mrow" role="row">
+              <div role="rowheader" data-en="Record overtime for one or several people">Registrar horas extra para una o varias personas</div>
+              <div role="cell"><span class="ck" aria-hidden="true">✓</span><span class="sr-only" data-en="Yes">Sí</span></div>
+              <div role="cell"><span class="no-c" aria-hidden="true">✕</span><span class="sr-only">No</span></div>
+            </div>
+            <div class="mrow" role="row">
+              <div role="rowheader" data-en="See the requests report and download it as Excel">Ver el informe de peticiones y bajarlo en Excel</div>
+              <div role="cell"><span class="ck" aria-hidden="true">✓</span><span class="sr-only" data-en="Yes">Sí</span></div>
+              <div role="cell"><span class="no-c" aria-hidden="true">✕</span><span class="sr-only">No</span></div>
+            </div>
+            <div class="mrow" role="row">
               <div role="rowheader" data-en="Gets notified about">Recibe avisos de</div>
               <div role="cell"><span class="t" data-en="New requests">Peticiones nuevas</span></div>
-              <div role="cell"><span class="t" data-en="The answer to their request">La respuesta a su petición</span></div>
+              <div role="cell"><span class="t" data-en="The answer to their request and overtime recorded for them">La respuesta a su petición y las horas extra que le registren</span></div>
+            </div>
+            <div class="mrow" role="row">
+              <div role="rowheader" data-en="On Android, notifications arrive">En Android, los avisos llegan</div>
+              <div role="cell"><span class="t" data-en="Instantly with “Immediate”, or on the 15-minute check">Al instante con «Inmediatas», o en la revisión cada 15 min</span></div>
+              <div role="cell"><span class="t" data-en="On a check every 15 min">En una revisión cada 15 min</span></div>
             </div>
           </div>
           <div class="enforce">
@@ -702,11 +795,75 @@
       </div>
     </section>
 
-    <!-- §06 CÓMO ESTÁ HECHA -->
+    <!-- §06 LISTO PARA OTRAS EMPRESAS -->
+    <section id="otras-empresas">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div class="sidx"><b>§06</b> <span data-en="/ other companies">/ otras empresas</span></div>
+          <div>
+            <h2 class="stitle" data-scramble data-en="Ready for other companies">Listo para otras empresas</h2>
+            <p class="ssub" data-en="SAMIT has one schedule, one office and one terminal. Many companies don't: their shifts rotate, or they have several sites. For them the system already ships two modules and a way to set up each company on its own. At SAMIT both modules are switched off — and with the switch off, the app calculates and looks exactly as always.">SAMIT tiene un solo horario, una sola oficina y un solo lector. Muchas empresas no: sus turnos rotan o tienen varias sedes. Para ellas el sistema ya trae dos módulos y una forma de instalar cada empresa por separado. En SAMIT los dos módulos están apagados, y con el interruptor apagado la app calcula y se ve igual que siempre.</p>
+          </div>
+        </div>
+
+        <div class="mods reveal">
+          <article>
+            <div class="mtag off"><span class="sw" aria-hidden="true"></span><span data-en="module · off at SAMIT">módulo · apagado en SAMIT</span></div>
+            <h3 data-en="Rotating shifts">Turnos rotativos</h3>
+            <p data-en="Morning, afternoon or night; a night shift can run past midnight and counts for the day it starts. A fixed shift per weekday plus date-specific changes, which override it. Lateness and early exits are measured against each person's shift. With “Copy last week”, an Excel file to print the week and, for each employee, their shifts under “My schedule”.">Mañana, tarde o noche; el de noche puede pasar de la medianoche y cuenta para el día en que empieza. Un turno fijo por día de la semana y cambios por fecha, que mandan sobre el fijo. Tardanzas y salidas tempranas se miden contra el turno de cada persona. Con «Copiar semana anterior», Excel para imprimir la semana y, para cada empleado, sus turnos en «Mi horario».</p>
+          </article>
+          <article>
+            <div class="mtag off"><span class="sw" aria-hidden="true"></span><span data-en="module · off at SAMIT">módulo · apagado en SAMIT</span></div>
+            <h3 data-en="Multiple sites">Varias sedes</h3>
+            <p data-en="Each site with its own terminal and its own people, and none of them opens ports: every terminal pushes to the server just like the first one. A new terminal shows up by itself with its first push; you give it a site and see when it last sent, flagged if it has been silent for over a day. At the top, “All sites ▾”; next to each check-in, where it happened.">Cada sede con su lector y su gente, y ninguna abre puertos: cada lector empuja al servidor igual que el primero. Un lector nuevo aparece solo con su primer envío; se le pone sede y se ve cuándo envió por última vez, con alerta si lleva más de un día sin enviar. Arriba, «Todas las sedes ▾»; junto a cada marca, dónde se hizo.</p>
+            <span class="ex" data-en="in at one, out at another · 08:02 Norte · 17:31 Principal">entra por una, sale por otra · 08:02 Norte · 17:31 Principal</span>
+          </article>
+          <article>
+            <div class="mtag"><span data-en="installation · per company">instalación · por empresa</span></div>
+            <h3 data-en="One installation per company">Una instalación por empresa</h3>
+            <p data-en="Each company stays separate: its own database, its own users, its own terminal key and its own updates, without touching the others — SAMIT stays where it was. On the phone it's a single app: at sign-in, “Another company?”, and an admin switches between them from the menu. On the web, each company has its own address.">Cada empresa queda aparte: su base de datos, sus usuarios, la clave de su lector y sus actualizaciones, sin tocar a las demás; SAMIT sigue donde estaba. En el celular es una sola app: al ingresar, «¿Otra empresa?», y un administrador pasa de una a otra desde el menú. En la web, cada empresa tiene su dirección.</p>
+          </article>
+        </div>
+
+        <div class="sug reveal" id="sug">
+          <div class="sug-h">
+            <h3 data-en="“Suggest”: the week, built from the rules">«Sugerir»: la semana, armada con las reglas</h3>
+            <div class="sug-ctl">
+              <button type="button" class="btn btn-blue btn-sm" id="sugGo">Sugerir</button>
+              <button type="button" class="btn btn-line btn-sm" id="sugApply" disabled>Aplicar</button>
+              <button type="button" class="btn btn-line btn-sm" id="sugClear" disabled>Limpiar</button>
+            </div>
+          </div>
+          <p class="sug-lead" data-en="It builds the week for whoever rotates. Hard rules are never broken: the shifts each person can do, their days off, the rest between shifts, the weekly hours and days off. Soft rules are looked after: not repeating a shift too many weeks in a row, sharing shifts evenly and each person's preferred shift. Whatever was set by hand stays put; if there aren't enough people it says which day and which shift is short, and nothing changes until “Apply”.">Arma la semana de quienes rotan. Las reglas obligatorias nunca se rompen: los turnos que puede hacer cada persona, sus días libres, el descanso entre turnos, las horas y los días de descanso de la semana. Las deseables se cuidan: no repetir turno muchas semanas seguidas, repartir parejo y el turno preferido. Lo que ya está puesto a mano no se toca; si no alcanza la gente, dice qué día y en qué turno falta, y nada cambia hasta «Aplicar».</p>
+          <div class="rules">
+            <div><div class="k" data-en="Daily minimums">Mínimos por día</div><ul><li data-en="1 per shift, every day">1 por turno, todos los días</li><li data-en="Monday: 2 in the morning">Lunes: 2 en la mañana</li></ul></div>
+            <div class="must"><div class="k" data-en="Hard · never broken">Obligatorias · nunca se rompen</div><ul><li data-en="Pedro doesn't do nights">Pedro no hace noche</li><li data-en="Sofía never works Sundays">Sofía no trabaja los domingos</li><li data-en="1 day off a week">1 día de descanso a la semana</li></ul></div>
+            <div class="soft"><div class="k" data-en="Soft · looked after">Deseables · se cuidan</div><ul><li data-en="Max. 2 weeks in a row on the same shift">Máx. 2 semanas seguidas en el mismo turno</li><li data-en="Sofía, Marta and Diego prefer mornings">Sofía, Marta y Diego prefieren la mañana</li></ul></div>
+          </div>
+          <div class="wkwrap">
+            <table class="wkgrid">
+              <caption class="sr-only" data-en="Sample week: each person's shift per day">Semana de ejemplo: el turno de cada persona por día</caption>
+              <thead id="sugHead"></thead>
+              <tbody id="sugBody"></tbody>
+            </table>
+          </div>
+          <div class="legend" aria-hidden="true">
+            <span><i class="sM"></i><span data-en="M · morning 06–14">M · mañana 06–14</span></span>
+            <span><i class="sT"></i><span data-en="A · afternoon 14–22">T · tarde 14–22</span></span>
+            <span><i class="sN"></i><span data-en="N · night 22–06, past midnight">N · noche 22–06, pasa de la medianoche</span></span>
+            <span data-en="— day off">— descansa</span>
+          </div>
+          <p class="sug-out" id="sugOut" aria-live="polite"></p>
+        </div>
+        <p class="demo-note" data-en="Illustrative demo: a simplified version that runs in your browser, with sample names, shifts and rules. Like the real one, it tries 150 combinations and keeps the one that breaks the fewest rules; the real one also repairs short-staffed days and accounts for the rest between shifts and the weekly hours.">Demo ilustrativa: una versión simplificada que corre en tu navegador, con nombres, turnos y reglas de ejemplo. Como la real, prueba 150 combinaciones y se queda con la que menos reglas rompe; la real además repara los días con faltantes y tiene en cuenta el descanso entre turnos y las horas de la semana.</p>
+      </div>
+    </section>
+
+    <!-- §07 CÓMO ESTÁ HECHA -->
     <section id="como">
       <div class="wrap">
         <div class="shead reveal">
-          <div class="sidx"><b>§06</b> <span data-en="/ how it's built">/ cómo está hecha</span></div>
+          <div class="sidx"><b>§07</b> <span data-en="/ how it's built">/ cómo está hecha</span></div>
           <div>
             <h2 class="stitle" data-scramble data-en="How it's built">Cómo está hecha</h2>
             <p class="ssub" data-en="In plain words.">En palabras sencillas.</p>
@@ -717,29 +874,32 @@
             <li><div class="k">App</div><p data-en="<strong>App in Flutter</strong> (Dart): a single codebase running on Android, on the web as an installable PWA, and on Windows."><strong>App en Flutter</strong> (Dart): un solo código que corre en Android, en la web como PWA instalable y en Windows.</p></li>
             <li><div class="k">API</div><p data-en="<strong>Its own API in ASP.NET Core</strong> (.NET 10, Minimal APIs) with SQLite and Dapper. It also serves the web version, so app and backend ship together."><strong>API propia en ASP.NET Core</strong> (.NET 10, Minimal APIs) con SQLite y Dapper. También sirve la versión web, así que app y backend se publican juntos.</p></li>
             <li><div class="k" data-en="Terminal">Lector</div><p data-en="<strong>Biometric terminal integration (Hikvision, ISAPI):</strong> the server accepts whichever shape the terminal sends the event in — multipart, JSON or XML — and normalizes it."><strong>Integración con el lector biométrico (Hikvision, ISAPI):</strong> el servidor acepta el evento en cualquiera de las formas en que el lector lo manda —multipart, JSON o XML— y lo normaliza.</p></li>
+            <li><div class="k" data-en="Live">En vivo</div><p data-en="<strong>SignalR, long polling only:</strong> the server holds each wait for up to 90 s — less than IIS's limit for a request — and answers as soon as something changes. The client is hand-written in Dart and again in Kotlin, without the SignalR library, and if the connection drops it retries from 1 s up to 1 min. Measured locally, the signal takes about 50 ms."><strong>SignalR, solo por long polling:</strong> el servidor retiene cada espera hasta 90 s —menos que el plazo de IIS para una petición— y responde apenas algo cambia. El cliente está hecho a mano en Dart y otra vez en Kotlin, sin la librería de SignalR, y si se corta reintenta de 1 s hasta 1 min. Medido en local, el aviso tarda unos 50 ms.</p></li>
             <li><div class="k" data-en="Sessions">Sesiones</div><p data-en="<strong>Sessions that can be revoked instantly:</strong> the token carries a seal that changes with every new password. Removing someone's access or changing their password takes effect on the next request, not twelve hours later."><strong>Sesiones que se pueden revocar al instante:</strong> el token lleva un sello que cambia con cada clave nueva. Quitarle el acceso a alguien o cambiarle la clave surte efecto en la siguiente petición, no doce horas después.</p></li>
-            <li><div class="k" data-en="Notifications">Avisos</div><p data-en="<strong>Notifications without Firebase:</strong> Web Push implemented by hand on the server (VAPID, RFC 8291) for the web and the iPhone, and a background worker on Android. No dependency on a third-party messaging service."><strong>Notificaciones sin Firebase:</strong> Web Push implementado a mano en el servidor (VAPID, RFC 8291) para la web y el iPhone, y un trabajo en segundo plano en Android. Sin depender de un servicio de mensajería de terceros.</p></li>
-            <li><div class="k" data-en="Tests">Pruebas</div><p data-en="<strong>Automated tests:</strong> the schedule rules are tested in Dart, and the server with xUnit — event parsing, the repository and a full round trip through the real API."><strong>Pruebas automatizadas:</strong> las reglas del horario se prueban en Dart, y el servidor con xUnit — el parseo de los eventos, el repositorio y un recorrido completo por la API real.</p></li>
-            <li><div class="k" data-en="Deployment">Despliegue</div><p data-en="<strong>Self-contained deployment on IIS:</strong> it installs as one more application on a server that was already running other sites, without touching them and without needing a particular .NET runtime installed."><strong>Despliegue autocontenido en IIS:</strong> se instala como una aplicación más en un servidor que ya tenía otros sitios corriendo, sin tocarlos y sin exigir que el servidor tenga instalado un runtime concreto de .NET.</p></li>
+            <li><div class="k" data-en="Notifications">Avisos</div><p data-en="<strong>Notifications without Firebase:</strong> Web Push implemented by hand on the server (VAPID, RFC 8291) for the web and the iPhone, and a background worker on Android. For admins, Android's “Immediate” mode is a foreground service that stays connected to the same live channel. No dependency on a third-party messaging service."><strong>Notificaciones sin Firebase:</strong> Web Push implementado a mano en el servidor (VAPID, RFC 8291) para la web y el iPhone, y un trabajo en segundo plano en Android. Para los administradores, el modo «Inmediatas» de Android es un servicio en primer plano que se queda conectado al mismo canal en vivo. Sin depender de un servicio de mensajería de terceros.</p></li>
+            <li><div class="k">Excel</div><p data-en="<strong>.xlsx built by hand, no packages:</strong> the zip, with its CRC-32, and each sheet's XML. A frozen header with filters, real dates and times, and durations Excel can add up without wrapping at 24 h. On the web the browser downloads it; on Android it goes to Downloads, with Open and Share; on Windows, to the Downloads folder."><strong>.xlsx armado a mano, sin paquetes:</strong> el zip, con su CRC-32, y el XML de cada hoja. Encabezado fijo con filtros, fechas y horas de verdad, y duraciones que Excel suma sin volver a cero a las 24 h. En la web lo baja el navegador; en Android va a Descargas, con Abrir y Compartir; en Windows, a la carpeta Descargas.</p></li>
+            <li><div class="k" data-en="Modules">Módulos</div><p data-en="<strong>Modules with a per-installation switch:</strong> shifts and sites are turned on from each company's server console. Switched off, the app doesn't even request that data and calculates exactly as before — there are tests guarding that. The shift suggestion runs in the app, and its rules are stored on the server."><strong>Módulos con interruptor por instalación:</strong> turnos y sedes se prenden desde la consola del servidor de cada empresa. Apagados, la app ni siquiera pide esos datos y calcula igual que antes; hay pruebas que lo cuidan. La sugerencia de turnos corre en la app y sus reglas se guardan en el servidor.</p></li>
+            <li><div class="k" data-en="Tests">Pruebas</div><p data-en="<strong>Automated tests:</strong> 92 in Dart — schedule rules, live updates, the Excel file, night shifts, the suggestion and the screens against a simulated server — and 48 for the server with xUnit: event parsing, the repository, the live protocol and full round trips through the real API."><strong>Pruebas automatizadas:</strong> 92 en Dart —las reglas del horario, el en vivo, el Excel, los turnos de noche, la sugerencia y las pantallas con un servidor simulado— y 48 del servidor con xUnit: el parseo de los eventos, el repositorio, el protocolo en vivo y recorridos completos por la API real.</p></li>
+            <li><div class="k" data-en="Deployment">Despliegue</div><p data-en="<strong>Self-contained deployment on IIS:</strong> it installs as one more application on a server that was already running other sites, without touching them and without needing a particular .NET runtime installed. A scheduled task backs up the database every night without stopping the app, and each additional company is another installation with its own database."><strong>Despliegue autocontenido en IIS:</strong> se instala como una aplicación más en un servidor que ya tenía otros sitios corriendo, sin tocarlos y sin exigir que el servidor tenga instalado un runtime concreto de .NET. Una tarea programada respalda la base cada noche sin detener la app, y cada empresa más es otra instalación con su propia base.</p></li>
           </ul>
           <div class="tags">
-            <span>Flutter</span><span>Dart</span><span>.NET 10</span><span>ASP.NET Core</span>
-            <span>Minimal APIs</span><span>SQLite</span><span>Dapper</span><span>Hikvision ISAPI</span>
-            <span>Web Push (VAPID)</span><span>PWA</span><span>IIS</span><span>xUnit</span>
+            <span>Flutter</span><span>Dart</span><span>Kotlin</span><span>.NET 10</span><span>ASP.NET Core</span>
+            <span>Minimal APIs</span><span>SQLite</span><span>Dapper</span><span>SignalR (long polling)</span><span>Hikvision ISAPI</span>
+            <span>Web Push (VAPID)</span><span>PWA</span><span>Excel (.xlsx)</span><span>IIS</span><span>xUnit</span>
             <span>Android · Web · Windows</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- §07 PRUEBAS -->
+    <!-- §08 PRUEBAS -->
     <section id="pruebas">
       <div class="wrap">
         <div class="shead reveal">
-          <div class="sidx"><b>§07</b> <span data-en="/ tests">/ pruebas</span></div>
+          <div class="sidx"><b>§08</b> <span data-en="/ tests">/ pruebas</span></div>
           <div>
             <h2 class="stitle" data-scramble data-en="All green">Todo en verde</h2>
-            <p class="ssub" data-en="What the automated tests cover, in the shape of a test run.">Lo que cubren las pruebas automatizadas, con forma de corrida de pruebas.</p>
+            <p class="ssub" data-en="What the automated tests cover — 92 for the app and 48 for the server — in the shape of a test run.">Lo que cubren las pruebas automatizadas —92 de la app y 48 del servidor—, con forma de corrida de pruebas.</p>
           </div>
         </div>
         <div class="body reveal" id="runWrap">
@@ -747,8 +907,15 @@
             <div class="rh"><span data-en="test run">corrida de pruebas</span><span>Dart · xUnit · WebApplicationFactory</span></div>
             <ol id="runList">
               <li><span class="st">PASS</span><span><span data-en="Schedule rules">Reglas del horario</span><span class="d">Dart</span></span></li>
+              <li><span class="st">PASS</span><span><span data-en="Night shifts that run past midnight">Turnos de noche que pasan de la medianoche</span><span class="d">Dart</span></span></li>
+              <li><span class="st">PASS</span><span><span data-en="Live: negotiates, reconnects and pauses">En vivo: negocia, se reconecta y se pausa</span><span class="d">Dart</span></span></li>
+              <li><span class="st">PASS</span><span><span data-en="The Excel file: valid zip, CRC-32, dates and durations">El Excel: zip válido, CRC-32, fechas y duraciones</span><span class="d">Dart</span></span></li>
+              <li><span class="st">PASS</span><span><span data-en="The suggestion: meets the minimums without breaking hard rules">La sugerencia: cubre los mínimos sin romper las obligatorias</span><span class="d">Dart</span></span></li>
+              <li><span class="st">PASS</span><span><span data-en="Without shifts or sites (SAMIT), nothing changes">Sin turnos ni sedes (SAMIT), todo sigue igual</span><span class="d" data-en="Dart · screens">Dart · pantallas</span></span></li>
               <li><span class="st">PASS</span><span><span data-en="Parsing the terminal's events">Parseo de los eventos del lector</span><span class="d">xUnit</span></span></li>
               <li><span class="st">PASS</span><span><span data-en="The repository">El repositorio</span><span class="d">xUnit</span></span></li>
+              <li><span class="st">PASS</span><span><span data-en="Live: each user only gets their own">En vivo: cada uno recibe solo lo suyo</span><span class="d">xUnit</span></span></li>
+              <li><span class="st">PASS</span><span><span data-en="Web Push against the RFC 8291 example">Web Push contra el ejemplo del RFC 8291</span><span class="d">xUnit</span></span></li>
               <li><span class="st">PASS</span><span><span data-en="A full round trip through the real API">Un recorrido completo por la API real</span><span class="d">xUnit + WebApplicationFactory</span></span></li>
             </ol>
             <div class="sum" id="runSum" data-en="✓ all passed">✓ todo pasó</div>
@@ -760,7 +927,7 @@
     <!-- CIERRE -->
     <section class="back">
       <div class="wrap">
-        <div class="sidx"><b>§08</b> <span data-en="/ next">/ siguiente</span></div>
+        <div class="sidx"><b>§09</b> <span data-en="/ next">/ siguiente</span></div>
         <a class="big" href="../" data-en="← Back to the <em>portfolio</em>">← Volver al <em>portafolio</em></a>
         <p data-en="Time &amp; Attendance · A project by Cesar Carvajal · © 2026">Control de Horarios · Proyecto de Cesar Carvajal · © 2026</p>
       </div>
@@ -990,7 +1157,7 @@
         idle:   function(){ return L('Listo. Pon el dedo (o pulsa <b>Marcar</b>).', 'Ready. Place a finger (or press <b>Check in</b>).'); },
         scan:   function(){ return L('Leyendo huella…', 'Reading fingerprint…'); },
         sent:   function(d){ return L('Huella reconocida · <b>' + d.t + '</b> · enviada al servidor', 'Fingerprint recognized · <b>' + d.t + '</b> · sent to the server'); },
-        done:   function(d){ return L('Marcación de las <b>' + d.t + '</b> guardada y visible en la app (simulación).', 'Check-in at <b>' + d.t + '</b> stored and visible in the app (simulation).'); },
+        done:   function(d){ return L('Marcación de las <b>' + d.t + '</b> guardada; la app se actualizó sola, sin recargar (simulación).', 'Check-in at <b>' + d.t + '</b> stored; the app updated itself, no refresh (simulation).'); },
         dup:    function(d){ return L('<span class="am">Repetida</span>: llegó segundos después de la anterior, el servidor la une. Responde OK igual.', '<span class="am">Repeat</span>: it arrived seconds after the previous one, so the server merges it. It still answers OK.'); }
       };
       var LIVE = [
@@ -1000,7 +1167,7 @@
          ok:    function(){ return L('recibió · respondió <b>OK</b>', 'received · answered <b>OK</b>'); },
          dup:   function(){ return L('<span class="am">repetida · unida</span> · respondió OK', '<span class="am">repeat · merged</span> · answered OK'); }},
         {ready: function(){ return L('guardadas en esta demo: 0', 'stored in this demo: 0'); },
-         n:     function(){ return L('guardadas en esta demo: <b>' + stored + '</b>', 'stored in this demo: <b>' + stored + '</b>'); }}
+         n:     function(){ return L('guardadas en esta demo: <b>' + stored + '</b> · avisó a la app', 'stored in this demo: <b>' + stored + '</b> · app signalled'); }}
       ];
       function say(key, d){ lastMsg = [key, d]; readout.innerHTML = MSG[key](d); }
       function setLive(i, key){ lastLive[i] = key; live[i].innerHTML = LIVE[i][key](); }
@@ -1043,7 +1210,8 @@
         }).then(function(r){
           if(r === 'dup') return r;
           stored++; hit(2); setLive(2, 'n');
-          return wait(250).then(function(){ return travel(packet, 2, 3, 900); });
+          // en vivo: a la app no le llega la marcación, solo el aviso de qué cambió (y la vuelve a pedir)
+          return wait(250).then(function(){ packet.textContent = L('cambió', 'changed'); return travel(packet, 2, 3, 900); });
         }).then(function(r){
           if(r !== 'dup'){
             hit(3); packet.style.opacity = 0;
@@ -1258,6 +1426,158 @@
       render();
     })();
 
+    // ---------- «Sugerir»: la semana de turnos (demo ilustrativa) ----------
+    // Versión simplificada de la sugerencia real: 150 intentos al azar y se queda con el que menos
+    // reglas rompe. 1) Un turno por persona para la semana, solo entre los que puede hacer: el de
+    // menor costo (algo de azar, menos si al turno le falta gente, más si repite de más o no es el
+    // que prefiere). 2) Su día de descanso: el libre si lo tiene; si no, donde más sobra gente.
+    // Las obligatorias se cumplen por construcción; se puntúan los faltantes y las deseables.
+    (function(){
+      var head = document.getElementById('sugHead'), body = document.getElementById('sugBody'), out = document.getElementById('sugOut');
+      var goBtn = document.getElementById('sugGo'), applyBtn = document.getElementById('sugApply'), clearBtn = document.getElementById('sugClear');
+      if(!head || !body || !out) return;
+      var SH = ['M','T','N'], TRIES = 150, MAX_SEGUIDAS = 2;
+      var PEOPLE = [
+        {n:'Ana',   last:'N', streak:1},
+        {n:'Luis',  last:'N', streak:2},
+        {n:'Sofía', last:'M', streak:1, off:6, pref:'M'},
+        {n:'Pedro', last:'T', streak:1, can:['M','T']},
+        {n:'Marta', last:'T', streak:1, pref:'M'},
+        {n:'Diego', last:'M', streak:1, pref:'M'}
+      ];
+      var plan = null, state = 'empty', seed = 2026;
+
+      function need(s, d){ return (s === 'M' && d === 0) ? 2 : 1; }   // lunes: 2 en la mañana
+      function rng(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+      function pick(arr, R){ return arr[(R()*arr.length)|0]; }
+      function shuffle(arr, R){ var a = arr.slice(); for(var i=a.length-1;i>0;i--){ var j = (R()*(i+1))|0, x = a[i]; a[i] = a[j]; a[j] = x; } return a; }
+      function letter(s){ return s === 'R' ? '—' : (isEN() && s === 'T' ? 'A' : s); }
+      function word(s){ return {M:L('mañana','morning'), T:L('tarde','afternoon'), N:L('noche','night'), R:L('descansa','day off')}[s]; }
+      function days(){ return isEN() ? ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'] : ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom']; }
+
+      // faltantes de cada día, por turno
+      function coverage(shift, rest){
+        var res = [];
+        for(var d=0; d<7; d++){
+          var miss = {}, tot = 0;
+          SH.forEach(function(s){
+            var have = 0;
+            shift.forEach(function(x, i){ if(x === s && rest[i] !== d) have++; });
+            miss[s] = Math.max(0, need(s, d) - have); tot += miss[s];
+          });
+          res.push({miss:miss, tot:tot});
+        }
+        return res;
+      }
+
+      function attempt(R){
+        // personas que le faltan a cada turno: los mínimos de la semana entre 6 días de trabajo
+        var falta = {}, shift = [];
+        SH.forEach(function(s){ var tot = 0; for(var d=0; d<7; d++) tot += need(s, d); falta[s] = Math.ceil(tot / 6); });
+        shuffle(PEOPLE.map(function(p, i){ return i; }), R).forEach(function(i){
+          var p = PEOPLE[i], best = null, low = Infinity;
+          (p.can || SH).forEach(function(s){
+            var c = R()*6;
+            if(falta[s] > 0) c -= 50;
+            if(s === p.last && p.streak >= MAX_SEGUIDAS) c += 40;
+            if(p.pref && s !== p.pref) c += 8;
+            if(c < low){ low = c; best = s; }
+          });
+          shift[i] = best; falta[best]--;
+        });
+        var rest = PEOPLE.map(function(p){ return p.off != null ? p.off : -1; });
+        shuffle(PEOPLE.map(function(p, i){ return i; }), R).forEach(function(i){
+          if(rest[i] >= 0) return;
+          var best = [], top = -99;
+          for(var d=0; d<7; d++){
+            var have = 0;
+            shift.forEach(function(x, j){ if(j !== i && x === shift[i] && rest[j] !== d) have++; });
+            var spare = have - need(shift[i], d);   // lo que sobra ese día si esta persona descansa
+            if(spare > top){ top = spare; best = [d]; } else if(spare === top) best.push(d);
+          }
+          rest[i] = pick(best, R);
+        });
+        var cov = coverage(shift, rest), short = 0, soft = [];
+        cov.forEach(function(c){ short += c.tot; });
+        PEOPLE.forEach(function(p, i){
+          if(p.last === shift[i] && p.streak + 1 > MAX_SEGUIDAS) soft.push({k:'streak', i:i});
+          if(p.pref && p.pref !== shift[i]) soft.push({k:'pref', i:i});
+        });
+        return {shift:shift, rest:rest, cov:cov, short:short, soft:soft, score: short*10 + soft.length};
+      }
+
+      function suggest(s){
+        var R = rng(s), best = null;
+        for(var n=0; n<TRIES; n++){ var a = attempt(R); if(!best || a.score < best.score) best = a; }
+        return best;
+      }
+
+      function say(){
+        if(!plan){ out.innerHTML = L('La semana está vacía y faltan personas todos los días. Pulsa <b>Sugerir</b>.', 'The week is empty and every day is short-staffed. Press <b>Suggest</b>.'); return; }
+        var D = days();
+        var t = L('<b>' + TRIES + '</b> combinaciones probadas; se quedó con la que menos reglas rompe. Obligatorias: <b>todas cumplidas</b>. ',
+                  '<b>' + TRIES + '</b> combinations tried; it kept the one that breaks the fewest rules. Hard rules: <b>all kept</b>. ');
+        if(plan.short){
+          var faltan = [];
+          plan.cov.forEach(function(c, d){ SH.forEach(function(s){ if(c.miss[s]) faltan.push(D[d] + ' ' + letter(s)); }); });
+          t += L('Faltan personas: ', 'Short-staffed: ') + '<span class="am">' + faltan.join(', ') + '</span>. ';
+        } else {
+          t += L('Mínimos: <b>cubiertos</b> los 7 días. ', 'Minimums: <b>covered</b> all 7 days. ');
+        }
+        if(plan.soft.length){
+          t += L('Deseables sin cumplir: ', 'Soft rules missed: ') + '<span class="am">' + plan.soft.map(function(x){
+            var p = PEOPLE[x.i];
+            return x.k === 'pref'
+              ? L(p.n + ' prefería la ' + word(p.pref), p.n + ' preferred ' + word(p.pref) + 's')
+              : L(p.n + ', ' + (p.streak + 1) + '.ª semana seguida de ' + word(p.last), p.n + ', week ' + (p.streak + 1) + ' in a row on ' + word(p.last) + 's');
+          }).join(' · ') + '</span>. ';
+        } else {
+          t += L('Deseables: <b>todas</b>. ', 'Soft rules: <b>all kept</b>. ');
+        }
+        t += state === 'applied'
+          ? L('<b>Aplicada</b>: cada persona ya la ve en «Mi horario».', '<b>Applied</b>: each person now sees it under “My schedule”.')
+          : L('Es una vista previa: nada cambia hasta <b>Aplicar</b>.', 'It is a preview: nothing changes until <b>Apply</b>.');
+        out.innerHTML = t;
+      }
+
+      function render(anim){
+        var D = days(), pop = anim && !REDUCE, rows = '';
+        head.innerHTML = '<tr><th scope="col">' + L('persona · sem. pasada', 'person · last week') + '</th>'
+          + D.map(function(d){ return '<th scope="col">' + d + '</th>'; }).join('') + '</tr>';
+        PEOPLE.forEach(function(p, i){
+          rows += '<tr><th scope="row" class="p">' + p.n + '<small>' + L('pasada: ', 'last: ') + letter(p.last) + (p.streak > 1 ? ' ×' + p.streak : '') + '</small></th>';
+          for(var d=0; d<7; d++){
+            var s = plan ? (plan.rest[i] === d ? 'R' : plan.shift[i]) : '';
+            rows += '<td><span class="cell' + (s ? ' ' + s : '') + (pop ? ' pop" style="animation-delay:' + ((i*7 + d)*14) + 'ms' : '') + '">'
+                  + '<span aria-hidden="true">' + (s ? letter(s) : '·') + '</span>'
+                  + '<span class="sr-only">' + (s ? word(s) : L('sin turno', 'no shift')) + '</span></span></td>';
+          }
+          rows += '</tr>';
+        });
+        var cov = plan ? plan.cov : coverage(PEOPLE.map(function(){ return ''; }), PEOPLE.map(function(){ return -1; }));
+        rows += '<tr class="cov"><th scope="row" class="p">' + L('cobertura', 'coverage') + '</th>';
+        cov.forEach(function(c){
+          rows += '<td>' + (c.tot
+            ? '<span class="miss"><span aria-hidden="true">−' + c.tot + '</span><span class="sr-only">' + L('faltan ', 'short ') + c.tot + '</span></span>'
+            : '<span class="ok"><span aria-hidden="true">✓</span><span class="sr-only">' + L('completo', 'covered') + '</span></span>') + '</td>';
+        });
+        body.innerHTML = rows + '</tr>';
+        goBtn.textContent = plan ? L('Otra opción', 'Another option') : L('Sugerir', 'Suggest');
+        applyBtn.textContent = L('Aplicar', 'Apply');
+        clearBtn.textContent = L('Limpiar', 'Clear');
+        applyBtn.disabled = state !== 'preview';
+        clearBtn.disabled = !plan;
+        say();
+      }
+
+      function keepFocus(btn){ if(btn.disabled) goBtn.focus({preventScroll:true}); }
+      goBtn.addEventListener('click', function(){ seed++; plan = suggest(seed); state = 'preview'; render(true); });
+      applyBtn.addEventListener('click', function(){ if(state !== 'preview') return; state = 'applied'; render(false); keepFocus(applyBtn); });
+      clearBtn.addEventListener('click', function(){ plan = null; state = 'empty'; render(false); keepFocus(clearBtn); });
+      document.addEventListener('langchange', function(){ render(false); });
+      render(false);
+    })();
+
     // ---------- Corrida de pruebas (animada al aparecer) ----------
     (function(){
       var items = document.querySelectorAll('#runList li'), sum = document.getElementById('runSum');
@@ -1267,10 +1587,11 @@
       var io = new IntersectionObserver(function(en){
         if(!en[0].isIntersecting) return;
         io.disconnect();
+        var step = Math.min(420, 3000 / items.length);
         items.forEach(function(li, i){
-          setTimeout(function(){ li.classList.remove('wait'); li.firstChild.textContent = 'PASS'; }, 450 + i*420);
+          setTimeout(function(){ li.classList.remove('wait'); li.firstChild.textContent = 'PASS'; }, 450 + i*step);
         });
-        setTimeout(function(){ sum.classList.remove('wait'); sum.style.visibility = ''; }, 450 + items.length*420);
+        setTimeout(function(){ sum.classList.remove('wait'); sum.style.visibility = ''; }, 450 + items.length*step);
       }, {threshold:.4});
       io.observe(document.getElementById('runWrap'));
     })();
